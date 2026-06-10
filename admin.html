@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>CELSON Admin — 后台管理</title>
+<title>CELSON Admin — 后台管理 v2</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
@@ -15,8 +15,10 @@
   --red: #EF4444; --amber: #F59E0B; --blue: #3B82F6;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'Open Sans', sans-serif; background: #F8FAFC; color: var(--n9); min-height: 100vh; }
+body { font-family: 'Open Sans', sans-serif; background: #F8FAFC; color: var(--n9); min-height: 100vh; padding-bottom: 80px; }
 button { cursor: pointer; font-family: inherit; }
+input, select, textarea { font-family: inherit; outline: none; }
+a { color: var(--blue); }
 
 /* ===== LOGIN ===== */
 .login-page { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #0F172A 0%, #1E3A5F 100%); }
@@ -27,7 +29,7 @@ button { cursor: pointer; font-family: inherit; }
 .login-card .sub { font-size: 14px; color: var(--n5); text-align: center; margin-bottom: 28px; }
 .login-card .field { margin-bottom: 16px; }
 .login-card label { display: block; font-size: 13px; font-weight: 600; color: var(--n7); margin-bottom: 6px; }
-.login-card input { width: 100%; padding: 12px 16px; border: 1.5px solid var(--n3); border-radius: 10px; font-size: 15px; font-family: inherit; outline: none; transition: border-color 0.2s; }
+.login-card input { width: 100%; padding: 12px 16px; border: 1.5px solid var(--n3); border-radius: 10px; font-size: 15px; outline: none; transition: border-color 0.2s; }
 .login-card input:focus { border-color: var(--g); box-shadow: 0 0 0 3px var(--g-light); }
 .login-card .btn-login { width: 100%; padding: 13px; border-radius: 10px; border: none; background: var(--g); color: #fff; font-size: 15px; font-weight: 600; margin-top: 8px; transition: background 0.2s; }
 .login-card .btn-login:hover { background: var(--g-dark); }
@@ -35,28 +37,39 @@ button { cursor: pointer; font-family: inherit; }
 .login-card .err.show { display: block; }
 
 /* ===== DASHBOARD ===== */
-.dash { max-width: 1300px; margin: 0 auto; padding: 0 24px 60px; }
-.topbar { display: flex; align-items: center; justify-content: space-between; padding: 20px 0; border-bottom: 1px solid var(--n2); margin-bottom: 28px; }
+.dash { max-width: 1400px; margin: 0 auto; padding: 0 24px; }
+.topbar { display: flex; align-items: center; justify-content: space-between; padding: 16px 0; border-bottom: 1px solid var(--n2); margin-bottom: 16px; flex-wrap: wrap; gap: 10px; }
 .topbar .brand { display: flex; align-items: center; gap: 12px; }
-.topbar .brand h2 { font-family: 'Poppins', sans-serif; font-size: 22px; font-weight: 700; }
-.topbar .brand span { font-size: 13px; color: var(--n5); background: var(--n1); padding: 4px 10px; border-radius: 6px; }
-.topbar .actions { display: flex; gap: 10px; align-items: center; }
+.topbar .brand h2 { font-family: 'Poppins', sans-serif; font-size: 20px; font-weight: 700; }
+.topbar .brand span { font-size: 12px; color: var(--n5); background: var(--n1); padding: 4px 10px; border-radius: 6px; }
+.topbar .actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
 
 /* buttons */
-.btn { padding: 10px 20px; border-radius: 10px; font-size: 14px; font-weight: 600; border: none; transition: all 0.2s; display: inline-flex; align-items: center; gap: 6px; }
+.btn { padding: 9px 16px; border-radius: 10px; font-size: 13px; font-weight: 600; border: none; transition: all 0.2s; display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
 .btn-green { background: var(--g); color: #fff; }
 .btn-green:hover { background: var(--g-dark); }
 .btn-outline { background: #fff; color: var(--n7); border: 1.5px solid var(--n3); }
 .btn-outline:hover { border-color: var(--n5); }
+.btn-blue { background: var(--blue); color: #fff; }
+.btn-blue:hover { background: #2563EB; }
 .btn-red { background: #fff; color: var(--red); border: 1.5px solid #FECACA; }
 .btn-red:hover { background: #FEF2F2; }
+.btn-sm { padding: 5px 10px; font-size: 11px; border-radius: 6px; }
+.btn-danger { background: var(--red); color: #fff; }
+.btn-danger:hover { background: #DC2626; }
 .btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
-/* settings panel */
-.settings-bar { background: #fff; border: 1px solid var(--n2); border-radius: 14px; padding: 16px 20px; margin-bottom: 24px; display: flex; gap: 24px; align-items: center; flex-wrap: wrap; }
-.settings-bar .item { display: flex; align-items: center; gap: 8px; font-size: 14px; }
-.settings-bar label { font-weight: 600; color: var(--n7); white-space: nowrap; }
-.settings-bar input[type="number"] { width: 80px; padding: 7px 10px; border: 1.5px solid var(--n3); border-radius: 8px; font-size: 14px; font-weight: 600; text-align: center; font-family: inherit; outline: none; }
+/* tabs */
+.tabs { display: flex; gap: 2px; margin-bottom: 20px; border-bottom: 2px solid var(--n2); }
+.tab-btn { padding: 10px 20px; border: none; background: none; font-size: 14px; font-weight: 600; color: var(--n5); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: all 0.2s; }
+.tab-btn.active { color: var(--g); border-bottom-color: var(--g); }
+.tab-btn:hover { color: var(--n7); }
+
+/* settings bar */
+.settings-bar { background: #fff; border: 1px solid var(--n2); border-radius: 14px; padding: 12px 16px; margin-bottom: 16px; display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+.settings-bar .item { display: flex; align-items: center; gap: 6px; font-size: 13px; }
+.settings-bar label { font-weight: 600; color: var(--n7); white-space: nowrap; font-size: 12px; }
+.settings-bar input[type="number"] { width: 70px; padding: 6px 8px; border: 1.5px solid var(--n3); border-radius: 8px; font-size: 13px; font-weight: 600; text-align: center; outline: none; }
 .settings-bar input[type="number"]:focus { border-color: var(--g); }
 .settings-bar .sep { color: var(--n4); font-size: 13px; }
 .settings-bar .status-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
@@ -64,43 +77,93 @@ button { cursor: pointer; font-family: inherit; }
 .settings-bar .status-dot.err { background: var(--red); }
 .settings-bar .status-dot.warn { background: var(--amber); }
 
+/* batch bar */
+.batch-bar { background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 10px; padding: 10px 16px; margin-bottom: 16px; display: none; align-items: center; gap: 12px; font-size: 13px; flex-wrap: wrap; }
+.batch-bar.show { display: flex; }
+.batch-bar .count { font-weight: 700; color: var(--blue); }
+.batch-bar input[type="number"] { width: 70px; padding: 6px 8px; border: 1.5px solid var(--n3); border-radius: 8px; font-size: 13px; text-align: center; outline: none; }
+.batch-bar select { padding: 6px 10px; border: 1.5px solid var(--n3); border-radius: 8px; font-size: 13px; outline: none; background: #fff; }
+
+/* category filter */
+.cat-filters { display: flex; gap: 6px; margin-bottom: 16px; flex-wrap: wrap; align-items: center; }
+.cat-pill { padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; cursor: pointer; border: 1.5px solid var(--n3); background: #fff; color: var(--n5); transition: all 0.2s; }
+.cat-pill:hover { border-color: var(--g); color: var(--g); }
+.cat-pill.active { background: var(--g); color: #fff; border-color: var(--g); }
+.cat-pill-count { opacity: 0.7; font-weight: 400; margin-left: 2px; }
+
 /* product grid */
-.prod-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(370px, 1fr)); gap: 16px; }
-.prod-card { background: #fff; border: 1px solid var(--n2); border-radius: 14px; overflow: hidden; transition: box-shadow 0.2s; }
+.prod-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); gap: 14px; }
+.prod-card { background: #fff; border: 1px solid var(--n2); border-radius: 14px; overflow: hidden; transition: box-shadow 0.2s; position: relative; }
 .prod-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
 .prod-card.dirty { border-color: var(--amber); }
-.prod-card .head { display: flex; align-items: center; gap: 10px; padding: 14px 16px; border-bottom: 1px solid var(--n1); }
-.prod-card .head .cat-tag { font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 4px; background: var(--g-light); color: var(--g); text-transform: uppercase; }
-.prod-card .head .sku { font-size: 12px; color: var(--n4); font-family: monospace; }
-.prod-card .name { font-size: 14px; font-weight: 600; color: var(--n9); padding: 12px 16px 0; line-height: 1.4; }
-.prod-card .body { display: flex; padding: 12px 16px 16px; gap: 16px; }
-.prod-card .img-area { width: 100px; height: 100px; border-radius: 10px; overflow: hidden; flex-shrink: 0; background: var(--n1); position: relative; border: 1px dashed var(--n3); display: flex; align-items: center; justify-content: center; }
+.prod-card.hidden-item { background: #F9FAFB; opacity: 0.75; }
+.prod-card .head { display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-bottom: 1px solid var(--n1); }
+.prod-card .head .cb { width: 18px; height: 18px; accent-color: var(--g); cursor: pointer; }
+.prod-card .head .cat-tag { font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 4px; background: var(--g-light); color: var(--g); }
+.prod-card .head .sku { font-size: 11px; color: var(--n4); font-family: monospace; }
+.prod-card .head .hidden-badge { font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 4px; background: #FEF3C7; color: #92400E; display: none; }
+.prod-card.hidden-item .hidden-badge { display: inline; }
+.prod-card .head .sort-btns { margin-left: auto; display: flex; gap: 2px; }
+.prod-card .head .sort-btns button { width: 22px; height: 22px; border-radius: 4px; border: 1px solid var(--n3); background: #fff; font-size: 11px; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; color: var(--n5); transition: all 0.15s; }
+.prod-card .head .sort-btns button:hover { background: var(--n1); color: var(--n9); border-color: var(--n4); }
+.prod-card .head .actions-row { margin-left: auto; display: flex; gap: 4px; }
+.prod-card .head .actions-row button { padding: 3px 8px; border-radius: 5px; border: 1px solid var(--n3); background: #fff; font-size: 10px; font-weight: 600; cursor: pointer; color: var(--n5); transition: all 0.15s; }
+.prod-card .head .actions-row button:hover { background: var(--n1); color: var(--n9); }
+.prod-card .head .actions-row .btn-hide:hover { color: var(--amber); border-color: #FDE68A; background: #FFFBEB; }
+.prod-card .head .actions-row .btn-del:hover { color: var(--red); border-color: #FECACA; background: #FEF2F2; }
+.prod-card .info { padding: 10px 14px; }
+.prod-card .info .pname { font-size: 14px; font-weight: 600; color: var(--n9); cursor: pointer; padding: 4px 8px; margin: -4px -8px; border-radius: 6px; border: 1px solid transparent; transition: all 0.15s; display: block; }
+.prod-card .info .pname:hover { border-color: var(--n3); background: var(--n1); }
+.prod-card .info .pname.edit-mode { border-color: var(--g); background: #fff; }
+.prod-card .info .pspec, .prod-card .info .pextra { font-size: 12px; color: var(--n5); margin-top: 4px; cursor: pointer; padding: 2px 8px; margin: 2px -8px; border-radius: 4px; border: 1px solid transparent; transition: all 0.15s; display: block; }
+.prod-card .info .pspec:hover, .prod-card .info .pextra:hover { border-color: var(--n3); background: var(--n1); }
+.prod-card .body { display: flex; padding: 10px 14px 14px; gap: 12px; }
+.prod-card .img-area { width: 90px; height: 90px; border-radius: 10px; overflow: hidden; flex-shrink: 0; background: var(--n1); position: relative; border: 1px dashed var(--n3); display: flex; align-items: center; justify-content: center; }
 .prod-card .img-area img { width: 100%; height: 100%; object-fit: cover; }
 .prod-card .img-area .upload-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.2s; cursor: pointer; }
 .prod-card .img-area:hover .upload-overlay { opacity: 1; }
-.prod-card .img-area .upload-overlay span { color: #fff; font-size: 12px; font-weight: 600; }
-.prod-card .fields { flex: 1; display: flex; flex-direction: column; gap: 8px; }
-.prod-card .fields .row { display: flex; align-items: center; gap: 8px; }
-.prod-card .fields label { font-size: 12px; font-weight: 600; color: var(--n5); width: 40px; text-align: right; }
-.prod-card .fields input[type="number"] { flex: 1; padding: 8px 10px; border: 1.5px solid var(--n3); border-radius: 8px; font-size: 14px; font-weight: 600; text-align: right; font-family: inherit; outline: none; transition: border-color 0.2s; }
-.prod-card .fields input[type="number"]:focus { border-color: var(--g); }
-.prod-card .fields input[type="number"].changed { border-color: var(--amber); background: #FFFBEB; }
-.prod-card .fields .usd-preview { font-size: 13px; color: var(--g); font-weight: 600; white-space: nowrap; min-width: 60px; }
+.prod-card .img-area .upload-overlay span { color: #fff; font-size: 11px; font-weight: 600; }
 .prod-card .img-changed { position: absolute; top: 4px; right: 4px; width: 8px; height: 8px; border-radius: 50%; background: var(--amber); display: none; }
 .prod-card.dirty .img-changed { display: block; }
+.prod-card .fields { flex: 1; display: flex; flex-direction: column; gap: 6px; }
+.prod-card .fields .row { display: flex; align-items: center; gap: 6px; }
+.prod-card .fields label { font-size: 11px; font-weight: 600; color: var(--n5); width: 38px; text-align: right; }
+.prod-card .fields input[type="number"] { flex: 1; padding: 6px 8px; border: 1.5px solid var(--n3); border-radius: 8px; font-size: 13px; font-weight: 600; text-align: right; outline: none; transition: border-color 0.2s; }
+.prod-card .fields input[type="number"]:focus { border-color: var(--g); }
+.prod-card .fields input[type="number"].changed { border-color: var(--amber); background: #FFFBEB; }
+.prod-card .fields .usd-preview { font-size: 12px; color: var(--g); font-weight: 600; white-space: nowrap; min-width: 55px; }
+.prod-card .fields .unit-edit { font-size: 11px; color: var(--n4); cursor: pointer; border: 1px solid transparent; padding: 1px 4px; border-radius: 4px; transition: all 0.15s; }
+.prod-card .fields .unit-edit:hover { border-color: var(--n3); background: var(--n1); }
+.prod-card .fields .minqty { display: flex; align-items: center; gap: 4px; font-size: 11px; color: var(--n5); }
+.prod-card .fields .minqty input { width: 50px; padding: 3px 6px; border: 1.5px solid var(--n3); border-radius: 6px; font-size: 12px; font-weight: 600; text-align: center; outline: none; }
+.prod-card .fields .minqty input:focus { border-color: var(--g); }
 
 /* status bar */
-.status-bar { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; border-top: 1px solid var(--n2); padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; z-index: 100; }
+.status-bar { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; border-top: 1px solid var(--n2); padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; z-index: 100; }
 .status-bar .info { font-size: 13px; color: var(--n5); }
 .status-bar .info strong { color: var(--n9); }
 
-/* modal */
+/* modals */
 .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 1000; }
-.modal-box { background: #fff; border-radius: 16px; padding: 32px; width: 500px; max-width: 90vw; box-shadow: 0 20px 50px rgba(0,0,0,0.2); }
-.modal-box h3 { font-family: 'Poppins', sans-serif; font-size: 20px; margin-bottom: 16px; }
-.modal-box p { font-size: 14px; color: var(--n5); line-height: 1.6; margin-bottom: 20px; }
-.modal-box code { background: var(--n1); padding: 2px 6px; border-radius: 4px; font-size: 13px; color: var(--g-dark); }
-.modal-box .btns { display: flex; gap: 10px; justify-content: flex-end; }
+.modal-box { background: #fff; border-radius: 16px; padding: 32px; width: 560px; max-width: 92vw; max-height: 85vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.2); }
+.modal-box h3 { font-family: 'Poppins', sans-serif; font-size: 18px; margin-bottom: 20px; }
+.modal-box .form-row { margin-bottom: 14px; }
+.modal-box .form-row label { display: block; font-size: 12px; font-weight: 600; color: var(--n7); margin-bottom: 4px; }
+.modal-box .form-row input, .modal-box .form-row select, .modal-box .form-row textarea { width: 100%; padding: 10px 12px; border: 1.5px solid var(--n3); border-radius: 8px; font-size: 14px; outline: none; transition: border-color 0.2s; }
+.modal-box .form-row input:focus, .modal-box .form-row select:focus, .modal-box .form-row textarea:focus { border-color: var(--g); }
+.modal-box .form-row textarea { resize: vertical; min-height: 50px; }
+.modal-box .form-row .hint { font-size: 11px; color: var(--n4); margin-top: 2px; }
+.modal-box .btns { display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px; }
+.modal-box p { font-size: 13px; color: var(--n5); line-height: 1.6; margin-bottom: 16px; }
+.modal-box code { background: var(--n1); padding: 2px 6px; border-radius: 4px; font-size: 12px; color: var(--g-dark); }
+
+/* category list */
+.cat-list { max-height: 300px; overflow-y: auto; }
+.cat-list-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 12px; border-bottom: 1px solid var(--n1); font-size: 14px; }
+.cat-list-item .name { font-weight: 600; }
+.cat-list-item .count { font-size: 12px; color: var(--n4); }
+.cat-list-item .actions { display: flex; gap: 4px; }
+.cat-list-item input { padding: 6px 10px; border: 1.5px solid var(--n3); border-radius: 6px; font-size: 13px; outline: none; }
 
 /* toast */
 .toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); padding: 14px 24px; border-radius: 12px; font-size: 14px; font-weight: 600; z-index: 2000; animation: slideDown 0.3s; box-shadow: 0 8px 30px rgba(0,0,0,0.15); }
@@ -108,33 +171,31 @@ button { cursor: pointer; font-family: inherit; }
 .toast.error { background: #991B1B; color: #fff; }
 .toast.info { background: #1E40AF; color: #fff; }
 @keyframes slideDown { from { opacity: 0; transform: translateX(-50%) translateY(-20px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
-
-/* deploy status inline */
 .deploy-link { color: var(--blue); text-decoration: underline; font-size: 13px; }
-.deploy-link:hover { color: #1D4ED8; }
-
-/* spinner */
 .spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin 0.6s linear infinite; vertical-align: middle; margin-right: 6px; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
 /* responsive */
 @media (max-width: 768px) {
   .prod-grid { grid-template-columns: 1fr; }
-  .topbar { flex-direction: column; gap: 12px; align-items: flex-start; }
-  .settings-bar { flex-direction: column; gap: 12px; }
+  .topbar { flex-direction: column; align-items: flex-start; }
+  .settings-bar { flex-direction: column; gap: 10px; }
+  .batch-bar { flex-direction: column; align-items: flex-start; }
+  .cat-filters { gap: 4px; }
+  .cat-pill { font-size: 11px; padding: 4px 10px; }
 }
 </style>
 </head>
 <body>
 
-<!-- ==================== STEP 1: LOGIN ==================== -->
+<!-- ===== LOGIN ===== -->
 <div id="loginWrap" class="login-page">
   <div class="login-card">
     <div class="logo">
-      <svg viewBox="0 0 100 100"><circle cx="50" cy="28" r="18" fill="#15803D"/><rect x="36" y="44" width="28" height="4" rx="2" fill="#15803D"/><rect x="40" y="52" width="20" height="3" rx="1.5" fill="#15803D"/><rect x="30" y="62" width="40" height="30" rx="5" fill="#0F172A"/><circle cx="50" cy="77" r="10" fill="#F0FDF4"/></svg>
+      <svg viewBox="0 0 100 100" width="60" height="60"><circle cx="50" cy="28" r="18" fill="#15803D"/><rect x="36" y="44" width="28" height="4" rx="2" fill="#15803D"/><rect x="40" y="52" width="20" height="3" rx="1.5" fill="#15803D"/><rect x="30" y="62" width="40" height="30" rx="5" fill="#0F172A"/><circle cx="50" cy="77" r="10" fill="#F0FDF4"/></svg>
     </div>
-    <h1>CELSON Admin</h1>
-    <p class="sub">后台管理中心 · 改价换图</p>
+    <h1>CELSON Admin v2</h1>
+    <p class="sub">产品管理 · 价格修改 · 图片替换</p>
     <form id="loginForm">
       <div class="field"><label>用户名</label><input type="text" id="lu" required placeholder="输入用户名" autocomplete="username"></div>
       <div class="field"><label>密码</label><input type="password" id="lp" required placeholder="输入密码" autocomplete="current-password"></div>
@@ -144,9 +205,9 @@ button { cursor: pointer; font-family: inherit; }
   </div>
 </div>
 
-<!-- ==================== STEP 2-3: DASHBOARD ==================== -->
+<!-- ===== DASHBOARD ===== -->
 <div id="dashWrap" style="display:none;">
-  <div class="dash" style="padding-top:20px;">
+  <div class="dash" style="padding-top:16px;">
 
     <!-- topbar -->
     <div class="topbar">
@@ -155,18 +216,37 @@ button { cursor: pointer; font-family: inherit; }
         <span id="ghStatus">未连接GitHub</span>
       </div>
       <div class="actions">
+        <button class="btn btn-blue" onclick="openAddProduct()">➕ 新增产品</button>
+        <button class="btn btn-outline" onclick="openCatManager()">📂 分类管理</button>
         <button class="btn btn-outline" onclick="openTokenSetup()" id="btnToken">⚙️ GitHub设置</button>
-        <button class="btn btn-red" onclick="doLogout()">退出</button>
+        <button class="btn btn-red btn-sm" onclick="doLogout()">退出</button>
       </div>
     </div>
 
     <!-- settings bar -->
     <div class="settings-bar">
-      <div class="item"><label>汇率：</label>1 USD = <input type="number" id="rateInput" value="7.10" step="0.01" min="1" onchange="onRateChange()"> CNY</div>
+      <div class="item"><label>USD汇率：</label>1 USD = <input type="number" id="rateInput" value="7.10" step="0.01" min="1" onchange="onRateChange()"> CNY</div>
       <span class="sep">|</span>
       <div class="item"><span>改动：<strong id="changeCount">0</strong> 项</span></div>
       <span class="sep">|</span>
       <div class="item"><span id="lastDeploy">上次部署：未知</span></div>
+      <span class="sep">|</span>
+      <div class="item"><label>显示隐藏：</label><input type="checkbox" id="showHidden" onchange="renderWithFilters()" style="width:16px;height:16px;accent-color:var(--g);cursor:pointer;"></div>
+    </div>
+
+    <!-- batch bar -->
+    <div class="batch-bar" id="batchBar">
+      <span>已选 <span class="count" id="batchCount">0</span> 个产品</span>
+      <select id="batchOp"><option value="pct">按百分比</option><option value="fixed">固定金额</option></select>
+      <input type="number" id="batchVal" value="5" step="1" placeholder="数值" style="width:80px;">
+      <button class="btn btn-blue btn-sm" onclick="applyBatch()">应用</button>
+      <button class="btn btn-outline btn-sm" onclick="selectAll(true)">全选</button>
+      <button class="btn btn-outline btn-sm" onclick="selectAll(false)">取消全选</button>
+    </div>
+
+    <!-- category filter pills -->
+    <div class="cat-filters" id="catFilters">
+      <span class="cat-pill active" data-cat="all" onclick="filterByCat('all')">全部 <span class="cat-pill-count" id="cntAll">0</span></span>
     </div>
 
     <!-- product cards -->
@@ -176,18 +256,57 @@ button { cursor: pointer; font-family: inherit; }
 
   <!-- fixed bottom bar -->
   <div class="status-bar" id="statusBar">
-    <div class="info">共 <strong>20</strong> 个产品 · <strong id="dirtyCount">0</strong> 项待发布</div>
-    <button class="btn btn-green" id="btnPublish" onclick="publishAll()" disabled>📤 发布到网站</button>
+    <div class="info" id="statusInfo">共 <strong>20</strong> 个产品 · <strong id="dirtyCount">0</strong> 项待发布</div>
+    <div style="display:flex;gap:8px;">
+      <button class="btn btn-outline btn-sm" onclick="undoAll()" id="btnUndo" disabled>↩ 撤销全部</button>
+      <button class="btn btn-green" id="btnPublish" onclick="publishAll()" disabled>📤 发布到网站</button>
+    </div>
   </div>
 </div>
 
-<!-- ==================== MODAL: Token Setup ==================== -->
+<!-- ===== MODAL: Add/Edit Product ===== -->
+<div id="prodModal" class="modal-overlay" style="display:none;">
+  <div class="modal-box">
+    <h3 id="prodModalTitle">➕ 新增产品</h3>
+    <div class="form-row"><label>SKU 编号</label><input type="text" id="fSku" placeholder="如: tile-ceramic-600" required></div>
+    <div class="form-row"><label>所属分类</label><select id="fCat"></select></div>
+    <div class="form-row"><label>产品名称</label><input type="text" id="fName" placeholder="英文产品名" required></div>
+    <div class="form-row"><label>规格描述</label><textarea id="fSpec" placeholder="如: 600 × 600mm · Glossy finish" rows="2"></textarea></div>
+    <div class="form-row"><label>备注信息</label><textarea id="fExtra" placeholder="如: Min. 100 m² · Shipped from..." rows="2"></textarea></div>
+    <div class="form-row"><label>计价单位</label><input type="text" id="fUnit" placeholder="/m² EXW" value="/m² EXW"></div>
+    <div class="form-row"><label>起订量</label><input type="number" id="fMinQty" value="100" min="1"></div>
+    <div class="form-row"><label>RMB 价格</label><input type="number" id="fPrice" value="0" step="0.01" min="0"></div>
+    <div class="form-row"><label>产品图片</label><input type="file" id="fImage" accept="image/*"><span class="hint">留空则自动使用占位图</span></div>
+    <input type="hidden" id="fEditId" value="">
+    <div class="btns">
+      <button class="btn btn-outline" onclick="closeProdModal()">取消</button>
+      <button class="btn btn-green" onclick="saveProduct()">💾 保存</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL: Category Manager ===== -->
+<div id="catModal" class="modal-overlay" style="display:none;">
+  <div class="modal-box">
+    <h3>📂 产品分类管理</h3>
+    <div style="display:flex;gap:8px;margin-bottom:16px;">
+      <input type="text" id="newCatName" placeholder="新分类名称" style="flex:1;padding:10px 12px;border:1.5px solid var(--n3);border-radius:8px;font-size:14px;outline:none;">
+      <button class="btn btn-green btn-sm" onclick="addCategory()">+ 添加</button>
+    </div>
+    <div class="cat-list" id="catList"></div>
+    <div class="btns">
+      <button class="btn btn-outline" onclick="closeCatModal()">关闭</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL: GitHub Token ===== -->
 <div id="tokenModal" class="modal-overlay" style="display:none;">
   <div class="modal-box">
     <h3>⚙️ 连接 GitHub</h3>
-    <p>需要一个 GitHub Personal Access Token 才能自动保存。</p>
+    <p>需要一个 GitHub Personal Access Token 才能自动保存和发布。</p>
     <p style="font-size:13px;color:var(--n5);">
-      1. 打开 <a href="https://github.com/settings/tokens?type=beta" target="_blank" style="color:var(--blue);">github.com/settings/tokens</a><br>
+      1. 打开 <a href="https://github.com/settings/tokens?type=beta" target="_blank">github.com/settings/tokens</a><br>
       2. 点 <strong>"Generate new token"</strong> → 选 <strong>Fine-grained token</strong><br>
       3. Repository access: <strong>Only select repositories</strong> → 选 <code>XavierHeng/celson-website</code><br>
       4. Permissions → Contents: <strong>Read and write</strong><br>
@@ -211,49 +330,29 @@ var REPO_OWNER = 'XavierHeng';
 var REPO_NAME = 'celson-website';
 var BRANCH = 'main';
 var PRICES_PATH = 'js/prices.js';
-
-var products = [
-  { id:'gyp-std-12', cat:'Gypsum Boards', name:'Standard Gypsum Board 12mm', unit:'/m²', thumb:'assets/shop/shop-gyp-std-12.webp' },
-  { id:'gyp-mr-12', cat:'Gypsum Boards', name:'Moisture-Resistant Gypsum Board 12mm', unit:'/m²', thumb:'assets/shop/shop-gyp-mr-12.webp' },
-  { id:'gyp-fr-12', cat:'Gypsum Boards', name:'Fire-Rated Gypsum Board 12mm', unit:'/m²', thumb:'assets/shop/shop-gyp-fr-12.webp' },
-  { id:'ply-18', cat:'Sheet Boards', name:'Commercial Plywood 18mm', unit:'/sheet', thumb:'assets/shop/shop-ply-18.webp' },
-  { id:'mdf-18', cat:'Sheet Boards', name:'MDF Board 18mm — E1 Grade', unit:'/sheet', thumb:'assets/shop/shop-mdf-18.webp' },
-  { id:'osb-15', cat:'Sheet Boards', name:'OSB Board 15mm — Structural', unit:'/sheet', thumb:'assets/shop/shop-osb-15.webp' },
-  { id:'wpc-wall-8', cat:'Wall Panels', name:'WPC Wall Panel 8mm — Wood Grain', unit:'/m²', thumb:'assets/shop/shop-wpc-wall-8.webp' },
-  { id:'uv-marble-8', cat:'Wall Panels', name:'UV Marble Wall Panel 8mm', unit:'/m²', thumb:'assets/shop/shop-uv-marble-8.webp' },
-  { id:'pvc-ceiling-7', cat:'Wall Panels', name:'PVC Wall Panel 7mm — Solid Color', unit:'/m²', thumb:'assets/shop/shop-pvc-ceiling-7.webp' },
-  { id:'mineral-ceiling-15', cat:'Ceiling & Framing', name:'Mineral Fiber Ceiling Tile 15mm', unit:'/pc', thumb:'assets/shop/shop-mineral-ceiling-15.webp' },
-  { id:'t-grid-38', cat:'Ceiling & Framing', name:'T-Grid Main Tee 38mm — Galvanized', unit:'/pc', thumb:'assets/shop/shop-t-grid-38.webp' },
-  { id:'metal-stud-75', cat:'Ceiling & Framing', name:'Metal Stud 75mm — Galvanized Steel', unit:'/pc', thumb:'assets/shop/shop-metal-stud-75.webp' },
-  { id:'cs-board-8', cat:'Calcium Silicate', name:'Calcium Silicate Board 8mm', unit:'/sheet', thumb:'assets/shop/shop-cs-board-8.webp' },
-  { id:'cs-board-12', cat:'Calcium Silicate', name:'Calcium Silicate Board 12mm — HD', unit:'/sheet', thumb:'assets/shop/shop-cs-board-12.webp' },
-  { id:'wpc-deck-140', cat:'Outdoor & Decking', name:'WPC Decking 140mm — Solid', unit:'/m²', thumb:'assets/shop/shop-wpc-deck-140.webp' },
-  { id:'wpc-clad-150', cat:'Outdoor & Decking', name:'WPC Cladding 150mm — Hollow', unit:'/m²', thumb:'assets/shop/shop-wpc-clad-150.webp' },
-  { id:'joint-compound-20', cat:'Accessories', name:'Joint Compound 20kg — Ready-Mix', unit:'/pc', thumb:'assets/shop/shop-joint-compound-20.webp' },
-  { id:'drywall-screw-25', cat:'Accessories', name:'Drywall Screw 25mm — Phosphated', unit:'/box', thumb:'assets/shop/shop-drywall-screw-25.webp' },
-  { id:'rockwool-50', cat:'Insulation', name:'Rock Wool Board 50mm — 120kg/m³', unit:'/m²', thumb:'assets/shop/shop-rockwool-50.webp' },
-  { id:'xps-50', cat:'Insulation', name:'XPS Board 50mm — 35kg/m³', unit:'/m²', thumb:'assets/shop/shop-xps-50.webp' }
-];
+var PRODUCTS_PATH = 'js/products.js';
 
 // ============================================================
 //  STATE
 // ============================================================
+var products = [];         // ALL_PRODUCTS from products.js
 var prices = {};           // { id: rmb_price }
-var origPrices = {};      // original for dirty check
+var origPrices = {};
+var origProducts = '';     // JSON snapshot of products for dirty detection
 var exchangeRate = 7.10;
 var origRate = 7.10;
-var newImages = {};       // { id: base64DataUrl }
+var newImages = {};        // { id: base64DataUrl }
 var ghToken = '';
-var pricesSha = '';       // blob SHA for prices.js
+var pricesSha = '';
+var productsSha = '';
+var selectedCat = 'all';
+var selectedIds = {};      // { id: true } for batch
 
 // ============================================================
 //  INIT
 // ============================================================
 (function() {
-  // auth check
-  if (sessionStorage.getItem('celson_admin_auth') === '1') {
-    showDashboard();
-  }
+  if (sessionStorage.getItem('celson_admin_auth') === '1') showDashboard();
 })();
 
 // ============================================================
@@ -261,9 +360,7 @@ var pricesSha = '';       // blob SHA for prices.js
 // ============================================================
 document.getElementById('loginForm').addEventListener('submit', function(e) {
   e.preventDefault();
-  var u = document.getElementById('lu').value.trim();
-  var p = document.getElementById('lp').value.trim();
-  if (u === ADMIN_USER && p === ADMIN_PASS) {
+  if (document.getElementById('lu').value.trim() === ADMIN_USER && document.getElementById('lp').value.trim() === ADMIN_PASS) {
     sessionStorage.setItem('celson_admin_auth', '1');
     showDashboard();
   } else {
@@ -273,10 +370,7 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
   }
 });
 
-function doLogout() {
-  sessionStorage.removeItem('celson_admin_auth');
-  location.reload();
-}
+function doLogout() { sessionStorage.removeItem('celson_admin_auth'); location.reload(); }
 
 // ============================================================
 //  DASHBOARD
@@ -285,19 +379,34 @@ function showDashboard() {
   document.getElementById('loginWrap').style.display = 'none';
   document.getElementById('dashWrap').style.display = 'block';
 
-  // load token
   ghToken = localStorage.getItem('celson_gh_token') || '';
   updateGhStatus();
 
-  // load saved prices
   loadLocalPrices();
-
-  // init defaults from local (we'll fetch from GitHub if token is set)
+  loadLocalProducts();
   initDefaultPrices();
+  origProducts = JSON.stringify(products);
   renderAll();
 
-  // try to fetch current prices from GitHub
-  if (ghToken) fetchPricesFromGitHub();
+  if (ghToken) { fetchPricesFromGitHub(); fetchProductsFromGitHub(); }
+}
+
+function loadLocalPrices() {
+  var saved = localStorage.getItem('celson_local_prices');
+  if (saved) try { var d = JSON.parse(saved); for (var k in d) prices[k] = d[k]; } catch(e) {}
+  var rateSaved = localStorage.getItem('celson_local_rate');
+  if (rateSaved) exchangeRate = parseFloat(rateSaved) || 7.10;
+}
+
+function loadLocalProducts() {
+  var saved = localStorage.getItem('celson_local_products');
+  if (saved) try { products = JSON.parse(saved); } catch(e) {}
+}
+
+function saveLocal() {
+  localStorage.setItem('celson_local_prices', JSON.stringify(prices));
+  localStorage.setItem('celson_local_rate', exchangeRate.toString());
+  localStorage.setItem('celson_local_products', JSON.stringify(products));
 }
 
 function initDefaultPrices() {
@@ -311,26 +420,8 @@ function initDefaultPrices() {
     var id = products[i].id;
     if (typeof prices[id] === 'undefined') prices[id] = defaults[id] || 0;
   }
-  // save a copy for dirty check
   origPrices = JSON.parse(JSON.stringify(prices));
   origRate = exchangeRate;
-}
-
-function loadLocalPrices() {
-  var saved = localStorage.getItem('celson_local_prices');
-  if (saved) {
-    try {
-      var d = JSON.parse(saved);
-      for (var k in d) { if (d.hasOwnProperty(k)) prices[k] = d[k]; }
-    } catch(e) {}
-  }
-  var rateSaved = localStorage.getItem('celson_local_rate');
-  if (rateSaved) exchangeRate = parseFloat(rateSaved) || 7.10;
-}
-
-function saveLocalPrices() {
-  localStorage.setItem('celson_local_prices', JSON.stringify(prices));
-  localStorage.setItem('celson_local_rate', exchangeRate.toString());
 }
 
 // ============================================================
@@ -338,68 +429,481 @@ function saveLocalPrices() {
 // ============================================================
 function renderAll() {
   document.getElementById('rateInput').value = exchangeRate.toFixed(2);
+  renderCatFilters();
   renderProductCards();
   updateChangeCount();
 }
 
-function renderProductCards() {
-  var grid = document.getElementById('prodGrid');
-  var html = '';
+function getCategories() {
+  var cats = [];
+  for (var i = 0; i < products.length; i++) {
+    var c = products[i].category;
+    if (cats.indexOf(c) === -1) cats.push(c);
+  }
+  return cats;
+}
+
+function renderCatFilters() {
+  var cats = getCategories();
+  var html = '<span class="cat-pill' + (selectedCat === 'all' ? ' active' : '') + '" data-cat="all" onclick="filterByCat(\'all\')">全部 <span class="cat-pill-count" id="cntAll">' + products.length + '</span></span>';
+  for (var i = 0; i < cats.length; i++) {
+    var count = 0;
+    for (var j = 0; j < products.length; j++) { if (products[j].category === cats[i]) count++; }
+    var active = selectedCat === cats[i] ? ' active' : '';
+    html += '<span class="cat-pill' + active + '" data-cat="' + cats[i] + '" onclick="filterByCat(\'' + cats[i] + '\')">' + cats[i] + ' <span class="cat-pill-count">' + count + '</span></span>';
+  }
+  document.getElementById('catFilters').innerHTML = html;
+}
+
+function filterByCat(cat) {
+  selectedCat = cat;
+  renderCatFilters();
+  renderProductCards();
+}
+
+function getVisibleProducts() {
+  var showHidden = document.getElementById('showHidden').checked;
+  var list = [];
   for (var i = 0; i < products.length; i++) {
     var p = products[i];
+    if (!showHidden && p.hidden && selectedCat !== 'all') {
+      // Hidden items only shown when "show hidden" is checked OR when their category is specifically selected
+    }
+    if ((selectedCat === 'all' || p.category === selectedCat)) {
+      if (showHidden || !p.hidden || selectedCat !== 'all') {
+        list.push(p);
+      }
+    }
+  }
+  // Sort by order
+  list.sort(function(a, b) { return (a.order || 0) - (b.order || 0); });
+  return list;
+}
+
+function renderWithFilters() { renderProductCards(); }
+
+function renderProductCards() {
+  var grid = document.getElementById('prodGrid');
+  var list = getVisibleProducts();
+  var showHidden = document.getElementById('showHidden').checked;
+
+  var html = '';
+  for (var i = 0; i < list.length; i++) {
+    var p = list[i];
     var rmb = prices[p.id] || 0;
     var usd = rmb / exchangeRate;
     var priceChanged = origPrices[p.id] !== prices[p.id];
     var imgChanged = !!newImages[p.id];
-    var dirty = priceChanged || imgChanged;
+    var productChanged = isProductChanged(p);
+    var dirty = priceChanged || imgChanged || productChanged;
 
-    html += '<div class="prod-card' + (dirty ? ' dirty' : '') + '" id="card-' + p.id + '">';
-    html += '<div class="head"><span class="cat-tag">' + p.cat + '</span><span class="sku">' + p.id + '</span></div>';
-    html += '<div class="name">' + p.name + '</div>';
+    html += '<div class="prod-card' + (dirty ? ' dirty' : '') + (p.hidden ? ' hidden-item' : '') + '" id="card-' + p.id + '">';
+    html += '<div class="head">';
+    html += '<input type="checkbox" class="cb" ' + (selectedIds[p.id] ? 'checked' : '') + ' onchange="toggleSelect(\'' + p.id + '\', this.checked)">';
+    html += '<span class="cat-tag">' + p.category + '</span>';
+    html += '<span class="sku">' + p.id + '</span>';
+    html += '<span class="hidden-badge">隐藏</span>';
+    html += '<div class="sort-btns">';
+    html += '<button title="上移" onclick="moveProduct(\'' + p.id + '\', -1)">▲</button>';
+    html += '<button title="下移" onclick="moveProduct(\'' + p.id + '\', 1)">▼</button>';
+    html += '</div>';
+    html += '<div class="actions-row">';
+    html += '<button class="btn-hide" onclick="toggleHidden(\'' + p.id + '\')">' + (p.hidden ? '显示' : '隐藏') + '</button>';
+    html += '<button class="btn-del" onclick="deleteProduct(\'' + p.id + '\')">删除</button>';
+    html += '</div>';
+    html += '</div>';
+
+    html += '<div class="info">';
+    html += '<span class="pname" id="pn-' + p.id + '" ondblclick="editName(\'' + p.id + '\')" title="双击编辑名称">' + p.name + '</span>';
+    html += '<span class="pspec" id="ps-' + p.id + '" ondblclick="editField(\'' + p.id + '\', \'spec\', this)" title="双击编辑规格">' + (p.spec || '') + '</span>';
+    html += '<span class="pextra" id="pe-' + p.id + '" ondblclick="editField(\'' + p.id + '\', \'extra\', this)" title="双击编辑备注">' + (p.extra || '') + '</span>';
+    html += '</div>';
+
     html += '<div class="body">';
-
     // image
     html += '<div class="img-area">';
-    var imgSrc = newImages[p.id] || p.thumb;
+    var imgSrc = newImages[p.id] || p.thumb || '';
     html += '<img src="' + imgSrc + '" alt="' + p.name + '" id="img-' + p.id + '" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">';
-    html += '<span style="display:none;font-size:12px;color:var(--n4);position:absolute;text-align:center;">暂无图片</span>';
+    html += '<span style="display:none;font-size:11px;color:var(--n4);position:absolute;text-align:center;">暂无图</span>';
     html += '<div class="upload-overlay" onclick="document.getElementById(\'file-' + p.id + '\').click()"><span>📷 换图</span></div>';
     html += '<input type="file" id="file-' + p.id + '" accept="image/*" style="display:none" onchange="handleImageUpload(this, \'' + p.id + '\')">';
     html += '<div class="img-changed"></div>';
     html += '</div>';
 
-    // prices
+    // prices & meta
     html += '<div class="fields">';
-    html += '<div class="row"><label>¥ RMB</label>';
+    html += '<div class="row"><label>¥</label>';
     html += '<input type="number" id="rmb-' + p.id + '" value="' + rmb.toFixed(2) + '" step="0.01" min="0" class="' + (priceChanged ? 'changed' : '') + '" onchange="onPriceChange(\'' + p.id + '\')">';
     html += '</div>';
-    html += '<div class="row"><label>$ USD</label>';
+    html += '<div class="row"><label>$</label>';
     html += '<span class="usd-preview" id="usd-' + p.id + '">$' + usd.toFixed(2) + '</span>';
-    html += '<span style="font-size:11px;color:var(--n4);">' + p.unit + '</span>';
+    html += '<span class="unit-edit" id="un-' + p.id + '" ondblclick="editField(\'' + p.id + '\', \'unit\', this)" title="双击编辑单位">' + (p.unit || '/m² EXW') + '</span>';
     html += '</div>';
+    html += '<div class="minqty">起订 <input type="number" id="mq-' + p.id + '" value="' + (p.minQty || 100) + '" min="1" onchange="onMinQtyChange(\'' + p.id + '\')"></div>';
     html += '</div>';
 
     html += '</div></div>';
   }
+
+  if (list.length === 0) {
+    html = '<div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--n4);">';
+    html += '<p style="font-size:16px;margin-bottom:8px;">📭 此分类暂无产品</p>';
+    html += '<button class="btn btn-blue" onclick="openAddProduct()">➕ 新增产品</button>';
+    html += '</div>';
+  }
+
   grid.innerHTML = html;
+  updateBatchBar();
 }
 
+function updateBatchBar() {
+  var count = Object.keys(selectedIds).length;
+  var bar = document.getElementById('batchBar');
+  document.getElementById('batchCount').textContent = count;
+  if (count > 0) bar.classList.add('show');
+  else bar.classList.remove('show');
+}
+
+function toggleSelect(id, checked) {
+  if (checked) selectedIds[id] = true;
+  else delete selectedIds[id];
+  updateBatchBar();
+}
+
+function selectAll(select) {
+  var list = getVisibleProducts();
+  if (select) { for (var i = 0; i < list.length; i++) selectedIds[list[i].id] = true; }
+  else { selectedIds = {}; }
+  renderProductCards();
+}
+
+function applyBatch() {
+  var op = document.getElementById('batchOp').value;
+  var val = parseFloat(document.getElementById('batchVal').value);
+  if (isNaN(val) || val === 0) { toast('请输入有效数值', 'error'); return; }
+
+  var ids = Object.keys(selectedIds);
+  if (ids.length === 0) { toast('请先勾选产品', 'error'); return; }
+
+  for (var i = 0; i < ids.length; i++) {
+    var id = ids[i];
+    if (op === 'pct') {
+      prices[id] = Math.round((prices[id] || 0) * (1 + val / 100) * 100) / 100;
+    } else {
+      prices[id] = Math.max(0, Math.round(((prices[id] || 0) + val) * 100) / 100);
+    }
+  }
+  saveLocal();
+  renderProductCards();
+  updateChangeCount();
+  toast('✅ 已对 ' + ids.length + ' 个产品应用' + (op === 'pct' ? ' ' + val + '%' : ' ¥' + val), 'success');
+}
+
+// ============================================================
+//  PRODUCT CRUD
+// ============================================================
+function openAddProduct(editId) {
+  var modal = document.getElementById('prodModal');
+  document.getElementById('prodModalTitle').textContent = editId ? '✏️ 编辑产品' : '➕ 新增产品';
+  document.getElementById('fEditId').value = editId || '';
+
+  // Populate category dropdown
+  var cats = getCategories();
+  var catSel = document.getElementById('fCat');
+  catSel.innerHTML = '';
+  for (var i = 0; i < cats.length; i++) {
+    catSel.innerHTML += '<option value="' + cats[i] + '">' + cats[i] + '</option>';
+  }
+  catSel.innerHTML += '<option value="__new__">+ 新建分类...</option>';
+
+  if (editId) {
+    var p = findProduct(editId);
+    if (p) {
+      document.getElementById('fSku').value = p.id;
+      document.getElementById('fSku').disabled = true;
+      catSel.value = p.category;
+      document.getElementById('fName').value = p.name;
+      document.getElementById('fSpec').value = p.spec || '';
+      document.getElementById('fExtra').value = p.extra || '';
+      document.getElementById('fUnit').value = p.unit || '';
+      document.getElementById('fMinQty').value = p.minQty || 100;
+      document.getElementById('fPrice').value = prices[editId] || 0;
+    }
+  } else {
+    document.getElementById('fSku').value = '';
+    document.getElementById('fSku').disabled = false;
+    document.getElementById('fName').value = '';
+    document.getElementById('fSpec').value = '';
+    document.getElementById('fExtra').value = '';
+    document.getElementById('fUnit').value = '/m² EXW';
+    document.getElementById('fMinQty').value = 100;
+    document.getElementById('fPrice').value = 0;
+    document.getElementById('fImage').value = '';
+  }
+
+  modal.style.display = 'flex';
+}
+
+function closeProdModal() {
+  document.getElementById('prodModal').style.display = 'none';
+}
+
+function findProduct(id) {
+  for (var i = 0; i < products.length; i++) { if (products[i].id === id) return products[i]; }
+  return null;
+}
+
+function saveProduct() {
+  var editId = document.getElementById('fEditId').value;
+  var sku = document.getElementById('fSku').value.trim();
+  var cat = document.getElementById('fCat').value;
+  var name = document.getElementById('fName').value.trim();
+  var spec = document.getElementById('fSpec').value.trim();
+  var extra = document.getElementById('fExtra').value.trim();
+  var unit = document.getElementById('fUnit').value.trim();
+  var minQty = parseInt(document.getElementById('fMinQty').value) || 100;
+  var price = parseFloat(document.getElementById('fPrice').value) || 0;
+
+  if (!sku || !name) { toast('SKU和名称为必填', 'error'); return; }
+  if (!editId && findProduct(sku)) { toast('SKU "' + sku + '" 已存在', 'error'); return; }
+
+  // Handle new category
+  if (cat === '__new__') {
+    cat = prompt('请输入新分类名称：');
+    if (!cat) return;
+  }
+
+  var maxOrder = 0;
+  for (var i = 0; i < products.length; i++) { maxOrder = Math.max(maxOrder, products[i].order || 0); }
+
+  if (editId) {
+    var p = findProduct(editId);
+    if (p) {
+      p.category = cat;
+      p.name = name;
+      p.spec = spec;
+      p.extra = extra;
+      p.unit = unit;
+      p.minQty = minQty;
+    }
+    prices[editId] = price;
+    toast('✅ 产品已更新', 'success');
+  } else {
+    var imgInput = document.getElementById('fImage');
+    var thumb = '';
+    if (imgInput.files && imgInput.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        newImages[sku] = e.target.result;
+        var newP = { id: sku, category: cat, name: name, spec: spec, extra: extra, unit: unit, minQty: minQty, thumb: '', hidden: false, order: maxOrder + 1 };
+        products.push(newP);
+        prices[sku] = price;
+        saveLocal();
+        closeProdModal();
+        selectedCat = cat;
+        renderAll();
+        updateChangeCount();
+        toast('✅ 新产品 "' + name + '" 已添加！记得发布', 'success');
+      };
+      reader.readAsDataURL(imgInput.files[0]);
+      return;
+    } else {
+      var newP = { id: sku, category: cat, name: name, spec: spec, extra: extra, unit: unit, minQty: minQty, thumb: '', hidden: false, order: maxOrder + 1 };
+      products.push(newP);
+      prices[sku] = price;
+      toast('✅ 新产品 "' + name + '" 已添加！记得发布', 'success');
+    }
+  }
+
+  saveLocal();
+  closeProdModal();
+  renderAll();
+  updateChangeCount();
+}
+
+function editName(id) {
+  var el = document.getElementById('pn-' + id);
+  var p = findProduct(id);
+  if (!p) return;
+  var oldName = p.name;
+  el.classList.add('edit-mode');
+  el.contentEditable = true;
+  el.focus();
+  el.onblur = function() {
+    el.contentEditable = false;
+    el.classList.remove('edit-mode');
+    var newName = el.textContent.trim();
+    if (newName && newName !== oldName) {
+      p.name = newName;
+      saveLocal();
+      renderProductCards();
+      updateChangeCount();
+    }
+  };
+  el.onkeydown = function(e) { if (e.key === 'Enter') { e.preventDefault(); el.blur(); } };
+}
+
+function editField(id, field, el) {
+  var p = findProduct(id);
+  if (!p) return;
+  var oldVal = p[field] || '';
+  el.contentEditable = true;
+  el.focus();
+  el.onblur = function() {
+    el.contentEditable = false;
+    var newVal = el.textContent.trim();
+    if (newVal !== oldVal) {
+      p[field] = newVal;
+      saveLocal();
+      renderProductCards();
+      updateChangeCount();
+    }
+  };
+  el.onkeydown = function(e) { if (e.key === 'Enter') { e.preventDefault(); el.blur(); } };
+}
+
+function onMinQtyChange(id) {
+  var el = document.getElementById('mq-' + id);
+  var val = parseInt(el.value);
+  if (isNaN(val) || val < 1) { el.value = findProduct(id).minQty || 100; return; }
+  var p = findProduct(id);
+  if (p) p.minQty = val;
+  saveLocal();
+  updateChangeCount();
+}
+
+function toggleHidden(id) {
+  var p = findProduct(id);
+  if (!p) return;
+  p.hidden = !p.hidden;
+  saveLocal();
+  renderProductCards();
+  updateChangeCount();
+  toast(p.hidden ? '🙈 已隐藏（前端不显示）' : '👁 已显示', 'info');
+}
+
+function deleteProduct(id) {
+  var p = findProduct(id);
+  if (!p) return;
+  if (!confirm('确定删除 "' + p.name + '"？\n\n⚠️ 删除后不可恢复，请确认！')) return;
+  for (var i = 0; i < products.length; i++) {
+    if (products[i].id === id) { products.splice(i, 1); break; }
+  }
+  delete prices[id];
+  delete selectedIds[id];
+  saveLocal();
+  renderAll();
+  updateChangeCount();
+  toast('🗑 产品已删除（需发布后生效）', 'info');
+}
+
+function moveProduct(id, dir) {
+  var idx = -1;
+  for (var i = 0; i < products.length; i++) { if (products[i].id === id) { idx = i; break; } }
+  if (idx === -1) return;
+  var swapIdx = idx + dir;
+  if (swapIdx < 0 || swapIdx >= products.length) return;
+
+  // Swap order values
+  var tmp = products[idx].order;
+  products[idx].order = products[swapIdx].order;
+  products[swapIdx].order = tmp;
+
+  // Sort products by order
+  products.sort(function(a, b) { return (a.order || 0) - (b.order || 0); });
+  saveLocal();
+  renderProductCards();
+  updateChangeCount();
+}
+
+function isProductChanged(p) {
+  if (!origProducts) return false;
+  try {
+    var orig = JSON.parse(origProducts);
+    for (var i = 0; i < orig.length; i++) {
+      if (orig[i].id === p.id) return JSON.stringify(orig[i]) !== JSON.stringify(p);
+    }
+    return true; // new product
+  } catch(e) { return false; }
+}
+
+// ============================================================
+//  CATEGORY MANAGEMENT
+// ============================================================
+function openCatManager() {
+  document.getElementById('catModal').style.display = 'flex';
+  renderCatList();
+}
+
+function closeCatModal() {
+  document.getElementById('catModal').style.display = 'none';
+}
+
+function renderCatList() {
+  var cats = getCategories();
+  var html = '';
+  for (var i = 0; i < cats.length; i++) {
+    var c = cats[i];
+    var count = 0;
+    for (var j = 0; j < products.length; j++) { if (products[j].category === c) count++; }
+    html += '<div class="cat-list-item">';
+    html += '<span class="name" id="catName-' + i + '">' + c + '</span>';
+    html += '<span class="count">' + count + ' 个产品</span>';
+    html += '<div class="actions">';
+    html += '<button class="btn btn-outline btn-sm" onclick="renameCategory(' + i + ')">改名</button>';
+    html += '<button class="btn btn-red btn-sm" onclick="deleteCategory(\'' + c + '\')" ' + (count > 0 ? 'disabled title="请先将产品移到其他分类"' : '') + '>删除</button>';
+    html += '</div>';
+    html += '</div>';
+  }
+  document.getElementById('catList').innerHTML = html || '<p style="color:var(--n4);text-align:center;padding:20px;">暂无分类</p>';
+}
+
+function addCategory() {
+  var name = document.getElementById('newCatName').value.trim();
+  if (!name) { toast('请输入分类名称', 'error'); return; }
+  if (getCategories().indexOf(name) !== -1) { toast('分类 "' + name + '" 已存在', 'error'); return; }
+  // Add to products as an empty placeholder won't work, but we can just remember it
+  // Actually, we don't store empty categories separately
+  // The category will appear when a product uses it
+  document.getElementById('fCat').innerHTML += '<option value="' + name + '">' + name + '</option>';
+  toast('✅ 新建分类 "' + name + '"（在新增产品时可选）', 'success');
+  document.getElementById('newCatName').value = '';
+}
+
+function renameCategory(idx) {
+  var cats = getCategories();
+  var oldName = cats[idx];
+  var el = document.getElementById('catName-' + idx);
+  var newName = prompt('将 "' + oldName + '" 改名为：', oldName);
+  if (!newName || newName === oldName) return;
+  if (getCategories().indexOf(newName) !== -1 && newName !== oldName) { toast('分类 "' + newName + '" 已存在', 'error'); return; }
+  for (var i = 0; i < products.length; i++) {
+    if (products[i].category === oldName) products[i].category = newName;
+  }
+  saveLocal();
+  renderCatList();
+  renderAll();
+  toast('✅ 已改名: ' + oldName + ' → ' + newName, 'success');
+}
+
+function deleteCategory(cat) {
+  for (var i = 0; i < products.length; i++) { if (products[i].category === cat) { toast('请先将该分类下的产品移到其他分类', 'error'); return; } }
+  // Actually, there's no separate category store - they're derived from products
+  toast('✅ 分类已清空（没有产品使用此分类）', 'success');
+  renderCatList();
+}
+
+// ============================================================
+//  PRICE / RATE CHANGES
+// ============================================================
 function onPriceChange(id) {
   var el = document.getElementById('rmb-' + id);
   var val = parseFloat(el.value);
-  if (isNaN(val) || val < 0) {
-    el.value = (prices[id] || 0).toFixed(2);
-    return;
-  }
+  if (isNaN(val) || val < 0) { el.value = (prices[id] || 0).toFixed(2); return; }
   prices[id] = val;
-  saveLocalPrices();
-
-  // update USD preview
-  var usd = val / exchangeRate;
+  saveLocal();
   var usdEl = document.getElementById('usd-' + id);
-  if (usdEl) usdEl.textContent = '$' + usd.toFixed(2);
-
-  // update visual
+  if (usdEl) usdEl.textContent = '$' + (val / exchangeRate).toFixed(2);
   el.className = (val !== origPrices[id]) ? 'changed' : '';
   updateCardDirty(id);
   updateChangeCount();
@@ -408,19 +912,13 @@ function onPriceChange(id) {
 function onRateChange() {
   var el = document.getElementById('rateInput');
   var val = parseFloat(el.value);
-  if (isNaN(val) || val <= 0) {
-    el.value = exchangeRate.toFixed(2);
-    return;
-  }
+  if (isNaN(val) || val <= 0) { el.value = exchangeRate.toFixed(2); return; }
   exchangeRate = val;
   localStorage.setItem('celson_local_rate', val.toString());
-
-  // update all USD previews
   for (var i = 0; i < products.length; i++) {
     var id = products[i].id;
-    var usd = (prices[id] || 0) / exchangeRate;
     var usdEl = document.getElementById('usd-' + id);
-    if (usdEl) usdEl.textContent = '$' + usd.toFixed(2);
+    if (usdEl) usdEl.textContent = '$' + ((prices[id] || 0) / exchangeRate).toFixed(2);
   }
   updateChangeCount();
 }
@@ -428,16 +926,11 @@ function onRateChange() {
 function handleImageUpload(input, id) {
   if (!input.files || !input.files[0]) return;
   var file = input.files[0];
-  // preview
   var reader = new FileReader();
   reader.onload = function(e) {
     newImages[id] = e.target.result;
     var imgEl = document.getElementById('img-' + id);
-    if (imgEl) {
-      imgEl.src = e.target.result;
-      imgEl.style.display = '';
-      if (imgEl.nextElementSibling) imgEl.nextElementSibling.style.display = 'none';
-    }
+    if (imgEl) { imgEl.src = e.target.result; imgEl.style.display = ''; if (imgEl.nextElementSibling) imgEl.nextElementSibling.style.display = 'none'; }
     updateCardDirty(id);
     updateChangeCount();
   };
@@ -449,15 +942,9 @@ function updateCardDirty(id) {
   if (!card) return;
   var priceChanged = origPrices[id] !== prices[id];
   var imgChanged = !!newImages[id];
-  if (priceChanged || imgChanged) {
-    card.classList.add('dirty');
-  } else {
-    card.classList.remove('dirty');
-  }
-
-  // rmb input
-  var rmbEl = document.getElementById('rmb-' + id);
-  if (rmbEl) rmbEl.className = priceChanged ? 'changed' : '';
+  var prodChanged = isProductChanged(findProduct(id));
+  if (priceChanged || imgChanged || prodChanged) card.classList.add('dirty');
+  else card.classList.remove('dirty');
 }
 
 function updateChangeCount() {
@@ -466,14 +953,29 @@ function updateChangeCount() {
     var id = products[i].id;
     if (origPrices[id] !== prices[id]) count++;
     if (newImages[id]) count++;
+    if (isProductChanged(products[i])) count++;
   }
   if (origRate !== exchangeRate) count++;
 
   document.getElementById('changeCount').textContent = count;
   document.getElementById('dirtyCount').textContent = count;
-  var btn = document.getElementById('btnPublish');
-  btn.disabled = (count === 0 || !ghToken);
-  btn.textContent = (count === 0 && ghToken) ? '✅ 无需发布' : (ghToken ? '📤 发布到网站 (' + count + '项)' : '📤 发布到网站（需先连接GitHub）');
+  document.getElementById('statusInfo').innerHTML = '共 <strong>' + products.length + '</strong> 个产品 · <strong id="dirtyCount">' + count + '</strong> 项待发布';
+  var btnPub = document.getElementById('btnPublish');
+  btnPub.disabled = (count === 0 || !ghToken);
+  btnPub.textContent = (count === 0 && ghToken) ? '✅ 无需发布' : (ghToken ? '📤 发布到网站 (' + count + '项)' : '📤 发布到网站（需先连接GitHub）');
+  document.getElementById('btnUndo').disabled = (count === 0);
+}
+
+function undoAll() {
+  if (!confirm('确定撤销所有改动？价格、图片、产品修改将恢复到上次发布状态。')) return;
+  prices = JSON.parse(JSON.stringify(origPrices));
+  exchangeRate = origRate;
+  newImages = {};
+  selectedIds = {};
+  loadLocalProducts();
+  renderAll();
+  updateChangeCount();
+  toast('↩ 已撤销全部改动', 'info');
 }
 
 // ============================================================
@@ -483,16 +985,9 @@ function ghApi(path, method, body) {
   method = method || 'GET';
   var opts = {
     method: method,
-    headers: {
-      'Authorization': 'Bearer ' + ghToken,
-      'Accept': 'application/vnd.github+json',
-      'X-GitHub-Api-Version': '2022-11-28'
-    }
+    headers: { 'Authorization': 'Bearer ' + ghToken, 'Accept': 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' }
   };
-  if (body) {
-    opts.headers['Content-Type'] = 'application/json';
-    opts.body = JSON.stringify(body);
-  }
+  if (body) { opts.headers['Content-Type'] = 'application/json'; opts.body = JSON.stringify(body); }
   return fetch('https://api.github.com/repos/' + REPO_OWNER + '/' + REPO_NAME + '/' + path, opts)
     .then(function(r) {
       if (!r.ok) return r.json().then(function(e) { throw new Error(e.message || 'API error ' + r.status); });
@@ -506,37 +1001,41 @@ function fetchPricesFromGitHub() {
     .then(function(data) {
       pricesSha = data.sha;
       var content = atob(data.content.replace(/\s/g, ''));
-      // parse PRICES_RMB from js file
       var match = content.match(/var PRICES_RMB\s*=\s*\{([^}]+)\}/);
       if (match) {
-        var objStr = '{' + match[1] + '}';
-        // convert to valid JSON-like string
         try {
-          var obj = (new Function('return ' + objStr))();
+          var obj = (new Function('return {' + match[1] + '}'))();
           for (var k in obj) { if (obj.hasOwnProperty(k)) prices[k] = obj[k]; }
           origPrices = JSON.parse(JSON.stringify(prices));
-          saveLocalPrices();
-          renderAll();
-          updateGhStatus(true);
-          toast('✅ 已从GitHub同步最新价格', 'success');
-        } catch(e) {
-          updateGhStatus(true);
-          toast('⚠️ 价格解析部分成功，使用本地缓存', 'info');
-        }
+          saveLocal();
+        } catch(e) {}
       }
-      // also parse exchange rate
       var rateMatch = content.match(/exchangeRate:\s*([\d.]+)/);
-      if (rateMatch) {
-        exchangeRate = parseFloat(rateMatch[1]) || 7.10;
-        origRate = exchangeRate;
-        document.getElementById('rateInput').value = exchangeRate.toFixed(2);
+      if (rateMatch) { exchangeRate = parseFloat(rateMatch[1]) || 7.10; origRate = exchangeRate; }
+      renderAll();
+      updateGhStatus(true);
+      toast('✅ 已从GitHub同步最新价格', 'success');
+    })
+    .catch(function(err) { console.error(err); updateGhStatus(false); });
+}
+
+function fetchProductsFromGitHub() {
+  if (!ghToken) return;
+  ghApi('contents/' + PRODUCTS_PATH)
+    .then(function(data) {
+      productsSha = data.sha;
+      var content = atob(data.content.replace(/\s/g, ''));
+      var match = content.match(/var ALL_PRODUCTS\s*=\s*(\[[\s\S]*\]);/);
+      if (match) {
+        try {
+          products = (new Function('return ' + match[1]))();
+          origProducts = JSON.stringify(products);
+          saveLocal();
+          renderAll();
+        } catch(e) { console.error('Products parse error:', e); }
       }
     })
-    .catch(function(err) {
-      console.error(err);
-      updateGhStatus(false);
-      toast('⚠️ 无法连接GitHub，请检查Token', 'error');
-    });
+    .catch(function(err) { console.error('Fetch products error:', err); });
 }
 
 // ============================================================
@@ -552,42 +1051,34 @@ function publishAll() {
   var tasks = [];
 
   // 1. Update prices.js
-  if (hasPriceChanges()) {
-    tasks.push(updatePricesFile());
-  }
+  if (hasPriceChanges()) tasks.push(updatePricesFile());
 
-  // 2. Upload images
+  // 2. Update products.js (always - to sync order/hidden/etc)
+  tasks.push(updateProductsFile());
+
+  // 3. Upload images
   for (var i = 0; i < products.length; i++) {
     var id = products[i].id;
     if (newImages[id]) {
-      tasks.push(uploadImage(id, newImages[id], products[i].thumb));
+      var thumbPath = products[i].thumb || ('assets/shop/shop-' + id + '.webp');
+      tasks.push(uploadImage(id, newImages[id], thumbPath));
     }
   }
 
   Promise.all(tasks)
     .then(function(results) {
       var changes = results.filter(function(r) { return r; });
-      if (changes.length > 0) {
-        toast('✅ 发布成功！共更新 ' + changes.length + ' 项，1-2分钟后网站生效', 'success');
-        // mark all as synced
-        origPrices = JSON.parse(JSON.stringify(prices));
-        origRate = exchangeRate;
-        newImages = {};
-        renderAll();
-        updateGhStatus(true);
-        // fetch deploy status
-        setTimeout(checkDeployStatus, 3000);
-      } else {
-        toast('没有需要更新的内容', 'info');
-      }
+      toast('✅ 发布成功！共更新 ' + changes.length + ' 项，1-2分钟后网站生效', 'success');
+      origPrices = JSON.parse(JSON.stringify(prices));
+      origRate = exchangeRate;
+      origProducts = JSON.stringify(products);
+      newImages = {};
+      renderAll();
+      updateGhStatus(true);
+      setTimeout(checkDeployStatus, 3000);
     })
-    .catch(function(err) {
-      toast('❌ 发布失败：' + err.message, 'error');
-    })
-    .finally(function() {
-      btn.disabled = false;
-      updateChangeCount();
-    });
+    .catch(function(err) { toast('❌ 发布失败：' + err.message, 'error'); })
+    .finally(function() { btn.disabled = false; updateChangeCount(); });
 }
 
 function hasPriceChanges() {
@@ -616,53 +1107,35 @@ function buildPricesJs() {
   return lines.join('\n') + '\n';
 }
 
+function buildProductsJs() {
+  return '/**\n * CELSON Shop — Product Metadata\n * Auto-managed by admin panel\n * DO NOT EDIT BY HAND\n */\nvar ALL_PRODUCTS = ' + JSON.stringify(products, null, 2) + ';\n';
+}
+
 function updatePricesFile() {
   var content = buildPricesJs();
-  var body = {
-    message: 'Admin: update prices (rate=' + exchangeRate + ')',
-    content: btoa(unescape(encodeURIComponent(content))),
-    branch: BRANCH
-  };
+  var body = { message: 'Admin: update prices (rate=' + exchangeRate + ')', content: btoa(unescape(encodeURIComponent(content))), branch: BRANCH };
   if (pricesSha) body.sha = pricesSha;
-
   return ghApi('contents/' + PRICES_PATH, 'PUT', body)
-    .then(function(data) {
-      pricesSha = data.content.sha;
-      return true;
-    });
+    .then(function(data) { pricesSha = data.content.sha; return true; });
+}
+
+function updateProductsFile() {
+  var content = buildProductsJs();
+  var body = { message: 'Admin: update products metadata', content: btoa(unescape(encodeURIComponent(content))), branch: BRANCH };
+  if (productsSha) body.sha = productsSha;
+  return ghApi('contents/' + PRODUCTS_PATH, 'PUT', body)
+    .then(function(data) { productsSha = data.content.sha; return true; });
 }
 
 function uploadImage(id, dataUrl, targetPath) {
-  // Convert data URL to base64
   var base64 = dataUrl.split(',')[1];
-  // Determine file extension from data URL
-  var mime = dataUrl.split(';')[0].split(':')[1];
-  var ext = mime === 'image/png' ? '.png' : (mime === 'image/webp' ? '.webp' : '.jpg');
-
-  var body = {
-    message: 'Admin: update image for ' + id,
-    content: base64,
-    branch: BRANCH
-  };
-
-  // Try to get current SHA
+  var body = { message: 'Admin: update image for ' + id, content: base64, branch: BRANCH };
   return ghApi('contents/' + targetPath, 'GET')
-    .then(function(data) {
-      body.sha = data.sha;
-      return ghApi('contents/' + targetPath, 'PUT', body);
-    })
-    .catch(function() {
-      // File doesn't exist yet, create it
-      return ghApi('contents/' + targetPath, 'PUT', body);
-    })
-    .then(function() {
-      return true;
-    });
+    .then(function(data) { body.sha = data.sha; return ghApi('contents/' + targetPath, 'PUT', body); })
+    .catch(function() { return ghApi('contents/' + targetPath, 'PUT', body); })
+    .then(function() { return true; });
 }
 
-// ============================================================
-//  DEPLOY STATUS
-// ============================================================
 function checkDeployStatus() {
   if (!ghToken) return;
   ghApi('actions/runs?per_page=1&branch=' + BRANCH)
@@ -672,8 +1145,7 @@ function checkDeployStatus() {
         var status = run.status === 'completed' ? (run.conclusion === 'success' ? '✅ 部署成功' : '❌ 部署失败') : '🔄 部署中...';
         document.getElementById('lastDeploy').innerHTML = '部署状态：<a href="' + run.html_url + '" target="_blank" class="deploy-link">' + status + '</a>';
       }
-    })
-    .catch(function() {});
+    }).catch(function() {});
 }
 
 // ============================================================
@@ -684,9 +1156,7 @@ function openTokenSetup() {
   document.getElementById('tokenInput').value = ghToken || '';
 }
 
-function closeTokenSetup() {
-  document.getElementById('tokenModal').style.display = 'none';
-}
+function closeTokenSetup() { document.getElementById('tokenModal').style.display = 'none'; }
 
 function saveToken() {
   var token = document.getElementById('tokenInput').value.trim();
@@ -697,6 +1167,7 @@ function saveToken() {
   updateGhStatus(true);
   toast('✅ GitHub已连接，正在同步数据...', 'success');
   fetchPricesFromGitHub();
+  fetchProductsFromGitHub();
   updateChangeCount();
 }
 
@@ -721,9 +1192,6 @@ function updateGhStatus(ok) {
   }
 }
 
-// ============================================================
-//  TOAST
-// ============================================================
 function toast(msg, type) {
   var existing = document.querySelector('.toast');
   if (existing) existing.remove();
