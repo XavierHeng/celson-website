@@ -305,12 +305,22 @@ a { color: var(--blue); }
   <div class="modal-box">
     <h3>⚙️ 连接 GitHub</h3>
     <p>需要一个 GitHub Personal Access Token 才能自动保存和发布。</p>
+    
+    <div style="background:#FEF2F2;border:1.5px solid #FECACA;border-radius:10px;padding:14px 18px;margin-bottom:16px;">
+      <div style="font-size:13px;font-weight:700;color:#991B1B;margin-bottom:6px;">🔐 重要：GitHub 账号密码由管理员保管</div>
+      <div style="font-size:13px;color:#7F1D1D;line-height:1.6;">
+        创建 Token 需要使用 <strong>XavierHeng</strong> 的 GitHub 账号登录。<br>
+        如需账号密码，请联系：<strong style="font-size:15px;">Xavier · 📱 13302802833</strong>
+      </div>
+    </div>
+
     <p style="font-size:13px;color:var(--n5);">
       1. 打开 <a href="https://github.com/settings/tokens?type=beta" target="_blank">github.com/settings/tokens</a><br>
-      2. 点 <strong>"Generate new token"</strong> → 选 <strong>Fine-grained token</strong><br>
-      3. Repository access: <strong>Only select repositories</strong> → 选 <code>XavierHeng/celson-website</code><br>
-      4. Permissions → Contents: <strong>Read and write</strong><br>
-      5. 点 Generate → 复制 Token 粘贴到下面<br>
+      2. 如未登录，先用 Xavier 提供的账号密码登录 GitHub<br>
+      3. 点 <strong>"Generate new token"</strong> → 选 <strong>Fine-grained token</strong>（或 Classic token → repo 全选）<br>
+      4. Repository access: <strong>Only select repositories</strong> → 选 <code>XavierHeng/celson-website</code><br>
+      5. Permissions → Contents: <strong>Read and write</strong><br>
+      6. 点 Generate → 复制 Token 粘贴到下面<br>
     </p>
     <input type="password" id="tokenInput" placeholder="github_pat_xxxx..." style="width:100%;padding:12px;border:1.5px solid var(--n3);border-radius:10px;font-size:14px;font-family:monospace;margin-bottom:16px;outline:none;">
     <div class="btns">
