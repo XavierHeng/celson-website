@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CELSON 网站操作手册 — 员工版</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Noto Sans SC', -apple-system, sans-serif; background: #F1F5F9; color: #1E293B; line-height: 1.7; }
+
+  /* cover */
+  .cover { background: linear-gradient(135deg, #0F172A 0%, #1E3A5F 50%, #15803D 100%); color: #fff; padding: 60px 40px; text-align: center; }
+  .cover .logo-icon { width: 80px; height: 80px; margin: 0 auto 20px; }
+  .cover h1 { font-size: 36px; font-weight: 700; margin-bottom: 8px; letter-spacing: 2px; }
+  .cover h2 { font-size: 20px; font-weight: 400; opacity: 0.85; margin-bottom: 4px; }
+  .cover .meta { font-size: 14px; opacity: 0.6; margin-top: 24px; }
+
+  /* container */
+  .wrapper { max-width: 960px; margin: 0 auto; padding: 0 24px 80px; }
+  .card { background: #fff; border-radius: 16px; padding: 36px 40px; margin-top: 32px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+
+  h3 { font-size: 22px; font-weight: 700; color: #0F172A; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid #15803D; display: flex; align-items: center; gap: 10px; }
+  h3 .icon { width: 36px; height: 36px; border-radius: 8px; background: #15803D; color: #fff; display: inline-flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+
+  /* tables */
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
+  th { background: #F0FDF4; color: #15803D; font-weight: 700; text-align: left; padding: 12px 16px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; }
+  td { padding: 12px 16px; border-bottom: 1px solid #E2E8F0; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: #F8FAFC; }
+  td:first-child { font-weight: 600; color: #0F172A; white-space: nowrap; }
+  code { background: #F1F5F9; padding: 2px 8px; border-radius: 4px; font-size: 13px; color: #15803D; font-weight: 600; }
+  .tag { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 12px; font-weight: 600; }
+  .tag-green { background: #DCFCE7; color: #166534; }
+  .tag-red { background: #FEE2E2; color: #991B1B; }
+  .tag-amber { background: #FEF3C7; color: #92400E; }
+  .tag-blue { background: #DBEAFE; color: #1E40AF; }
+
+  /* steps */
+  .step-list { counter-reset: step; list-style: none; }
+  .step-list li { counter-increment: step; padding: 18px 0 18px 52px; position: relative; border-bottom: 1px dashed #E2E8F0; }
+  .step-list li:last-child { border-bottom: none; }
+  .step-list li::before { content: counter(step); position: absolute; left: 0; top: 14px; width: 36px; height: 36px; border-radius: 50%; background: #15803D; color: #fff; font-size: 16px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+  .step-list li strong { color: #0F172A; font-size: 15px; }
+  .step-list li p { color: #64748B; margin-top: 4px; font-size: 13px; }
+
+  /* tips */
+  .tip-box { background: #FFFBEB; border: 1px solid #FDE68A; border-radius: 10px; padding: 16px 20px; margin: 16px 0; display: flex; gap: 10px; align-items: flex-start; font-size: 14px; }
+  .tip-box .bulb { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+  .tip-box.warn { background: #FEF2F2; border-color: #FECACA; }
+  .tip-box.info { background: #EFF6FF; border-color: #BFDBFE; }
+
+  .url-box { background: #F1F5F9; border-radius: 10px; padding: 16px 20px; font-family: monospace; font-size: 14px; word-break: break-all; color: #15803D; margin: 8px 0; }
+
+  @media print {
+    body { background: #fff; }
+    .cover { padding: 40px; page-break-after: always; }
+    .card { break-inside: avoid; box-shadow: none; border: 1px solid #E2E8F0; }
+  }
+  @media (max-width: 640px) {
+    .cover { padding: 40px 20px; }
+    .cover h1 { font-size: 26px; }
+    .card { padding: 24px 20px; }
+    table { font-size: 12px; }
+    th, td { padding: 8px 10px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <svg class="logo-icon" viewBox="0 0 100 100"><circle cx="50" cy="28" r="18" fill="#22C55E"/><rect x="36" y="44" width="28" height="4" rx="2" fill="#22C55E"/><rect x="40" y="52" width="20" height="3" rx="1.5" fill="#22C55E"/><rect x="30" y="62" width="40" height="30" rx="5" fill="#fff"/><circle cx="50" cy="77" r="10" fill="#15803D"/></svg>
+  <h1>CELSON 网站操作手册</h1>
+  <h2>产品价格 &amp; 图片修改指南</h2>
+  <div class="meta">建信建材 · 2026年6月 · v1.0</div>
+</div>
+
+<div class="wrapper">
+
+<!-- ====== 01 访问后台 ====== -->
+<div class="card">
+  <h3><span class="icon">1</span> 如何进入管理后台</h3>
+
+  <table>
+    <tr>
+      <td>管理后台网址</td>
+      <td><div class="url-box">https://celson.ltd/admin.html</div></td>
+    </tr>
+    <tr>
+      <td>支持设备</td>
+      <td><span class="tag tag-green">电脑</span> <span class="tag tag-blue">手机</span> <span class="tag tag-blue">平板</span> 任何浏览器均可</td>
+    </tr>
+    <tr>
+      <td>登录用户名</td>
+      <td><code>Celsonbetty</code></td>
+    </tr>
+    <tr>
+      <td>登录密码</td>
+      <td><code>86880707</code></td>
+    </tr>
+  </table>
+
+  <div class="tip-box">
+    <span class="bulb">💡</span>
+    <span><strong>建议收藏网址。</strong> 手机浏览器打开后，添加到主屏幕，下次直接点图标就能打开。</span>
+  </div>
+</div>
+
+<!-- ====== 02 改价格 ====== -->
+<div class="card">
+  <h3><span class="icon">2</span> 修改产品价格</h3>
+
+  <div class="tip-box info">
+    <span class="bulb">📌</span>
+    <span>价格单位为<strong>人民币 ¥（元）</strong>。修改后系统自动换算美元显示。</span>
+  </div>
+
+  <table>
+    <tr><th>步骤</th><th>操作</th><th>图示说明</th></tr>
+    <tr>
+      <td>①</td>
+      <td>登录后台，进入「产品管理」主界面</td>
+      <td>所有产品以卡片形式排列</td>
+    </tr>
+    <tr>
+      <td>②</td>
+      <td>找到要改价的产品卡片（按分类分组）</td>
+      <td>卡片上显示分类标签：石膏板、板材、墙面板 等</td>
+    </tr>
+    <tr>
+      <td>③</td>
+      <td>在 <code>¥</code> 输入框中直接输入新价格</td>
+      <td>修改后输入框变为<span class="tag tag-amber">黄色</span>，表示已改动</td>
+    </tr>
+    <tr>
+      <td>④</td>
+      <td>可同时修改多个产品价格</td>
+      <td>所有改动过的卡片都会标黄提示</td>
+    </tr>
+    <tr>
+      <td>⑤</td>
+      <td>点击底部绿色按钮 <strong>「📤 发布到网站」</strong></td>
+      <td>系统会列出所有改动项，确认后提交</td>
+    </tr>
+    <tr>
+      <td>⑥</td>
+      <td>等待约 60 秒</td>
+      <td>显示「部署中...」→「✅ 发布成功」</td>
+    </tr>
+    <tr>
+      <td>⑦</td>
+      <td>打开官网验证</td>
+      <td>访问 <code>https://celson.ltd/shop.html</code> 确认新价格</td>
+    </tr>
+  </table>
+
+  <div class="tip-box warn">
+    <span class="bulb">⚠️</span>
+    <span><strong>改完后必须点「发布」才算生效！</strong> 只改数字不点发布，网站价格不会变。</span>
+  </div>
+</div>
+
+<!-- ====== 03 换图片 ====== -->
+<div class="card">
+  <h3><span class="icon">3</span> 替换产品图片</h3>
+
+  <table>
+    <tr><th>步骤</th><th>操作</th><th>说明</th></tr>
+    <tr>
+      <td>①</td>
+      <td>登录后台，找到要换图的产品</td>
+      <td>每个产品卡片左边有一个产品图片区域</td>
+    </tr>
+    <tr>
+      <td>②</td>
+      <td>鼠标移到图片上（手机：点击图片）</td>
+      <td>出现「📷 换图」半透明提示</td>
+    </tr>
+    <tr>
+      <td>③</td>
+      <td>点击「📷 换图」</td>
+      <td>弹出文件选择窗口</td>
+    </tr>
+    <tr>
+      <td>④</td>
+      <td>选择要替换的新图片</td>
+      <td>支持 JPG / PNG / WebP，推荐正方形</td>
+    </tr>
+    <tr>
+      <td>⑤</td>
+      <td>确认预览正确</td>
+      <td>图片区域会自动显示新图预览</td>
+    </tr>
+    <tr>
+      <td>⑥</td>
+      <td>点击「📤 发布到网站」</td>
+      <td>与改价一样，图片也需要发布才生效</td>
+    </tr>
+  </table>
+
+  <div class="tip-box">
+    <span class="bulb">💡</span>
+    <span>可以同时改价格 + 换图片，<strong>一次性发布</strong>，不需要分两次操作。</span>
+  </div>
+</div>
+
+<!-- ====== 04 常见问题 ====== -->
+<div class="card">
+  <h3><span class="icon">4</span> 常见问题</h3>
+
+  <table>
+    <tr><th>问题</th><th>原因</th><th>解决方法</th></tr>
+    <tr>
+      <td>改了价格但网站没变？</td>
+      <td><span class="tag tag-red">没点发布</span></td>
+      <td>回到后台，点「📤 发布到网站」，等60秒刷新</td>
+    </tr>
+    <tr>
+      <td>发布后价格还是旧的？</td>
+      <td><span class="tag tag-amber">缓存</span></td>
+      <td>按 <strong>Ctrl+F5</strong>（电脑）或清除浏览器缓存（手机）刷新</td>
+    </tr>
+    <tr>
+      <td>登录提示密码错误？</td>
+      <td>输入有误</td>
+      <td>用户名 <code>Celsonbetty</code>，密码 <code>86880707</code>，注意大小写</td>
+    </tr>
+    <tr>
+      <td>发布按钮无法点击（灰色）？</td>
+      <td>没有任何改动</td>
+      <td>先修改价格或换图，按钮变绿后即可点击</td>
+    </tr>
+    <tr>
+      <td>手机上看不清产品名称？</td>
+      <td>屏幕太小</td>
+      <td>横屏旋转手机，或使用电脑操作</td>
+    </tr>
+    <tr>
+      <td>改错了怎么恢复？</td>
+      <td>可以撤回</td>
+      <td>发布前：点击顶部「↩ 撤销全部改动」即可恢复<br>发布后：立即联系管理员在 GitHub 回滚</td>
+    </tr>
+  </table>
+</div>
+
+<!-- ====== 05 注意事项 ====== -->
+<div class="card">
+  <h3><span class="icon">5</span> 重要提醒</h3>
+
+  <table>
+    <tr><th>事项</th><th>说明</th></tr>
+    <tr>
+      <td>🔐 密码保密</td>
+      <td>登录密码仅限内部员工使用，勿外传</td>
+    </tr>
+    <tr>
+      <td>📤 一次发布 = 全部上线</td>
+      <td>发布按钮会把<strong>所有未发布的改动</strong>一次性提交。多人操作时请注意沟通</td>
+    </tr>
+    <tr>
+      <td>📱 手机也能操作</td>
+      <td>出差在外、不在公司也能用手机改价，无需安装任何 APP</td>
+    </tr>
+    <tr>
+      <td>⏱ 生效延迟 60 秒</td>
+      <td>点发布到网站显示新内容大约需要 1 分钟（全球 CDN 同步）</td>
+    </tr>
+    <tr>
+      <td>🖼 图片大小建议</td>
+      <td>建议使用 500×500 px 以上正方形图片，最大不要超过 2MB</td>
+    </tr>
+    <tr>
+      <td>☎ 技术支持</td>
+      <td>如遇系统故障，联系管理员或 IT 支持</td>
+    </tr>
+  </table>
+</div>
+
+<!-- ====== 06 产品价格对照 ====== -->
+<div class="card">
+  <h3><span class="icon">6</span> 当前产品价格对照表</h3>
+
+  <table>
+    <tr><th>分类</th><th>SKU 编号</th><th>产品名称</th><th>当前单价 (¥)</th></tr>
+    <tr><td>石膏板</td><td><code>gyp-std-12</code></td><td>标准纸面石膏板 12mm</td><td>12.75</td></tr>
+    <tr><td>石膏板</td><td><code>gyp-mr-12</code></td><td>耐潮石膏板 12mm</td><td>18.00</td></tr>
+    <tr><td>石膏板</td><td><code>gyp-fr-12</code></td><td>耐火石膏板 12mm</td><td>22.50</td></tr>
+    <tr><td>板材</td><td><code>ply-18</code></td><td>胶合板 18mm</td><td>132.00</td></tr>
+    <tr><td>板材</td><td><code>mdf-18</code></td><td>中密度纤维板 18mm</td><td>105.00</td></tr>
+    <tr><td>板材</td><td><code>osb-15</code></td><td>OSB 定向刨花板 15mm</td><td>87.00</td></tr>
+    <tr><td>墙面板</td><td><code>wpc-wall-8</code></td><td>WPC 墙板 8mm</td><td>52.50</td></tr>
+    <tr><td>墙面板</td><td><code>uv-marble-8</code></td><td>UV 大理石板 8mm</td><td>72.00</td></tr>
+    <tr><td>天花板</td><td><code>pvc-ceiling-7</code></td><td>PVC 天花板 7mm</td><td>33.00</td></tr>
+    <tr><td>天花板</td><td><code>mineral-ceiling-15</code></td><td>矿棉吸音天花板 15mm</td><td>15.75</td></tr>
+    <tr><td>龙骨</td><td><code>t-grid-38</code></td><td>T 型烤漆龙骨 38mm</td><td>36.00</td></tr>
+    <tr><td>龙骨</td><td><code>metal-stud-75</code></td><td>轻钢龙骨 75mm</td><td>30.00</td></tr>
+    <tr><td>硅酸钙</td><td><code>cs-board-8</code></td><td>硅酸钙板 8mm</td><td>33.00</td></tr>
+    <tr><td>硅酸钙</td><td><code>cs-board-12</code></td><td>硅酸钙板 12mm</td><td>55.50</td></tr>
+    <tr><td>户外</td><td><code>wpc-deck-140</code></td><td>WPC 户外地板 140×25mm</td><td>90.00</td></tr>
+    <tr><td>户外</td><td><code>wpc-clad-150</code></td><td>WPC 外墙挂板 150×20mm</td><td>66.00</td></tr>
+    <tr><td>辅材</td><td><code>joint-compound-20</code></td><td>嵌缝石膏 20kg</td><td>48.00</td></tr>
+    <tr><td>辅材</td><td><code>drywall-screw-25</code></td><td>干墙自攻螺钉 25mm (1000颗)</td><td>22.50</td></tr>
+    <tr><td>保温</td><td><code>rockwool-50</code></td><td>岩棉保温板 50mm</td><td>51.00</td></tr>
+    <tr><td>保温</td><td><code>xps-50</code></td><td>XPS 挤塑保温板 50mm</td><td>37.50</td></tr>
+  </table>
+</div>
+
+</div>
+
+</body>
+</html>
