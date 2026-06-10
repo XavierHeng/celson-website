@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>CELSON Admin — 后台管理</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --g: #15803D; --g-dark: #116A32; --g-light: #F0FDF4;
+  --n9: #0F172A; --n7: #374151; --n5: #6B7280; --n4: #9CA3AF; --n3: #D1D5DB; --n2: #E5E7EB; --n1: #F9FAFB;
+  --red: #EF4444; --amber: #F59E0B; --blue: #3B82F6;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Open Sans', sans-serif; background: #F8FAFC; color: var(--n9); min-height: 100vh; }
+button { cursor: pointer; font-family: inherit; }
+
+/* ===== LOGIN ===== */
+.login-page { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #0F172A 0%, #1E3A5F 100%); }
+.login-card { background: #fff; border-radius: 20px; padding: 48px 40px; width: 400px; max-width: 90vw; box-shadow: 0 25px 60px rgba(0,0,0,0.3); }
+.login-card .logo { text-align: center; margin-bottom: 32px; }
+.login-card .logo svg { width: 60px; height: 60px; }
+.login-card h1 { font-family: 'Poppins', sans-serif; font-size: 24px; font-weight: 700; text-align: center; color: var(--n9); margin-bottom: 4px; }
+.login-card .sub { font-size: 14px; color: var(--n5); text-align: center; margin-bottom: 28px; }
+.login-card .field { margin-bottom: 16px; }
+.login-card label { display: block; font-size: 13px; font-weight: 600; color: var(--n7); margin-bottom: 6px; }
+.login-card input { width: 100%; padding: 12px 16px; border: 1.5px solid var(--n3); border-radius: 10px; font-size: 15px; font-family: inherit; outline: none; transition: border-color 0.2s; }
+.login-card input:focus { border-color: var(--g); box-shadow: 0 0 0 3px var(--g-light); }
+.login-card .btn-login { width: 100%; padding: 13px; border-radius: 10px; border: none; background: var(--g); color: #fff; font-size: 15px; font-weight: 600; margin-top: 8px; transition: background 0.2s; }
+.login-card .btn-login:hover { background: var(--g-dark); }
+.login-card .err { color: var(--red); font-size: 13px; text-align: center; margin-top: 12px; display: none; }
+.login-card .err.show { display: block; }
+
+/* ===== DASHBOARD ===== */
+.dash { max-width: 1300px; margin: 0 auto; padding: 0 24px 60px; }
+.topbar { display: flex; align-items: center; justify-content: space-between; padding: 20px 0; border-bottom: 1px solid var(--n2); margin-bottom: 28px; }
+.topbar .brand { display: flex; align-items: center; gap: 12px; }
+.topbar .brand h2 { font-family: 'Poppins', sans-serif; font-size: 22px; font-weight: 700; }
+.topbar .brand span { font-size: 13px; color: var(--n5); background: var(--n1); padding: 4px 10px; border-radius: 6px; }
+.topbar .actions { display: flex; gap: 10px; align-items: center; }
+
+/* buttons */
+.btn { padding: 10px 20px; border-radius: 10px; font-size: 14px; font-weight: 600; border: none; transition: all 0.2s; display: inline-flex; align-items: center; gap: 6px; }
+.btn-green { background: var(--g); color: #fff; }
+.btn-green:hover { background: var(--g-dark); }
+.btn-outline { background: #fff; color: var(--n7); border: 1.5px solid var(--n3); }
+.btn-outline:hover { border-color: var(--n5); }
+.btn-red { background: #fff; color: var(--red); border: 1.5px solid #FECACA; }
+.btn-red:hover { background: #FEF2F2; }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* settings panel */
+.settings-bar { background: #fff; border: 1px solid var(--n2); border-radius: 14px; padding: 16px 20px; margin-bottom: 24px; display: flex; gap: 24px; align-items: center; flex-wrap: wrap; }
+.settings-bar .item { display: flex; align-items: center; gap: 8px; font-size: 14px; }
+.settings-bar label { font-weight: 600; color: var(--n7); white-space: nowrap; }
+.settings-bar input[type="number"] { width: 80px; padding: 7px 10px; border: 1.5px solid var(--n3); border-radius: 8px; font-size: 14px; font-weight: 600; text-align: center; font-family: inherit; outline: none; }
+.settings-bar input[type="number"]:focus { border-color: var(--g); }
+.settings-bar .sep { color: var(--n4); font-size: 13px; }
+.settings-bar .status-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+.settings-bar .status-dot.ok { background: #22C55E; }
+.settings-bar .status-dot.err { background: var(--red); }
+.settings-bar .status-dot.warn { background: var(--amber); }
+
+/* product grid */
+.prod-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(370px, 1fr)); gap: 16px; }
+.prod-card { background: #fff; border: 1px solid var(--n2); border-radius: 14px; overflow: hidden; transition: box-shadow 0.2s; }
+.prod-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+.prod-card.dirty { border-color: var(--amber); }
+.prod-card .head { display: flex; align-items: center; gap: 10px; padding: 14px 16px; border-bottom: 1px solid var(--n1); }
+.prod-card .head .cat-tag { font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 4px; background: var(--g-light); color: var(--g); text-transform: uppercase; }
+.prod-card .head .sku { font-size: 12px; color: var(--n4); font-family: monospace; }
+.prod-card .name { font-size: 14px; font-weight: 600; color: var(--n9); padding: 12px 16px 0; line-height: 1.4; }
+.prod-card .body { display: flex; padding: 12px 16px 16px; gap: 16px; }
+.prod-card .img-area { width: 100px; height: 100px; border-radius: 10px; overflow: hidden; flex-shrink: 0; background: var(--n1); position: relative; border: 1px dashed var(--n3); display: flex; align-items: center; justify-content: center; }
+.prod-card .img-area img { width: 100%; height: 100%; object-fit: cover; }
+.prod-card .img-area .upload-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.2s; cursor: pointer; }
+.prod-card .img-area:hover .upload-overlay { opacity: 1; }
+.prod-card .img-area .upload-overlay span { color: #fff; font-size: 12px; font-weight: 600; }
+.prod-card .fields { flex: 1; display: flex; flex-direction: column; gap: 8px; }
+.prod-card .fields .row { display: flex; align-items: center; gap: 8px; }
+.prod-card .fields label { font-size: 12px; font-weight: 600; color: var(--n5); width: 40px; text-align: right; }
+.prod-card .fields input[type="number"] { flex: 1; padding: 8px 10px; border: 1.5px solid var(--n3); border-radius: 8px; font-size: 14px; font-weight: 600; text-align: right; font-family: inherit; outline: none; transition: border-color 0.2s; }
+.prod-card .fields input[type="number"]:focus { border-color: var(--g); }
+.prod-card .fields input[type="number"].changed { border-color: var(--amber); background: #FFFBEB; }
+.prod-card .fields .usd-preview { font-size: 13px; color: var(--g); font-weight: 600; white-space: nowrap; min-width: 60px; }
+.prod-card .img-changed { position: absolute; top: 4px; right: 4px; width: 8px; height: 8px; border-radius: 50%; background: var(--amber); display: none; }
+.prod-card.dirty .img-changed { display: block; }
+
+/* status bar */
+.status-bar { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; border-top: 1px solid var(--n2); padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; z-index: 100; }
+.status-bar .info { font-size: 13px; color: var(--n5); }
+.status-bar .info strong { color: var(--n9); }
+
+/* modal */
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 1000; }
+.modal-box { background: #fff; border-radius: 16px; padding: 32px; width: 500px; max-width: 90vw; box-shadow: 0 20px 50px rgba(0,0,0,0.2); }
+.modal-box h3 { font-family: 'Poppins', sans-serif; font-size: 20px; margin-bottom: 16px; }
+.modal-box p { font-size: 14px; color: var(--n5); line-height: 1.6; margin-bottom: 20px; }
+.modal-box code { background: var(--n1); padding: 2px 6px; border-radius: 4px; font-size: 13px; color: var(--g-dark); }
+.modal-box .btns { display: flex; gap: 10px; justify-content: flex-end; }
+
+/* toast */
+.toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); padding: 14px 24px; border-radius: 12px; font-size: 14px; font-weight: 600; z-index: 2000; animation: slideDown 0.3s; box-shadow: 0 8px 30px rgba(0,0,0,0.15); }
+.toast.success { background: #065F46; color: #fff; }
+.toast.error { background: #991B1B; color: #fff; }
+.toast.info { background: #1E40AF; color: #fff; }
+@keyframes slideDown { from { opacity: 0; transform: translateX(-50%) translateY(-20px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+
+/* deploy status inline */
+.deploy-link { color: var(--blue); text-decoration: underline; font-size: 13px; }
+.deploy-link:hover { color: #1D4ED8; }
+
+/* spinner */
+.spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin 0.6s linear infinite; vertical-align: middle; margin-right: 6px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* responsive */
+@media (max-width: 768px) {
+  .prod-grid { grid-template-columns: 1fr; }
+  .topbar { flex-direction: column; gap: 12px; align-items: flex-start; }
+  .settings-bar { flex-direction: column; gap: 12px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ==================== STEP 1: LOGIN ==================== -->
+<div id="loginWrap" class="login-page">
+  <div class="login-card">
+    <div class="logo">
+      <svg viewBox="0 0 100 100"><circle cx="50" cy="28" r="18" fill="#15803D"/><rect x="36" y="44" width="28" height="4" rx="2" fill="#15803D"/><rect x="40" y="52" width="20" height="3" rx="1.5" fill="#15803D"/><rect x="30" y="62" width="40" height="30" rx="5" fill="#0F172A"/><circle cx="50" cy="77" r="10" fill="#F0FDF4"/></svg>
+    </div>
+    <h1>CELSON Admin</h1>
+    <p class="sub">后台管理中心 · 改价换图</p>
+    <form id="loginForm">
+      <div class="field"><label>用户名</label><input type="text" id="lu" required placeholder="输入用户名" autocomplete="username"></div>
+      <div class="field"><label>密码</label><input type="password" id="lp" required placeholder="输入密码" autocomplete="current-password"></div>
+      <button type="submit" class="btn-login">🔓 登录</button>
+      <div class="err" id="loginErr"></div>
+    </form>
+  </div>
+</div>
+
+<!-- ==================== STEP 2-3: DASHBOARD ==================== -->
+<div id="dashWrap" style="display:none;">
+  <div class="dash" style="padding-top:20px;">
+
+    <!-- topbar -->
+    <div class="topbar">
+      <div class="brand">
+        <h2>🔧 CELSON 后台管理</h2>
+        <span id="ghStatus">未连接GitHub</span>
+      </div>
+      <div class="actions">
+        <button class="btn btn-outline" onclick="openTokenSetup()" id="btnToken">⚙️ GitHub设置</button>
+        <button class="btn btn-red" onclick="doLogout()">退出</button>
+      </div>
+    </div>
+
+    <!-- settings bar -->
+    <div class="settings-bar">
+      <div class="item"><label>汇率：</label>1 USD = <input type="number" id="rateInput" value="7.10" step="0.01" min="1" onchange="onRateChange()"> CNY</div>
+      <span class="sep">|</span>
+      <div class="item"><span>改动：<strong id="changeCount">0</strong> 项</span></div>
+      <span class="sep">|</span>
+      <div class="item"><span id="lastDeploy">上次部署：未知</span></div>
+    </div>
+
+    <!-- product cards -->
+    <div class="prod-grid" id="prodGrid"></div>
+
+  </div>
+
+  <!-- fixed bottom bar -->
+  <div class="status-bar" id="statusBar">
+    <div class="info">共 <strong>20</strong> 个产品 · <strong id="dirtyCount">0</strong> 项待发布</div>
+    <button class="btn btn-green" id="btnPublish" onclick="publishAll()" disabled>📤 发布到网站</button>
+  </div>
+</div>
+
+<!-- ==================== MODAL: Token Setup ==================== -->
+<div id="tokenModal" class="modal-overlay" style="display:none;">
+  <div class="modal-box">
+    <h3>⚙️ 连接 GitHub</h3>
+    <p>需要一个 GitHub Personal Access Token 才能自动保存。</p>
+    <p style="font-size:13px;color:var(--n5);">
+      1. 打开 <a href="https://github.com/settings/tokens?type=beta" target="_blank" style="color:var(--blue);">github.com/settings/tokens</a><br>
+      2. 点 <strong>"Generate new token"</strong> → 选 <strong>Fine-grained token</strong><br>
+      3. Repository access: <strong>Only select repositories</strong> → 选 <code>XavierHeng/celson-website</code><br>
+      4. Permissions → Contents: <strong>Read and write</strong><br>
+      5. 点 Generate → 复制 Token 粘贴到下面<br>
+    </p>
+    <input type="password" id="tokenInput" placeholder="github_pat_xxxx..." style="width:100%;padding:12px;border:1.5px solid var(--n3);border-radius:10px;font-size:14px;font-family:monospace;margin-bottom:16px;outline:none;">
+    <div class="btns">
+      <button class="btn btn-outline" onclick="closeTokenSetup()">取消</button>
+      <button class="btn btn-green" onclick="saveToken()">💾 保存</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+//  CONFIG
+// ============================================================
+var ADMIN_USER = 'Celsonbetty';
+var ADMIN_PASS = '86880707';
+var REPO_OWNER = 'XavierHeng';
+var REPO_NAME = 'celson-website';
+var BRANCH = 'main';
+var PRICES_PATH = 'js/prices.js';
+
+var products = [
+  { id:'gyp-std-12', cat:'Gypsum Boards', name:'Standard Gypsum Board 12mm', unit:'/m²', thumb:'assets/shop/shop-gyp-std-12.webp' },
+  { id:'gyp-mr-12', cat:'Gypsum Boards', name:'Moisture-Resistant Gypsum Board 12mm', unit:'/m²', thumb:'assets/shop/shop-gyp-mr-12.webp' },
+  { id:'gyp-fr-12', cat:'Gypsum Boards', name:'Fire-Rated Gypsum Board 12mm', unit:'/m²', thumb:'assets/shop/shop-gyp-fr-12.webp' },
+  { id:'ply-18', cat:'Sheet Boards', name:'Commercial Plywood 18mm', unit:'/sheet', thumb:'assets/shop/shop-ply-18.webp' },
+  { id:'mdf-18', cat:'Sheet Boards', name:'MDF Board 18mm — E1 Grade', unit:'/sheet', thumb:'assets/shop/shop-mdf-18.webp' },
+  { id:'osb-15', cat:'Sheet Boards', name:'OSB Board 15mm — Structural', unit:'/sheet', thumb:'assets/shop/shop-osb-15.webp' },
+  { id:'wpc-wall-8', cat:'Wall Panels', name:'WPC Wall Panel 8mm — Wood Grain', unit:'/m²', thumb:'assets/shop/shop-wpc-wall-8.webp' },
+  { id:'uv-marble-8', cat:'Wall Panels', name:'UV Marble Wall Panel 8mm', unit:'/m²', thumb:'assets/shop/shop-uv-marble-8.webp' },
+  { id:'pvc-ceiling-7', cat:'Wall Panels', name:'PVC Wall Panel 7mm — Solid Color', unit:'/m²', thumb:'assets/shop/shop-pvc-ceiling-7.webp' },
+  { id:'mineral-ceiling-15', cat:'Ceiling & Framing', name:'Mineral Fiber Ceiling Tile 15mm', unit:'/pc', thumb:'assets/shop/shop-mineral-ceiling-15.webp' },
+  { id:'t-grid-38', cat:'Ceiling & Framing', name:'T-Grid Main Tee 38mm — Galvanized', unit:'/pc', thumb:'assets/shop/shop-t-grid-38.webp' },
+  { id:'metal-stud-75', cat:'Ceiling & Framing', name:'Metal Stud 75mm — Galvanized Steel', unit:'/pc', thumb:'assets/shop/shop-metal-stud-75.webp' },
+  { id:'cs-board-8', cat:'Calcium Silicate', name:'Calcium Silicate Board 8mm', unit:'/sheet', thumb:'assets/shop/shop-cs-board-8.webp' },
+  { id:'cs-board-12', cat:'Calcium Silicate', name:'Calcium Silicate Board 12mm — HD', unit:'/sheet', thumb:'assets/shop/shop-cs-board-12.webp' },
+  { id:'wpc-deck-140', cat:'Outdoor & Decking', name:'WPC Decking 140mm — Solid', unit:'/m²', thumb:'assets/shop/shop-wpc-deck-140.webp' },
+  { id:'wpc-clad-150', cat:'Outdoor & Decking', name:'WPC Cladding 150mm — Hollow', unit:'/m²', thumb:'assets/shop/shop-wpc-clad-150.webp' },
+  { id:'joint-compound-20', cat:'Accessories', name:'Joint Compound 20kg — Ready-Mix', unit:'/pc', thumb:'assets/shop/shop-joint-compound-20.webp' },
+  { id:'drywall-screw-25', cat:'Accessories', name:'Drywall Screw 25mm — Phosphated', unit:'/box', thumb:'assets/shop/shop-drywall-screw-25.webp' },
+  { id:'rockwool-50', cat:'Insulation', name:'Rock Wool Board 50mm — 120kg/m³', unit:'/m²', thumb:'assets/shop/shop-rockwool-50.webp' },
+  { id:'xps-50', cat:'Insulation', name:'XPS Board 50mm — 35kg/m³', unit:'/m²', thumb:'assets/shop/shop-xps-50.webp' }
+];
+
+// ============================================================
+//  STATE
+// ============================================================
+var prices = {};           // { id: rmb_price }
+var origPrices = {};      // original for dirty check
+var exchangeRate = 7.10;
+var origRate = 7.10;
+var newImages = {};       // { id: base64DataUrl }
+var ghToken = '';
+var pricesSha = '';       // blob SHA for prices.js
+
+// ============================================================
+//  INIT
+// ============================================================
+(function() {
+  // auth check
+  if (sessionStorage.getItem('celson_admin_auth') === '1') {
+    showDashboard();
+  }
+})();
+
+// ============================================================
+//  LOGIN
+// ============================================================
+document.getElementById('loginForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  var u = document.getElementById('lu').value.trim();
+  var p = document.getElementById('lp').value.trim();
+  if (u === ADMIN_USER && p === ADMIN_PASS) {
+    sessionStorage.setItem('celson_admin_auth', '1');
+    showDashboard();
+  } else {
+    var err = document.getElementById('loginErr');
+    err.textContent = '❌ 用户名或密码错误';
+    err.className = 'err show';
+  }
+});
+
+function doLogout() {
+  sessionStorage.removeItem('celson_admin_auth');
+  location.reload();
+}
+
+// ============================================================
+//  DASHBOARD
+// ============================================================
+function showDashboard() {
+  document.getElementById('loginWrap').style.display = 'none';
+  document.getElementById('dashWrap').style.display = 'block';
+
+  // load token
+  ghToken = localStorage.getItem('celson_gh_token') || '';
+  updateGhStatus();
+
+  // load saved prices
+  loadLocalPrices();
+
+  // init defaults from local (we'll fetch from GitHub if token is set)
+  initDefaultPrices();
+  renderAll();
+
+  // try to fetch current prices from GitHub
+  if (ghToken) fetchPricesFromGitHub();
+}
+
+function initDefaultPrices() {
+  var defaults = {
+    'gyp-std-12':12.75,'gyp-mr-12':18,'gyp-fr-12':22.5,'ply-18':132,'mdf-18':105,
+    'osb-15':87,'wpc-wall-8':52.5,'uv-marble-8':72,'pvc-ceiling-7':33,'mineral-ceiling-15':15.75,
+    't-grid-38':36,'metal-stud-75':30,'cs-board-8':33,'cs-board-12':55.5,'wpc-deck-140':90,
+    'wpc-clad-150':66,'joint-compound-20':48,'drywall-screw-25':22.5,'rockwool-50':51,'xps-50':37.5
+  };
+  for (var i = 0; i < products.length; i++) {
+    var id = products[i].id;
+    if (typeof prices[id] === 'undefined') prices[id] = defaults[id] || 0;
+  }
+  // save a copy for dirty check
+  origPrices = JSON.parse(JSON.stringify(prices));
+  origRate = exchangeRate;
+}
+
+function loadLocalPrices() {
+  var saved = localStorage.getItem('celson_local_prices');
+  if (saved) {
+    try {
+      var d = JSON.parse(saved);
+      for (var k in d) { if (d.hasOwnProperty(k)) prices[k] = d[k]; }
+    } catch(e) {}
+  }
+  var rateSaved = localStorage.getItem('celson_local_rate');
+  if (rateSaved) exchangeRate = parseFloat(rateSaved) || 7.10;
+}
+
+function saveLocalPrices() {
+  localStorage.setItem('celson_local_prices', JSON.stringify(prices));
+  localStorage.setItem('celson_local_rate', exchangeRate.toString());
+}
+
+// ============================================================
+//  RENDER
+// ============================================================
+function renderAll() {
+  document.getElementById('rateInput').value = exchangeRate.toFixed(2);
+  renderProductCards();
+  updateChangeCount();
+}
+
+function renderProductCards() {
+  var grid = document.getElementById('prodGrid');
+  var html = '';
+  for (var i = 0; i < products.length; i++) {
+    var p = products[i];
+    var rmb = prices[p.id] || 0;
+    var usd = rmb / exchangeRate;
+    var priceChanged = origPrices[p.id] !== prices[p.id];
+    var imgChanged = !!newImages[p.id];
+    var dirty = priceChanged || imgChanged;
+
+    html += '<div class="prod-card' + (dirty ? ' dirty' : '') + '" id="card-' + p.id + '">';
+    html += '<div class="head"><span class="cat-tag">' + p.cat + '</span><span class="sku">' + p.id + '</span></div>';
+    html += '<div class="name">' + p.name + '</div>';
+    html += '<div class="body">';
+
+    // image
+    html += '<div class="img-area">';
+    var imgSrc = newImages[p.id] || p.thumb;
+    html += '<img src="' + imgSrc + '" alt="' + p.name + '" id="img-' + p.id + '" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">';
+    html += '<span style="display:none;font-size:12px;color:var(--n4);position:absolute;text-align:center;">暂无图片</span>';
+    html += '<div class="upload-overlay" onclick="document.getElementById(\'file-' + p.id + '\').click()"><span>📷 换图</span></div>';
+    html += '<input type="file" id="file-' + p.id + '" accept="image/*" style="display:none" onchange="handleImageUpload(this, \'' + p.id + '\')">';
+    html += '<div class="img-changed"></div>';
+    html += '</div>';
+
+    // prices
+    html += '<div class="fields">';
+    html += '<div class="row"><label>¥ RMB</label>';
+    html += '<input type="number" id="rmb-' + p.id + '" value="' + rmb.toFixed(2) + '" step="0.01" min="0" class="' + (priceChanged ? 'changed' : '') + '" onchange="onPriceChange(\'' + p.id + '\')">';
+    html += '</div>';
+    html += '<div class="row"><label>$ USD</label>';
+    html += '<span class="usd-preview" id="usd-' + p.id + '">$' + usd.toFixed(2) + '</span>';
+    html += '<span style="font-size:11px;color:var(--n4);">' + p.unit + '</span>';
+    html += '</div>';
+    html += '</div>';
+
+    html += '</div></div>';
+  }
+  grid.innerHTML = html;
+}
+
+function onPriceChange(id) {
+  var el = document.getElementById('rmb-' + id);
+  var val = parseFloat(el.value);
+  if (isNaN(val) || val < 0) {
+    el.value = (prices[id] || 0).toFixed(2);
+    return;
+  }
+  prices[id] = val;
+  saveLocalPrices();
+
+  // update USD preview
+  var usd = val / exchangeRate;
+  var usdEl = document.getElementById('usd-' + id);
+  if (usdEl) usdEl.textContent = '$' + usd.toFixed(2);
+
+  // update visual
+  el.className = (val !== origPrices[id]) ? 'changed' : '';
+  updateCardDirty(id);
+  updateChangeCount();
+}
+
+function onRateChange() {
+  var el = document.getElementById('rateInput');
+  var val = parseFloat(el.value);
+  if (isNaN(val) || val <= 0) {
+    el.value = exchangeRate.toFixed(2);
+    return;
+  }
+  exchangeRate = val;
+  localStorage.setItem('celson_local_rate', val.toString());
+
+  // update all USD previews
+  for (var i = 0; i < products.length; i++) {
+    var id = products[i].id;
+    var usd = (prices[id] || 0) / exchangeRate;
+    var usdEl = document.getElementById('usd-' + id);
+    if (usdEl) usdEl.textContent = '$' + usd.toFixed(2);
+  }
+  updateChangeCount();
+}
+
+function handleImageUpload(input, id) {
+  if (!input.files || !input.files[0]) return;
+  var file = input.files[0];
+  // preview
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    newImages[id] = e.target.result;
+    var imgEl = document.getElementById('img-' + id);
+    if (imgEl) {
+      imgEl.src = e.target.result;
+      imgEl.style.display = '';
+      if (imgEl.nextElementSibling) imgEl.nextElementSibling.style.display = 'none';
+    }
+    updateCardDirty(id);
+    updateChangeCount();
+  };
+  reader.readAsDataURL(file);
+}
+
+function updateCardDirty(id) {
+  var card = document.getElementById('card-' + id);
+  if (!card) return;
+  var priceChanged = origPrices[id] !== prices[id];
+  var imgChanged = !!newImages[id];
+  if (priceChanged || imgChanged) {
+    card.classList.add('dirty');
+  } else {
+    card.classList.remove('dirty');
+  }
+
+  // rmb input
+  var rmbEl = document.getElementById('rmb-' + id);
+  if (rmbEl) rmbEl.className = priceChanged ? 'changed' : '';
+}
+
+function updateChangeCount() {
+  var count = 0;
+  for (var i = 0; i < products.length; i++) {
+    var id = products[i].id;
+    if (origPrices[id] !== prices[id]) count++;
+    if (newImages[id]) count++;
+  }
+  if (origRate !== exchangeRate) count++;
+
+  document.getElementById('changeCount').textContent = count;
+  document.getElementById('dirtyCount').textContent = count;
+  var btn = document.getElementById('btnPublish');
+  btn.disabled = (count === 0 || !ghToken);
+  btn.textContent = (count === 0 && ghToken) ? '✅ 无需发布' : (ghToken ? '📤 发布到网站 (' + count + '项)' : '📤 发布到网站（需先连接GitHub）');
+}
+
+// ============================================================
+//  GITHUB API
+// ============================================================
+function ghApi(path, method, body) {
+  method = method || 'GET';
+  var opts = {
+    method: method,
+    headers: {
+      'Authorization': 'Bearer ' + ghToken,
+      'Accept': 'application/vnd.github+json',
+      'X-GitHub-Api-Version': '2022-11-28'
+    }
+  };
+  if (body) {
+    opts.headers['Content-Type'] = 'application/json';
+    opts.body = JSON.stringify(body);
+  }
+  return fetch('https://api.github.com/repos/' + REPO_OWNER + '/' + REPO_NAME + '/' + path, opts)
+    .then(function(r) {
+      if (!r.ok) return r.json().then(function(e) { throw new Error(e.message || 'API error ' + r.status); });
+      return r.json();
+    });
+}
+
+function fetchPricesFromGitHub() {
+  if (!ghToken) return;
+  ghApi('contents/' + PRICES_PATH)
+    .then(function(data) {
+      pricesSha = data.sha;
+      var content = atob(data.content.replace(/\s/g, ''));
+      // parse PRICES_RMB from js file
+      var match = content.match(/var PRICES_RMB\s*=\s*\{([^}]+)\}/);
+      if (match) {
+        var objStr = '{' + match[1] + '}';
+        // convert to valid JSON-like string
+        try {
+          var obj = (new Function('return ' + objStr))();
+          for (var k in obj) { if (obj.hasOwnProperty(k)) prices[k] = obj[k]; }
+          origPrices = JSON.parse(JSON.stringify(prices));
+          saveLocalPrices();
+          renderAll();
+          updateGhStatus(true);
+          toast('✅ 已从GitHub同步最新价格', 'success');
+        } catch(e) {
+          updateGhStatus(true);
+          toast('⚠️ 价格解析部分成功，使用本地缓存', 'info');
+        }
+      }
+      // also parse exchange rate
+      var rateMatch = content.match(/exchangeRate:\s*([\d.]+)/);
+      if (rateMatch) {
+        exchangeRate = parseFloat(rateMatch[1]) || 7.10;
+        origRate = exchangeRate;
+        document.getElementById('rateInput').value = exchangeRate.toFixed(2);
+      }
+    })
+    .catch(function(err) {
+      console.error(err);
+      updateGhStatus(false);
+      toast('⚠️ 无法连接GitHub，请检查Token', 'error');
+    });
+}
+
+// ============================================================
+//  PUBLISH
+// ============================================================
+function publishAll() {
+  if (!ghToken) { toast('请先连接GitHub', 'error'); openTokenSetup(); return; }
+
+  var btn = document.getElementById('btnPublish');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> 发布中...';
+
+  var tasks = [];
+
+  // 1. Update prices.js
+  if (hasPriceChanges()) {
+    tasks.push(updatePricesFile());
+  }
+
+  // 2. Upload images
+  for (var i = 0; i < products.length; i++) {
+    var id = products[i].id;
+    if (newImages[id]) {
+      tasks.push(uploadImage(id, newImages[id], products[i].thumb));
+    }
+  }
+
+  Promise.all(tasks)
+    .then(function(results) {
+      var changes = results.filter(function(r) { return r; });
+      if (changes.length > 0) {
+        toast('✅ 发布成功！共更新 ' + changes.length + ' 项，1-2分钟后网站生效', 'success');
+        // mark all as synced
+        origPrices = JSON.parse(JSON.stringify(prices));
+        origRate = exchangeRate;
+        newImages = {};
+        renderAll();
+        updateGhStatus(true);
+        // fetch deploy status
+        setTimeout(checkDeployStatus, 3000);
+      } else {
+        toast('没有需要更新的内容', 'info');
+      }
+    })
+    .catch(function(err) {
+      toast('❌ 发布失败：' + err.message, 'error');
+    })
+    .finally(function() {
+      btn.disabled = false;
+      updateChangeCount();
+    });
+}
+
+function hasPriceChanges() {
+  if (origRate !== exchangeRate) return true;
+  for (var i = 0; i < products.length; i++) {
+    if (origPrices[products[i].id] !== prices[products[i].id]) return true;
+  }
+  return false;
+}
+
+function buildPricesJs() {
+  var lines = [];
+  lines.push('/**\n * CELSON Shop — Price Configuration\n * Auto-generated by admin panel\n */\n');
+  lines.push('var CELSON_CONFIG = {');
+  lines.push('  adminUser: \'' + ADMIN_USER + '\',');
+  lines.push('  adminPass: \'' + ADMIN_PASS + '\',');
+  lines.push('  exchangeRate: ' + exchangeRate);
+  lines.push('};\n');
+  lines.push('var PRICES_RMB = {');
+  for (var i = 0; i < products.length; i++) {
+    var id = products[i].id;
+    var comma = (i < products.length - 1) ? ',' : '';
+    lines.push('  \'' + id + '\': ' + (prices[id] || 0).toFixed(2) + comma);
+  }
+  lines.push('};');
+  return lines.join('\n') + '\n';
+}
+
+function updatePricesFile() {
+  var content = buildPricesJs();
+  var body = {
+    message: 'Admin: update prices (rate=' + exchangeRate + ')',
+    content: btoa(unescape(encodeURIComponent(content))),
+    branch: BRANCH
+  };
+  if (pricesSha) body.sha = pricesSha;
+
+  return ghApi('contents/' + PRICES_PATH, 'PUT', body)
+    .then(function(data) {
+      pricesSha = data.content.sha;
+      return true;
+    });
+}
+
+function uploadImage(id, dataUrl, targetPath) {
+  // Convert data URL to base64
+  var base64 = dataUrl.split(',')[1];
+  // Determine file extension from data URL
+  var mime = dataUrl.split(';')[0].split(':')[1];
+  var ext = mime === 'image/png' ? '.png' : (mime === 'image/webp' ? '.webp' : '.jpg');
+
+  var body = {
+    message: 'Admin: update image for ' + id,
+    content: base64,
+    branch: BRANCH
+  };
+
+  // Try to get current SHA
+  return ghApi('contents/' + targetPath, 'GET')
+    .then(function(data) {
+      body.sha = data.sha;
+      return ghApi('contents/' + targetPath, 'PUT', body);
+    })
+    .catch(function() {
+      // File doesn't exist yet, create it
+      return ghApi('contents/' + targetPath, 'PUT', body);
+    })
+    .then(function() {
+      return true;
+    });
+}
+
+// ============================================================
+//  DEPLOY STATUS
+// ============================================================
+function checkDeployStatus() {
+  if (!ghToken) return;
+  ghApi('actions/runs?per_page=1&branch=' + BRANCH)
+    .then(function(data) {
+      if (data.workflow_runs && data.workflow_runs.length > 0) {
+        var run = data.workflow_runs[0];
+        var status = run.status === 'completed' ? (run.conclusion === 'success' ? '✅ 部署成功' : '❌ 部署失败') : '🔄 部署中...';
+        document.getElementById('lastDeploy').innerHTML = '部署状态：<a href="' + run.html_url + '" target="_blank" class="deploy-link">' + status + '</a>';
+      }
+    })
+    .catch(function() {});
+}
+
+// ============================================================
+//  TOKEN SETUP
+// ============================================================
+function openTokenSetup() {
+  document.getElementById('tokenModal').style.display = 'flex';
+  document.getElementById('tokenInput').value = ghToken || '';
+}
+
+function closeTokenSetup() {
+  document.getElementById('tokenModal').style.display = 'none';
+}
+
+function saveToken() {
+  var token = document.getElementById('tokenInput').value.trim();
+  if (!token) { toast('请输入Token', 'error'); return; }
+  ghToken = token;
+  localStorage.setItem('celson_gh_token', token);
+  closeTokenSetup();
+  updateGhStatus(true);
+  toast('✅ GitHub已连接，正在同步数据...', 'success');
+  fetchPricesFromGitHub();
+  updateChangeCount();
+}
+
+function updateGhStatus(ok) {
+  var el = document.getElementById('ghStatus');
+  var btn = document.getElementById('btnToken');
+  if (ghToken && ok !== false) {
+    el.innerHTML = '<span class="status-dot ok"></span> GitHub已连接';
+    el.style.color = '#15803D';
+    btn.textContent = '⚙️ GitHub ✅';
+    btn.className = 'btn btn-outline';
+  } else if (ghToken && ok === false) {
+    el.innerHTML = '<span class="status-dot err"></span> GitHub连接失败';
+    el.style.color = '#EF4444';
+    btn.textContent = '⚙️ GitHub ❌';
+    btn.className = 'btn btn-outline';
+  } else {
+    el.innerHTML = '<span class="status-dot warn"></span> 未连接GitHub';
+    el.style.color = '#F59E0B';
+    btn.textContent = '⚙️ 连接GitHub';
+    btn.className = 'btn btn-outline';
+  }
+}
+
+// ============================================================
+//  TOAST
+// ============================================================
+function toast(msg, type) {
+  var existing = document.querySelector('.toast');
+  if (existing) existing.remove();
+  var el = document.createElement('div');
+  el.className = 'toast ' + (type || 'info');
+  el.textContent = msg;
+  document.body.appendChild(el);
+  setTimeout(function() { if (el.parentNode) el.remove(); }, 4000);
+}
+</script>
+</body>
+</html>
