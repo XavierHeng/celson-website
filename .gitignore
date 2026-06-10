@@ -21,6 +21,18 @@ website-review-report.html
 # Node modules (if any)
 node_modules/
 
+# Deployment staging directory
+deploy-tmp/
+
+# Wrangler cache/config
+.wrangler/
+
 # IDE
 .vscode/
 .idea/
+
+# Temp AI-generated images (not part of website)
+assets/Professional_*.png
+assets/Professional_*.webp
+assets/Beautiful_*.png
+assets/Beautiful_*.webp

@@ -10,6 +10,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="preload" as="image" href="assets/home-slide-0.webp" fetchpriority="high">
+  <link rel="preload" as="image" href="assets/crown-logo-44.webp" fetchpriority="high">
 </head>
 <body>
 
@@ -17,7 +19,7 @@
 <header class="site-header">
   <div class="container header-inner">
     <a href="index.html" class="header-logo">
-      <img src="assets/crown-logo-44.png" srcset="assets/crown-logo@2x.png 2x" class="logo-icon" alt="CELSON">
+      <img src="assets/crown-logo-44.webp" srcset="assets/crown-logo@2x.webp 2x" class="logo-icon" alt="CELSON" width="44" height="44" fetchpriority="high">
       CELSON
     </a>
     <nav class="header-nav">
@@ -132,7 +134,7 @@
   </div>
       <a href="about.html">About</a>
       <a href="projects.html">Projects</a>
-      <a href="#" class="nav-shop-coming">Shop<span class="coming-soon-badge">Soon</span></a>
+      <a href="shop.html">Shop</a>
       <a href="contact.html">Contact</a>
     </nav>
     <div class="header-actions">
@@ -171,25 +173,25 @@
   <div class="hero-visual hero-carousel">
     <div class="hero-carousel-slides">
       <div class="hero-carousel-slide active">
-        <img src="assets/home-slide-0.png" alt="CELSON factory overview" class="hero-carousel-img">
+        <img src="assets/home-slide-0.webp" alt="CELSON factory overview" class="hero-carousel-img" width="800" height="533" fetchpriority="high">
       </div>
       <div class="hero-carousel-slide">
-        <picture><source srcset="assets/home-slide-1.webp" type="image/webp"><img src="assets/home-slide-1.png"g" alt="Gypsum boards production" class="hero-carousel-img">
+        <img loading="lazy" src="assets/home-slide-1.webp" alt="Gypsum boards production" class="hero-carousel-img" width="800" height="533">
       </div>
       <div class="hero-carousel-slide">
-        <picture><source srcset="assets/home-slide-2.webp" type="image/webp"><img src="assets/home-slide-2.png"g" alt="Sheet boards manufacturing" class="hero-carousel-img">
+        <img loading="lazy" src="assets/home-slide-2.webp" alt="Sheet boards manufacturing" class="hero-carousel-img" width="800" height="533">
       </div>
       <div class="hero-carousel-slide">
-        <picture><source srcset="assets/home-slide-3.webp" type="image/webp"><img src="assets/home-slide-3.png"g" alt="Wall panels display" class="hero-carousel-img">
+        <img loading="lazy" src="assets/home-slide-3.webp" alt="Wall panels display" class="hero-carousel-img" width="800" height="533">
       </div>
       <div class="hero-carousel-slide">
-        <picture><source srcset="assets/home-slide-4.webp" type="image/webp"><img src="assets/home-slide-4.png"g" alt="Ceiling systems showcase" class="hero-carousel-img">
+        <img loading="lazy" src="assets/home-slide-4.webp" alt="Ceiling systems showcase" class="hero-carousel-img" width="800" height="533">
       </div>
       <div class="hero-carousel-slide">
-        <picture><source srcset="assets/home-slide-5.webp" type="image/webp"><img src="assets/home-slide-5.png"g" alt="Outdoor decking application" class="hero-carousel-img">
+        <img loading="lazy" src="assets/home-slide-5.webp" alt="Outdoor decking application" class="hero-carousel-img" width="800" height="533">
       </div>
       <div class="hero-carousel-slide">
-        <picture><source srcset="assets/home-slide-6.webp" type="image/webp"><img src="assets/home-slide-6.png"g" alt="Construction materials warehouse" class="hero-carousel-img">
+        <img loading="lazy" src="assets/home-slide-6.webp" alt="Construction materials warehouse" class="hero-carousel-img" width="800" height="533">
       </div>
     </div>
     <!-- Navigation arrows -->
@@ -289,7 +291,7 @@
   </div>
 </footer>
 
-<script src="js/main.js"></script>
+<script src="js/main.js" defer></script>
 <script>
 (function() {
   var slides = document.querySelectorAll('.hero-carousel-slide');

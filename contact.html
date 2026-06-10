@@ -17,7 +17,7 @@
 <header class="site-header">
   <div class="container header-inner">
     <a href="index.html" class="header-logo">
-      <img src="assets/crown-logo-44.png" srcset="assets/crown-logo@2x.png 2x" class="logo-icon" alt="CELSON">
+      <img src="assets/crown-logo-44.webp" srcset="assets/crown-logo@2x.webp 2x" class="logo-icon" alt="CELSON" width="44" height="44" fetchpriority="high">
       CELSON
     </a>
     <nav class="header-nav">
@@ -132,7 +132,7 @@
   </div>
       <a href="about.html">About</a>
       <a href="projects.html">Projects</a>
-      <a href="#" class="nav-shop-coming">Shop<span class="coming-soon-badge">Soon</span></a>
+      <a href="shop.html">Shop</a>
       <a href="contact.html" class="active">Contact</a>
     </nav>
     <div class="header-actions">
@@ -168,7 +168,7 @@
       <!-- Avatar + Name -->
       <div class="bci-profile">
         <div class="bci-avatar-circle">
-          <img src="assets/betty-avatar-96.png" srcset="assets/betty-avatar@2x.png 2x" alt="Betty's profile photo" loading="lazy">
+          <img src="assets/betty-avatar-96.webp" srcset="assets/betty-avatar@2x.webp 2x" alt="Betty's profile photo" loading="lazy">
         </div>
         <div class="bci-profile-text">
           <div class="bci-name">Betty Liang</div>
@@ -570,7 +570,7 @@
   </div>
 </footer>
 
-<script src="js/main.js"></script>
+<script src="js/main.js" defer></script>
 <script>
   /* ---- Copy to Clipboard ---- */
   function copyToClipboard(text, btn) {
@@ -633,7 +633,7 @@
   /* ---- Form submission via Formspree (no backend) ---- */
   const form = document.querySelector('.contact-form-card form');
   const submitBtn = form.querySelector('.btn-submit');
-  const FORMSPREE_ENDPOINT = 'https://formspree.io/f/CHANGE_ME';
+  const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xdavdror';
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
