@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CELSON 网站操作手册 — 员工版 v2.0</title>
+<title>CELSON 网站操作手册 — 员工版 v3.0</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap');
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -90,7 +90,7 @@
   <svg class="logo-icon" viewBox="0 0 100 100"><circle cx="50" cy="28" r="18" fill="#22C55E"/><rect x="36" y="44" width="28" height="4" rx="2" fill="#22C55E"/><rect x="40" y="52" width="20" height="3" rx="1.5" fill="#22C55E"/><rect x="30" y="62" width="40" height="30" rx="5" fill="#fff"/><circle cx="50" cy="77" r="10" fill="#15803D"/></svg>
   <h1>CELSON 网站操作手册</h1>
   <h2>可视化后台管理完整指南</h2>
-  <div class="meta">建信建材 · 2026年6月 · v2.0 <span class="tag tag-new" style="font-size:10px;margin-left:8px;vertical-align:middle">新增6大功能</span></div>
+  <div class="meta">建信建材 · 2026年6月 · v3.0 <span class="tag tag-new" style="font-size:10px;margin-left:8px;vertical-align:middle">安全升级</span></div>
 </div>
 
 <div class="wrapper">
@@ -140,6 +140,21 @@
       <div class="feat-title">撤销改动</div>
       <div class="feat-desc">一键回滚所有未发布的改动，恢复原始状态</div>
     </div>
+    <div class="feat-card">
+      <div class="feat-emoji">🔐</div>
+      <div class="feat-title">删除保护 <span class="tag tag-new">NEW</span></div>
+      <div class="feat-desc">一天删除 ≥3 个产品需管理员密码验证，防误删</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-emoji">📧</div>
+      <div class="feat-title">邮件告警 <span class="tag tag-new">NEW</span></div>
+      <div class="feat-desc">大量删除时自动发邮件到 Xavier 邮箱</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-emoji">📜</div>
+      <div class="feat-title">版本回滚 <span class="tag tag-new">NEW</span></div>
+      <div class="feat-desc">GitHub 历史版本一键恢复，数据永不丢失</div>
+    </div>
   </div>
 </div>
 
@@ -158,13 +173,30 @@
       <td><span class="tag tag-green">电脑</span> <span class="tag tag-blue">手机</span> <span class="tag tag-blue">平板</span> 任何浏览器均可</td>
     </tr>
     <tr>
-      <td>登录用户名</td>
-      <td><code>Celsonbetty</code></td>
+      <td>员工账号</td>
+      <td>用户名 <code>Celsonbetty</code> · 密码 <code>86880707</code> <span class="tag tag-amber">员工</span></td>
     </tr>
     <tr>
-      <td>登录密码</td>
-      <td><code>86880707</code></td>
+      <td>管理员账号</td>
+      <td>用户名 <code>Celsonxavier</code> · 密码 <code>695904KL@</code> <span class="tag tag-red">老板</span></td>
     </tr>
+  </table>
+
+  <div class="tip-box warn">
+    <span class="bulb">⚠️</span>
+    <span><strong>管理员账号（Celsonxavier）仅限 Xavier 本人使用。</strong><br>
+    员工请使用 Celsonbetty 账号。两个账号权限不同，详见下方说明。</span>
+  </div>
+
+  <div class="sub-header">1.1.2 账号权限说明</div>
+  <table>
+    <tr><th>功能</th><th>员工 (Celsonbetty)</th><th>老板 (Celsonxavier)</th></tr>
+    <tr><td>修改价格</td><td><span class="tag tag-green">✅</span></td><td><span class="tag tag-green">✅</span></td></tr>
+    <tr><td>修改产品信息</td><td><span class="tag tag-green">✅</span></td><td><span class="tag tag-green">✅</span></td></tr>
+    <tr><td>添加新产品</td><td><span class="tag tag-green">✅</span></td><td><span class="tag tag-green">✅</span></td></tr>
+    <tr><td>删除 1-2 个产品/天</td><td><span class="tag tag-green">✅ 可直接操作</span></td><td><span class="tag tag-green">✅</span></td></tr>
+    <tr><td>删除 ≥3 个产品/天</td><td><span class="tag tag-red">❌ 需管理员密码</span></td><td><span class="tag tag-green">✅ 不受限制</span></td></tr>
+    <tr><td>版本回滚</td><td><span class="tag tag-green">✅</span></td><td><span class="tag tag-green">✅</span></td></tr>
   </table>
 
   <div class="tip-box">
@@ -420,9 +452,21 @@
     </tr>
   </table>
 
+  <div class="sub-header">3.3.1 ⚠️ 删除保护机制 <span class="tag tag-new">NEW</span></div>
+  <div class="tip-box warn">
+    <span class="bulb">🔐</span>
+    <span><strong>每天删除前 2 个产品无需审批。</strong>从第 3 个开始，系统会要求输入管理员（Celsonxavier）密码才能继续删除。<br><br>
+    这是为了防止误操作导致大量产品被意外清空。</span>
+  </div>
+  <table>
+    <tr><th>当日删除数</th><th>员工 (Celsonbetty)</th><th>老板 (Celsonxavier)</th></tr>
+    <tr><td>第 1-2 个</td><td><span class="tag tag-green">可直接删除</span></td><td><span class="tag tag-green">可直接删除</span></td></tr>
+    <tr><td>第 3 个起</td><td><span class="tag tag-red">需输入管理员密码</span></td><td><span class="tag tag-green">可直接删除</span></td></tr>
+  </table>
+
   <div class="tip-box warn">
     <span class="bulb">⚠️</span>
-    <span><strong>建议先用「隐藏」而非「删除」。</strong> 隐藏的产品数据保留，以后可以恢复。删除后无法找回。</span>
+    <span><strong>建议先用「隐藏」而非「删除」。</strong> 隐藏的产品数据保留，以后可以恢复。删除后无法找回（除非使用版本回滚）。</span>
   </div>
 </div>
 
@@ -671,7 +715,40 @@
   </div>
 </div>
 
-<!-- ====== 09 快捷链接 ====== -->
+<!-- ====== 09 版本回滚与数据恢复 ====== -->
+<div class="card">
+  <h3><span class="icon">🔄</span> 版本回滚与数据恢复 <span class="tag tag-new">NEW</span></h3>
+
+  <div class="sub-header">9.1 GitHub 版本回滚</div>
+  <div class="tip-box info">
+    <span class="bulb">📌</span>
+    <span>GitHub 会保留每一次修改的完整历史。即使数据被误删，<strong>随时可以恢复到任意历史版本</strong>。</span>
+  </div>
+
+  <table>
+    <tr><th>步骤</th><th>操作</th><th>说明</th></tr>
+    <tr><td>①</td><td>确保已连接 GitHub</td><td>右上角显示「GitHub已连接 ✅」</td></tr>
+    <tr><td>②</td><td>点击顶部 <strong>「📜 版本回滚」</strong></td><td>打开版本列表弹窗</td></tr>
+    <tr><td>③</td><td>浏览最近 10 次修改记录</td><td>每行显示修改人、时间、提交说明</td></tr>
+    <tr><td>④</td><td>选择目标版本，点击 <strong>「🔄 回滚」</strong></td><td>弹出确认提示</td></tr>
+    <tr><td>⑤</td><td>确认后，系统自动恢复数据</td><td>等待 10-30 秒，页面自动刷新</td></tr>
+  </table>
+
+  <div class="tip-box warn">
+    <span class="bulb">⚠️</span>
+    <span>回滚前请确认当前无未发布的修改，否则会丢失。建议先发布或撤销当前修改。</span>
+  </div>
+
+  <div class="sub-header">9.2 邮件告警 <span class="tag tag-new">NEW</span></div>
+  <div class="tip-box">
+    <span class="bulb">📧</span>
+    <span>当员工在一天内连续删除 ≥3 个产品时，系统会<strong>自动发送告警邮件</strong>到 <code>695904082@qq.com</code>（Xavier 邮箱）。<br><br>
+    邮件包含：操作人、时间、删除数量、被删除的产品列表。<br><br>
+    此功能需要配置 EmailJS（联系 Xavier 13302802833 设置）。</span>
+  </div>
+</div>
+
+<!-- ====== 10 快捷链接 ====== -->
 <div class="card">
   <h3><span class="icon">🔗</span> 快捷链接</h3>
 

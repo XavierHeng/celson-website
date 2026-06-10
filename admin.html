@@ -165,6 +165,14 @@ a { color: var(--blue); }
 .cat-list-item .actions { display: flex; gap: 4px; }
 .cat-list-item input { padding: 6px 10px; border: 1.5px solid var(--n3); border-radius: 6px; font-size: 13px; outline: none; }
 
+/* commit list for rollback */
+.commit-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; border-bottom: 1px solid var(--n1); gap: 10px; }
+.commit-row:hover { background: var(--n1); }
+.commit-info { flex: 1; min-width: 0; }
+.commit-sha { font-size: 11px; font-family: monospace; color: var(--n4); background: var(--n1); padding: 2px 6px; border-radius: 4px; margin-right: 8px; }
+.commit-msg { font-size: 13px; font-weight: 600; color: var(--n9); }
+.commit-meta { display: block; font-size: 11px; color: var(--n4); margin-top: 2px; }
+
 /* toast */
 .toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); padding: 14px 24px; border-radius: 12px; font-size: 14px; font-weight: 600; z-index: 2000; animation: slideDown 0.3s; box-shadow: 0 8px 30px rgba(0,0,0,0.15); }
 .toast.success { background: #065F46; color: #fff; }
@@ -214,11 +222,13 @@ a { color: var(--blue); }
       <div class="brand">
         <h2>🔧 CELSON 后台管理</h2>
         <span id="ghStatus">未连接GitHub</span>
+        <span id="currentUserInfo" style="font-size:11px;color:var(--n5);margin-left:12px;padding:2px 10px;background:var(--n1);border-radius:20px;"></span>
       </div>
       <div class="actions">
         <button class="btn btn-blue" onclick="openAddProduct()">➕ 新增产品</button>
         <button class="btn btn-outline" onclick="openCatManager()">📂 分类管理</button>
         <button class="btn btn-outline" onclick="openTokenSetup()" id="btnToken">⚙️ GitHub设置</button>
+        <button class="btn btn-outline btn-sm" onclick="openVersionRollback()">📜 版本回滚</button>
         <button class="btn btn-red btn-sm" onclick="doLogout()">退出</button>
       </div>
     </div>
@@ -330,12 +340,32 @@ a { color: var(--blue); }
   </div>
 </div>
 
+<!-- ===== MODAL: Version Rollback ===== -->
+<div id="rollbackModal" class="modal-overlay" style="display:none;">
+  <div class="modal-box" style="width:640px;">
+    <h3>📜 版本回滚</h3>
+    <p>从最近 10 次修改中选择一个版本恢复。回滚会替换当前 prices.js 和 products.js。</p>
+    <div style="background:#FEF3C7;border:1px solid #FDE68A;border-radius:8px;padding:10px 14px;margin-bottom:16px;font-size:12px;color:#92400E;">
+      ⚠️ 回滚后会自动刷新数据。如当前有未发布的修改，请先发布或撤销。
+    </div>
+    <div id="commitList" style="max-height:400px;overflow-y:auto;"></div>
+    <div class="btns">
+      <button class="btn btn-outline" onclick="closeRollback()">关闭</button>
+    </div>
+  </div>
+</div>
+
 <script>
 // ============================================================
 //  CONFIG
 // ============================================================
-var ADMIN_USER = 'Celsonbetty';
-var ADMIN_PASS = '86880707';
+var ADMIN_USERS = {
+  'Celsonbetty':  { pass: '86880707',   role: 'staff' },
+  'Celsonxavier': { pass: '695904KL@',  role: 'owner' }
+};
+var ALERT_EMAIL = '695904082@qq.com';
+var currentUser = '';  // logged-in username
+var currentRole = '';  // 'staff' or 'owner'
 var REPO_OWNER = 'XavierHeng';
 var REPO_NAME = 'celson-website';
 var BRANCH = 'main';
@@ -359,11 +389,24 @@ var productsSha = '';
 var selectedCat = 'all';
 var selectedIds = {};      // { id: true } for batch
 
+// Safety: delete protection (方案A)
+var deleteCountToday = 0;  // deleted count today
+var deleteCountDate = '';  // date string for reset
+var deletedToday = [];     // list of deleted product names today
+
+// EmailJS config (方案B) — placeholder, configure via admin panel
+var EMAILJS_PUBLIC_KEY = '';   // set via settings modal
+var EMAILJS_SERVICE_ID = '';   // set via settings modal
+var EMAILJS_TEMPLATE_ID = '';  // set via settings modal
+
 // ============================================================
 //  INIT
 // ============================================================
 (function() {
-  if (sessionStorage.getItem('celson_admin_auth') === '1') showDashboard();
+  var auth = sessionStorage.getItem('celson_admin_auth');
+  if (auth) {
+    try { var d = JSON.parse(auth); currentUser = d.u; currentRole = d.r; showDashboard(); } catch(e) {}
+  }
 })();
 
 // ============================================================
@@ -371,8 +414,13 @@ var selectedIds = {};      // { id: true } for batch
 // ============================================================
 document.getElementById('loginForm').addEventListener('submit', function(e) {
   e.preventDefault();
-  if (document.getElementById('lu').value.trim() === ADMIN_USER && document.getElementById('lp').value.trim() === ADMIN_PASS) {
-    sessionStorage.setItem('celson_admin_auth', '1');
+  var u = document.getElementById('lu').value.trim();
+  var p = document.getElementById('lp').value.trim();
+  var rec = ADMIN_USERS[u];
+  if (rec && rec.pass === p) {
+    currentUser = u;
+    currentRole = rec.role;
+    sessionStorage.setItem('celson_admin_auth', JSON.stringify({u: u, r: rec.role}));
     showDashboard();
   } else {
     var err = document.getElementById('loginErr');
@@ -381,7 +429,7 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
   }
 });
 
-function doLogout() { sessionStorage.removeItem('celson_admin_auth'); location.reload(); }
+function doLogout() { sessionStorage.removeItem('celson_admin_auth'); currentUser = ''; currentRole = ''; location.reload(); }
 
 // ============================================================
 //  DASHBOARD
@@ -390,6 +438,10 @@ function showDashboard() {
   document.getElementById('loginWrap').style.display = 'none';
   document.getElementById('dashWrap').style.display = 'block';
 
+  // Show current user info
+  var roleLabel = currentRole === 'owner' ? '🔑 管理员' : '👤 员工';
+  document.getElementById('currentUserInfo').textContent = currentUser + ' (' + roleLabel + ')';
+
   ghToken = localStorage.getItem('celson_gh_token') || '';
   updateGhStatus();
 
@@ -397,6 +449,15 @@ function showDashboard() {
   loadLocalProducts();
   initDefaultPrices();
   origProducts = JSON.stringify(products);
+
+  // Load delete protection state
+  loadDeleteState();
+
+  // Load EmailJS config
+  EMAILJS_PUBLIC_KEY = localStorage.getItem('celson_emailjs_key') || '';
+  EMAILJS_SERVICE_ID = localStorage.getItem('celson_emailjs_sid') || '';
+  EMAILJS_TEMPLATE_ID = localStorage.getItem('celson_emailjs_tid') || '';
+
   renderAll();
 
   if (ghToken) { fetchPricesFromGitHub(); fetchProductsFromGitHub(); }
@@ -800,16 +861,81 @@ function toggleHidden(id) {
 function deleteProduct(id) {
   var p = findProduct(id);
   if (!p) return;
+
+  // 方案A: 删除保护 — 检测当天删除计数
+  resetDeleteCountIfNewDay();
+
+  if (currentRole !== 'owner' && deleteCountToday >= 2) {
+    // 员工已删 ≥2 个，第3个起需老板密码
+    promptOwnerPassword(id, p);
+    return;
+  }
+
   if (!confirm('确定删除 "' + p.name + '"？\n\n⚠️ 删除后不可恢复，请确认！')) return;
+  doDeleteProduct(id, p);
+}
+
+function promptOwnerPassword(id, p) {
+  var pw = prompt('⚠️ 安全验证\n\n你今天已删除 ' + deleteCountToday + ' 个产品。\n继续删除需要管理员密码。\n\n请输入管理员 (Celsonxavier) 密码：');
+  if (pw === null) return; // cancelled
+  if (pw === ADMIN_USERS['Celsonxavier'].pass) {
+    if (!confirm('密码验证通过。确定删除 "' + p.name + '"？\n\n⚠️ 此操作将触发邮件告警。')) return;
+    doDeleteProduct(id, p);
+    // Send alert email
+    sendDeleteAlert(p.name, id);
+  } else {
+    toast('❌ 管理员密码错误，删除已取消', 'error');
+  }
+}
+
+function doDeleteProduct(id, p) {
   for (var i = 0; i < products.length; i++) {
     if (products[i].id === id) { products.splice(i, 1); break; }
   }
   delete prices[id];
   delete selectedIds[id];
+
+  // Track deletion
+  deleteCountToday++;
+  deletedToday.push(p.name + ' (' + id + ')');
+  saveDeleteState();
+
   saveLocal();
   renderAll();
   updateChangeCount();
-  toast('🗑 产品已删除（需发布后生效）', 'info');
+  toast('🗑 产品已删除（需发布后生效）· 今日已删 ' + deleteCountToday + ' 个', 'info');
+}
+
+// Delete protection state management
+function resetDeleteCountIfNewDay() {
+  var today = new Date().toISOString().split('T')[0];
+  if (deleteCountDate !== today) {
+    deleteCountToday = 0;
+    deleteCountDate = today;
+    deletedToday = [];
+    saveDeleteState();
+  }
+}
+
+function loadDeleteState() {
+  var saved = localStorage.getItem('celson_delete_state');
+  if (saved) {
+    try {
+      var d = JSON.parse(saved);
+      deleteCountToday = d.count || 0;
+      deleteCountDate = d.date || '';
+      deletedToday = d.names || [];
+      resetDeleteCountIfNewDay();
+    } catch(e) {}
+  }
+}
+
+function saveDeleteState() {
+  localStorage.setItem('celson_delete_state', JSON.stringify({
+    count: deleteCountToday,
+    date: deleteCountDate,
+    names: deletedToday
+  }));
 }
 
 function moveProduct(id, dir) {
@@ -1108,8 +1234,8 @@ function buildPricesJs() {
   var lines = [];
   lines.push('/**\n * CELSON Shop — Price Configuration\n * Auto-generated by admin panel\n */\n');
   lines.push('var CELSON_CONFIG = {');
-  lines.push('  adminUser: \'' + ADMIN_USER + '\',');
-  lines.push('  adminPass: \'' + ADMIN_PASS + '\',');
+  lines.push('  adminUser: \'Celsonbetty\',');
+  lines.push('  adminPass: \'86880707\',');
   lines.push('  exchangeRate: ' + exchangeRate);
   lines.push('};\n');
   lines.push('var PRICES_RMB = {');
@@ -1215,6 +1341,149 @@ function toast(msg, type) {
   el.textContent = msg;
   document.body.appendChild(el);
   setTimeout(function() { if (el.parentNode) el.remove(); }, 4000);
+}
+
+// ============================================================
+//  方案B: EMAILJS 邮件告警
+// ============================================================
+function sendDeleteAlert(productName, productId) {
+  if (!EMAILJS_PUBLIC_KEY || !EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID) {
+    console.warn('EmailJS not configured, skip alert email');
+    return;
+  }
+
+  // Dynamically load EmailJS SDK if not loaded
+  if (typeof emailjs === 'undefined') {
+    var script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js';
+    script.onload = function() { doSendDeleteAlert(productName, productId); };
+    document.head.appendChild(script);
+  } else {
+    doSendDeleteAlert(productName, productId);
+  }
+}
+
+function doSendDeleteAlert(productName, productId) {
+  if (typeof emailjs === 'undefined') return;
+
+  if (!emailjs._isInitialized) {
+    emailjs.init(EMAILJS_PUBLIC_KEY);
+    emailjs._isInitialized = true;
+  }
+
+  var now = new Date().toLocaleString('zh-CN', {timeZone:'Asia/Shanghai'});
+  emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+    to_email: ALERT_EMAIL,
+    subject: '⚠️ CELSON 后台告警 — 产品被大量删除',
+    alert_time: now,
+    operator: currentUser,
+    delete_count: deleteCountToday,
+    deleted_list: deletedToday.join('\n'),
+    product_name: productName,
+    product_id: productId
+  }).then(function() {
+    console.log('Alert email sent to ' + ALERT_EMAIL);
+  }).catch(function(err) {
+    console.error('EmailJS send failed:', err);
+  });
+}
+
+// ============================================================
+//  方案C: GITHUB 版本回滚
+// ============================================================
+function openVersionRollback() {
+  if (!ghToken) { toast('请先连接GitHub', 'error'); openTokenSetup(); return; }
+  document.getElementById('rollbackModal').style.display = 'flex';
+  fetchCommits();
+}
+
+function closeRollback() { document.getElementById('rollbackModal').style.display = 'none'; }
+
+function fetchCommits() {
+  var list = document.getElementById('commitList');
+  list.innerHTML = '<div style="text-align:center;padding:40px;color:var(--n4);"><span class="spinner"></span> 加载提交历史...</div>';
+
+  ghApi('commits?per_page=10&sha=' + BRANCH)
+    .then(function(data) {
+      if (!Array.isArray(data)) { list.innerHTML = '<div style="text-align:center;padding:40px;color:var(--red);">❌ 获取失败</div>'; return; }
+      var html = '';
+      for (var i = 0; i < data.length; i++) {
+        var c = data[i];
+        var msg = c.commit.message.split('\n')[0];
+        var date = new Date(c.commit.author.date).toLocaleString('zh-CN', {timeZone:'Asia/Shanghai'});
+        var author = c.commit.author.name;
+        var shortSha = c.sha.substring(0, 7);
+        html += '<div class="commit-row">';
+        html += '<div class="commit-info">';
+        html += '<span class="commit-sha">' + shortSha + '</span>';
+        html += '<span class="commit-msg">' + msg + '</span>';
+        html += '<span class="commit-meta">' + author + ' · ' + date + '</span>';
+        html += '</div>';
+        html += '<button class="btn btn-outline btn-sm" onclick="rollbackTo(\'' + c.sha + '\', \'' + msg.replace(/'/g, '\\\'') + '\')">🔄 回滚</button>';
+        html += '</div>';
+      }
+      list.innerHTML = html;
+    })
+    .catch(function(err) {
+      list.innerHTML = '<div style="text-align:center;padding:40px;color:var(--red);">❌ 获取失败：' + err.message + '</div>';
+    });
+}
+
+function rollbackTo(sha, msg) {
+  if (!confirm('⚠️ 确定回滚到以下版本？\n\n' + sha.substring(0,7) + ' — ' + msg + '\n\n此操作将替换当前 prices.js 和 products.js。')) return;
+
+  // Fetch the tree at this commit
+  ghApi('git/trees/' + sha + '?recursive=1')
+    .then(function(data) {
+      var tree = data.tree;
+      var pricesEntry = null, productsEntry = null;
+      for (var i = 0; i < tree.length; i++) {
+        if (tree[i].path === PRICES_PATH) pricesEntry = tree[i];
+        if (tree[i].path === PRODUCTS_PATH) productsEntry = tree[i];
+      }
+      if (!pricesEntry && !productsEntry) { toast('❌ 该版本无可用数据文件', 'error'); return; }
+
+      var tasks = [];
+      if (pricesEntry) tasks.push(restoreFile(pricesEntry.sha, PRICES_PATH, 'prices'));
+      if (productsEntry) tasks.push(restoreFile(productsEntry.sha, PRODUCTS_PATH, 'products'));
+
+      toast('🔄 正在回滚...', 'info');
+      Promise.all(tasks)
+        .then(function() {
+          toast('✅ 回滚成功！正在刷新数据...', 'success');
+          closeRollback();
+          // Refresh data from GitHub
+          fetchPricesFromGitHub();
+          fetchProductsFromGitHub();
+        })
+        .catch(function(err) { toast('❌ 回滚失败：' + err.message, 'error'); });
+    })
+    .catch(function(err) { toast('❌ 获取版本数据失败：' + err.message, 'error'); });
+}
+
+function restoreFile(blobSha, filePath, type) {
+  // Get blob content
+  return ghApi('git/blobs/' + blobSha)
+    .then(function(data) {
+      var content = atob(data.content.replace(/\s/g, ''));
+      // Write back to file
+      return ghApi('contents/' + filePath, 'PUT', {
+        message: 'Admin: rollback ' + type + ' to historical version',
+        content: data.content,
+        branch: BRANCH
+      });
+    })
+    .catch(function(err) {
+      // If blob not found, try raw content
+      return ghApi('contents/' + filePath + '?ref=' + blobSha)
+        .then(function(data) {
+          return ghApi('contents/' + filePath, 'PUT', {
+            message: 'Admin: rollback ' + type + ' to historical version',
+            content: data.content,
+            branch: BRANCH
+          });
+        });
+    });
 }
 </script>
 </body>
