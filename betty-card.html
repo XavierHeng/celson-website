@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Betty — CELSON Contact Card</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --green: #15803D;
+      --green-light: #F0FDF4;
+      --orange: #D97706;
+      --navy: #0F172A;
+      --slate: #64748B;
+      --slate-light: #E2E8F0;
+      --white: #FFFFFF;
+      --font-display: 'Poppins', sans-serif;
+      --font-body: 'Open Sans', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-body);
+      background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      color: var(--navy);
+    }
+
+    /* ========== CONTACT CARD ========== */
+    .contact-card {
+      background: var(--white);
+      border-radius: 20px;
+      box-shadow:
+        0 1px 3px rgba(0,0,0,0.04),
+        0 8px 32px rgba(0,0,0,0.08);
+      max-width: 420px;
+      width: 100%;
+      padding: 36px 32px 32px;
+      position: relative;
+      overflow: hidden;
+      animation: cardEnter 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .contact-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--green), var(--orange));
+    }
+
+    @keyframes cardEnter {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Avatar */
+    .avatar-wrap {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 22px;
+    }
+
+    .avatar-circle {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid var(--green);
+      box-shadow:
+        0 2px 12px rgba(21,128,61,0.18),
+        0 0 0 6px rgba(21,128,61,0.06);
+      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+                  box-shadow 0.35s ease;
+      cursor: default;
+    }
+
+    .avatar-circle:hover {
+      transform: scale(1.08);
+      box-shadow:
+        0 4px 20px rgba(21,128,61,0.25),
+        0 0 0 10px rgba(21,128,61,0.08);
+    }
+
+    .avatar-circle img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Name */
+    .card-name {
+      text-align: center;
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+
+    .card-title {
+      text-align: center;
+      font-size: 14px;
+      color: var(--slate);
+      margin-bottom: 24px;
+      letter-spacing: 0.02em;
+    }
+
+    /* Contact items */
+    .contact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      background: var(--green-light);
+      transition: all 0.25s ease;
+      cursor: pointer;
+      position: relative;
+      user-select: none;
+    }
+
+    .contact-item:hover {
+      background: #DCFCE7;
+      transform: translateX(3px);
+    }
+
+    .contact-item:active {
+      transform: translateX(1px) scale(0.99);
+    }
+
+    .contact-icon {
+      width: 38px;
+      height: 38px;
+      min-width: 38px;
+      border-radius: 10px;
+      background: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      line-height: 1;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+
+    .contact-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--slate);
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .contact-value {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--navy);
+      word-break: break-all;
+    }
+
+    /* Copy toast */
+    .copy-toast {
+      position: fixed;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: var(--navy);
+      color: var(--white);
+      padding: 10px 22px;
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 600;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+      z-index: 999;
+      box-shadow: 0 4px 16px rgba(15,23,42,0.25);
+    }
+
+    .copy-toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    /* Address with map tooltip */
+    .address-item {
+      position: relative;
+    }
+
+    .map-tooltip {
+      position: absolute;
+      bottom: calc(100% + 10px);
+      left: 50%;
+      transform: translateX(-50%) scale(0.95) translateY(4px);
+      background: var(--white);
+      border-radius: 14px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+      padding: 12px;
+      width: 280px;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+      z-index: 100;
+      overflow: hidden;
+    }
+
+    .map-tooltip::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%) rotate(45deg);
+      width: 16px;
+      height: 16px;
+      background: var(--white);
+      box-shadow: 4px 4px 8px -4px rgba(0,0,0,0.08);
+    }
+
+    .address-item:hover .map-tooltip {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) scale(1) translateY(0);
+    }
+
+    .map-preview {
+      width: 100%;
+      height: 150px;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #e8f5e9;
+      position: relative;
+    }
+
+    .map-preview iframe {
+      display: none;
+    }
+
+    /* Animated fake map */
+    .fake-map {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(160deg, #d4f0dd 0%, #b8e6c9 30%, #a3dbba 60%, #8fd0ac 100%);
+    }
+
+    /* Roads */
+    .fm-road {
+      position: absolute;
+      background: rgba(255,255,255,0.75);
+      border-radius: 2px;
+    }
+    .fm-r1 { top: 35%; left: -10%; width: 120%; height: 6px; transform: rotate(-2deg); }
+    .fm-r2 { top: 55%; left: -5%; width: 110%; height: 4px; transform: rotate(1.5deg); }
+    .fm-r3 { top: 20%; left: 45%; width: 4px; height: 65%; border-radius: 2px; }
+
+    /* Buildings */
+    .fm-bldg {
+      position: absolute;
+      border-radius: 4px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+    .fm-b1 { top: 12%; left: 15%; width: 28px; height: 22px; background: rgba(120,180,140,0.5); animation: bPulse 3s ease-in-out infinite; }
+    .fm-b2 { top: 42%; left: 58%; width: 34px; height: 26px; background: rgba(100,165,125,0.5); animation: bPulse 3s ease-in-out infinite 0.7s; }
+    .fm-b3 { top: 62%; left: 18%; width: 24px; height: 18px; background: rgba(140,190,155,0.5); animation: bPulse 3s ease-in-out infinite 1.4s; }
+    .fm-b4 { top: 28%; left: 72%; width: 20px; height: 16px; background: rgba(115,175,135,0.5); animation: bPulse 3s ease-in-out infinite 2.1s; }
+
+    @keyframes bPulse {
+      0%,100% { opacity: 0.7; }
+      50% { opacity: 1; }
+    }
+
+    /* Location pin */
+    .fm-pin {
+      position: absolute;
+      top: 48%;
+      left: 38%;
+      z-index: 5;
+      animation: pinBounce 2s ease-in-out infinite;
+    }
+
+    @keyframes pinBounce {
+      0%,100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-6px) scale(1.08); }
+    }
+
+    .fm-pin-dot {
+      width: 24px;
+      height: 32px;
+      display: block;
+    }
+
+    .fm-pin-shadow {
+      position: absolute;
+      bottom: -4px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 14px;
+      height: 4px;
+      background: rgba(21,128,61,0.25);
+      border-radius: 50%;
+      animation: shadowScale 2s ease-in-out infinite;
+    }
+
+    @keyframes shadowScale {
+      0%,100% { transform: translateX(-50%) scale(1); opacity: 0.6; }
+      50% { transform: translateX(-50%) scale(0.6); opacity: 0.3; }
+    }
+
+    /* Map label */
+    .map-label-tag {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      font-size: 10px;
+      color: var(--green);
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      background: rgba(255,255,255,0.85);
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    .map-link {
+      display: block;
+      text-align: center;
+      margin-top: 8px;
+      font-size: 12px;
+      color: var(--green);
+      font-weight: 600;
+      text-decoration: underline;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .map-link:hover {
+      color: #116A32;
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      body { padding: 16px; }
+      .contact-card { padding: 28px 20px 24px; }
+      .card-name { font-size: 21px; }
+      .contact-item { padding: 10px 12px; gap: 10px; }
+      .contact-icon { width: 34px; height: 34px; min-width: 34px; font-size: 16px; }
+      .map-tooltip { width: calc(100vw - 64px); max-width: 300px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Contact Card -->
+<div class="contact-card" role="region" aria-label="Personal contact card">
+
+  <!-- Avatar -->
+  <div class="avatar-wrap">
+    <div class="avatar-circle">
+      <img src="assets/betty-avatar.png" alt="Betty's profile photo" loading="lazy">
+    </div>
+  </div>
+
+  <!-- Name & Title -->
+  <div class="card-name">Betty</div>
+  <div class="card-title">Sales Representative · CELSON Building Materials</div>
+
+  <!-- Contact List -->
+  <div class="contact-list">
+
+    <!-- Email -->
+    <div class="contact-item" onclick="copyToClipboard('Betty.Mat@foxmail.com', this)" role="button" tabindex="0" aria-label="Copy email address">
+      <div class="contact-icon">✉️</div>
+      <div>
+        <div class="contact-label">Email</div>
+        <div class="contact-value">Betty.Mat@foxmail.com</div>
+      </div>
+    </div>
+
+    <!-- WhatsApp -->
+    <div class="contact-item" onclick="copyToClipboard('13825578911', this)" role="button" tabindex="0" aria-label="Copy WhatsApp number">
+      <div class="contact-icon">📱</div>
+      <div>
+        <div class="contact-label">WhatsApp / Phone</div>
+        <div class="contact-value">+86 138 2557 8911</div>
+      </div>
+    </div>
+
+    <!-- WeChat -->
+    <div class="contact-item" onclick="copyToClipboard('Lwz13825578911', this)" role="button" tabindex="0" aria-label="Copy WeChat ID">
+      <div class="contact-icon">💬</div>
+      <div>
+        <div class="contact-label">WeChat</div>
+        <div class="contact-value">Lwz13825578911</div>
+      </div>
+    </div>
+
+    <!-- Address with Map Tooltip -->
+    <div class="contact-item address-item" role="group" aria-label="Company address">
+      <div class="contact-icon">📍</div>
+      <div style="flex:1">
+        <div class="contact-label">Address</div>
+        <div class="contact-value" style="font-size:13px;line-height:1.45;">
+          Crown Board, Bldg 3, Unit 11-13,<br>
+          Yimeijia Hongyi Materials City,<br>
+          Shiwan Town Street, Chancheng District,<br>
+          Foshan City, Guangdong Province
+        </div>
+      </div>
+
+      <!-- Map Tooltip -->
+      <div class="map-tooltip">
+        <div class="map-preview">
+          <div class="fake-map">
+            <!-- Roads -->
+            <div class="fm-road fm-r1"></div>
+            <div class="fm-road fm-r2"></div>
+            <div class="fm-road fm-r3"></div>
+            <!-- Buildings -->
+            <div class="fm-bldg fm-b1"></div>
+            <div class="fm-bldg fm-b2"></div>
+            <div class="fm-bldg fm-b3"></div>
+            <div class="fm-bldg fm-b4"></div>
+            <!-- Location Pin -->
+            <div class="fm-pin">
+              <svg class="fm-pin-dot" viewBox="0 0 24 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 0C5.37 0 0 5.37 0 12c0 9 12 20 12 20s12-11 12-20C24 5.37 18.63 0 12 0z" fill="#15803D"/>
+                <circle cx="12" cy="12" r="5" fill="white"/>
+              </svg>
+              <div class="fm-pin-shadow"></div>
+            </div>
+            <div class="map-label-tag">📍 Foshan, China</div>
+          </div>
+        </div>
+        <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Crown+Board+Shiwan+Foshan+Guangdong+China" target="_blank" rel="noopener noreferrer" aria-label="Open full map">
+          Open Full Map ↗
+        </a>
+      </div>
+    </div>
+
+  </div><!-- /.contact-list -->
+</div>
+
+<!-- Copy Toast -->
+<div class="copy-toast" id="toast" role="status" aria-live="polite">✓ Copied to clipboard</div>
+
+<script>
+  // Copy-to-clipboard
+  function copyToClipboard(text, el) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(() => showToast());
+    } else {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.cssText = 'position:fixed;left:-9999px';
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      showToast();
+    }
+  }
+
+  function showToast() {
+    const t = document.getElementById('toast');
+    t.classList.add('show');
+    clearTimeout(t._timer);
+    t._timer = setTimeout(() => t.classList.remove('show'), 1800);
+  }
+
+  // Keyboard support for contact items
+  document.querySelectorAll('.contact-item[role="button"]').forEach(item => {
+    item.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        item.click();
+      }
+    });
+  });
+
+  // Prevent address item click from triggering copy (it has the map tooltip)
+  document.querySelector('.address-item').addEventListener('click', e => {
+    e.stopPropagation();
+  }, true);
+</script>
+
+</body>
+</html>

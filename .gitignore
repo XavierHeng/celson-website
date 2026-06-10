@@ -1,0 +1,26 @@
+# Temporary and backup files
+*.bak
+*~
+.DS_Store
+Thumbs.db
+
+# Clipboard images
+clipboard-images/
+
+# Archived assets (old exports, AI test images)
+assets/_archive/
+
+# Daily reports and audit files (keep in memory only)
+daily-report-*.html
+website-audit-report-*.html
+website-review-report.html
+
+# Python scripts used during development
+*.py
+
+# Node modules (if any)
+node_modules/
+
+# IDE
+.vscode/
+.idea/

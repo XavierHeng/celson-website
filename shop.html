@@ -1,0 +1,2304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop — CELSON | In-Stock Building Materials</title>
+  <meta name="description" content="Browse in-stock CELSON building materials with EXW factory-direct pricing. Add to cart and submit your inquiry for a quote within 24 hours.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    :root {
+      --green-50: #F0FDF4;
+      --green-100: #DCFCE7;
+      --green-600: #15803D;
+      --green-700: #116A32;
+      --gray-50: #F9FAFB;
+      --gray-100: #F3F4F6;
+      --gray-200: #E5E7EB;
+      --gray-300: #D1D5DB;
+      --gray-400: #9CA3AF;
+      --gray-500: #6B7280;
+      --gray-700: #374151;
+      --gray-900: #111827;
+      --red-500: #EF4444;
+      --amber-500: #F59E0B;
+    }
+
+    .shop-page {
+      padding: 0;
+      background: #fff;
+    }
+
+    .shop-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .shop-header {
+      padding: 40px 0 24px;
+    }
+    .shop-header h1 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--gray-900);
+      margin: 0 0 6px;
+    }
+    .shop-header p {
+      font-size: 15px;
+      color: var(--gray-500);
+      margin: 0;
+    }
+
+    .shop-search {
+      margin-bottom: 16px;
+    }
+    .shop-search input {
+      width: 100%;
+      max-width: 400px;
+      padding: 10px 16px;
+      border: 1px solid var(--gray-200);
+      border-radius: 10px;
+      font-size: 14px;
+      font-family: 'Open Sans', sans-serif;
+      outline: none;
+      transition: border-color 0.2s;
+      box-sizing: border-box;
+    }
+    .shop-search input:focus {
+      border-color: var(--green-600);
+      box-shadow: 0 0 0 3px var(--green-50);
+    }
+    .shop-search input::placeholder {
+      color: var(--gray-400);
+    }
+
+    .shop-categories {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--gray-100);
+    }
+    .shop-cat {
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      border: 1px solid var(--gray-200);
+      background: #fff;
+      color: var(--gray-700);
+      transition: all 0.2s;
+      font-family: 'Open Sans', sans-serif;
+    }
+    .shop-cat:hover {
+      background: var(--gray-50);
+      border-color: var(--gray-300);
+    }
+    .shop-cat.active {
+      background: var(--green-50);
+      border-color: var(--green-600);
+      color: var(--green-600);
+    }
+
+    /* Category hover thumbnail tooltip */
+    .cat-tooltip {
+      position: absolute;
+      z-index: 1000;
+      width: 220px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.15), 0 2px 8px rgba(0,0,0,0.08);
+      overflow: hidden;
+      pointer-events: none;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.2s, transform 0.2s;
+      border: 1px solid var(--gray-100);
+    }
+    .cat-tooltip.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .cat-tooltip-img {
+      width: 100%;
+      height: 130px;
+      overflow: hidden;
+    }
+    .cat-tooltip-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .cat-tooltip-label {
+      padding: 10px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gray-800);
+      font-family: 'Open Sans', sans-serif;
+      text-align: center;
+    }
+
+    .shop-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .shop-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 20px;
+      border: 1px solid var(--gray-100);
+      border-radius: 12px;
+      transition: box-shadow 0.2s;
+      background: #fff;
+    }
+    .shop-item:hover {
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    }
+    .shop-item-thumb {
+      width: 56px;
+      height: 56px;
+      border-radius: 8px;
+      background: var(--green-50);
+      border: 1px solid var(--green-100);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .shop-item-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .shop-item-info {
+      flex: 1;
+      min-width: 0;
+    }
+    .shop-item-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--gray-900);
+      margin: 0 0 2px;
+    }
+    .shop-item-spec {
+      font-size: 13px;
+      color: var(--gray-500);
+      margin: 0 0 2px;
+    }
+    .shop-item-extra {
+      font-size: 12px;
+      color: var(--gray-400);
+      margin: 0;
+    }
+    .shop-item-stock {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 600;
+      background: var(--green-50);
+      color: var(--green-600);
+      margin-left: 8px;
+    }
+    .shop-item-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 10px;
+      font-weight: 700;
+      background: linear-gradient(135deg, #FFF7ED, #FFEDD5);
+      color: #EA580C;
+      margin-left: 6px;
+      border: 1px solid #FED7AA;
+      letter-spacing: 0.3px;
+      white-space: nowrap;
+    }
+    .shop-item-badge .badge-icon {
+      font-size: 12px;
+      line-height: 1;
+    }
+    .shop-item.volume-item {
+      border-left: 3px solid #EA580C;
+      background: linear-gradient(90deg, #FFF7ED 0%, #fff 15%, #fff 100%);
+    }
+    .shop-item.removing {
+      border-color: #FCA5A5 !important;
+      background: linear-gradient(90deg, #FEF2F2 0%, #fff 30%, #fff 100%) !important;
+      border-left: 3px solid #EF4444 !important;
+      animation: removePulse 0.6s ease-in-out 3;
+    }
+    @keyframes removePulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.2); }
+      50% { box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); }
+    }
+    .shop-item-price {
+      text-align: right;
+      flex-shrink: 0;
+      min-width: 90px;
+    }
+    .shop-item-price .price {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--gray-900);
+    }
+    .shop-item-price .unit {
+      font-size: 12px;
+      color: var(--gray-400);
+    }
+    .shop-item-qty {
+      flex-shrink: 0;
+    }
+    .shop-item-qty input {
+      width: 64px;
+      padding: 8px 6px;
+      border: 1px solid var(--gray-200);
+      border-radius: 8px;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 500;
+      font-family: 'Open Sans', sans-serif;
+      outline: none;
+      transition: border-color 0.2s, background-color 0.2s, box-shadow 0.2s;
+      box-sizing: border-box;
+    }
+    .shop-item-qty input:focus {
+      border-color: var(--green-600);
+    }
+    .shop-item-qty input.qty-zero {
+      border-color: #EF4444;
+      background: #FEF2F2;
+      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+    }
+    .shop-item-qty .qty-label {
+      display: block;
+      font-size: 10px;
+      color: var(--gray-400);
+      text-align: center;
+      margin-top: 3px;
+    }
+    .shop-item-qty-actions {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .shop-item-add {
+      flex-shrink: 0;
+    }
+    .btn-minus {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid var(--gray-200);
+      background: #fff;
+      color: var(--gray-500);
+      font-family: 'Open Sans', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      transition: all 0.2s;
+      line-height: 1;
+    }
+    .btn-minus:hover {
+      background: var(--gray-50);
+      border-color: var(--gray-300);
+      color: var(--gray-700);
+    }
+    .btn-minus:active {
+      background: var(--gray-100);
+    }
+    .btn-add {
+      padding: 9px 20px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      font-family: 'Open Sans', sans-serif;
+      background: var(--green-600);
+      color: #fff;
+      transition: background 0.2s;
+    }
+    .btn-add:hover {
+      background: var(--green-700);
+    }
+    .btn-add.in-cart {
+      background: var(--gray-100);
+      color: var(--gray-500);
+    }
+    .btn-add.in-cart:hover {
+      background: var(--gray-200);
+    }
+
+    .shop-empty {
+      text-align: center;
+      padding: 48px 24px;
+      color: var(--gray-400);
+    }
+
+    .shop-cart-bar {
+      position: sticky;
+      bottom: 24px;
+      margin-top: 32px;
+      padding: 14px 24px;
+      background: #0F172A;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    }
+    .shop-cart-bar .cart-info {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #94A3B8;
+      font-size: 14px;
+    }
+    .shop-cart-bar .cart-count {
+      background: var(--green-600);
+      color: #fff;
+      width: 24px;
+      height: 24px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .shop-cart-bar .cart-total {
+      flex: 1;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 600;
+    }
+    .shop-cart-bar .cart-total span {
+      color: #94A3B8;
+      font-weight: 400;
+      font-size: 12px;
+      margin-left: 6px;
+    }
+    .btn-view-cart {
+      padding: 10px 24px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      font-family: 'Open Sans', sans-serif;
+      background: var(--green-600);
+      color: #fff;
+      transition: background 0.2s;
+    }
+    .btn-view-cart:hover {
+      background: var(--green-700);
+    }
+
+    .shop-footer {
+      padding: 24px 0;
+      margin-top: 32px;
+      text-align: center;
+      border-top: 1px solid var(--gray-100);
+    }
+    .shop-footer p {
+      font-size: 12px;
+      color: var(--gray-400);
+      margin: 0;
+    }
+
+    /* ===== Cart Popup Modal ===== */
+    .cart-popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(15, 23, 42, 0.45);
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s;
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
+    }
+    .cart-popup-overlay.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .cart-popup {
+      background: #fff;
+      border-radius: 16px;
+      width: 520px;
+      max-width: 94vw;
+      max-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2), 0 0 0 1px rgba(0,0,0,0.05);
+      transform: translateY(16px);
+      transition: transform 0.3s;
+      position: absolute;
+      bottom: 24px;
+      right: 24px;
+    }
+    .cart-popup-overlay.visible .cart-popup {
+      transform: translateY(0);
+    }
+    .cart-popup-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 24px 14px;
+      border-bottom: 1px solid var(--gray-100);
+    }
+    .cart-popup-header h3 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--gray-900);
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .cart-popup-header .popup-count {
+      background: var(--green-600);
+      color: #fff;
+      width: 24px;
+      height: 24px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .cart-popup-close {
+      background: none;
+      border: none;
+      font-size: 22px;
+      color: var(--gray-400);
+      cursor: pointer;
+      padding: 4px 8px;
+      line-height: 1;
+      font-family: 'Open Sans', sans-serif;
+      transition: color 0.2s;
+    }
+    .cart-popup-close:hover {
+      color: var(--gray-700);
+    }
+    .cart-popup-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 8px 24px;
+    }
+    .cart-popup-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--gray-50);
+    }
+    .cart-popup-item:last-child {
+      border-bottom: none;
+    }
+    .cart-popup-thumb-wrap {
+      position: relative;
+      width: 52px;
+      height: 52px;
+      border-radius: 10px;
+      background: var(--green-50);
+      border: 1px solid var(--green-100);
+      flex-shrink: 0;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: default;
+    }
+    .cart-popup-thumb-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    /* Hover thumbnail tooltip */
+    .popup-thumb-tooltip {
+      position: fixed;
+      z-index: 10001;
+      width: 200px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.18);
+      overflow: hidden;
+      pointer-events: none;
+      opacity: 0;
+      transform: translateY(4px);
+      transition: opacity 0.18s, transform 0.18s;
+      border: 1px solid var(--gray-100);
+    }
+    .popup-thumb-tooltip.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .popup-thumb-tooltip img {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      display: block;
+    }
+    .popup-thumb-tooltip-label {
+      padding: 8px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--gray-800);
+      font-family: 'Open Sans', sans-serif;
+      text-align: center;
+    }
+    .cart-popup-item-info {
+      flex: 1;
+      min-width: 0;
+    }
+    .cart-popup-item-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--gray-900);
+      margin: 0 0 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .cart-popup-item-spec {
+      font-size: 12px;
+      color: var(--gray-400);
+      margin: 0;
+    }
+    .cart-popup-item-qty {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gray-700);
+      flex-shrink: 0;
+      text-align: right;
+    }
+    .cart-popup-item-subtotal {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--gray-900);
+      flex-shrink: 0;
+      min-width: 70px;
+      text-align: right;
+    }
+    .cart-popup-footer {
+      padding: 16px 24px 24px;
+      border-top: 1px solid var(--gray-100);
+    }
+    .cart-popup-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+    .cart-popup-total-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--gray-700);
+    }
+    .cart-popup-total-amount {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--green-600);
+    }
+    .cart-popup-total-amount span {
+      font-size: 12px;
+      color: var(--gray-400);
+      font-weight: 400;
+      margin-left: 4px;
+    }
+    .btn-ready-to-pay {
+      width: 100%;
+      padding: 14px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      font-family: 'Poppins', sans-serif;
+      background: var(--green-600);
+      color: #fff;
+      letter-spacing: 0.5px;
+      transition: background-color 0.35s ease, color 0.35s ease;
+    }
+    .btn-ready-to-pay:hover {
+      background: #DC2626;
+      color: #fff;
+    }
+    .cart-popup-empty {
+      text-align: center;
+      padding: 40px 24px;
+      color: var(--gray-400);
+      font-size: 14px;
+    }
+
+    /* ===== Cart View ===== */
+    .shop-cart-view {
+      display: none;
+    }
+    .shop-cart-view.active {
+      display: block;
+    }
+    .shop-list-view.hidden {
+      display: none;
+    }
+    .shop-cart-bar.hidden {
+      display: none;
+    }
+
+    .cart-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .btn-back {
+      padding: 10px 22px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      font-family: 'Poppins', sans-serif;
+      background: var(--green-600);
+      color: #fff;
+      transition: background 0.15s, color 0.15s;
+    }
+    .btn-back:hover {
+      background: transparent;
+      border: none;
+      color: var(--green-600);
+      box-shadow: inset 0 0 0 2px var(--green-600);
+    }
+    .cart-header h2 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--gray-900);
+      margin: 0;
+    }
+
+    .cart-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .cart-table th {
+      text-align: left;
+      padding: 12px 16px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--gray-400);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid var(--gray-100);
+    }
+    .cart-table th:last-child,
+    .cart-table th:nth-child(5),
+    .cart-table th:nth-child(6) {
+      text-align: right;
+    }
+    .cart-table td {
+      padding: 16px;
+      font-size: 14px;
+      color: var(--gray-700);
+      border-bottom: 1px solid var(--gray-50);
+      vertical-align: middle;
+    }
+    .cart-table td:last-child,
+    .cart-table td:nth-child(5),
+    .cart-table td:nth-child(6) {
+      text-align: right;
+    }
+    .cart-prod {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .cart-prod-thumb {
+      width: 40px;
+      height: 40px;
+      border-radius: 6px;
+      background: var(--green-50);
+      border: 1px solid var(--green-100);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .cart-prod-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .cart-prod-name {
+      font-weight: 600;
+      color: var(--gray-900);
+    }
+    .cart-qty-input {
+      width: 60px;
+      padding: 6px 4px;
+      border: 1px solid var(--gray-200);
+      border-radius: 6px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 500;
+      font-family: 'Open Sans', sans-serif;
+      outline: none;
+      box-sizing: border-box;
+    }
+    .cart-qty-input:focus {
+      border-color: var(--green-600);
+    }
+    .btn-remove {
+      background: none;
+      border: none;
+      color: var(--gray-400);
+      cursor: pointer;
+      font-size: 18px;
+      padding: 4px 8px;
+      transition: color 0.2s;
+      font-family: 'Open Sans', sans-serif;
+    }
+    .btn-remove:hover {
+      color: var(--red-500);
+    }
+
+    .cart-summary {
+      margin-top: 20px;
+      padding: 24px;
+      background: var(--green-50);
+      border: 1px solid var(--green-100);
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .cart-summary-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .cart-summary-row.divider {
+      padding-top: 16px;
+      border-top: 1px solid var(--green-100);
+    }
+    .cart-summary-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--gray-700);
+    }
+    .cart-summary-total {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--green-600);
+    }
+    .cart-summary-deposit {
+      font-size: 22px;
+      font-weight: 700;
+      color: #0F172A;
+    }
+    .cart-summary-note {
+      font-size: 12px;
+      color: var(--gray-500);
+      margin: 0;
+      line-height: 1.6;
+    }
+    .cart-logistics {
+      margin-top: 16px;
+      padding: 16px 20px;
+      background: #FFF7ED;
+      border: 1px solid #FED7AA;
+      border-radius: 10px;
+      font-size: 13px;
+      color: var(--gray-700);
+      line-height: 1.7;
+    }
+    .cart-logistics strong {
+      color: #C2410C;
+    }
+
+    .cart-empty {
+      text-align: center;
+      padding: 64px 24px;
+      color: var(--gray-400);
+    }
+    .cart-empty p {
+      font-size: 15px;
+      margin: 0 0 16px;
+    }
+
+    /* ===== Order Form ===== */
+    .order-section {
+      margin-top: 32px;
+      padding: 28px;
+      border: 1px solid var(--gray-200);
+      border-radius: 14px;
+      background: #fff;
+    }
+    .order-section h3 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--gray-900);
+      margin: 0 0 6px;
+    }
+    .order-section .order-subtitle {
+      font-size: 13px;
+      color: var(--gray-500);
+      margin: 0 0 24px;
+    }
+    .order-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .order-field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .order-field.full {
+      grid-column: 1 / -1;
+    }
+    .order-field label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gray-700);
+    }
+    .order-field label .required {
+      color: var(--red-500);
+    }
+    .order-field input,
+    .order-field textarea {
+      padding: 10px 14px;
+      border: 1px solid var(--gray-200);
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: 'Open Sans', sans-serif;
+      outline: none;
+      transition: border-color 0.2s;
+      box-sizing: border-box;
+    }
+    .order-field input:focus,
+    .order-field textarea:focus {
+      border-color: var(--green-600);
+      box-shadow: 0 0 0 3px var(--green-50);
+    }
+    .order-field textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+    .order-hint {
+      font-size: 12px;
+      color: var(--red-500);
+      margin: 8px 0 0;
+    }
+    .btn-submit {
+      margin-top: 24px;
+      width: 100%;
+      padding: 14px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      font-family: 'Open Sans', sans-serif;
+      background: var(--green-600);
+      color: #fff;
+      transition: background 0.2s;
+    }
+    .btn-submit:hover {
+      background: var(--green-700);
+    }
+    .btn-submit:disabled {
+      background: var(--gray-300);
+      cursor: not-allowed;
+      color: var(--gray-500);
+    }
+    .order-footer-note {
+      text-align: center;
+      font-size: 12px;
+      color: var(--gray-400);
+      margin-top: 12px;
+    }
+
+    .toast {
+      position: fixed;
+      top: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: 'Open Sans', sans-serif;
+      z-index: 9999;
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+    }
+    .toast.show {
+      opacity: 1;
+    }
+    .toast.success {
+      background: var(--green-600);
+      color: #fff;
+    }
+    .toast.error {
+      background: var(--red-500);
+      color: #fff;
+    }
+
+    @media (max-width: 768px) {
+      .shop-item {
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .shop-item.volume-item {
+        border-left: 3px solid #EA580C;
+      }
+      .shop-item-info {
+        order: 1;
+        flex: 1 1 100%;
+      }
+      .shop-item-price {
+        order: 2;
+      }
+      .shop-item-qty {
+        order: 3;
+      }
+      .shop-item-add {
+        order: 4;
+      }
+      .shop-cart-bar {
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+      .shop-cart-bar .cart-total {
+        flex: 1 1 100%;
+      }
+      .cart-table {
+        font-size: 12px;
+      }
+      .cart-table th,
+      .cart-table td {
+        padding: 8px 6px;
+      }
+      .cart-table th:nth-child(2),
+      .cart-table td:nth-child(2) {
+        display: none;
+      }
+      .order-grid {
+        grid-template-columns: 1fr;
+      }
+      .cart-summary {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ========== HEADER ========== -->
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="index.html" class="header-logo">
+      <img src="assets/crown-logo-44.png" srcset="assets/crown-logo@2x.png 2x" class="logo-icon" alt="CELSON">
+      CELSON
+    </a>
+    <nav class="header-nav">
+      <a href="index.html">Home</a>
+      <a href="products.html" class="nav-products-trigger" data-href="products.html">
+        Products
+        <span class="mega-arrow">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </a>
+      <a href="about.html">About</a>
+      <a href="projects.html">Projects</a>
+      <a href="shop.html" class="active">Shop</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a href="#" class="header-cart-btn" id="headerCartBtn" style="display:none;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      <span class="cart-badge" id="headerCartBadge">0</span>
+    </a>
+  </div>
+</header>
+
+<div class="mega-menu">
+  <div class="mega-menu-inner">
+    <div class="mega-menu-grid">
+      <a href="gypsum-boards.html" class="mega-menu-item">
+        <span class="mega-menu-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="1.5"/><line x1="7" y1="8" x2="17" y2="8"/><line x1="7" y1="11" x2="17" y2="11"/><line x1="7" y1="14" x2="13" y2="14"/></svg>
+        </span>
+        <span class="mega-menu-text">
+          <span class="mega-menu-label">Gypsum Boards</span>
+          <span class="mega-menu-desc">Standard, MR, Fire-Rated</span>
+        </span>
+      </a>
+      <a href="sheet-boards.html" class="mega-menu-item">
+        <span class="mega-menu-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="3.5" rx="1"/><rect x="4.5" y="8.5" width="15" height="3.5" rx="1"/><rect x="6" y="13" width="12" height="3.5" rx="1"/><rect x="4" y="17.5" width="16" height="3.5" rx="1"/></svg>
+        </span>
+        <span class="mega-menu-text">
+          <span class="mega-menu-label">Sheet Boards</span>
+          <span class="mega-menu-desc">Plywood, MDF, OSB, Particle</span>
+        </span>
+      </a>
+      <a href="wall-panels.html" class="mega-menu-item">
+        <span class="mega-menu-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="18" rx="1"/><line x1="12" y1="3" x2="12" y2="21"/><line x1="2" y1="12" x2="22" y2="12"/><rect x="3" y="4" width="8" height="7" rx="0.5"/></svg>
+        </span>
+        <span class="mega-menu-text">
+          <span class="mega-menu-label">Wall Panels</span>
+          <span class="mega-menu-desc">Decorative, WPC, UV Marble</span>
+        </span>
+      </a>
+      <a href="ceiling-framing.html" class="mega-menu-item">
+        <span class="mega-menu-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="18" rx="1"/><line x1="8" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="16" y2="21"/><line x1="2" y1="9" x2="22" y2="9"/><line x1="2" y1="15" x2="22" y2="15"/></svg>
+        </span>
+        <span class="mega-menu-text">
+          <span class="mega-menu-label">Ceiling & Framing</span>
+          <span class="mega-menu-desc">T-Grid, Stud, Track Systems</span>
+        </span>
+      </a>
+      <a href="calcium-silicate.html" class="mega-menu-item">
+        <span class="mega-menu-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L3 7v6c0 5.25 3.83 10.12 9 11 5.17-.88 9-5.75 9-11V7l-9-5z"/><path d="M8 12l2.5 2.5L16 9"/></svg>
+        </span>
+        <span class="mega-menu-text">
+          <span class="mega-menu-label">Calcium Silicate</span>
+          <span class="mega-menu-desc">Fire-Rated, Moisture-Proof</span>
+        </span>
+      </a>
+      <a href="outdoor-decking.html" class="mega-menu-item">
+        <span class="mega-menu-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="14" rx="1"/><line x1="2" y1="10" x2="22" y2="10"/><line x1="6" y1="6" x2="6" y2="20"/><line x1="10" y1="6" x2="10" y2="20"/><line x1="14" y1="6" x2="14" y2="20"/><line x1="18" y1="6" x2="18" y2="20"/></svg>
+        </span>
+        <span class="mega-menu-text">
+          <span class="mega-menu-label">Outdoor & Decking</span>
+          <span class="mega-menu-desc">WPC Decking, Cladding</span>
+        </span>
+      </a>
+      <a href="accessories.html" class="mega-menu-item">
+        <span class="mega-menu-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/><line x1="12" y1="3" x2="12" y2="9"/><line x1="12" y1="15" x2="12" y2="21"/><line x1="3" y1="12" x2="9" y2="12"/><line x1="15" y1="12" x2="21" y2="12"/></svg>
+        </span>
+        <span class="mega-menu-text">
+          <span class="mega-menu-label">Accessories</span>
+          <span class="mega-menu-desc">Screws, Joint Tape, Profiles</span>
+        </span>
+      </a>
+      <a href="insulation-materials.html" class="mega-menu-item">
+        <span class="mega-menu-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="16" height="12" rx="1"/><line x1="8" y1="6" x2="8" y2="18"/><line x1="12" y1="6" x2="12" y2="18"/><line x1="16" y1="6" x2="16" y2="18"/></svg>
+        </span>
+        <span class="mega-menu-text">
+          <span class="mega-menu-label">Insulation Materials</span>
+          <span class="mega-menu-desc">Rock Wool, XPS, Glass Wool</span>
+        </span>
+      </a>
+      <a href="tiles.html" class="mega-menu-item">
+        <span class="mega-menu-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        </span>
+        <span class="mega-menu-text">
+          <span class="mega-menu-label">Tiles</span>
+          <span class="mega-menu-desc">Porcelain, Ceramic, Glazed</span>
+        </span>
+      </a>
+      <a href="roofing-materials.html" class="mega-menu-item">
+        <span class="mega-menu-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12,3 22,10 22,19 2,19 2,10"/><line x1="12" y1="3" x2="12" y2="19"/></svg>
+        </span>
+        <span class="mega-menu-text">
+          <span class="mega-menu-label">Roofing Materials</span>
+          <span class="mega-menu-desc">Metal, Asphalt, Waterproofing</span>
+        </span>
+      </a>
+    </div>
+    <a href="products.html" class="mega-menu-all">View All Products <span>&rarr;</span></a>
+  </div>
+</div>
+
+<div class="shop-page">
+
+<!-- ===== PRODUCT LIST VIEW ===== -->
+<div class="shop-list-view" id="shopListView">
+  <div class="shop-container">
+
+    <div class="shop-header">
+      <h1>In-Stock Products</h1>
+      <p>EXW factory-direct pricing &mdash; Add items to your cart and submit an inquiry. Our team will contact you within 24 hours.</p>
+    </div>
+
+    <div class="shop-search">
+      <input type="text" id="searchInput" placeholder="Search products...">
+    </div>
+
+    <div class="shop-categories" id="categoryTabs"></div>
+
+    <div class="shop-list" id="productList"></div>
+    <div class="shop-empty" id="noResults" style="display:none;">No products match your search.</div>
+
+    <div class="shop-cart-bar" id="cartBar">
+      <div class="cart-info">
+        <span class="cart-count" id="cartCount">0</span>
+        Cart
+      </div>
+      <div class="cart-total" id="cartTotal">
+        EXW Reference $0<span>reference only</span>
+      </div>
+      <button class="btn-view-cart" id="btnViewCart">View Cart &rarr;</button>
+    </div>
+
+    <!-- Cart Popup Modal -->
+    <div class="cart-popup-overlay" id="cartPopupOverlay">
+      <div class="cart-popup">
+        <div class="cart-popup-header">
+          <h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> Cart <span class="popup-count" id="popupCount">0</span></h3>
+          <button class="cart-popup-close" id="cartPopupClose">&times;</button>
+        </div>
+        <div class="cart-popup-body" id="cartPopupBody"></div>
+        <div class="cart-popup-footer" id="cartPopupFooter">
+          <div class="cart-popup-total">
+            <span class="cart-popup-total-label">EXW Reference Total</span>
+            <span class="cart-popup-total-amount" id="popupTotal">$0<span>ref.</span></span>
+          </div>
+          <button class="btn-ready-to-pay" id="btnReadyToPay">READY TO PAY</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="shop-footer">
+      <p>&copy; 2026 CELSON &mdash; A brand of Jianxin Building Materials Co. All rights reserved.</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== CART VIEW ===== -->
+<div class="shop-cart-view" id="shopCartView">
+  <div class="shop-container">
+
+    <div class="cart-header">
+      <button class="btn-back" id="btnBackToShop">&larr; Back to Shop</button>
+      <h2>Shopping Cart</h2>
+    </div>
+
+    <div class="cart-empty" id="cartEmpty">
+      <p>Your cart is empty.</p>
+      <button class="btn-back" id="btnBackToShop2">&larr; Back to Shop</button>
+    </div>
+
+    <div id="cartContent" style="display:none;">
+      <div style="overflow-x:auto;">
+        <table class="cart-table">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Specification</th>
+              <th>Qty</th>
+              <th>Unit Price</th>
+              <th>Subtotal</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="cartTableBody"></tbody>
+        </table>
+      </div>
+
+      <div class="cart-summary">
+        <div class="cart-summary-row">
+          <span class="cart-summary-label">EXW Reference Total</span>
+          <span class="cart-summary-total" id="cartSummaryTotal">$0</span>
+        </div>
+        <div class="cart-summary-row divider">
+          <span class="cart-summary-label">30% Deposit Required</span>
+          <span class="cart-summary-deposit" id="cartSummaryDeposit">$0</span>
+        </div>
+        <p class="cart-summary-note">This is a reference price only. A <strong>30% deposit</strong> is required to confirm your order. Final pricing will be confirmed by our team. No payment is processed on this page.</p>
+      </div>
+
+      <div class="cart-logistics">
+        <p style="margin:0 0 6px;"><strong>Shipping & Logistics</strong></p>
+        <p style="margin:0;">Delivery is included only within <strong>Foshan city limits</strong>. The following costs are <strong>not included</strong> and are the buyer's responsibility:</p>
+        <ul style="margin:6px 0;padding-left:18px;">
+          <li>Container loading fees (stuffing charges)</li>
+          <li>Freight / shipping to destinations outside Foshan</li>
+          <li>Export documentation and customs clearance</li>
+        </ul>
+        <p style="margin:6px 0 0;">We provide a <strong>free container loading location</strong> in Foshan for your forwarder.</p>
+      </div>
+
+      <div class="order-section">
+        <h3>Place Your Order</h3>
+        <p class="order-subtitle">Fill in your contact details and we'll get back to you within 24 hours.</p>
+
+        <form id="orderForm">
+          <div class="order-grid">
+            <div class="order-field">
+              <label>Full Name <span class="required">*</span></label>
+              <input type="text" name="name" id="orderName" required placeholder="John Smith">
+            </div>
+            <div class="order-field">
+              <label>Company</label>
+              <input type="text" name="company" id="orderCompany" placeholder="ABC Construction Ltd">
+            </div>
+            <div class="order-field">
+              <label>WhatsApp <span class="required">*</span></label>
+              <input type="text" name="whatsapp" id="orderWhatsapp" placeholder="+1 234 567 8901">
+            </div>
+            <div class="order-field">
+              <label>Email <span class="required">*</span></label>
+              <input type="email" name="email" id="orderEmail" placeholder="john@example.com">
+            </div>
+            <div class="order-field full">
+              <label>Message (optional)</label>
+              <textarea name="message" id="orderMessage" placeholder="Any specific requirements, target port for FOB quote, timeline..."></textarea>
+            </div>
+          </div>
+          <p class="order-hint" id="contactHint">* At least one of WhatsApp or Email must be filled.</p>
+          <button type="submit" class="btn-submit" id="btnSubmit" disabled>Submit Inquiry</button>
+        </form>
+        <p class="order-footer-note">Our team will contact you within 24 hours via WhatsApp or Email to confirm pricing and logistics.</p>
+      </div>
+    </div>
+
+    <div class="shop-footer">
+      <p>&copy; 2026 CELSON &mdash; A brand of Jianxin Building Materials Co. All rights reserved.</p>
+    </div>
+
+  </div>
+</div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="js/prices.js"></script>
+<script>
+(function() {
+
+  function rmbToUsd(rmb) {
+    return rmb / CELSON_CONFIG.exchangeRate;
+  }
+
+  var PRODUCTS = [
+    {
+      id: 'gyp-std-12',
+      category: 'Gypsum Boards',
+      name: 'Standard Gypsum Board 12mm',
+      spec: '1200 &times; 2400mm &middot; Ivory paper-faced &middot; Tapered edge',
+      extra: 'Min. 200 m&sup2; &middot; Shipped from Guangdong',
+      unit: '/m&sup2; EXW',
+      minQty: 200
+    },
+    {
+      id: 'gyp-mr-12',
+      category: 'Gypsum Boards',
+      name: 'Moisture-Resistant Gypsum Board 12mm',
+      spec: '1200 &times; 2400mm &middot; Green water-repellent paper &middot; Bathroom grade',
+      extra: 'Min. 150 m&sup2; &middot; Shipped from Guangdong',
+      unit: '/m&sup2; EXW',
+      minQty: 150
+    },
+    {
+      id: 'gyp-fr-12',
+      category: 'Gypsum Boards',
+      name: 'Fire-Rated Gypsum Board 12mm',
+      spec: '1200 &times; 2400mm &middot; Glass fiber reinforced &middot; 60-min fire rating',
+      extra: 'Min. 150 m&sup2; &middot; Shipped from Guangdong',
+      unit: '/m&sup2; EXW',
+      minQty: 150
+    },
+    {
+      id: 'ply-18',
+      category: 'Sheet Boards',
+      name: 'Commercial Plywood 18mm',
+      spec: '1220 &times; 2440mm &middot; Hardwood core &middot; MR glue (WBP)',
+      extra: 'Min. 100 sheets &middot; Shipped from Shandong',
+      unit: '/sheet EXW',
+      minQty: 100
+    },
+    {
+      id: 'mdf-18',
+      category: 'Sheet Boards',
+      name: 'MDF Board 18mm &mdash; E1 Grade',
+      spec: '1220 &times; 2440mm &middot; Smooth sanded surface &middot; Low formaldehyde',
+      extra: 'Min. 80 sheets &middot; Shipped from Shandong',
+      unit: '/sheet EXW',
+      minQty: 80
+    },
+    {
+      id: 'osb-15',
+      category: 'Sheet Boards',
+      name: 'OSB Board 15mm &mdash; Structural Grade',
+      spec: '1220 &times; 2440mm &middot; Oriented strand &middot; Moisture resistant',
+      extra: 'Min. 80 sheets &middot; Shipped from Jiangsu',
+      unit: '/sheet EXW',
+      minQty: 80
+    },
+    {
+      id: 'wpc-wall-8',
+      category: 'Wall Panels',
+      name: 'WPC Wall Panel 8mm &mdash; Wood Grain Series',
+      spec: '600 &times; 3000mm &middot; 5 wood tones &middot; Indoor cladding',
+      extra: 'Min. 50 m&sup2; &middot; Shipped from Foshan',
+      unit: '/m&sup2; EXW',
+      minQty: 50
+    },
+    {
+      id: 'uv-marble-8',
+      category: 'Wall Panels',
+      name: 'UV Marble Wall Panel 8mm',
+      spec: '600 &times; 3000mm &middot; High-gloss marble effect &middot; Scratch resistant',
+      extra: 'Min. 50 m&sup2; &middot; Shipped from Foshan',
+      unit: '/m&sup2; EXW',
+      minQty: 50
+    },
+    {
+      id: 'pvc-ceiling-7',
+      category: 'Wall Panels',
+      name: 'PVC Wall Panel 7mm &mdash; Solid Color',
+      spec: '600 &times; 3000mm &middot; 12 colors &middot; Lightweight',
+      extra: 'Min. 50 m&sup2; &middot; Shipped from Foshan',
+      unit: '/m&sup2; EXW',
+      minQty: 50
+    },
+    {
+      id: 'mineral-ceiling-15',
+      category: 'Ceiling & Framing',
+      name: 'Mineral Fiber Ceiling Tile 15mm',
+      spec: '600 &times; 600mm &middot; Square edge &middot; Acoustic NRC 0.55',
+      extra: 'Min. 200 pcs &middot; Shipped from Hebei',
+      unit: '/pc EXW',
+      minQty: 200
+    },
+    {
+      id: 't-grid-38',
+      category: 'Ceiling & Framing',
+      name: 'T-Grid Main Tee 38mm &mdash; Galvanized',
+      spec: '38 &times; 24mm &middot; 3600mm length &middot; Hot-dip galvanized',
+      extra: 'Min. 100 pcs &middot; Shipped from Hebei',
+      unit: '/pc EXW',
+      minQty: 100
+    },
+    {
+      id: 'metal-stud-75',
+      category: 'Ceiling & Framing',
+      name: 'Metal Stud 75mm &mdash; Galvanized Steel',
+      spec: '75 &times; 45mm &middot; 3000mm length &middot; 0.6mm thickness',
+      extra: 'Min. 100 pcs &middot; Shipped from Hebei',
+      unit: '/pc EXW',
+      minQty: 100
+    },
+    {
+      id: 'cs-board-8',
+      category: 'Calcium Silicate',
+      name: 'Calcium Silicate Board 8mm &mdash; Asbestos-Free',
+      spec: '1220 &times; 2440mm &middot; A1 fire-rated &middot; Moisture resistant',
+      extra: 'Min. 100 sheets &middot; Shipped from Jiangsu',
+      unit: '/sheet EXW',
+      minQty: 100
+    },
+    {
+      id: 'cs-board-12',
+      category: 'Calcium Silicate',
+      name: 'Calcium Silicate Board 12mm &mdash; High-Density',
+      spec: '1220 &times; 2440mm &middot; Density 1.4 g/cm&sup3; &middot; Impact resistant',
+      extra: 'Min. 80 sheets &middot; Shipped from Jiangsu',
+      unit: '/sheet EXW',
+      minQty: 80
+    },
+    {
+      id: 'wpc-deck-140',
+      category: 'Outdoor & Decking',
+      name: 'WPC Decking 140mm &mdash; Solid',
+      spec: '140 &times; 25mm &middot; 2900mm length &middot; Co-extrusion surface',
+      extra: 'Min. 100 m&sup2; &middot; Shipped from Anhui',
+      unit: '/m&sup2; EXW',
+      minQty: 100
+    },
+    {
+      id: 'wpc-clad-150',
+      category: 'Outdoor & Decking',
+      name: 'WPC Cladding 150mm &mdash; Hollow',
+      spec: '150 &times; 20mm &middot; 2900mm length &middot; 4 wood tones',
+      extra: 'Min. 80 m&sup2; &middot; Shipped from Anhui',
+      unit: '/m&sup2; EXW',
+      minQty: 80
+    },
+    {
+      id: 'joint-compound-20',
+      category: 'Accessories',
+      name: 'Joint Compound 20kg &mdash; Ready-Mix',
+      spec: '20kg bucket &middot; All-purpose &middot; Easy sanding',
+      extra: 'Min. 50 pcs &middot; Shipped from Guangdong',
+      unit: '/pc EXW',
+      minQty: 50
+    },
+    {
+      id: 'drywall-screw-25',
+      category: 'Accessories',
+      name: 'Drywall Screw 25mm &mdash; Phosphated',
+      spec: '3.5 &times; 25mm &middot; Bugle head &middot; 1000 pcs/box',
+      extra: 'Min. 100 boxes &middot; Shipped from Hebei',
+      unit: '/box EXW',
+      minQty: 100
+    },
+    {
+      id: 'rockwool-50',
+      category: 'Insulation',
+      name: 'Rock Wool Board 50mm &mdash; 120kg/m&sup3;',
+      spec: '1200 &times; 600mm &middot; A1 fire-rated &middot; Thermal &lambda; 0.038',
+      extra: 'Min. 100 m&sup2; &middot; Shipped from Hebei',
+      unit: '/m&sup2; EXW',
+      minQty: 100
+    },
+    {
+      id: 'xps-50',
+      category: 'Insulation',
+      name: 'XPS Board 50mm &mdash; 35kg/m&sup3;',
+      spec: '1200 &times; 600mm &middot; Closed-cell &middot; Compressive 300kPa',
+      extra: 'Min. 100 m&sup2; &middot; Shipped from Jiangsu',
+      unit: '/m&sup2; EXW',
+      minQty: 100
+    }
+  ];
+
+  function getProductPrice(id) {
+    var rmb = PRICES_RMB[id];
+    if (typeof rmb === 'number') return rmbToUsd(rmb);
+    return 0;
+  }
+
+  function getProductPriceRmb(id) {
+    var rmb = PRICES_RMB[id];
+    if (typeof rmb === 'number') return rmb;
+    return 0;
+  }
+
+  function getProductById(id) {
+    for (var i = 0; i < PRODUCTS.length; i++) {
+      if (PRODUCTS[i].id === id) return PRODUCTS[i];
+    }
+    return null;
+  }
+
+  var CATEGORIES = ['All','Gypsum Boards','Sheet Boards','Wall Panels','Ceiling & Framing','Calcium Silicate','Outdoor & Decking','Accessories','Insulation'];
+
+  var CATEGORY_THUMBS = {
+    'Gypsum Boards': 'assets/product-hero-gypsum-boards.png',
+    'Sheet Boards': 'assets/product-hero-sheet-boards.png',
+    'Wall Panels': 'assets/product-hero-wall-panels.png',
+    'Ceiling & Framing': 'assets/product-hero-ceiling-framing.png',
+    'Calcium Silicate': 'assets/product-hero-calcium-silicate.png',
+    'Outdoor & Decking': 'assets/product-hero-outdoor-decking.png',
+    'Accessories': 'assets/product-hero-accessories.png',
+    'Insulation': 'assets/product-hero-insulation.png'
+  };
+
+  var cart = [];
+  var activeCat = 'All';
+  var searchQuery = '';
+
+  // ============================================================
+  //  ADMIN MODE
+  // ============================================================
+  var isAdmin = window.location.search.indexOf('admin') !== -1;
+  var adminAuthed = sessionStorage.getItem('celson_admin_auth') === '1';
+  var loginAttempts = parseInt(sessionStorage.getItem('celson_admin_attempts') || '0', 10);
+  var lockUntil = parseInt(sessionStorage.getItem('celson_admin_lock') || '0', 10);
+
+  if (isAdmin && !adminAuthed) {
+    document.querySelector('.shop-page').innerHTML = buildLoginPage();
+    document.getElementById('loginForm').addEventListener('submit', handleLogin);
+  } else if (isAdmin && adminAuthed) {
+    initAdminMode();
+  } else {
+    initShopMode();
+  }
+
+  function buildLoginPage() {
+    var now = Date.now();
+    var locked = now < lockUntil;
+    var remaining = locked ? Math.ceil((lockUntil - now) / 1000) : 0;
+    var maxAttempts = 5;
+    var left = Math.max(0, maxAttempts - loginAttempts);
+
+    var html = '<div class="shop-container" style="min-height:80vh;display:flex;align-items:center;justify-content:center;">';
+    html += '<div style="text-align:center;max-width:360px;width:100%;padding:48px 32px;border:1px solid var(--gray-200);border-radius:16px;">';
+    html += '<div style="font-size:40px;margin-bottom:16px;">&#128274;</div>';
+    html += '<h2 style="font-family:Poppins,sans-serif;font-size:22px;font-weight:700;color:var(--gray-900);margin:0 0 8px;">Admin Access</h2>';
+    html += '<p style="font-size:14px;color:var(--gray-500);margin:0 0 24px;">Enter your credentials to manage prices</p>';
+
+    if (locked) {
+      html += '<div style="padding:14px;background:#FEF2F2;border:1px solid #FECACA;border-radius:8px;margin-bottom:16px;">';
+      html += '<p style="font-size:13px;color:#DC2626;margin:0;">Too many failed attempts. Please wait ' + remaining + ' seconds.</p>';
+      html += '</div>';
+    }
+
+    html += '<form id="loginForm">';
+    html += '<div style="margin-bottom:12px;text-align:left;"><label style="font-size:13px;font-weight:600;color:var(--gray-700);">Username</label>';
+    html += '<input type="text" id="loginUser" required placeholder="Enter username" style="width:100%;padding:10px 14px;border:1px solid var(--gray-200);border-radius:8px;font-size:14px;font-family:Open Sans,sans-serif;margin-top:4px;box-sizing:border-box;"' + (locked ? ' disabled' : '') + '>';
+    html += '</div>';
+    html += '<div style="margin-bottom:20px;text-align:left;"><label style="font-size:13px;font-weight:600;color:var(--gray-700);">Password</label>';
+    html += '<input type="password" id="loginPass" required placeholder="Enter password" style="width:100%;padding:10px 14px;border:1px solid var(--gray-200);border-radius:8px;font-size:14px;font-family:Open Sans,sans-serif;margin-top:4px;box-sizing:border-box;"' + (locked ? ' disabled' : '') + '>';
+    html += '</div>';
+
+    if (!locked && loginAttempts > 0) {
+      html += '<p style="font-size:12px;color:var(--amber-500);margin:0 0 12px;">' + left + ' attempt' + (left !== 1 ? 's' : '') + ' remaining</p>';
+    }
+
+    html += '<button type="submit" style="width:100%;padding:12px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;border:none;font-family:Open Sans,sans-serif;background:var(--green-600);color:#fff;"' + (locked ? ' disabled' : '') + '>Unlock</button>';
+    html += '</form>';
+
+    html += '<p style="font-size:12px;color:var(--gray-400);margin:20px 0 0;"><a href="shop.html" style="color:var(--gray-500);text-decoration:none;">&larr; Back to Shop</a></p>';
+    html += '</div></div>';
+    return html;
+  }
+
+  function handleLogin(e) {
+    e.preventDefault();
+    var user = document.getElementById('loginUser').value.trim();
+    var pass = document.getElementById('loginPass').value.trim();
+
+    if (user === CELSON_CONFIG.adminUser && pass === CELSON_CONFIG.adminPass) {
+      sessionStorage.setItem('celson_admin_auth', '1');
+      sessionStorage.removeItem('celson_admin_attempts');
+      sessionStorage.removeItem('celson_admin_lock');
+      window.location.reload();
+    } else {
+      loginAttempts++;
+      sessionStorage.setItem('celson_admin_attempts', loginAttempts.toString());
+      if (loginAttempts >= 5) {
+        sessionStorage.setItem('celson_admin_lock', (Date.now() + 30000).toString());
+      }
+      window.location.reload();
+    }
+  }
+
+  // ============================================================
+  //  ADMIN PANEL
+  // ============================================================
+  function initAdminMode() {
+    document.querySelector('.shop-page').innerHTML = buildAdminPanel();
+    bindAdminEvents();
+  }
+
+  function buildAdminPanel() {
+    var rate = CELSON_CONFIG.exchangeRate;
+    var html = '<div class="shop-container" style="padding-top:24px;padding-bottom:48px;">';
+    html += '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">';
+    html += '<div><h2 style="font-family:Poppins,sans-serif;font-size:24px;font-weight:700;color:var(--gray-900);margin:0;">Price Management</h2><p style="font-size:13px;color:var(--gray-500);margin:4px 0 0;">Edit RMB prices and exchange rate</p></div>';
+    html += '<div style="display:flex;gap:8px;">';
+    html += '<button id="btnExport" style="padding:8px 16px;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;border:1px solid var(--gray-200);background:#fff;color:var(--gray-700);font-family:Open Sans,sans-serif;">Export JSON</button>';
+    html += '<button id="btnLogout" style="padding:8px 16px;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;border:1px solid var(--gray-200);background:#fff;color:var(--red-500);font-family:Open Sans,sans-serif;">Logout</button>';
+    html += '</div></div>';
+
+    html += '<div style="display:flex;align-items:center;gap:12px;margin-bottom:24px;padding:14px 18px;background:var(--gray-50);border-radius:10px;">';
+    html += '<span style="font-size:13px;font-weight:600;color:var(--gray-700);">Exchange Rate:</span>';
+    html += '<span style="font-size:13px;color:var(--gray-500);">1 USD =</span>';
+    html += '<input type="number" id="adminRate" value="' + rate + '" step="0.01" min="1" style="width:80px;padding:6px 10px;border:1px solid var(--gray-200);border-radius:6px;text-align:center;font-size:14px;font-weight:600;font-family:Open Sans,sans-serif;box-sizing:border-box;">';
+    html += '<span style="font-size:13px;color:var(--gray-500);">CNY</span>';
+    html += '<span style="font-size:12px;color:var(--gray-400);margin-left:auto;">RMB &divide; Rate = USD</span>';
+    html += '</div>';
+
+    html += '<div style="margin-bottom:16px;"><input type="text" id="adminSearch" placeholder="Search by product name..." style="width:100%;max-width:400px;padding:10px 16px;border:1px solid var(--gray-200);border-radius:10px;font-size:14px;font-family:Open Sans,sans-serif;box-sizing:border-box;"></div>';
+
+    html += '<div style="overflow-x:auto;">';
+    html += '<table style="width:100%;border-collapse:collapse;" id="adminTable">';
+    html += '<thead><tr>';
+    html += '<th style="text-align:left;padding:10px 14px;font-size:12px;font-weight:600;color:var(--gray-400);text-transform:uppercase;border-bottom:1px solid var(--gray-100);">Product</th>';
+    html += '<th style="text-align:left;padding:10px 14px;font-size:12px;font-weight:600;color:var(--gray-400);text-transform:uppercase;border-bottom:1px solid var(--gray-100);">Category</th>';
+    html += '<th style="text-align:right;padding:10px 14px;font-size:12px;font-weight:600;color:var(--gray-400);text-transform:uppercase;border-bottom:1px solid var(--gray-100);">RMB Price</th>';
+    html += '<th style="text-align:right;padding:10px 14px;font-size:12px;font-weight:600;color:var(--gray-400);text-transform:uppercase;border-bottom:1px solid var(--gray-100);">USD Price</th>';
+    html += '</tr></thead><tbody id="adminTableBody"></tbody></table></div>';
+
+    html += '<div style="margin-top:16px;padding:14px 18px;background:var(--gray-50);border-radius:10px;">';
+    html += '<p style="font-size:12px;color:var(--gray-500);margin:0;">Changes are saved to your browser\'s local storage. Click <strong>Export JSON</strong> to get the updated data, then paste it into <code>js/prices.js</code> to make changes permanent.</p>';
+    html += '</div>';
+
+    html += '<p style="text-align:center;font-size:12px;color:var(--gray-400);margin-top:32px;">&copy; 2026 CELSON &mdash; Admin Panel</p>';
+    html += '</div>';
+    return html;
+  }
+
+  function renderAdminTable(filter) {
+    var tbody = document.getElementById('adminTableBody');
+    var rate = parseFloat(document.getElementById('adminRate').value) || CELSON_CONFIG.exchangeRate;
+    var q = (filter || '').toLowerCase();
+    var html = '';
+
+    for (var i = 0; i < PRODUCTS.length; i++) {
+      var p = PRODUCTS[i];
+      if (q && p.name.toLowerCase().indexOf(q) === -1 && p.category.toLowerCase().indexOf(q) === -1) continue;
+      var rmb = getProductPriceRmb(p.id);
+      var usd = rmb / rate;
+      html += '<tr>';
+      html += '<td style="padding:12px 14px;font-size:14px;font-weight:600;color:var(--gray-900);">' + p.name + '</td>';
+      html += '<td style="padding:12px 14px;font-size:13px;color:var(--gray-500);">' + p.category + '</td>';
+      html += '<td style="padding:12px 14px;text-align:right;">';
+      html += '<span style="font-size:13px;color:var(--gray-500);margin-right:2px;">&yen;</span>';
+      html += '<input type="number" class="admin-price-rmb" data-id="' + p.id + '" value="' + rmb.toFixed(2) + '" step="0.01" min="0" style="width:90px;padding:6px 8px;border:1px solid var(--gray-200);border-radius:6px;text-align:right;font-size:14px;font-weight:600;font-family:Open Sans,sans-serif;box-sizing:border-box;">';
+      html += '</td>';
+      html += '<td style="padding:12px 14px;text-align:right;font-size:14px;font-weight:500;color:var(--green-600);">$' + usd.toFixed(2) + '</td>';
+      html += '</tr>';
+    }
+    tbody.innerHTML = html;
+
+    var inputs = tbody.querySelectorAll('.admin-price-rmb');
+    for (var j = 0; j < inputs.length; j++) {
+      inputs[j].addEventListener('change', function() {
+        var id = this.getAttribute('data-id');
+        var val = parseFloat(this.value);
+        if (!isNaN(val) && val >= 0) {
+          PRICES_RMB[id] = val;
+          savePriceChanges();
+          renderAdminTable(document.getElementById('adminSearch').value);
+        }
+      });
+    }
+  }
+
+  function savePriceChanges() {
+    localStorage.setItem('celson_prices_rmb', JSON.stringify(PRICES_RMB));
+  }
+
+  function loadSavedPrices() {
+    var saved = localStorage.getItem('celson_prices_rmb');
+    if (saved) {
+      try {
+        var data = JSON.parse(saved);
+        for (var key in data) {
+          if (data.hasOwnProperty(key)) {
+            PRICES_RMB[key] = data[key];
+          }
+        }
+      } catch(e) {}
+    }
+  }
+
+  function exportPrices() {
+    var rate = parseFloat(document.getElementById('adminRate').value) || CELSON_CONFIG.exchangeRate;
+    var exportData = {
+      exchangeRate: rate,
+      prices: {}
+    };
+    for (var i = 0; i < PRODUCTS.length; i++) {
+      exportData.prices[PRODUCTS[i].id] = PRICES_RMB[PRODUCTS[i].id] || 0;
+    }
+    var json = JSON.stringify(exportData, null, 2);
+
+    var modal = document.createElement('div');
+    modal.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;z-index:10000;';
+    modal.innerHTML = '<div style="background:#fff;border-radius:14px;padding:28px;max-width:600px;width:90%;max-height:80vh;display:flex;flex-direction:column;">' +
+      '<h3 style="font-family:Poppins,sans-serif;font-size:18px;font-weight:700;margin:0 0 8px;">Export Price Data</h3>' +
+      '<p style="font-size:13px;color:var(--gray-500);margin:0 0 16px;">Copy this JSON and paste it into <code>js/prices.js</code> to save changes permanently.</p>' +
+      '<textarea readonly style="flex:1;min-height:300px;padding:14px;border:1px solid var(--gray-200);border-radius:8px;font-size:12px;font-family:monospace;resize:vertical;box-sizing:border-box;">' + json + '</textarea>' +
+      '<div style="margin-top:16px;display:flex;gap:8px;justify-content:flex-end;">' +
+      '<button id="btnCopyExport" style="padding:10px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;font-family:Open Sans,sans-serif;background:var(--green-600);color:#fff;">Copy to Clipboard</button>' +
+      '<button id="btnCloseExport" style="padding:10px 20px;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;border:1px solid var(--gray-200);background:#fff;color:var(--gray-700);font-family:Open Sans,sans-serif;">Close</button>' +
+      '</div></div>';
+    document.body.appendChild(modal);
+
+    document.getElementById('btnCloseExport').addEventListener('click', function() { document.body.removeChild(modal); });
+    document.getElementById('btnCopyExport').addEventListener('click', function() {
+      var ta = modal.querySelector('textarea');
+      ta.select();
+      document.execCommand('copy');
+      var btn = document.getElementById('btnCopyExport');
+      btn.textContent = 'Copied!';
+      btn.style.background = 'var(--gray-200)';
+      btn.style.color = 'var(--gray-700)';
+    });
+    modal.addEventListener('click', function(e) { if (e.target === modal) document.body.removeChild(modal); });
+  }
+
+  function bindAdminEvents() {
+    loadSavedPrices();
+    renderAdminTable();
+
+    document.getElementById('adminRate').addEventListener('change', function() {
+      var val = parseFloat(this.value);
+      if (!isNaN(val) && val > 0) {
+        CELSON_CONFIG.exchangeRate = val;
+        localStorage.setItem('celson_exchange_rate', val.toString());
+        renderAdminTable(document.getElementById('adminSearch').value);
+      }
+    });
+
+    document.getElementById('adminSearch').addEventListener('input', function() {
+      renderAdminTable(this.value);
+    });
+
+    document.getElementById('btnExport').addEventListener('click', exportPrices);
+
+    document.getElementById('btnLogout').addEventListener('click', function() {
+      sessionStorage.removeItem('celson_admin_auth');
+      window.location.href = 'shop.html';
+    });
+  }
+
+  // ============================================================
+  //  SHOP MODE
+  // ============================================================
+  function initShopMode() {
+    loadSavedPrices();
+    loadCart();
+    renderCategoryTabs();
+    renderProductList();
+    updateCartUI();
+
+    document.getElementById('btnViewCart').addEventListener('click', showCartPopup);
+    document.getElementById('btnBackToShop').addEventListener('click', showListView);
+    document.getElementById('btnBackToShop2').addEventListener('click', showListView);
+
+    // Cart popup events
+    document.getElementById('cartPopupClose').addEventListener('click', hideCartPopup);
+    document.getElementById('cartPopupOverlay').addEventListener('click', function(e) {
+      if (e.target === this) hideCartPopup();
+    });
+    document.getElementById('btnReadyToPay').addEventListener('click', showCartView);
+
+    document.getElementById('searchInput').addEventListener('input', function() {
+      searchQuery = this.value;
+      renderProductList();
+    });
+
+    document.getElementById('orderWhatsapp').addEventListener('input', checkContactFields);
+    document.getElementById('orderEmail').addEventListener('input', checkContactFields);
+    document.getElementById('orderForm').addEventListener('submit', submitOrder);
+  }
+
+  function loadCart() {
+    try { cart = JSON.parse(localStorage.getItem('celson_cart') || '[]'); } catch(e) { cart = []; }
+  }
+  function saveCart() {
+    localStorage.setItem('celson_cart', JSON.stringify(cart));
+    updateCartUI();
+  }
+
+  function getCartItem(productId) {
+    for (var i = 0; i < cart.length; i++) {
+      if (cart[i].id === productId) return cart[i];
+    }
+    return null;
+  }
+
+  function updateCartUI() {
+    var totalItems = 0;
+    var totalPrice = 0;
+    for (var i = 0; i < cart.length; i++) {
+      totalItems += 1;
+      totalPrice += cart[i].qty * cart[i].price;
+    }
+    var countEl = document.getElementById('cartCount');
+    var totalEl = document.getElementById('cartTotal');
+    var barEl = document.getElementById('cartBar');
+    if (countEl) countEl.textContent = totalItems;
+    if (totalEl) totalEl.innerHTML = 'EXW Reference $' + totalPrice.toLocaleString('en-US', {minimumFractionDigits:2}) + '<span>reference only</span>';
+    if (barEl) {
+      if (totalItems === 0) barEl.classList.add('hidden');
+      else barEl.classList.remove('hidden');
+    }
+    renderProductList();
+  }
+
+  function addToCart(productId) {
+    var prod = getProductById(productId);
+    if (!prod) return;
+    var price = getProductPrice(productId);
+    var existing = getCartItem(productId);
+    if (existing) {
+      existing.qty = prod.minQty;
+      existing.price = price;
+    } else {
+      cart.push({ id: productId, qty: prod.minQty, price: price, name: prod.name, spec: prod.spec });
+    }
+    saveCart();
+    showToast('Added to cart &mdash; ' + prod.name);
+  }
+
+  function removeFromCart(productId) {
+    cart = cart.filter(function(item) { return item.id !== productId; });
+    saveCart();
+    renderCartView();
+  }
+
+  function updateCartQty(productId, newQty) {
+    var item = getCartItem(productId);
+    if (!item) return;
+    var q = parseInt(newQty, 10);
+    if (isNaN(q) || q <= 0) { removeFromCart(productId); return; }
+    item.qty = q;
+    saveCart();
+    renderCartView();
+  }
+
+  function renderCategoryTabs() {
+    var container = document.getElementById('categoryTabs');
+    var html = '';
+    for (var i = 0; i < CATEGORIES.length; i++) {
+      var cls = (CATEGORIES[i] === activeCat) ? 'shop-cat active' : 'shop-cat';
+      var thumb = CATEGORY_THUMBS[CATEGORIES[i]] || '';
+      html += '<span class="' + cls + '" data-cat="' + CATEGORIES[i] + '" data-thumb="' + thumb + '">' + CATEGORIES[i] + '</span>';
+    }
+    container.innerHTML = html;
+
+    // Remove any existing tooltip
+    var existingTT = document.getElementById('catTooltip');
+    if (existingTT) existingTT.remove();
+
+    var tabs = container.querySelectorAll('.shop-cat');
+    for (var j = 0; j < tabs.length; j++) {
+      tabs[j].addEventListener('click', function() {
+        activeCat = this.getAttribute('data-cat');
+        renderCategoryTabs();
+        renderProductList();
+      });
+
+      // Hover thumbnail for non-All categories
+      var catName = tabs[j].getAttribute('data-cat');
+      var thumbSrc = tabs[j].getAttribute('data-thumb');
+      if (catName !== 'All' && thumbSrc) {
+        tabs[j].addEventListener('mouseenter', function(e) {
+          showCategoryTooltip(this, e);
+        });
+        tabs[j].addEventListener('mouseleave', function() {
+          hideCategoryTooltip();
+        });
+      }
+    }
+  }
+
+  function showCategoryTooltip(el, e) {
+    var thumbSrc = el.getAttribute('data-thumb');
+    var catName = el.getAttribute('data-cat');
+    if (!thumbSrc) return;
+
+    var tt = document.getElementById('catTooltip');
+    if (!tt) {
+      tt = document.createElement('div');
+      tt.id = 'catTooltip';
+      tt.className = 'cat-tooltip';
+      tt.innerHTML = '<div class="cat-tooltip-img"><img src="" alt=""></div><div class="cat-tooltip-label"></div>';
+      document.body.appendChild(tt);
+    }
+    tt.querySelector('.cat-tooltip-img img').src = thumbSrc;
+    tt.querySelector('.cat-tooltip-label').textContent = catName;
+
+    var rect = el.getBoundingClientRect();
+    var left = rect.left + rect.width / 2 - 110;
+    // Keep tooltip within viewport
+    if (left < 12) left = 12;
+    if (left + 220 > window.innerWidth - 12) left = window.innerWidth - 232;
+    tt.style.left = left + 'px';
+    tt.style.top = (rect.bottom + 10 + window.scrollY) + 'px';
+    tt.classList.add('visible');
+  }
+
+  function hideCategoryTooltip() {
+    var tt = document.getElementById('catTooltip');
+    if (tt) tt.classList.remove('visible');
+  }
+
+  function renderProductList() {
+    var container = document.getElementById('productList');
+    var noResults = document.getElementById('noResults');
+    var filtered = PRODUCTS.filter(function(p) {
+      if (activeCat !== 'All' && p.category !== activeCat) return false;
+      if (searchQuery) {
+        var q = searchQuery.toLowerCase();
+        return p.name.toLowerCase().indexOf(q) !== -1 || p.spec.toLowerCase().indexOf(q) !== -1 || p.category.toLowerCase().indexOf(q) !== -1;
+      }
+      return true;
+    });
+    if (filtered.length === 0) { container.innerHTML = ''; noResults.style.display = 'block'; return; }
+    noResults.style.display = 'none';
+    var html = '';
+    for (var i = 0; i < filtered.length; i++) {
+      var p = filtered[i];
+      var price = getProductPrice(p.id);
+      var ci = getCartItem(p.id);
+      var inCart = !!ci;
+      var qty = inCart ? ci.qty : p.minQty;
+      var btnClass = inCart ? 'btn-add in-cart' : 'btn-add';
+      var btnText = inCart ? '&#10003; In Cart' : 'Add';
+      var isVolume = (p.category === 'Gypsum Boards');
+      var itemClass = isVolume ? 'shop-item volume-item' : 'shop-item';
+      var badgeHtml = isVolume ? '<span class="shop-item-badge"><span class="badge-icon">&#x1F525;</span> Best Value</span>' : '';
+      html += '<div class="' + itemClass + '" data-pid="' + p.id + '">';
+      html += '<div class="shop-item-thumb"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#15803D" stroke-width="1.2"><rect x="3" y="4" width="18" height="14" rx="1.5"/><line x1="7" y1="8" x2="17" y2="8"/><line x1="7" y1="11" x2="17" y2="11"/><line x1="7" y1="14" x2="13" y2="14"/></svg></div>';
+      html += '<div class="shop-item-info">';
+      html += '<div class="shop-item-name">' + p.name + '<span class="shop-item-stock">In Stock</span>' + badgeHtml + '</div>';
+      html += '<div class="shop-item-spec">' + p.spec + '</div>';
+      html += '<div class="shop-item-extra">' + p.extra + '</div>';
+      html += '</div>';
+      html += '<div class="shop-item-price"><div class="price">$' + price.toFixed(2) + '</div><div class="unit">' + p.unit + '</div></div>';
+      html += '<div class="shop-item-qty-actions">';
+      html += '<button class="btn-minus" data-id="' + p.id + '" data-action="minus"' + (inCart ? '' : ' disabled style="opacity:0.35;cursor:default"') + '>&minus;</button>';
+      html += '<div class="shop-item-qty"><input type="number" value="' + qty + '" min="1" data-id="' + p.id + '" class="qty-input"><span class="qty-label">qty</span></div>';
+      html += '<div class="shop-item-add"><button class="' + btnClass + '" data-id="' + p.id + '" data-action="add">' + btnText + '</button></div>';
+      html += '</div>';
+      html += '</div>';
+    }
+    container.innerHTML = html;
+    var addBtns = container.querySelectorAll('[data-action="add"]');
+    for (var k = 0; k < addBtns.length; k++) {
+      addBtns[k].addEventListener('click', function() { addToCart(this.getAttribute('data-id')); });
+    }
+    var minusBtns = container.querySelectorAll('[data-action="minus"]');
+    for (var n = 0; n < minusBtns.length; n++) {
+      minusBtns[n].addEventListener('click', function() {
+        var pid = this.getAttribute('data-id');
+        var ci = getCartItem(pid);
+        if (ci) {
+          var prod = getProductById(pid);
+          var step = prod ? prod.minQty : 1;
+          var newQty = ci.qty - step;
+          if (newQty <= 0) {
+            // Show remove warning instead of instant removal
+            ci.qty = 0;
+            saveCart();
+            renderProductList();
+            var itemEl = document.querySelector('.shop-item[data-pid="' + pid + '"]');
+            if (itemEl) {
+              itemEl.classList.add('removing');
+              // Find qty input and add zero class
+              var inp = itemEl.querySelector('.qty-input');
+              if (inp) { inp.classList.add('qty-zero'); inp.value = '0'; }
+            }
+            showErrorToast('Quantity at 0 — this item will be removed. Click Add to restore, or submit cart without it.');
+          } else {
+            ci.qty = newQty;
+            saveCart();
+            renderProductList();
+          }
+        }
+      });
+    }
+    var qtyInputs = container.querySelectorAll('.qty-input');
+    for (var m = 0; m < qtyInputs.length; m++) {
+      qtyInputs[m].addEventListener('change', function() {
+        var pid = this.getAttribute('data-id');
+        var val = parseInt(this.value, 10);
+        var ci = getCartItem(pid);
+        if (ci) {
+          if (isNaN(val) || val <= 0) {
+            // Show remove warning
+            ci.qty = 0;
+            saveCart();
+            renderProductList();
+            var itemEl2 = document.querySelector('.shop-item[data-pid="' + pid + '"]');
+            if (itemEl2) {
+              itemEl2.classList.add('removing');
+              var inp2 = itemEl2.querySelector('.qty-input');
+              if (inp2) { inp2.classList.add('qty-zero'); inp2.value = '0'; }
+            }
+            showErrorToast('Quantity at 0 — this item will be removed. Click Add to restore, or submit cart without it.');
+          }
+          else { ci.qty = val; saveCart(); }
+        }
+      });
+    }
+  }
+
+  function renderCartView() {
+    var emptyEl = document.getElementById('cartEmpty');
+    var contentEl = document.getElementById('cartContent');
+    var tbody = document.getElementById('cartTableBody');
+    var summaryTotal = document.getElementById('cartSummaryTotal');
+    if (cart.length === 0) { emptyEl.style.display = 'block'; contentEl.style.display = 'none'; return; }
+    emptyEl.style.display = 'none';
+    contentEl.style.display = 'block';
+    var total = 0;
+    var html = '';
+    for (var i = 0; i < cart.length; i++) {
+      var item = cart[i];
+      var subtotal = item.qty * item.price;
+      total += subtotal;
+      html += '<tr>';
+      html += '<td><div class="cart-prod"><div class="cart-prod-thumb"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#15803D" stroke-width="1.2"><rect x="3" y="4" width="18" height="14" rx="1.5"/></svg></div><span class="cart-prod-name">' + item.name + '</span></div></td>';
+      html += '<td style="font-size:12px;color:var(--gray-500)">' + (item.spec || '&mdash;') + '</td>';
+      html += '<td><input type="number" class="cart-qty-input" value="' + item.qty + '" data-id="' + item.id + '" min="1"></td>';
+      html += '<td style="font-weight:500">$' + item.price.toFixed(2) + '</td>';
+      html += '<td style="font-weight:600">$' + subtotal.toLocaleString('en-US', {minimumFractionDigits:2}) + '</td>';
+      html += '<td><button class="btn-remove" data-id="' + item.id + '" title="Remove">&times;</button></td>';
+      html += '</tr>';
+    }
+    tbody.innerHTML = html;
+    summaryTotal.textContent = '$' + total.toLocaleString('en-US', {minimumFractionDigits: 2});
+    var deposit = total * 0.3;
+    var depositEl = document.getElementById('cartSummaryDeposit');
+    if (depositEl) depositEl.textContent = '$' + deposit.toLocaleString('en-US', {minimumFractionDigits: 2});
+    var qtyInputs = tbody.querySelectorAll('.cart-qty-input');
+    for (var j = 0; j < qtyInputs.length; j++) {
+      qtyInputs[j].addEventListener('change', function() { updateCartQty(this.getAttribute('data-id'), this.value); });
+    }
+    var removeBtns = tbody.querySelectorAll('.btn-remove');
+    for (var k = 0; k < removeBtns.length; k++) {
+      removeBtns[k].addEventListener('click', function() { removeFromCart(this.getAttribute('data-id')); });
+    }
+  }
+
+  function showCartView() {
+    hideCartPopup();
+    document.getElementById('shopListView').classList.add('hidden');
+    document.getElementById('cartBar').classList.add('hidden');
+    document.getElementById('shopCartView').classList.add('active');
+    renderCartView();
+    window.scrollTo(0, 0);
+  }
+
+  function showListView() {
+    document.getElementById('shopListView').classList.remove('hidden');
+    document.getElementById('cartBar').classList.remove('hidden');
+    document.getElementById('shopCartView').classList.remove('active');
+    updateCartUI();
+    window.scrollTo(0, 0);
+  }
+
+  // ============================================================
+  //  CART POPUP
+  // ============================================================
+  function renderCartPopup() {
+    var body = document.getElementById('cartPopupBody');
+    var totalEl = document.getElementById('popupTotal');
+    var countEl = document.getElementById('popupCount');
+    var footerEl = document.getElementById('cartPopupFooter');
+    var total = 0;
+    var totalItems = 0;
+
+    for (var i = 0; i < cart.length; i++) {
+      totalItems += 1;
+      total += cart[i].qty * cart[i].price;
+    }
+    countEl.textContent = totalItems;
+
+    if (cart.length === 0) {
+      body.innerHTML = '<div class="cart-popup-empty">Your cart is empty.</div>';
+      footerEl.style.display = 'none';
+      return;
+    }
+    footerEl.style.display = 'block';
+
+    // Get thumbnail for category
+    var html = '';
+    for (var j = 0; j < cart.length; j++) {
+      var item = cart[j];
+      var prod = getProductById(item.id);
+      var catThumb = '';
+      if (prod && CATEGORY_THUMBS[prod.category]) {
+        catThumb = CATEGORY_THUMBS[prod.category];
+      }
+      var subtotal = item.qty * item.price;
+      html += '<div class="cart-popup-item">';
+      html += '<div class="cart-popup-thumb-wrap" data-thumb="' + catThumb + '" data-name="' + item.name + '">';
+      if (catThumb) {
+        html += '<img src="' + catThumb + '" alt="' + item.name + '" style="width:100%;height:100%;object-fit:cover;">';
+      } else {
+        html += '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#15803D" stroke-width="1.2"><rect x="3" y="4" width="18" height="14" rx="1.5"/></svg>';
+      }
+      html += '</div>';
+      html += '<div class="cart-popup-item-info">';
+      html += '<div class="cart-popup-item-name">' + item.name + '</div>';
+      html += '<div class="cart-popup-item-spec">' + (item.spec || '') + '</div>';
+      html += '</div>';
+      html += '<div class="cart-popup-item-qty">&times;' + item.qty + '</div>';
+      html += '<div class="cart-popup-item-subtotal">$' + subtotal.toLocaleString('en-US', {minimumFractionDigits:2}) + '</div>';
+      html += '</div>';
+    }
+    body.innerHTML = html;
+    totalEl.innerHTML = '$' + total.toLocaleString('en-US', {minimumFractionDigits:2}) + '<span>ref.</span>';
+
+    // Bind hover thumbnails on popup items
+    bindPopupThumbHover();
+  }
+
+  function showCartPopup() {
+    if (cart.length === 0) {
+      showCartView();
+      return;
+    }
+    renderCartPopup();
+    document.getElementById('cartPopupOverlay').classList.add('visible');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function hideCartPopup() {
+    document.getElementById('cartPopupOverlay').classList.remove('visible');
+    document.body.style.overflow = '';
+    // Remove tooltip
+    var tt = document.getElementById('popupThumbTooltip');
+    if (tt) tt.remove();
+  }
+
+  function bindPopupThumbHover() {
+    var thumbWraps = document.querySelectorAll('.cart-popup-thumb-wrap');
+    for (var i = 0; i < thumbWraps.length; i++) {
+      thumbWraps[i].addEventListener('mouseenter', function(e) {
+        var thumbSrc = this.getAttribute('data-thumb');
+        var name = this.getAttribute('data-name');
+        if (!thumbSrc) return;
+        showPopupThumbTooltip(this, thumbSrc, name);
+      });
+      thumbWraps[i].addEventListener('mouseleave', function() {
+        hidePopupThumbTooltip();
+      });
+    }
+  }
+
+  function showPopupThumbTooltip(el, src, name) {
+    var tt = document.getElementById('popupThumbTooltip');
+    if (!tt) {
+      tt = document.createElement('div');
+      tt.id = 'popupThumbTooltip';
+      tt.className = 'popup-thumb-tooltip';
+      tt.innerHTML = '<img src="" alt=""><div class="popup-thumb-tooltip-label"></div>';
+      document.body.appendChild(tt);
+    }
+    tt.querySelector('img').src = src;
+    tt.querySelector('.popup-thumb-tooltip-label').textContent = name;
+
+    var rect = el.getBoundingClientRect();
+    var left = rect.right + 12;
+    var top = rect.top + rect.height / 2 - 70;
+    if (left + 200 > window.innerWidth - 12) left = rect.left - 212;
+    if (top < 12) top = 12;
+    if (top + 140 > window.innerHeight - 12) top = window.innerHeight - 152;
+    tt.style.left = left + 'px';
+    tt.style.top = top + 'px';
+    tt.classList.add('visible');
+  }
+
+  function hidePopupThumbTooltip() {
+    var tt = document.getElementById('popupThumbTooltip');
+    if (tt) tt.classList.remove('visible');
+  }
+
+  function showToast(msg) {
+    var toast = document.getElementById('toast');
+    toast.className = 'toast success';
+    toast.innerHTML = msg;
+    toast.classList.add('show');
+    setTimeout(function() { toast.classList.remove('show'); }, 2500);
+  }
+
+  function showErrorToast(msg) {
+    var toast = document.getElementById('toast');
+    toast.className = 'toast error';
+    toast.innerHTML = msg;
+    toast.classList.add('show');
+    setTimeout(function() { toast.classList.remove('show'); }, 3500);
+  }
+
+  function checkContactFields() {
+    var wa = document.getElementById('orderWhatsapp').value.trim();
+    var em = document.getElementById('orderEmail').value.trim();
+    var btn = document.getElementById('btnSubmit');
+    var hint = document.getElementById('contactHint');
+    if (wa || em) { btn.disabled = false; hint.style.color = 'var(--gray-500)'; }
+    else { btn.disabled = true; hint.style.color = 'var(--red-500)'; }
+  }
+
+  function submitOrder(e) {
+    e.preventDefault();
+    var name = document.getElementById('orderName').value.trim();
+    var wa = document.getElementById('orderWhatsapp').value.trim();
+    var em = document.getElementById('orderEmail').value.trim();
+    if (!name) { showErrorToast('Please enter your full name.'); return; }
+    if (!wa && !em) { showErrorToast('Please provide at least WhatsApp or Email.'); return; }
+
+    var itemsText = '';
+    var total = 0;
+    for (var i = 0; i < cart.length; i++) {
+      var sub = cart[i].qty * cart[i].price;
+      total += sub;
+      itemsText += (i+1) + '. ' + cart[i].name + ' \u00d7 ' + cart[i].qty + ' \u00d7 $' + cart[i].price.toFixed(2) + ' = $' + sub.toLocaleString('en-US', {minimumFractionDigits:2}) + '\n';
+    }
+    var msg = document.getElementById('orderMessage').value.trim();
+    var company = document.getElementById('orderCompany').value.trim();
+    var now = new Date().toISOString();
+
+    var FORMSPREE_ENDPOINT = 'https://formspree.io/f/CHANGE_ME';
+    var formData = new FormData();
+    formData.append('name', name);
+    formData.append('company', company);
+    formData.append('whatsapp', wa);
+    formData.append('email', em);
+    formData.append('message', msg);
+    formData.append('order_items', itemsText);
+    formData.append('exw_total', '$' + total.toLocaleString('en-US', {minimumFractionDigits:2}));
+    formData.append('deposit_30pct', '$' + (total * 0.3).toLocaleString('en-US', {minimumFractionDigits:2}));
+    formData.append('logistics', 'Included: Foshan city limits only. Not included: container loading, freight outside Foshan, export docs. Free loading location provided in Foshan.');
+    formData.append('submitted_at', now);
+
+    var btn = document.getElementById('btnSubmit');
+    btn.disabled = true;
+    btn.textContent = 'Submitting...';
+
+    fetch(FORMSPREE_ENDPOINT, { method: 'POST', body: formData, headers: { 'Accept': 'application/json' } })
+      .then(function(res) {
+        if (res.ok) {
+          showToast('Inquiry submitted! We will contact you within 24 hours.');
+          cart = [];
+          saveCart();
+          document.getElementById('orderForm').reset();
+          showListView();
+        } else {
+          return res.json().then(function(data) { throw new Error(data.error || 'Submission failed'); });
+        }
+      })
+      .catch(function(err) {
+        showErrorToast('Failed to submit. Please email us directly at Betty.Mat@foxmail.com');
+        console.error(err);
+      })
+      .finally(function() {
+        btn.disabled = false;
+        btn.textContent = 'Submit Inquiry';
+      });
+  }
+
+})();
+</script>
+
+<script src="js/main.js"></script>
+</body>
+</html>

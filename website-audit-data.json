@@ -1,0 +1,388 @@
+{
+  "summary": {
+    "checked_pages": 15,
+    "all_html_files": 18,
+    "assets": 142,
+    "missing_refs": 0,
+    "broken_links": 0,
+    "image_issues": 0,
+    "html_issues": 0,
+    "large_assets_over_1mb": 45,
+    "orphan_assets": 61,
+    "mega_menu_pages": 15,
+    "footer_four_pages": 10
+  },
+  "missing_refs": [],
+  "broken_links": [],
+  "image_issues": [],
+  "html_issues": [],
+  "large_assets": [
+    {
+      "file": "assets/home-slide-1.png",
+      "size_mb": 7.81
+    },
+    {
+      "file": "assets/about-slide-1.png",
+      "size_mb": 7.5
+    },
+    {
+      "file": "assets/about-slide-2.png",
+      "size_mb": 2.91
+    },
+    {
+      "file": "assets/about-slide-4.png",
+      "size_mb": 2.66
+    },
+    {
+      "file": "assets/about-slide-3.png",
+      "size_mb": 2.3
+    },
+    {
+      "file": "assets/about-slide-6.png",
+      "size_mb": 2.18
+    },
+    {
+      "file": "assets/Professional_product_photograp_2026-06-10T11-24-02.png",
+      "size_mb": 2.09
+    },
+    {
+      "file": "assets/app-insulation-envelope.png",
+      "size_mb": 1.88
+    },
+    {
+      "file": "assets/about-slide-5.png",
+      "size_mb": 1.87
+    },
+    {
+      "file": "assets/app-od-resort.png",
+      "size_mb": 1.87
+    },
+    {
+      "file": "assets/product-hero-insulation.png",
+      "size_mb": 1.77
+    },
+    {
+      "file": "assets/bento-roofing-stone-coated.png",
+      "size_mb": 1.74
+    },
+    {
+      "file": "assets/bento-sb-osb.png",
+      "size_mb": 1.73
+    },
+    {
+      "file": "assets/home-slide-2.png",
+      "size_mb": 1.72
+    },
+    {
+      "file": "assets/app-insulation-coldchain.png",
+      "size_mb": 1.7
+    },
+    {
+      "file": "assets/app-od-urban.png",
+      "size_mb": 1.68
+    },
+    {
+      "file": "assets/bento-decking-wpc-solid.png",
+      "size_mb": 1.61
+    },
+    {
+      "file": "assets/home-slide-3.png",
+      "size_mb": 1.58
+    },
+    {
+      "file": "assets/app-cs-wetarea.png",
+      "size_mb": 1.56
+    },
+    {
+      "file": "assets/bento-wp-wpc-stacked.png",
+      "size_mb": 1.51
+    },
+    {
+      "file": "assets/Professional_product_photograp_2026-06-10T11-27-44.png",
+      "size_mb": 1.5
+    },
+    {
+      "file": "assets/hero-materials.png",
+      "size_mb": 1.49
+    },
+    {
+      "file": "assets/app-cs-firerated.png",
+      "size_mb": 1.33
+    },
+    {
+      "file": "assets/ardot-export/hero-wall-panels.png",
+      "size_mb": 1.31
+    },
+    {
+      "file": "assets/bento-roofing-asphalt-shingles.png",
+      "size_mb": 1.29
+    },
+    {
+      "file": "assets/bento-wp-wpc-stacked-v2.png",
+      "size_mb": 1.29
+    },
+    {
+      "file": "assets/home-slide-4.png",
+      "size_mb": 1.27
+    },
+    {
+      "file": "assets/bento-insulation-rockwool.png",
+      "size_mb": 1.25
+    },
+    {
+      "file": "assets/bento-gypsum-waterproof.png",
+      "size_mb": 1.24
+    },
+    {
+      "file": "assets/home-slide-5.png",
+      "size_mb": 1.22
+    },
+    {
+      "file": "assets/bento-sb-plywood.png",
+      "size_mb": 1.19
+    },
+    {
+      "file": "assets/bento-gypsum-fire.png",
+      "size_mb": 1.16
+    },
+    {
+      "file": "assets/bento-gypsum-moisturefire.png",
+      "size_mb": 1.15
+    },
+    {
+      "file": "assets/product-hero-wall-panels.png",
+      "size_mb": 1.15
+    },
+    {
+      "file": "assets/ardot-export/card-wp-pvc.png",
+      "size_mb": 1.15
+    },
+    {
+      "file": "assets/bento-decking-cladding.png",
+      "size_mb": 1.14
+    },
+    {
+      "file": "assets/bento-gypsum-mr.png",
+      "size_mb": 1.14
+    },
+    {
+      "file": "assets/bento-decking-wpc-hollow.png",
+      "size_mb": 1.12
+    },
+    {
+      "file": "assets/ardot-export/hero-sheet-boards.png",
+      "size_mb": 1.11
+    },
+    {
+      "file": "assets/bento-accessories-joint-compound.png",
+      "size_mb": 1.09
+    },
+    {
+      "file": "assets/bento-sb-mdf.png",
+      "size_mb": 1.09
+    },
+    {
+      "file": "assets/home-slide-6.png",
+      "size_mb": 1.03
+    },
+    {
+      "file": "assets/bento-tiles-mosaic.png",
+      "size_mb": 1.02
+    },
+    {
+      "file": "assets/ardot-export/2_27.png",
+      "size_mb": 1.02
+    },
+    {
+      "file": "assets/bento-tiles-ceramic.png",
+      "size_mb": 1.01
+    }
+  ],
+  "orphan_assets": [
+    "assets/Professional_product_photograp_2026-06-10T11-24-02.png",
+    "assets/Professional_product_photograp_2026-06-10T11-27-44.png",
+    "assets/ardot-export/26_26.png",
+    "assets/ardot-export/29_24.png",
+    "assets/ardot-export/2_101.png",
+    "assets/ardot-export/2_104.png",
+    "assets/ardot-export/2_108.png",
+    "assets/ardot-export/2_115.png",
+    "assets/ardot-export/2_122.png",
+    "assets/ardot-export/2_137.png",
+    "assets/ardot-export/2_25.png",
+    "assets/ardot-export/2_27.png",
+    "assets/ardot-export/2_93.png",
+    "assets/ardot-export/36_10.png",
+    "assets/ardot-export/36_37.png",
+    "assets/ardot-export/36_38.png",
+    "assets/ardot-export/36_39.png",
+    "assets/ardot-export/36_40.png",
+    "assets/ardot-export/36_41.png",
+    "assets/ardot-export/36_6.png",
+    "assets/ardot-export/36_7.png",
+    "assets/ardot-export/36_8.png",
+    "assets/ardot-export/36_9.png",
+    "assets/ardot-export/card-cs-standard.png",
+    "assets/ardot-export/card-gy-fire.png",
+    "assets/ardot-export/card-gy-moisturefire.png",
+    "assets/ardot-export/card-gy-mr.png",
+    "assets/ardot-export/card-gy-standard.png",
+    "assets/ardot-export/card-gy-waterproof.png",
+    "assets/ardot-export/card-sb-mdf.png",
+    "assets/ardot-export/card-sb-osb.png",
+    "assets/ardot-export/card-sb-plywood.png",
+    "assets/ardot-export/card-wp-3d.png",
+    "assets/ardot-export/card-wp-acoustic.png",
+    "assets/ardot-export/card-wp-pvc.png",
+    "assets/ardot-export/card-wp-wpc.png",
+    "assets/ardot-export/hero-sheet-boards.png",
+    "assets/ardot-export/hero-wall-panels.png",
+    "assets/ardot-export/screenshot(0_1)-20260610_100342.webp",
+    "assets/ardot-export/screenshot(0_1)-20260610_102007.webp",
+    "assets/banner-bottom.png",
+    "assets/bento-wp-wpc-detail.jpg",
+    "assets/bento-wp-wpc-stacked-v2.png",
+    "assets/bento-wp-wpc-stacked.png",
+    "assets/bento-wp-wpc.jpg",
+    "assets/betty-avatar.png",
+    "assets/betty-avatar@2x.png",
+    "assets/crown-logo.png",
+    "assets/crown-logo@2x.png",
+    "assets/hero-materials.png",
+    "assets/product-accessories.jpg",
+    "assets/product-calcium-silicate.png",
+    "assets/product-ceiling.png",
+    "assets/product-decking.jpg",
+    "assets/product-gypsum.png",
+    "assets/product-hero-roofing-materials.png",
+    "assets/product-insulation.jpg",
+    "assets/product-roofing.png",
+    "assets/product-sheetboards.png",
+    "assets/product-tiles.png",
+    "assets/product-wallpanels.png"
+  ],
+  "page_stats": [
+    {
+      "file": "about.html",
+      "size_kb": 17.4,
+      "imgs": 7,
+      "links": 28,
+      "has_mega_menu": true
+    },
+    {
+      "file": "accessories.html",
+      "size_kb": 35.7,
+      "imgs": 13,
+      "links": 45,
+      "has_mega_menu": true
+    },
+    {
+      "file": "calcium-silicate.html",
+      "size_kb": 29.7,
+      "imgs": 12,
+      "links": 34,
+      "has_mega_menu": true
+    },
+    {
+      "file": "ceiling-framing.html",
+      "size_kb": 36.3,
+      "imgs": 13,
+      "links": 46,
+      "has_mega_menu": true
+    },
+    {
+      "file": "contact.html",
+      "size_kb": 32.8,
+      "imgs": 2,
+      "links": 29,
+      "has_mega_menu": true
+    },
+    {
+      "file": "gypsum-boards.html",
+      "size_kb": 36.5,
+      "imgs": 14,
+      "links": 34,
+      "has_mega_menu": true
+    },
+    {
+      "file": "index.html",
+      "size_kb": 17.2,
+      "imgs": 8,
+      "links": 31,
+      "has_mega_menu": true
+    },
+    {
+      "file": "insulation-materials.html",
+      "size_kb": 35.2,
+      "imgs": 13,
+      "links": 45,
+      "has_mega_menu": true
+    },
+    {
+      "file": "outdoor-decking.html",
+      "size_kb": 35.2,
+      "imgs": 13,
+      "links": 45,
+      "has_mega_menu": true
+    },
+    {
+      "file": "products.html",
+      "size_kb": 17.1,
+      "imgs": 11,
+      "links": 38,
+      "has_mega_menu": true
+    },
+    {
+      "file": "projects.html",
+      "size_kb": 16.2,
+      "imgs": 7,
+      "links": 28,
+      "has_mega_menu": true
+    },
+    {
+      "file": "roofing-materials.html",
+      "size_kb": 35.6,
+      "imgs": 14,
+      "links": 44,
+      "has_mega_menu": true
+    },
+    {
+      "file": "sheet-boards.html",
+      "size_kb": 30.4,
+      "imgs": 12,
+      "links": 35,
+      "has_mega_menu": true
+    },
+    {
+      "file": "tiles.html",
+      "size_kb": 35.6,
+      "imgs": 14,
+      "links": 45,
+      "has_mega_menu": true
+    },
+    {
+      "file": "wall-panels.html",
+      "size_kb": 34.1,
+      "imgs": 13,
+      "links": 45,
+      "has_mega_menu": true
+    }
+  ],
+  "nav_mega_pages": [
+    "about.html",
+    "accessories.html",
+    "calcium-silicate.html",
+    "ceiling-framing.html",
+    "contact.html",
+    "gypsum-boards.html",
+    "index.html",
+    "insulation-materials.html",
+    "outdoor-decking.html",
+    "products.html",
+    "projects.html",
+    "roofing-materials.html",
+    "sheet-boards.html",
+    "tiles.html",
+    "wall-panels.html"
+  ]
+}

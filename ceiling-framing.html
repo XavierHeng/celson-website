@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ceiling &amp; Metal Framing — CELSON | Suspended Ceilings, Metal Studs &amp; Steel Framework</title>
+  <meta name="description" content="Suspended ceiling systems, metal studs, and steel framework at factory-direct pricing. T-grid, drywall studs, furring channels — heavy-duty quality, lightweight pricing.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* ===== Subpage Nav ===== */
+    .subpage-nav {
+      position: sticky; top: 72px; z-index: 999;
+      background: rgba(255,255,255,0.95); backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    .subpage-nav .container {
+      display: flex; align-items: center; justify-content: space-between; height: 48px;
+    }
+    .subpage-nav-links { display: flex; gap: 32px; }
+    .subpage-nav-links a {
+      font-size: 13px; font-weight: 600; color: var(--slate-500);
+      padding: 4px 0; border-bottom: 2px solid transparent; transition: all 0.2s;
+    }
+    .subpage-nav-links a:hover,
+    .subpage-nav-links a.active { color: var(--green-600); border-bottom-color: var(--green-600); }
+    .subpage-nav .btn-sm { padding: 6px 18px; font-size: 12px; }
+
+    /* ===== Hero ===== */
+    .hero-wrap { background: var(--navy-900); }
+    .hero-section {
+      display: flex; align-items: center; gap: 48px;
+      max-width: 1280px; margin: 0 auto; padding: 48px 0;
+    }
+    .hero-content { flex: 1; min-width: 0; }
+    .hero-badge {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 6px 16px; background: var(--orange-600); border-radius: 4px;
+      font-size: 12px; font-weight: 700; color: var(--white);
+      margin-bottom: 12px;
+    }
+    .hero-headline {
+      font-family: var(--font-display); font-size: 40px; font-weight: 700;
+      line-height: 1.21; color: var(--white); margin-bottom: 16px; letter-spacing: -0.02em;
+    }
+    .hero-subheadline {
+      font-size: 17px; color: #94A3B8; line-height: 1.5; margin-bottom: 20px;
+    }
+    .hero-buttons { display: flex; gap: 16px; }
+    .btn-specs {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 14px 32px; background: var(--green-600); color: var(--white);
+      font-size: 15px; font-weight: 700; border-radius: 8px; transition: all 0.2s;
+    }
+    .btn-specs:hover { background: var(--green-700); transform: translateY(-1px); }
+    .btn-catalog {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 14px 32px; background: #1E293B; color: #CBD5E1;
+      font-size: 15px; font-weight: 600; border-radius: 8px; transition: all 0.2s;
+    }
+    .btn-catalog:hover { background: #334155; color: #F1F5F9; transform: translateY(-1px); }
+    .hero-image {
+      flex: 0 0 440px; height: 280px; background: var(--navy-800); border-radius: 16px; overflow: hidden;
+    }
+    .hero-image img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* ===== Specs Section ===== */
+    .specs-section { background: #F8FAFC; padding: 48px 0; }
+    .specs-section .container { max-width: 1280px; }
+    .section-label {
+      font-size: 13px; font-weight: 700; color: var(--orange-600); text-transform: uppercase;
+      letter-spacing: 0.04em; margin-bottom: 8px;
+    }
+    .section-heading {
+      font-family: var(--font-display); font-size: 32px; font-weight: 700;
+      color: var(--navy-900); margin-bottom: 24px; letter-spacing: -0.02em;
+    }
+    .specs-table-wrap { border-radius: 12px; overflow: hidden; }
+    .specs-table { width: 100%; border-collapse: collapse; }
+    .specs-table thead th {
+      background: var(--navy-900); padding: 12px 16px;
+      font-size: 12px; font-weight: 700; color: #94A3B8; text-align: left;
+      text-transform: uppercase; letter-spacing: 0.04em;
+    }
+    .specs-table thead th:first-child { width: 180px; }
+    .specs-table thead th:nth-child(2) { width: 180px; }
+    .specs-table thead th:nth-child(3) { width: 220px; }
+    .specs-table thead th:nth-child(4) { width: 240px; }
+    .specs-table thead th:nth-child(5) { width: auto; }
+    .specs-table tbody td {
+      padding: 10px 16px; font-size: 13px; border-bottom: none;
+    }
+    .specs-table tbody td:first-child { font-weight: 600; color: var(--navy-900); }
+    .specs-table tbody td:not(:first-child) { color: #334155; }
+    .specs-table tbody tr:nth-child(odd) td { background: var(--white); }
+    .specs-table tbody tr:nth-child(even) td { background: #F8FAFC; }
+
+    /* ===== Product Types Section ===== */
+    .products-section { background: var(--white); padding: 48px 0; }
+    .products-section .container { max-width: 1280px; }
+    .bento-grid {
+      display: flex; gap: 20px;
+    }
+    .bento-left { flex: 1; }
+    .bento-right { flex: 1; display: flex; flex-direction: column; gap: 20px; }
+    .bento-card {
+      background: #F8FAFC; border-radius: 12px; overflow: hidden;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .bento-card:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.08); }
+    .bento-card-large { display: flex; flex-direction: column; }
+    .bento-card-large .bento-img { width: 100%; height: 340px; overflow: hidden; }
+    .bento-card-large .bento-img img { width: 100%; height: 100%; object-fit: cover; }
+    .bento-card-large .bento-body { padding: 24px 28px 28px; }
+    .bento-card-small { display: flex; flex: 1; }
+    .bento-card-small .bento-img { flex: 0 0 260px; overflow: hidden; }
+    .bento-card-small .bento-img img { width: 100%; height: 100%; object-fit: cover; }
+    .bento-card-small .bento-body {
+      flex: 1; padding: 24px; display: flex; flex-direction: column; justify-content: center;
+    }
+    .bento-tag {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 4px 12px; border-radius: 4px; font-size: 11px; font-weight: 700;
+      margin-bottom: 8px; width: fit-content;
+    }
+    .bento-tag-green { background: var(--green-600); color: var(--white); }
+    .bento-tag-blue { background: #0EA5E9; color: var(--white); }
+    .bento-tag-purple { background: #8B5CF6; color: var(--white); }
+    .bento-tag-amber { background: #F59E0B; color: var(--navy-900); }
+    .bento-card-large .bento-title {
+      font-family: var(--font-display); font-size: 20px; font-weight: 700;
+      color: var(--navy-900); margin-bottom: 8px;
+    }
+    .bento-card-small .bento-title {
+      font-family: var(--font-display); font-size: 18px; font-weight: 700;
+      color: var(--navy-900); margin-bottom: 8px;
+    }
+    .bento-desc {
+      font-size: 13px; color: #64748B; line-height: 1.54;
+    }
+
+    /* ===== Applications Section ===== */
+    .apps-section { background: #F8FAFC; padding: 48px 0; }
+    .apps-section .container { max-width: 1280px; }
+
+    /* ===== CTA Section ===== */
+    .cta-section {
+      background: var(--green-600); padding: 48px 0; text-align: center;
+    }
+    .cta-section .container { max-width: 700px; }
+    .cta-heading {
+      font-family: var(--font-display); font-size: 40px; font-weight: 700;
+      color: var(--white); margin-bottom: 16px;
+    }
+    .cta-subheadline {
+      font-size: 17px; color: #DCFCE7; line-height: 1.65; margin-bottom: 32px;
+    }
+    .cta-buttons { display: flex; justify-content: center; gap: 16px; }
+    .btn-quote {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 16px 40px; background: var(--white); color: var(--green-600);
+      font-size: 16px; font-weight: 700; border-radius: 10px; transition: all 0.2s;
+    }
+    .btn-quote:hover { background: #F0FDF4; transform: translateY(-1px); }
+    .btn-dl {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 16px 40px; background: #16A34A; color: var(--white);
+      font-size: 16px; font-weight: 600; border-radius: 10px; transition: all 0.2s;
+    }
+    .btn-dl:hover { background: #15803D; transform: translateY(-1px); }
+
+    /* ===== Footer ===== */
+    .site-footer {
+      background: var(--navy-900); padding: 48px 0 0;
+    }
+    .site-footer .container { max-width: 1280px; }
+    .footer-top { display: flex; gap: 48px; margin-bottom: 32px; }
+    .footer-brand-col { width: 320px; }
+    .footer-logo {
+      font-family: var(--font-display); font-size: 24px; font-weight: 700;
+      color: var(--white); margin-bottom: 16px;
+    }
+    .footer-tagline {
+      font-size: 14px; color: #94A3B8; line-height: 1.57;
+    }
+    .footer-link-col { flex: 1; }
+    .footer-link-col h4 {
+      font-size: 13px; font-weight: 700; color: #64748B; text-transform: uppercase;
+      letter-spacing: 0.04em; margin-bottom: 16px;
+    }
+    .footer-link-col a {
+      display: block; font-size: 14px; color: #CBD5E1; margin-bottom: 12px; transition: color 0.2s;
+    }
+    .footer-link-col a:hover { color: var(--white); }
+    .footer-divider {
+      height: 1px; background: #1E293B; margin-bottom: 0;
+    }
+    .footer-bottom {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 24px 0;
+    }
+    .footer-copyright {
+      font-size: 13px; color: #64748B;
+    }
+    .footer-lang {
+      font-size: 13px; color: #64748B;
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 1024px) {
+      .hero-section { flex-direction: column; padding: 60px 32px; gap: 48px; }
+      .hero-image { flex: none; width: 100%; height: 240px; }
+      .hero-headline { font-size: 36px; }
+      .bento-grid { flex-direction: column; }
+      .bento-card-small .bento-img { flex: 0 0 200px; }
+      .apps-grid { grid-template-columns: 1fr; }
+      .footer-top { flex-wrap: wrap; gap: 48px; }
+      .footer-brand-col { width: 100%; }
+      .footer-link-col { flex: 0 0 calc(50% - 24px); }
+    }
+    @media (max-width: 768px) {
+      .hero-section { padding: 48px 20px; gap: 36px; }
+      .hero-headline { font-size: 28px; }
+      .hero-buttons { flex-direction: column; }
+      .subpage-nav { display: none; }
+      .specs-table-wrap { overflow-x: auto; }
+      .bento-card-small { flex-direction: column; }
+      .bento-card-small .bento-img { flex: none; height: 200px; }
+      .cta-buttons { flex-direction: column; align-items: center; }
+      .footer-top { gap: 32px; }
+      .footer-link-col { flex: 0 0 100%; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+    }
+  
+    /* Explore Other Products */
+    .explore-section { padding: 40px 0; }
+    .explore-section .section-label { text-align: center; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--green-600); margin-bottom: 8px; }
+    .explore-section .section-title{text-align:center;font-family:var(--font-display);font-size:32px;font-weight:700;color:var(--navy-900);margin-bottom:24px; }
+    .explore-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; }
+    .explore-card { background: var(--white); border-radius: 12px; border: 1px solid var(--slate-100); overflow: hidden; transition: all 0.25s; display: flex; flex-direction: column; text-decoration: none; }
+    .explore-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.08); border-color: var(--green-200); }
+    .explore-card-img { height: 100px; overflow: hidden; }
+    .explore-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+    .explore-card:hover .explore-card-img img { transform: scale(1.06); }
+    .explore-card-body { padding: 16px; flex: 1; display: flex; flex-direction: column; }
+    .explore-card-body h4 { font-family: var(--font-display); font-size: 15px; font-weight: 700; color: var(--navy-900); margin-bottom: 6px; line-height: 1.3; }
+    .explore-card-body p { font-size: 12px; color: var(--slate-400); line-height: 1.5; flex: 1; }
+    .explore-card-link { display: inline-flex; align-items: center; gap: 4px; margin-top: 10px; font-size: 13px; font-weight: 600; color: var(--green-600); }
+    .explore-card-link .arrow { transition: transform 0.2s; }
+    .explore-card:hover .explore-card-link .arrow { transform: translateX(3px); }
+
+    @media (max-width: 1024px) {
+      .explore-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .explore-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+      .explore-section .section-title { font-size: 24px; }
+    }
+    @media (max-width: 480px) {
+      .explore-grid { grid-template-columns: 1fr; }
+    }
+  
+    /* ===== Prev / Next Product Navigation ===== */
+    .product-nav { position: fixed; top: 50%; transform: translateY(-50%); z-index: 900; }
+    .product-nav-prev { left: 0; }
+    .product-nav-next { right: 0; }
+    .product-nav-btn { display: flex; align-items: center; gap: 8px; padding: 20px 14px; background: var(--white); border: 1px solid var(--slate-200); border-radius: 0 12px 12px 0; box-shadow: 0 4px 20px rgba(0,0,0,0.08); cursor: pointer; text-decoration: none; transition: all 0.25s; }
+    .product-nav-next .product-nav-btn { border-radius: 12px 0 0 12px; }
+    .product-nav-btn:hover { background: var(--green-600); border-color: var(--green-600); box-shadow: 0 8px 28px rgba(21,128,61,0.25); }
+    .product-nav-btn:hover .nav-arrow,
+    .product-nav-btn:hover .nav-label,
+    .product-nav-btn:hover .nav-title { color: var(--white) !important; }
+    .product-nav-btn .nav-arrow { font-size: 24px; color: var(--green-600); font-weight: 700; transition: all 0.25s; line-height: 1; }
+    .product-nav-btn .nav-info { display: flex; flex-direction: column; gap: 2px; overflow: hidden; max-width: 0; opacity: 0; transition: all 0.3s; white-space: nowrap; }
+    .product-nav-btn:hover .nav-info { max-width: 180px; opacity: 1; }
+    .nav-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--slate-400); transition: color 0.25s; }
+    .nav-title { font-size: 13px; font-weight: 600; color: var(--navy-900); transition: color 0.25s; }
+    .product-nav-prev .product-nav-btn { flex-direction: row; }
+    .product-nav-next .product-nav-btn { flex-direction: row-reverse; text-align: right; }
+
+    @media (max-width: 768px) {
+      .product-nav { top: auto; bottom: 24px; transform: none; }
+      .product-nav-btn { padding: 14px 16px; border-radius: 12px !important; }
+      .product-nav-btn .nav-info { max-width: 0; opacity: 0; }
+      .product-nav-btn:hover .nav-info { max-width: 130px; opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== NAV BAR (Design: 2:4) ===== -->
+<header class="site-header" style="background:var(--navy-900);border-bottom:1px solid #1E293B">
+  <div class="container header-inner">
+    <a href="index.html" class="header-logo" style="color:var(--white);gap:16px">
+      <img src="assets/crown-logo-44.png" srcset="assets/crown-logo@2x.png 2x" class="logo-icon" alt="CELSON">
+      <span style="font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--white)">CELSON</span>
+      <span style="display:inline-block;width:2px;height:24px;background:#334155;margin:0 4px"></span>
+      <span style="font-size:14px;font-weight:600;color:#94A3B8">CEILING &amp; FRAMING</span>
+    </a>
+    <nav class="header-nav">
+      <a href="index.html" style="color:#CBD5E1">Home</a>
+      <a href="products.html" class="nav-products-trigger" data-href="products.html" style="color:#CBD5E1">
+      Products
+      <span class="mega-arrow">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+    </a>
+    <div class="mega-menu">
+    <div class="mega-menu-inner">
+      <div class="mega-menu-grid">
+      <a href="gypsum-boards.html" class="mega-menu-item">
+        <span class="mega-menu-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="1.5"/><line x1="7" y1="8" x2="17" y2="8"/><line x1="7" y1="11" x2="17" y2="11"/><line x1="7" y1="14" x2="13" y2="14"/></svg>
+        </span>
+        <span class="mega-menu-text">
+          <span class="mega-menu-label">Gypsum Boards</span>
+          <span class="mega-menu-desc">Standard, MR, Fire-Rated</span>
+        </span>
+      </a>
+      <a href="sheet-boards.html" class="mega-menu-item">
+        <span class="mega-menu-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="3.5" rx="1"/><rect x="4.5" y="8.5" width="15" height="3.5" rx="1"/><rect x="6" y="13" width="12" height="3.5" rx="1"/><rect x="4" y="17.5" width="16" height="3.5" rx="1"/></svg>
+        </span>
+        <span class="mega-menu-text">
+          <span class="mega-menu-label">Sheet Boards</span>
+          <span class="mega-menu-desc">Plywood, MDF, OSB, Particle</span>
+        </span>
+      </a>
+      <a href="wall-panels.html" class="mega-menu-item">
+        <span class="mega-menu-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="18" rx="1"/><line x1="12" y1="3" x2="12" y2="21"/><line x1="2" y1="12" x2="22" y2="12"/><rect x="3" y="4" width="8" height="7" rx="0.5"/></svg>
+        </span>
+        <span class="mega-menu-text">
+          <span class="mega-menu-label">Wall Panels</span>
+          <span class="mega-menu-desc">Decorative, WPC, UV Marble</span>
+        </span>
+      </a>
+      <a href="ceiling-framing.html" class="mega-menu-item">
+        <span class="mega-menu-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="18" rx="1"/><line x1="8" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="16" y2="21"/><line x1="2" y1="9" x2="22" y2="9"/><line x1="2" y1="15" x2="22" y2="15"/></svg>
+        </span>
+        <span class="mega-menu-text">
+          <span class="mega-menu-label">Ceiling &amp; Framing</span>
+          <span class="mega-menu-desc">T-Grid, Stud, Track Systems</span>
+        </span>
+      </a>
+      <a href="calcium-silicate.html" class="mega-menu-item">
+        <span class="mega-menu-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L3 7v6c0 5.25 3.83 10.12 9 11 5.17-.88 9-5.75 9-11V7l-9-5z"/><path d="M8 12l2.5 2.5L16 9"/></svg>
+        </span>
+        <span class="mega-menu-text">
+          <span class="mega-menu-label">Calcium Silicate</span>
+          <span class="mega-menu-desc">Fire-Rated, Moisture-Proof</span>
+        </span>
+      </a>
+      <a href="outdoor-decking.html" class="mega-menu-item">
+        <span class="mega-menu-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="3" height="14" rx="0.5"/><rect x="7" y="6" width="3" height="14" rx="0.5"/><rect x="12" y="6" width="3" height="14" rx="0.5"/><rect x="17" y="6" width="3" height="14" rx="0.5"/><circle cx="4" cy="4" r="1.5"/><line x1="4" y1="1.5" x2="4" y2="3.5"/><line x1="2.5" y1="4" x2="5.5" y2="4"/></svg>
+        </span>
+        <span class="mega-menu-text">
+          <span class="mega-menu-label">Outdoor &amp; Decking</span>
+          <span class="mega-menu-desc">WPC, Composite, Cladding</span>
+        </span>
+      </a>
+      <a href="tiles.html" class="mega-menu-item">
+        <span class="mega-menu-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="9" height="9" rx="1.5"/><rect x="13" y="2" width="9" height="9" rx="1.5"/><rect x="2" y="13" width="9" height="9" rx="1.5"/><rect x="13" y="13" width="9" height="9" rx="1.5"/></svg>
+        </span>
+        <span class="mega-menu-text">
+          <span class="mega-menu-label">Tiles</span>
+          <span class="mega-menu-desc">Porcelain, Ceramic, Mosaic</span>
+        </span>
+      </a>
+      <a href="roofing-materials.html" class="mega-menu-item">
+        <span class="mega-menu-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20L12 4l10 16H2z"/><path d="M7 20v-5l5-3.5L17 15v5"/></svg>
+        </span>
+        <span class="mega-menu-text">
+          <span class="mega-menu-label">Roofing Materials</span>
+          <span class="mega-menu-desc">Metal, Asphalt, PVC Sheets</span>
+        </span>
+      </a>
+      <a href="accessories.html" class="mega-menu-item">
+        <span class="mega-menu-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2"/><circle cx="12" cy="5" r="1.5"/><line x1="12" y1="6.5" x2="12" y2="10"/><circle cx="12" cy="19" r="1.5"/><line x1="12" y1="14" x2="12" y2="17.5"/><circle cx="5" cy="7" r="1.5"/><line x1="6.5" y1="7" x2="10" y2="7"/></svg>
+        </span>
+        <span class="mega-menu-text">
+          <span class="mega-menu-label">Accessories</span>
+          <span class="mega-menu-desc">Screws, Profiles, Joint Tape</span>
+        </span>
+      </a>
+      <a href="insulation-materials.html" class="mega-menu-item">
+        <span class="mega-menu-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M4 9c2-1 4 1 6 0s4-1 6 0l4-1"/><path d="M4 12c2-1 4 1 6 0s4-1 6 0l4-1"/><path d="M4 15c2-1 4 1 6 0s4-1 6 0l4-1"/></svg>
+        </span>
+        <span class="mega-menu-text">
+          <span class="mega-menu-label">Insulation</span>
+          <span class="mega-menu-desc">Rock Wool, XPS, EPS Boards</span>
+        </span>
+      </a>
+      </div>
+      <div class="mega-menu-footer">
+        <a href="products.html">
+          View All Products
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+      <a href="about.html" style="color:#CBD5E1">About</a>
+      <a href="projects.html" style="color:#CBD5E1">Projects</a>
+      <a href="#" class="nav-shop-coming" style="color:#CBD5E1">Shop<span class="coming-soon-badge">Soon</span></a>
+      <a href="contact.html" style="color:#CBD5E1">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <button class="lang-switch" style="color:#CBD5E1">EN <span style="color:#64748B">/ 中文</span></button>
+      <a href="contact.html" class="btn-primary" style="padding:10px 24px;font-size:14px">Get Quote</a>
+    </div>
+    <button class="mobile-toggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- ===== SUBPAGE NAV ===== -->
+<div class="subpage-nav">
+  <div class="container">
+    <div class="subpage-nav-links">
+      <a href="#overview" class="active">Overview</a>
+      <a href="#specs">Specifications</a>
+      <a href="#types">Product Types</a>
+      <a href="#applications">Applications</a>
+    </div>
+    <a href="contact.html" class="btn-primary btn-sm">Get Quote</a>
+  </div>
+</div>
+
+<!-- ===== HERO (Design: 2:16) ===== -->
+<section class="hero-wrap" id="overview">
+  <div class="hero-section">
+    <div class="hero-content">
+      <span class="hero-badge">COST KING</span>
+      <h1 class="hero-headline">The Backbone of Modern Construction, Without the Heavy Price Tag</h1>
+      <p class="hero-subheadline">Suspended ceiling systems, metal studs, and steel framework &mdash; engineered for strength, priced for scale. From mineral fiber tiles to heavy-gauge steel, every product delivers commercial-grade durability at a price that makes sense.</p>
+      <div class="hero-buttons">
+        <a href="contact.html" class="btn-specs">Request Specifications</a>
+        <a href="contact.html" class="btn-catalog">Download Catalog</a>
+      </div>
+    </div>
+    <div class="hero-image">
+      <img src="assets/product-hero-ceiling-framing.png" alt="Ceiling and framing - suspended ceiling systems, metal studs and steel framework">
+    </div>
+  </div>
+</section>
+
+<!-- ===== SPECS (Design: 2:28) ===== -->
+<section class="specs-section" id="specs">
+  <div class="container">
+    <p class="section-label">TECHNICAL SPECIFICATIONS</p>
+    <h2 class="section-heading">Engineered for Performance, Priced for Value</h2>
+    <div class="specs-table-wrap">
+      <table class="specs-table">
+        <thead>
+          <tr>
+            <th>PRODUCT</th>
+            <th>THICKNESS</th>
+            <th>STANDARD SIZE</th>
+            <th>MATERIAL / FINISH</th>
+            <th>BEST FOR</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Mineral Fiber Ceiling</td>
+            <td>12&ndash;19mm</td>
+            <td>600x600 / 600x1200mm</td>
+            <td>Smooth / Textured / Perforated</td>
+            <td>Offices, schools, hospitals, retail</td>
+          </tr>
+          <tr>
+            <td>Metal Ceiling Tile</td>
+            <td>0.5&ndash;1.0mm</td>
+            <td>300x300 / 600x600mm</td>
+            <td>Powder Coated / Brushed / Mirror</td>
+            <td>Kitchens, labs, cleanrooms, corridors</td>
+          </tr>
+          <tr>
+            <td>Metal Studs</td>
+            <td>0.4&ndash;1.2mm</td>
+            <td>50&ndash;150mm Width / 3&ndash;6m Length</td>
+            <td>Galvanized Steel / Zinc Coated</td>
+            <td>Drywall partitions, interior walls</td>
+          </tr>
+          <tr>
+            <td>Steel Framework</td>
+            <td>0.8&ndash;2.5mm</td>
+            <td>Custom Dimensions</td>
+            <td>Hot-Dip Galvanized / Pre-Galvanized</td>
+            <td>Structural framing, ceiling grids, load-bearing</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PRODUCT TYPES (Design: 2:87) ===== -->
+<section class="products-section" id="types">
+  <div class="container">
+    <p class="section-label">PRODUCT TYPES</p>
+    <h2 class="section-heading">Four Ways to Build Stronger</h2>
+    <div class="bento-grid">
+      <!-- Left Column: Mineral Fiber (large) -->
+      <div class="bento-left">
+        <div class="bento-card bento-card-large">
+          <div class="bento-img">
+            <img src="assets/bento-cf-mineral-fiber.png" alt="Mineral Fiber Ceiling">
+          </div>
+          <div class="bento-body">
+            <span class="bento-tag bento-tag-green">BEST SELLER</span>
+            <h3 class="bento-title">Mineral Fiber Ceiling</h3>
+            <p class="bento-desc">12&ndash;19mm thickness &middot; Acoustic NRC 0.55&ndash;0.70 &middot; Fire-rated Class A &middot; 10+ year lifespan</p>
+          </div>
+        </div>
+      </div>
+      <!-- Right Column: 3 small cards -->
+      <div class="bento-right">
+        <div class="bento-card bento-card-small">
+          <div class="bento-img">
+            <img src="assets/bento-cf-metal-ceiling.png" alt="Metal Ceiling Tile">
+          </div>
+          <div class="bento-body">
+            <span class="bento-tag bento-tag-blue">HYGIENIC</span>
+            <h3 class="bento-title">Metal Ceiling Tile</h3>
+            <p class="bento-desc">0.5&ndash;1.0mm aluminum/steel &middot; Powder coated &middot; Moisture-proof &middot; Easy to clean</p>
+          </div>
+        </div>
+        <div class="bento-card bento-card-small">
+          <div class="bento-img">
+            <img src="assets/bento-cf-metal-studs.png" alt="Metal Studs">
+          </div>
+          <div class="bento-body">
+            <span class="bento-tag bento-tag-purple">VERSATILE</span>
+            <h3 class="bento-title">Metal Studs</h3>
+            <p class="bento-desc">0.4&ndash;1.2mm galvanized steel &middot; 50&ndash;150mm widths &middot; Lightweight &middot; Corrosion resistant</p>
+          </div>
+        </div>
+        <div class="bento-card bento-card-small">
+          <div class="bento-img">
+            <img src="assets/bento-cf-steel-framework.png" alt="Steel Framework">
+          </div>
+          <div class="bento-body">
+            <span class="bento-tag bento-tag-amber">HEAVY-DUTY</span>
+            <h3 class="bento-title">Steel Framework</h3>
+            <p class="bento-desc">0.8&ndash;2.5mm hot-dip galvanized &middot; Custom dimensions &middot; Load-bearing &middot; Rust-proof</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== EXPLORE OTHER PRODUCTS ========== -->
+<section class="explore-section">
+  <div class="container">
+    <div class="section-label">Explore Other Products</div>
+    <h2 class="section-title">Find the right material for your next project</h2>
+    <div class="explore-grid">
+      <a href="gypsum-boards.html" class="explore-card">
+        <div class="explore-card-img">
+          <img src="assets/bento-gypsum-standard.png" alt="Gypsum Boards" loading="lazy">
+        </div>
+        <div class="explore-card-body">
+          <h4>Gypsum Boards</h4>
+          <p>Standard, MR, fire-rated boards 9.5mm–15mm</p>
+          <span class="explore-card-link">View Details <span class="arrow">&rarr;</span></span>
+        </div>
+      </a>
+      <a href="sheet-boards.html" class="explore-card">
+        <div class="explore-card-img">
+          <picture><source srcset="assets/bento-sb-plywood.webp" type="image/webp"><img src="assets/bento-sb-plywood.png"g" alt="Sheet Boards" loading="lazy">
+        </div>
+        <div class="explore-card-body">
+          <h4>Sheet Boards</h4>
+          <p>Plywood, MDF, OSB — all grades, all sizes</p>
+          <span class="explore-card-link">View Details <span class="arrow">&rarr;</span></span>
+        </div>
+      </a>
+      <a href="wall-panels.html" class="explore-card">
+        <div class="explore-card-img">
+          <img src="assets/bento-wp-wpc.png" alt="Wall Panels" loading="lazy">
+        </div>
+        <div class="explore-card-body">
+          <h4>Wall Panels</h4>
+          <p>WPC, PVC, acoustic & decorative panels</p>
+          <span class="explore-card-link">View Details <span class="arrow">&rarr;</span></span>
+        </div>
+      </a>
+      <a href="calcium-silicate.html" class="explore-card">
+        <div class="explore-card-img">
+          <img src="assets/bento-cs-standard.png" alt="Calcium Silicate" loading="lazy">
+        </div>
+        <div class="explore-card-body">
+          <h4>Calcium Silicate</h4>
+          <p>Fire-rated, moisture-proof board for wet zones</p>
+          <span class="explore-card-link">View Details <span class="arrow">&rarr;</span></span>
+        </div>
+      </a>
+      <a href="insulation-materials.html" class="explore-card">
+        <div class="explore-card-img">
+          <picture><source srcset="assets/bento-insulation-rockwool.webp" type="image/webp"><img src="assets/bento-insulation-rockwool.png"g" alt="Insulation Materials" loading="lazy">
+        </div>
+        <div class="explore-card-body">
+          <h4>Insulation Materials</h4>
+          <p>Thermal & acoustic insulation for walls and roofs</p>
+          <span class="explore-card-link">View Details <span class="arrow">&rarr;</span></span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===== APPLICATIONS (Design: 2:121) ===== -->
+<section class="apps-section" id="applications">
+  <div class="container">
+    <p class="section-label">APPLICATIONS</p>
+    <h2 class="section-heading">Where CELSON Ceiling &amp; Framing Delivers</h2>
+    <div class="apps-duo" style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:8px">
+      <div class="apps-duo-card" style="background:#FFFFFF;border-radius:16px;overflow:hidden;border:1px solid var(--slate-100);transition:transform 0.25s">
+        <div style="height:180px;overflow:hidden">
+          <img src="assets/bento-cf-mineral-fiber.png" alt="Commercial Office" style="width:100%;height:100%;object-fit:cover">
+        </div>
+        <div style="padding:20px 24px">
+          <h3 style="font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--navy-900);margin-bottom:8px">Commercial Office Buildings</h3>
+          <p style="font-size:14px;color:var(--slate-500);line-height:1.6">Offices, retail, hotels — mineral fiber ceilings for acoustics, metal tiles for aesthetics, steel framing for structural integrity.</p>
+        </div>
+      </div>
+      <div class="apps-duo-card" style="background:#FFFFFF;border-radius:16px;overflow:hidden;border:1px solid var(--slate-100);transition:transform 0.25s">
+        <div style="height:180px;overflow:hidden">
+          <img src="assets/app-cf-healthcare.png" alt="Healthcare & Institutional" style="width:100%;height:100%;object-fit:cover">
+        </div>
+        <div style="padding:20px 24px">
+          <h3 style="font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--navy-900);margin-bottom:8px">Healthcare &amp; Institutional</h3>
+          <p style="font-size:14px;color:var(--slate-500);line-height:1.6">Schools, hospitals, labs — hygienic metal tiles, fire-rated mineral fiber, durable steel framing.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA (Design: 2:137) ===== -->
+<section class="cta-section">
+  <div class="container">
+    <h2 class="cta-heading">Ready to Build Stronger, for Less?</h2>
+    <p class="cta-subheadline">Get a custom quote for your next project. Bulk pricing available for contractors, developers, and distributors.</p>
+    <div class="cta-buttons">
+      <a href="contact.html" class="btn-quote">Get Your Quote</a>
+      <a href="contact.html" class="btn-dl">Download Catalog</a>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- ===== FOOTER (Design: 2:145) ===== -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand-col">
+        <div class="footer-logo">CELSON</div>
+        <p class="footer-tagline">Global building materials supplier. Quality products, competitive pricing, reliable delivery &mdash; since 2005.</p>
+      </div>
+      <div class="footer-link-col">
+        <h4>PRODUCTS</h4>
+        <a href="gypsum-boards.html">Gypsum Boards</a>
+        <a href="sheet-boards.html">Sheet Boards</a>
+        <a href="wall-panels.html">Wall Panels</a>
+        <a href="ceiling-framing.html">Ceiling &amp; Framing</a>
+      </div>
+      <div class="footer-link-col">
+        <h4>COMPANY</h4>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact</a>
+        <a href="#">Careers</a>
+        <a href="#">Quality Policy</a>
+      </div>
+      <div class="footer-link-col">
+        <h4>SUPPORT</h4>
+        <a href="#">Technical Specs</a>
+        <a href="#">Installation Guides</a>
+        <a href="#">Shipping Info</a>
+        <a href="#">FAQ</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-divider"></div>
+  <div class="container">
+    <div class="footer-bottom">
+      <p class="footer-copyright">&copy; 2025 Jianxin Building Materials Co., Ltd. All rights reserved.</p>
+      <p class="footer-lang">English</p>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+(function() {
+  var navLinks = document.querySelectorAll('.subpage-nav-links a');
+  var sections = [];
+  navLinks.forEach(function(link) {
+    var id = link.getAttribute('href').replace('#','');
+    var el = document.getElementById(id);
+    if (el) sections.push({ el: el, link: link });
+  });
+  function onScroll() {
+    var scrollY = window.scrollY + 120;
+    var active = null;
+    sections.forEach(function(s) {
+      if (s.el.offsetTop <= scrollY) active = s.link;
+    });
+    navLinks.forEach(function(l) { l.classList.remove('active'); });
+    if (active) active.classList.add('active');
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
+
+<!-- ========== PRODUCT NAV ========== -->
+  <div class="product-nav product-nav-prev">
+    <a href="wall-panels.html" class="product-nav-btn" title="Previous: Wall Panels">
+      <span class="nav-arrow">&larr;</span>
+      <span class="nav-info">
+        <span class="nav-label">Previous</span>
+        <span class="nav-title">Wall Panels</span>
+      </span>
+    </a>
+  </div>
+  <div class="product-nav product-nav-next">
+    <a href="calcium-silicate.html" class="product-nav-btn" title="Next: Calcium Silicate">
+      <span class="nav-arrow">&rarr;</span>
+      <span class="nav-info">
+        <span class="nav-label">Next</span>
+        <span class="nav-title">Calcium Silicate</span>
+      </span>
+    </a>
+  </div>
+<!-- ========== END PRODUCT NAV ========== -->
+</body>
+</html>
