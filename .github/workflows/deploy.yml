@@ -25,15 +25,19 @@ jobs:
       - name: Install Wrangler
         run: npm install -g wrangler
 
+      - name: Build French version (shop-fr.html)
+        run: node build-fr.js
+
       - name: Build deploy-tmp
         run: |
           rm -rf deploy-tmp
-          mkdir -p deploy-tmp/css deploy-tmp/js deploy-tmp/assets/shop
+          mkdir -p deploy-tmp/css deploy-tmp/js deploy-tmp/assets/shop deploy-tmp/functions
           cp *.html deploy-tmp/
           cp css/style.css deploy-tmp/css/
           cp js/*.js deploy-tmp/js/
           cp assets/*.webp deploy-tmp/assets/
           cp assets/shop/*.webp deploy-tmp/assets/shop/
+          cp functions/*.js deploy-tmp/functions/
           echo "Deploy-tmp built with $(find deploy-tmp -type f | wc -l) files"
 
       - name: Deploy to Cloudflare Pages
@@ -42,4 +46,3 @@ jobs:
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-

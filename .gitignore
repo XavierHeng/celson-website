@@ -36,3 +36,7 @@ assets/Professional_*.png
 assets/Professional_*.webp
 assets/Beautiful_*.png
 assets/Beautiful_*.webp
+员工操作手册.html
+
+# French build output (generated at deploy time)
+shop-fr.html
