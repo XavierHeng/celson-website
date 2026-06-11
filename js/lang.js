@@ -40,6 +40,9 @@
 
     // Update <html lang> attribute
     document.documentElement.setAttribute('lang', I18N.lang);
+
+    // Sync cookie for Cloudflare Functions routing (shop page)
+    setLangCookie(I18N.lang);
   }
 
   // Update language toggle button text
@@ -61,11 +64,26 @@
     });
   }
 
+  // Set cookie for server-side routing (Cloudflare Functions)
+  function setLangCookie(lang) {
+    // Set both localStorage and cookie so Cloudflare Functions can read it
+    try { localStorage.setItem('celson_lang', lang); } catch(e) {}
+    // Cookie: 1 year expiry, root path, SameSite=Lax (works with navigation)
+    document.cookie = 'celson_lang=' + lang + '; path=/; max-age=31536000; SameSite=Lax';
+  }
+
   // Toggle language
   function toggleLang() {
     I18N.lang = (I18N.lang === 'en') ? 'fr' : 'en';
-    try { localStorage.setItem('celson_lang', I18N.lang); } catch(e) {}
+    setLangCookie(I18N.lang);
     applyTranslations();
+
+    // Shop page uses Cloudflare Function routing — reload to get correct version
+    // Other pages translate in-place (data-i18n) so no reload needed
+    var path = window.location.pathname;
+    if (path.indexOf('shop') !== -1) {
+      window.location.reload();
+    }
   }
 
   // Handle click on language switch buttons

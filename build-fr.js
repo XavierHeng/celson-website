@@ -372,12 +372,27 @@ for (const [en, fr] of jsReplacements) {
 }
 
 // ==================================================================
-// STEP 4: Fix locale formatting (en-US → fr-FR for prices)
+// STEP 4: Clean up duplicate i18n.js/lang.js references
+// ==================================================================
+// Remove the 3x duplicate references inherited from shop.html,
+// keep only 1 pair (lang.js is needed for the lang-switch button).
+html = html.replace(
+  '<script src="js/i18n.js"></script>\n<script src="js/lang.js"></script>\n\n<script src="js/i18n.js"></script>\n<script src="js/lang.js"></script>\n\n\n<script src="js/i18n.js"></script>\n<script src="js/lang.js"></script>',
+  '<script src="js/i18n.js"></script>\n<script src="js/lang.js"></script>'
+);
+// Also handle variant without extra blank line
+html = html.replace(
+  '<script src="js/i18n.js"></script>\n<script src="js/lang.js"></script>\n\n<script src="js/i18n.js"></script>\n<script src="js/lang.js"></script>\n\n<script src="js/i18n.js"></script>\n<script src="js/lang.js"></script>',
+  '<script src="js/i18n.js"></script>\n<script src="js/lang.js"></script>'
+);
+
+// ==================================================================
+// STEP 5: Fix locale formatting (en-US → fr-FR for prices)
 // ==================================================================
 html = html.split("toLocaleString('en-US'").join("toLocaleString('fr-FR'");
 
 // ==================================================================
-// STEP 5: Write output
+// STEP 6: Write output
 // ==================================================================
 fs.writeFileSync(dest, html, 'utf8');
 console.log('✅ shop-fr.html generated (' + (Buffer.byteLength(html, 'utf8') / 1024).toFixed(1) + ' KB)');
