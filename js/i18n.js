@@ -22,8 +22,8 @@ const I18N = {
 
     /* ─── Mega Menu — Product Names ─── */
     'mega.gypsum.label':           { en:'Gypsum Boards',           fr:'Plaques de plâtre' },
-    'mega.gypsum.desc':            { en:'Standard, MR, Fire-Rated',fr:'Standard, MR, Coupe-feu' },
-    'mega.sheet.label':            { en:'Sheet Boards',            fr:'Panneaux en feuille' },
+    'mega.gypsum.desc':            { en:'Standard, MR, Fire-Rated',fr:'Standard, Hydrofuge, Coupe-feu' },
+    'mega.sheet.label':            { en:'Sheet Boards',            fr:'Panneaux bois' },
     'mega.sheet.desc':             { en:'Plywood, MDF, OSB, Particle', fr:'Contreplaqué, MDF, OSB, Aggloméré' },
     'mega.wall.label':             { en:'Wall Panels',             fr:'Panneaux muraux' },
     'mega.wall.desc':              { en:'Decorative, WPC, UV Marble', fr:'Décoratifs, WPC, Marbre UV' },
@@ -34,7 +34,7 @@ const I18N = {
     'mega.outdoor.label':          { en:'Outdoor & Decking',       fr:'Extérieur & Terrasses' },
     'mega.outdoor.desc':           { en:'WPC, Composite, Cladding', fr:'WPC, Composite, Bardage' },
     'mega.tiles.label':            { en:'Tiles',                   fr:'Carrelage' },
-    'mega.tiles.desc':             { en:'Porcelain, Ceramic, Mosaic', fr:'Porcelaine, Céramique, Mosaïque' },
+    'mega.tiles.desc':             { en:'Porcelain, Ceramic, Mosaic', fr:'Grès cérame, Céramique, Mosaïque' },
     'mega.roofing.label':          { en:'Roofing Materials',       fr:'Matériaux de toiture' },
     'mega.roofing.desc':           { en:'Metal, Asphalt, PVC Sheets', fr:'Métal, Asphalte, Plaques PVC' },
     'mega.accessories.label':      { en:'Accessories',             fr:'Accessoires' },
@@ -45,7 +45,7 @@ const I18N = {
     /* ─── Homepage — Hero ─── */
     'home.hero.badge':             { en:'Jianxin Building Materials Co.', fr:'Jianxin Building Materials Co.' },
     'home.hero.title':             { en:'Your <span class="nowrap">Cost-Value</span> Advantage in Gypsum, Boards &amp; Panels', fr:'Votre avantage qualité-prix en plaques de plâtre, panneaux et revêtements' },
-    'home.hero.subtitle':          { en:'Gypsum boards, sheet boards, wall panels — factory-direct pricing, full-range construction supplies, one-stop sourcing.', fr:'Plaques de plâtre, panneaux, revêtements muraux — prix départ usine, gamme complète, approvisionnement unique.' },
+    'home.hero.subtitle':          { en:'Gypsum boards, sheet boards, wall panels — factory-direct pricing, full-range construction supplies, one-stop sourcing.', fr:'Plaques de plâtre, panneaux, revêtements muraux — prix départ usine, gamme complète, guichet unique.' },
     'home.hero.cta1':              { en:'View Our Products',       fr:'Voir nos produits' },
     'home.hero.cta2':              { en:'Contact Us',              fr:'Contactez-nous' },
 
@@ -64,7 +64,7 @@ const I18N = {
     /* ─── Homepage — Stats ─── */
     'home.stats.title':            { en:'Trusted Worldwide',       fr:'Reconnu dans le monde entier' },
     'home.stats.subtitle':         { en:'Numbers that speak for themselves', fr:'Des chiffres qui parlent d\'eux-mêmes' },
-    'home.stats.1.label':          { en:'Countries Worldwide',     fr:'Pays dans le monde' },
+    'home.stats.1.label':          { en:'Countries Worldwide',     fr:'Pays desservis' },
     'home.stats.2.label':          { en:'Projects Completed',      fr:'Projets réalisés' },
     'home.stats.3.label':          { en:'Global Partners',         fr:'Partenaires mondiaux' },
     'home.stats.4.label':          { en:'Years of Experience',     fr:'Années d\'expérience' },
@@ -91,7 +91,7 @@ const I18N = {
 
     /* ─── Products Page ─── */
     'products.page.title':         { en:'Our Products',            fr:'Nos produits' },
-    'products.page.subtitle':      { en:'Full-range building materials — factory-direct quality, one-stop supply', fr:'Gamme complète de matériaux de construction — qualité départ usine, approvisionnement unique' },
+    'products.page.subtitle':      { en:'Full-range building materials — factory-direct quality, one-stop supply', fr:'Gamme complète de matériaux de construction — qualité départ usine, guichet unique' },
     'products.categories':         { en:'Product Categories',      fr:'Catégories de produits' },
     'products.explore':            { en:'Explore',                 fr:'Explorer' },
     'products.shop':               { en:'View Stock →',            fr:'Voir le stock →' },
@@ -102,9 +102,9 @@ const I18N = {
     'about.story.title':           { en:'From Factory Floor to Global Markets', fr:'De l\'usine aux marchés mondiaux' },
     'about.story.p1':              { en:'Jianxin Building Materials was founded over 20 years ago with a simple mission: produce the best gypsum boards and sheet boards at prices that work for builders everywhere.', fr:'Jianxin Building Materials a été fondée il y a plus de 20 ans avec une mission simple : produire les meilleures plaques de plâtre et panneaux à des prix accessibles aux constructeurs du monde entier.' },
     'about.story.p2':              { en:'From regional factory to global supply chain. CELSON stands for quality, efficiency, and best-value supply in every market we enter.', fr:'D\'une usine régionale à une chaîne d\'approvisionnement mondiale. CELSON incarne la qualité, l\'efficacité et le meilleur rapport qualité-prix sur chaque marché.' },
-    'about.story.p3':              { en:'We help our clients build better, faster, and more profitably.', fr:'Nous aidons nos clients à construire mieux, plus vite et plus rentablement.' },
-    'about.manufacturing.title':   { en:'Our Manufacturing Power',  fr:'Notre puissance de fabrication' },
-    'about.manufacturing.subtitle':{ en:'Production facilities built for quality and scale', fr:'Des installations de production conçues pour la qualité et l\'échelle' },
+    'about.story.p3':              { en:'We help our clients build better, faster, and more profitably.', fr:'Nous aidons nos clients à construire mieux, plus vite et de manière plus rentable.' },
+    'about.manufacturing.title':   { en:'Our Manufacturing Power',  fr:'Notre capacité de production' },
+    'about.manufacturing.subtitle':{ en:'Production facilities built for quality and scale', fr:'Des installations de production conçues pour la qualité et le volume' },
     'about.manufacturing.1.label': { en:'Production Facility',      fr:'Installation de production' },
     'about.manufacturing.2.label': { en:'Production Lines',         fr:'Lignes de production' },
     'about.manufacturing.3.label': { en:'Skilled Workers',          fr:'Ouvriers qualifiés' },
@@ -115,7 +115,7 @@ const I18N = {
     'about.values.1.desc':         { en:'Every product meets or exceeds international standards. ISO-certified, CE-marked, and rigorously tested before it leaves our facility.', fr:'Chaque produit répond ou dépasse les normes internationales. Certifié ISO, marquage CE et rigoureusement testé avant de quitter notre usine.' },
     'about.values.2.title':        { en:'Fair Pricing, Always',     fr:'Prix justes, toujours' },
     'about.values.2.desc':         { en:'We believe premium materials shouldn\'t come with premium markups. Our factory-direct model keeps prices honest and margins healthy for our partners.', fr:'Nous croyons que les matériaux haut de gamme ne devraient pas avoir de majorations excessives. Notre modèle direct usine maintient des prix honnêtes et des marges saines pour nos partenaires.' },
-    'about.values.3.title':        { en:'Reliability You Can Count On', fr:'Une fiabilité sur laquelle compter' },
+    'about.values.3.title':        { en:'Reliability You Can Count On', fr:'Une fiabilité à toute épreuve' },
     'about.values.3.desc':         { en:'On-time delivery isn\'t a goal — it\'s a guarantee. Our logistics team ensures your materials arrive when and where you need them.', fr:'La livraison à temps n\'est pas un objectif — c\'est une garantie. Notre équipe logistique s\'assure que vos matériaux arrivent quand et où vous en avez besoin.' },
     'about.values.4.title':        { en:'Partnership, Not Transaction', fr:'Partenariat, pas transaction' },
     'about.values.4.desc':         { en:'We invest in long-term relationships. When you grow, we grow. That\'s why we offer flexible terms, dedicated support, and customized solutions.', fr:'Nous investissons dans des relations à long terme. Quand vous grandissez, nous grandissons. C\'est pourquoi nous offrons des conditions flexibles, un support dédié et des solutions personnalisées.' },
@@ -150,7 +150,7 @@ const I18N = {
     'shop.hero.subtitle':          { en:'Ready-to-ship inventory at EXW prices. Select quantity and send inquiry.', fr:'Stock prêt à expédier aux prix EXW. Sélectionnez la quantité et envoyez votre demande.' },
     'shop.filter.all':             { en:'All',                     fr:'Tout' },
     'shop.filter.gypsum':          { en:'Gypsum Boards',           fr:'Plaques de plâtre' },
-    'shop.filter.sheet':           { en:'Sheet Boards',            fr:'Panneaux' },
+    'shop.filter.sheet':           { en:'Sheet Boards',            fr:'Panneaux bois' },
     'shop.filter.wall':            { en:'Wall Panels',             fr:'Panneaux muraux' },
     'shop.filter.ceiling':         { en:'Ceiling & Framing',       fr:'Plafonds & Ossatures' },
     'shop.exw.price':              { en:'EXW Price',               fr:'Prix EXW' },
@@ -178,7 +178,7 @@ const I18N = {
 
     /* ─── Product Detail — Types ─── */
     'detail.types.title':          { en:'Product Types',           fr:'Types de produits' },
-    'detail.types.desc':           { en:'Choose the right grade for your project', fr:'Choisissez le bon grade pour votre projet' },
+    'detail.types.desc':           { en:'Choose the right grade for your project', fr:'Choisissez la classe adaptée à votre projet' },
 
     /* ─── Product Detail — Applications ─── */
     'detail.apps.title':           { en:'Applications',            fr:'Applications' },
@@ -188,7 +188,7 @@ const I18N = {
     'detail.cta.title':            { en:'Ready to Source Smarter?', fr:'Prêt à vous approvisionner plus intelligemment ?' },
     'detail.cta.subtitle':         { en:'Get a quote today and discover why builders in 98 countries choose CELSON.', fr:'Demandez un devis aujourd\'hui et découvrez pourquoi les constructeurs de 98 pays choisissent CELSON.' },
     'detail.cta.button1':          { en:'Request a Quote',         fr:'Demander un devis' },
-    'detail.cta.button2':          { en:'Contact Sales',           fr:'Contacter les ventes' },
+    'detail.cta.button2':          { en:'Contact Sales',           fr:'Contacter le service commercial' },
 
     /* ─── Product Detail — Explore ─── */
     'detail.explore.title':        { en:'Explore Other Products',  fr:'Explorez d\'autres produits' },
@@ -200,14 +200,14 @@ const I18N = {
 
     /* ─── Product Detail — Gypsum Boards ─── */
     'gypsum.hero.badge':           { en:'Gypsum Boards',           fr:'Plaques de plâtre' },
-    'gypsum.hero.title':           { en:'Premium Gypsum Boards for Every Project', fr:'Plaques de plâtre premium pour chaque projet' },
+    'gypsum.hero.title':           { en:'Premium Gypsum Boards for Every Project', fr:'Plaques de plâtre haut de gamme pour chaque projet' },
     'gypsum.hero.subtitle':        { en:'Standard, moisture-resistant and fire-rated gypsum boards — factory-direct from Jianxin, delivered to 98 countries.', fr:'Plaques de plâtre standard, résistantes à l\'humidité et coupe-feu — directement de l\'usine Jianxin, livrées dans 98 pays.' },
     'gypsum.specs.title':          { en:'Gypsum Board Specifications', fr:'Spécifications des plaques de plâtre' },
     'gypsum.types.title':          { en:'Gypsum Board Types',      fr:'Types de plaques de plâtre' },
     'gypsum.types.card1.title':    { en:'Standard Gypsum Board',   fr:'Plaque de plâtre standard' },
     'gypsum.types.card1.desc':     { en:'General-purpose board for interior walls and ceilings. Smooth surface, easy to cut and install.', fr:'Plaque polyvalente pour murs intérieurs et plafonds. Surface lisse, facile à couper et à installer.' },
     'gypsum.types.card2.title':    { en:'Moisture-Resistant Board', fr:'Plaque résistante à l\'humidité' },
-    'gypsum.types.card2.desc':     { en:'Green-faced board with silicone-treated core — ideal for bathrooms, kitchens, and damp areas.', fr:'Plaque à face verte avec noyau traité silicone — idéale pour salles de bains, cuisines et zones humides.' },
+    'gypsum.types.card2.desc':     { en:'Green-faced board with silicone-treated core — ideal for bathrooms, kitchens, and damp areas.', fr:'Plaque à face verte avec noyau traité au silicone — idéale pour salles de bains, cuisines et zones humides.' },
     'gypsum.types.card3.title':    { en:'Fire-Rated Board',        fr:'Plaque coupe-feu' },
     'gypsum.types.card3.desc':     { en:'Pink-faced board with glass fiber reinforcement — 30 to 120-minute fire ratings for safety-critical walls.', fr:'Plaque à face rose renforcée de fibres de verre — résistance au feu de 30 à 120 minutes pour les murs de sécurité.' },
     'gypsum.apps.title':           { en:'Where Gypsum Boards Are Used', fr:'Où les plaques de plâtre sont utilisées' },
@@ -219,17 +219,17 @@ const I18N = {
     'gypsum.apps.6':               { en:'Hotel & Hospitality',     fr:'Hôtellerie' },
 
     /* ─── Product Detail — Sheet Boards ─── */
-    'sheet.hero.badge':            { en:'Sheet Boards',            fr:'Panneaux en feuille' },
-    'sheet.hero.title':            { en:'Premium Sheet Boards — Plywood, MDF, OSB & More', fr:'Panneaux premium — Contreplaqué, MDF, OSB et plus' },
+    'sheet.hero.badge':            { en:'Sheet Boards',            fr:'Panneaux bois' },
+    'sheet.hero.title':            { en:'Premium Sheet Boards — Plywood, MDF, OSB & More', fr:'Panneaux haut de gamme — Contreplaqué, MDF, OSB et plus' },
     'sheet.hero.subtitle':         { en:'Full range of engineered wood panels — factory-direct quality for construction and furniture.', fr:'Gamme complète de panneaux en bois reconstitué — qualité départ usine pour la construction et l\'ameublement.' },
     'sheet.specs.title':           { en:'Sheet Board Specifications', fr:'Spécifications des panneaux' },
     'sheet.types.title':           { en:'Sheet Board Types',       fr:'Types de panneaux' },
     'sheet.types.card1.title':     { en:'Plywood',                 fr:'Contreplaqué' },
-    'sheet.types.card1.desc':      { en:'Multi-layer cross-grained veneer — high strength-to-weight ratio, excellent for structural applications.', fr:'Placage multicouche à grain croisé — excellent rapport résistance/poids, idéal pour applications structurelles.' },
+    'sheet.types.card1.desc':      { en:'Multi-layer cross-grained veneer — high strength-to-weight ratio, excellent for structural applications.', fr:'Plis de bois croisés multicouches — excellent rapport résistance/poids, idéal pour applications structurelles.' },
     'sheet.types.card2.title':     { en:'MDF Board',               fr:'Panneau MDF' },
     'sheet.types.card2.desc':      { en:'Medium-density fiberboard with smooth, uniform surface — perfect for furniture, cabinets, and interior trim.', fr:'Panneau de fibres à densité moyenne avec surface lisse et uniforme — parfait pour meubles, armoires et finitions intérieures.' },
     'sheet.types.card3.title':     { en:'OSB Board',               fr:'Panneau OSB' },
-    'sheet.types.card3.desc':      { en:'Oriented strand board with excellent load-bearing capacity — widely used in roofing, flooring, and wall sheathing.', fr:'Panneau à copeaux orientés avec excellente capacité portante — largement utilisé en toiture, plancher et revêtement mural.' },
+    'sheet.types.card3.desc':      { en:'Oriented strand board with excellent load-bearing capacity — widely used in roofing, flooring, and wall sheathing.', fr:'Panneau à copeaux orientés avec excellente capacité portante — couramment utilisé en toiture, plancher et revêtement mural.' },
     'sheet.apps.title':            { en:'Sheet Board Applications', fr:'Applications des panneaux' },
 
     /* ─── Product Detail — Wall Panels ─── */
@@ -247,22 +247,22 @@ const I18N = {
     'ceiling.types.title':         { en:'Ceiling & Framing Types', fr:'Types de plafonds & ossatures' },
 
     /* ─── Product Detail — Calcium Silicate ─── */
-    'calcium.hero.badge':          { en:'Calcium Silicate Board',  fr:'Panneau silicate de calcium' },
-    'calcium.hero.title':          { en:'Calcium Silicate Boards — Fire-Rated & Moisture-Proof', fr:'Panneaux silicate de calcium — Coupe-feu & Résistant à l\'humidité' },
+    'calcium.hero.badge':          { en:'Calcium Silicate Board',  fr:'Panneau en silicate de calcium' },
+    'calcium.hero.title':          { en:'Calcium Silicate Boards — Fire-Rated & Moisture-Proof', fr:'Panneaux en silicate de calcium — Coupe-feu & Résistant à l\'humidité' },
     'calcium.hero.subtitle':       { en:'High-performance boards for fire-rated walls, wet areas, and exterior sheathing.', fr:'Panneaux haute performance pour murs coupe-feu, zones humides et revêtement extérieur.' },
-    'calcium.specs.title':         { en:'Calcium Silicate Specifications', fr:'Spécifications silicate de calcium' },
+    'calcium.specs.title':         { en:'Calcium Silicate Specifications', fr:'Spécifications du silicate de calcium' },
     'calcium.types.title':         { en:'Calcium Silicate Types',  fr:'Types de silicate de calcium' },
 
     /* ─── Product Detail — Outdoor & Decking ─── */
     'outdoor.hero.badge':          { en:'Outdoor & Decking',       fr:'Extérieur & Terrasses' },
     'outdoor.hero.title':          { en:'Outdoor Decking & Cladding Solutions', fr:'Terrasses & Bardages extérieurs' },
-    'outdoor.hero.subtitle':       { en:'WPC decking, composite cladding, and exterior panels — weather-resistant and low maintenance.', fr:'Terrasses WPC, bardage composite et panneaux extérieurs — résistants aux intempéries et faible entretien.' },
+    'outdoor.hero.subtitle':       { en:'WPC decking, composite cladding, and exterior panels — weather-resistant and low maintenance.', fr:'Terrasses WPC, bardage composite et panneaux extérieurs — résistants aux intempéries et à faible entretien.' },
     'outdoor.specs.title':         { en:'Outdoor & Decking Specifications', fr:'Spécifications terrasses & extérieur' },
     'outdoor.types.title':         { en:'Outdoor & Decking Types', fr:'Types de terrasses & extérieur' },
 
     /* ─── Product Detail — Tiles ─── */
     'tiles.hero.badge':            { en:'Tiles',                   fr:'Carrelage' },
-    'tiles.hero.title':            { en:'Porcelain & Ceramic Tiles for Every Surface', fr:'Carrelage porcelaine & céramique pour toutes les surfaces' },
+    'tiles.hero.title':            { en:'Porcelain & Ceramic Tiles for Every Surface', fr:'Carrelage en grès cérame & céramique pour toutes les surfaces' },
     'tiles.hero.subtitle':         { en:'Floor tiles, wall tiles, and mosaics — durable, stylish, and factory-direct priced.', fr:'Carrelage sol, mural et mosaïque — durable, élégant et au prix départ usine.' },
     'tiles.specs.title':           { en:'Tile Specifications',     fr:'Spécifications du carrelage' },
     'tiles.types.title':           { en:'Tile Types',              fr:'Types de carrelage' },
@@ -299,11 +299,11 @@ const I18N = {
     'app.suspended.ceilings':      { en:'Suspended Ceilings',      fr:'Plafonds suspendus' },
     'app.partitions':              { en:'Partition Systems',       fr:'Cloisons' },
     'app.commercial':              { en:'Commercial Buildings',    fr:'Bâtiments commerciaux' },
-    'app.residential':             { en:'Residential Housing',     fr:'Logements résidentiels' },
+    'app.residential':             { en:'Residential Housing',     fr:'Bâtiments résidentiels' },
     'app.hotel':                   { en:'Hotel & Hospitality',     fr:'Hôtellerie' },
     'app.furniture':               { en:'Furniture Manufacturing', fr:'Fabrication de meubles' },
     'app.flooring':                { en:'Flooring Underlayment',   fr:'Sous-couche de plancher' },
-    'app.roofing':                 { en:'Roof Sheathing',          fr:'Revêtement de toit' },
+    'app.roofing':                 { en:'Roof Sheathing',          fr:'Support de toiture' },
     'app.wall.sheathing':          { en:'Wall Sheathing',          fr:'Revêtement mural' },
     'app.exterior':                { en:'Exterior Cladding',       fr:'Bardage extérieur' },
     'app.bathroom':                { en:'Bathrooms & Wet Areas',   fr:'Salles de bains & zones humides' },
