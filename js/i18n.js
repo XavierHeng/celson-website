@@ -192,7 +192,7 @@ const I18N = {
 
     /* ─── Product Detail — Explore ─── */
     'detail.explore.title':        { en:'Explore Other Products',  fr:'Explorez d\'autres produits' },
-    'detail.explore.subtitle':     { en:'Discover our full range', fr:'Découvrez notre gamme complète' },
+    'detail.explore.subtitle':     { en:'Find the right material for your next project', fr:'Trouvez le matériau idéal pour votre prochain projet' },
 
     /* ─── Product Detail — Prev/Next ─── */
     'detail.prev':                 { en:'Previous',                fr:'Précédent' },
@@ -313,7 +313,131 @@ const I18N = {
     'app.warehouse':               { en:'Warehouses',              fr:'Entrepôts' },
     'app.industrial':              { en:'Industrial Facilities',   fr:'Installations industrielles' },
     'app.education':               { en:'Schools & Education',     fr:'Écoles & Éducation' },
-    'app.healthcare':              { en:'Hospitals & Healthcare',  fr:'Hôpitaux & Santé' }
+    'app.healthcare':              { en:'Hospitals & Healthcare',  fr:'Hôpitaux & Santé' },
+
+    /* ─── Shared Reusable Keys ─── */
+    'detail.nav.overview':         { en:'Overview',                fr:'Aperçu' },
+    'detail.specs.label':          { en:'Technical Specifications',fr:'Spécifications techniques' },
+    'detail.hero.cta1':            { en:'Request Specifications',  fr:'Demander les spécifications' },
+    'detail.hero.cta2':            { en:'Download Catalog',        fr:'Télécharger le catalogue' },
+    'detail.hero.cta.price':       { en:'Request Price List',      fr:'Demander la liste de prix' },
+    'detail.explore.view-details': { en:'View Details',            fr:'Voir les détails' },
+
+    /* ─── Gypsum Boards — CTA ─── */
+    'gypsum.cta.title':            { en:'Ready to Build with Better Margins?', fr:'Prêt à construire avec de meilleures marges ?' },
+    'gypsum.cta.sub':              { en:'Get factory-direct pricing, spec sheets, and samples within 48 hours.', fr:'Obtenez les prix départ usine, les fiches techniques et des échantillons sous 48 heures.' },
+    'gypsum.cta.button1':          { en:'Get Factory Quote',       fr:'Demander un devis usine' },
+    'gypsum.cta.card.title':       { en:'Need Custom Specifications?', fr:'Besoin de spécifications sur mesure ?' },
+    'gypsum.cta.card.desc':        { en:'Tell us your requirements and we\'ll provide a tailored quote within 24 hours. Factory-direct pricing, no middlemen.', fr:'Dites-nous vos besoins et nous vous fournirons un devis personnalisé sous 24 heures. Prix départ usine, sans intermédiaires.' },
+    'gypsum.cta.card.button':      { en:'Send Inquiry',            fr:'Envoyer une demande' },
+
+    /* ─── Sheet Boards — CTA ─── */
+    'sheet.cta.title':             { en:'Ready to Source Premium Sheet Boards?', fr:'Prêt à vous approvisionner en panneaux haut de gamme ?' },
+    'sheet.cta.sub':               { en:'Get factory-direct pricing, free samples, and technical specifications for your next project.', fr:'Obtenez les prix départ usine, des échantillons gratuits et les spécifications techniques pour votre prochain projet.' },
+    'sheet.cta.button1':           { en:'Get Your Quote',          fr:'Obtenir votre devis' },
+
+    /* ─── Wall Panels — CTA ─── */
+    'wall.cta.title':              { en:'Ready to Transform Your Interiors?', fr:'Prêt à transformer vos intérieurs ?' },
+    'wall.cta.sub':                { en:'Get factory-direct pricing, free samples, and technical specifications for your next project.', fr:'Obtenez les prix départ usine, des échantillons gratuits et les spécifications techniques pour votre prochain projet.' },
+    'wall.cta.button1':            { en:'Get Your Quote',          fr:'Obtenir votre devis' },
+
+    /* ─── Ceiling & Framing — CTA ─── */
+    'ceiling.cta.title':           { en:'Ready to Build Stronger, for Less?', fr:'Prêt à construire plus solide, pour moins cher ?' },
+    'ceiling.cta.sub':             { en:'Get a custom quote for your next project. Bulk pricing available for contractors, developers, and distributors.', fr:'Obtenez un devis personnalisé pour votre prochain projet. Tarifs de gros disponibles pour entrepreneurs, promoteurs et distributeurs.' },
+    'ceiling.cta.button1':         { en:'Get Your Quote',          fr:'Obtenir votre devis' },
+
+    /* ─── Calcium Silicate — CTA ─── */
+    'calcium.cta.title':           { en:'Need Fire-Rated Board? Let\'s Talk.', fr:'Besoin de panneaux coupe-feu ? Parlons-en.' },
+    'calcium.cta.sub':             { en:'Get factory-direct pricing, technical datasheets, and samples. Custom thickness and size available.', fr:'Obtenez les prix départ usine, les fiches techniques et des échantillons. Épaisseurs et dimensions sur mesure disponibles.' },
+    'calcium.cta.button2':         { en:'Download Datasheet',      fr:'Télécharger la fiche technique' },
+
+    /* ─── Outdoor & Decking — CTA ─── */
+    'outdoor.cta.title':           { en:'Ready to Transform Outdoor Spaces?', fr:'Prêt à transformer vos espaces extérieurs ?' },
+    'outdoor.cta.sub':             { en:'Get factory-direct pricing, decking samples, and installation guides within 48 hours.', fr:'Obtenez les prix départ usine, des échantillons de lames et les guides d\'installation sous 48 heures.' },
+    'outdoor.cta.button1':         { en:'Get Factory Quote',       fr:'Demander un devis usine' },
+
+    /* ─── Tiles — CTA ─── */
+    'tiles.cta.title':             { en:'Ready to Tile Your Next Project?', fr:'Prêt à carreler votre prochain projet ?' },
+    'tiles.cta.sub':               { en:'Get factory-direct pricing, tile samples, and technical data sheets within 48 hours.', fr:'Obtenez les prix départ usine, des échantillons de carrelage et les fiches techniques sous 48 heures.' },
+    'tiles.cta.button1':           { en:'Get Factory Quote',       fr:'Demander un devis usine' },
+
+    /* ─── Roofing Materials — CTA ─── */
+    'roofing.cta.title':           { en:'Cover Every Project with Confidence', fr:'Couvrez chaque projet en toute confiance' },
+    'roofing.cta.sub':             { en:'Get factory-direct pricing, roofing samples, and wind-uplift test reports within 48 hours.', fr:'Obtenez les prix départ usine, des échantillons de toiture et les rapports d\'essai de résistance au vent sous 48 heures.' },
+    'roofing.cta.button1':         { en:'Get Factory Quote',       fr:'Demander un devis usine' },
+
+    /* ─── Accessories — CTA ─── */
+    'acc.cta.title':               { en:'One Order, Everything You Need', fr:'Une commande, tout ce dont vous avez besoin' },
+    'acc.cta.sub':                 { en:'Get factory-direct pricing on accessories, screws, tapes, and compounds — shipped together with your board order.', fr:'Obtenez les prix départ usine sur les accessoires, vis, bandes et enduits — expédiés avec votre commande de panneaux.' },
+    'acc.cta.button1':             { en:'Get Factory Quote',       fr:'Demander un devis usine' },
+
+    /* ─── Insulation — CTA ─── */
+    'ins.cta.title':               { en:'Insulate Smarter, Build Better', fr:'Isolez plus intelligemment, construisez mieux' },
+    'ins.cta.sub':                 { en:'Get factory-direct pricing, thermal performance data, and samples within 48 hours.', fr:'Obtenez les prix départ usine, les données de performance thermique et des échantillons sous 48 heures.' },
+    'ins.cta.button1':             { en:'Get Factory Quote',       fr:'Demander un devis usine' },
+
+    /* ─── Product Detail — CTA Shared ─── */
+    'detail.cta.button.samples':   { en:'Request Samples',         fr:'Demander des échantillons' },
+
+    /* ─── Gypsum Boards — Application Cards ─── */
+    'gypsum.app.card1.title':      { en:'Residential Interiors',   fr:'Intérieurs résidentiels' },
+    'gypsum.app.card1.desc':       { en:'Interior walls, ceilings, partitions — homes, apartments, villas. Standard & MR boards for every room.', fr:'Murs intérieurs, plafonds, cloisons — maisons, appartements, villas. Plaques standard et hydrofuges pour chaque pièce.' },
+    'gypsum.app.card2.title':      { en:'Commercial & Office',     fr:'Commercial & Bureaux' },
+    'gypsum.app.card2.desc':       { en:'Offices, retail spaces, hotels — fire-rated and acoustic solutions for commercial building standards.', fr:'Bureaux, commerces, hôtels — solutions coupe-feu et acoustiques conformes aux normes de construction commerciale.' },
+
+    /* ─── Sheet Boards — Application Cards ─── */
+    'sheet.app.card1.title':       { en:'Kitchen & Cabinet',       fr:'Cuisine & Mobilier' },
+    'sheet.app.card1.desc':        { en:'Cabinets, wardrobes, shelving, furniture — precision-cut plywood & MDF for homes and apartments.', fr:'Meubles de cuisine, dressings, étagères, mobilier — contreplaqué et MDF de précision pour maisons et appartements.' },
+    'sheet.app.card2.title':       { en:'Hotel & Commercial',      fr:'Hôtellerie & Commerce' },
+    'sheet.app.card2.desc':        { en:'Office fit-outs, retail, hotels — fire-rated & structural grades for large-scale interiors.', fr:'Aménagements de bureaux, commerces, hôtels — grades coupe-feu et structurels pour intérieurs à grande échelle.' },
+
+    /* ─── Wall Panels — Application Cards ─── */
+    'wall.app.card1.title':        { en:'Hotel & Hospitality',     fr:'Hôtellerie & Restauration' },
+    'wall.app.card1.desc':         { en:'Hotels, restaurants, retail, offices — durable, easy-to-clean surfaces for brand environments.', fr:'Hôtels, restaurants, commerces, bureaux — surfaces durables et faciles à nettoyer pour environnements de marque.' },
+    'wall.app.card2.title':        { en:'Luxury Residential',      fr:'Résidentiel haut de gamme' },
+    'wall.app.card2.desc':         { en:'Living rooms, bedrooms, home offices. Install decorative panels in hours, not days.', fr:'Salons, chambres, bureaux à domicile. Installez des panneaux décoratifs en quelques heures, pas en jours.' },
+
+    /* ─── Ceiling & Framing — Application Cards ─── */
+    'ceiling.app.card1.title':     { en:'Commercial Office Buildings', fr:'Immeubles de bureaux' },
+    'ceiling.app.card1.desc':      { en:'Offices, retail, hotels — mineral fiber ceilings for acoustics, metal tiles for aesthetics, steel framing for structural integrity.', fr:'Bureaux, commerces, hôtels — plafonds en fibres minérales pour l\'acoustique, dalles métalliques pour l\'esthétique, ossatures acier pour l\'intégrité structurelle.' },
+    'ceiling.app.card2.title':     { en:'Healthcare & Institutional', fr:'Santé & Institutions' },
+    'ceiling.app.card2.desc':      { en:'Schools, hospitals, labs — hygienic metal tiles, fire-rated mineral fiber, durable steel framing.', fr:'Écoles, hôpitaux, laboratoires — dalles métalliques hygiéniques, fibres minérales coupe-feu, ossatures acier durables.' },
+
+    /* ─── Calcium Silicate — Application Cards ─── */
+    'calcium.app.card1.title':     { en:'Fire-Rated Exterior',     fr:'Extérieur coupe-feu' },
+    'calcium.app.card1.desc':      { en:'A1 fire-rated partitions & cladding — commercial, hospitals, schools. Meets strictest fire codes.', fr:'Cloisons et bardages coupe-feu A1 — bâtiments commerciaux, hôpitaux, écoles. Conforme aux normes incendie les plus strictes.' },
+    'calcium.app.card2.title':     { en:'Industrial & Wet Area',   fr:'Zones industrielles & humides' },
+    'calcium.app.card2.desc':      { en:'Moisture-proof ceilings and walls for bathrooms, kitchens, swimming pools, and industrial facilities. Zero warping, zero mold.', fr:'Plafonds et murs résistants à l\'humidité pour salles de bains, cuisines, piscines et installations industrielles. Zéro déformation, zéro moisissure.' },
+
+    /* ─── Outdoor & Decking — Application Cards ─── */
+    'outdoor.app.card1.title':     { en:'Resort & Hospitality',    fr:'Resorts & Hôtellerie' },
+    'outdoor.app.card1.desc':      { en:'Hotel pool decks, restaurant terraces, rooftop bars — heavy-duty, splinter-free, barefoot-safe.', fr:'Terrasses de piscine d\'hôtel, terrasses de restaurant, bars sur le toit — usage intensif, sans échardes, sûr pieds nus.' },
+    'outdoor.app.card2.title':     { en:'Public & Urban',          fr:'Espaces publics & urbains' },
+    'outdoor.app.card2.desc':      { en:'Boardwalks, park paths, observation decks — slip-resistant, weather-proof, built for decades.', fr:'Promenades, allées de parc, belvédères — antidérapant, résistant aux intempéries, conçu pour durer des décennies.' },
+
+    /* ─── Tiles — Application Cards ─── */
+    'tiles.app.card1.title':       { en:'Hotel & Luxury Interiors', fr:'Intérieurs hôteliers & luxe' },
+    'tiles.app.card1.desc':        { en:'Hotel lobbies, luxury retail, restaurants — large-format porcelain, seamless surfaces.', fr:'Halls d\'hôtel, commerces de luxe, restaurants — grès cérame grand format, surfaces sans joint apparent.' },
+    'tiles.app.card2.title':       { en:'Commercial & Institutional', fr:'Bâtiments commerciaux & publics' },
+    'tiles.app.card2.desc':        { en:'Hospitals, schools, airports — slip-resistant, chemical-resistant, high-traffic durable.', fr:'Hôpitaux, écoles, aéroports — antidérapant, résistant aux produits chimiques, adapté au trafic intense.' },
+
+    /* ─── Roofing Materials — Application Cards ─── */
+    'roofing.app.card1.title':     { en:'Residential Villas',      fr:'Villas résidentielles' },
+    'roofing.app.card1.desc':      { en:'Asphalt shingles & stone-coated steel — houses, villas, multi-family. Curb appeal & weather protection.', fr:'Bardeaux d\'asphalte et acier granulé — maisons, villas, immeubles collectifs. Attrait esthétique et protection contre les intempéries.' },
+    'roofing.app.card2.title':     { en:'Industrial & Infrastructure', fr:'Industrie & Infrastructures' },
+    'roofing.app.card2.desc':      { en:'Corrugated & standing seam — factories, warehouses, logistics. Waterproofing — tunnels, bridges, parking decks.', fr:'Tôles ondulées et à joint debout — usines, entrepôts, logistique. Étanchéité — tunnels, ponts, parkings.' },
+
+    /* ─── Accessories — Application Cards ─── */
+    'acc.app.card1.title':         { en:'Drywall Finishing System', fr:'Système de finition des cloisons sèches' },
+    'acc.app.card1.desc':          { en:'Joint compound, tape, corner beads — Level 4 & 5 seamless finishes.', fr:'Enduit à joints, bande, cornières — finitions sans joint apparent niveau 4 et 5.' },
+    'acc.app.card2.title':         { en:'Metal Framing Assembly',  fr:'Assemblage d\'ossature métallique' },
+    'acc.app.card2.desc':          { en:'Self-drilling screws, anchors, connectors — light-gauge steel framing. Wires, clips, angles — ceiling grids.', fr:'Vis autoperceuses, chevilles, connecteurs — ossature acier léger. Fils, clips, équerres — grilles de plafond.' },
+
+    /* ─── Insulation — Application Cards ─── */
+    'ins.app.card1.title':         { en:'Building Envelope',       fr:'Enveloppe du bâtiment' },
+    'ins.app.card1.desc':          { en:'External wall ETICS, curtain wall insulation, cavity fill. Flat roof, pitched roof, and inverted roof systems — meeting global energy codes.', fr:'ITE pour murs extérieurs, isolation des murs-rideaux, remplissage des cavités. Toitures plates, inclinées et inversées — conforme aux codes énergétiques internationaux.' },
+    'ins.app.card2.title':         { en:'Cold Chain & Industrial', fr:'Chaîne du froid & Industrie' },
+    'ins.app.card2.desc':          { en:'XPS & PU sandwich panels for cold rooms, freezer warehouses, and temperature-controlled logistics. Industrial pipe and duct insulation.', fr:'Panneaux sandwich XPS et PU pour chambres froides, entrepôts frigorifiques et logistique sous température contrôlée. Isolation industrielle des tuyauteries et conduits.' }
   },
 
   // Get translated text for a key
