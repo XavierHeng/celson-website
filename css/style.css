@@ -222,9 +222,25 @@ footer {
   border: none;
 }
 
-.lang-switch span {
-  color: var(--slate-500);
+.lang-switch .lang-active {
+  color: var(--green-600);
+  font-weight: 700;
+}
+.lang-switch .lang-inactive {
+  color: var(--slate-400);
   font-weight: 400;
+  cursor: pointer;
+}
+.lang-switch .lang-inactive:hover {
+  color: var(--green-600);
+}
+.lang-switch .lang-sep {
+  color: var(--slate-300);
+  font-weight: 400;
+  margin: 0 1px;
+}
+.lang-switch:hover {
+  background: var(--green-100);
 }
 
 .btn-primary {
