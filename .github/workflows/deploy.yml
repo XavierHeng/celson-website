@@ -45,7 +45,7 @@ jobs:
 
       - name: Cache-bust CSS/JS in HTML
         run: |
-          VERSION=$(date +%s)
+          export VERSION=$(date +%s)
           python3 -c "
           import os, re, glob
           version = os.environ['VERSION']
