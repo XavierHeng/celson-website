@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /admin.html
+Disallow: /员工操作手册.html
+
+Sitemap: https://celson.ltd/sitemap.xml
