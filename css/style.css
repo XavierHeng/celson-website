@@ -2123,7 +2123,126 @@ a.product-card:hover {
   margin-bottom: 16px;
 }
 
-/* ===== Filmstrip Wrapper ===== */
+/* ===== Shipping Content (hidden) ===== */
+.shipping-content {
+  overflow: hidden;
+}
+.shipping-content.shipping-content--revealed {
+  display: block !important;
+  animation: shippingReveal 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes shippingReveal {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== WhatsApp Gate Card ===== */
+.shipping-gate {
+  max-width: 500px;
+  margin: 0 auto;
+  text-align: center;
+}
+.shipping-gate-inner {
+  background: var(--white);
+  border: 2px dashed var(--green-200);
+  border-radius: 20px;
+  padding: 36px 32px 32px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+.shipping-gate-inner:hover {
+  border-color: var(--green-400);
+}
+.shipping-gate-visual {
+  position: relative;
+  margin-bottom: 24px;
+}
+.shipping-gate-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  filter: blur(12px);
+  opacity: 0.55;
+  max-width: 300px;
+  margin: 0 auto;
+}
+.shipping-gate-thumb {
+  aspect-ratio: 1;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+}
+.shipping-gate-lock {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 52px;
+  height: 52px;
+  background: var(--white);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  color: var(--green-600);
+}
+.shipping-gate-title {
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--navy-900);
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+.shipping-gate-sub {
+  font-size: 14px;
+  color: var(--slate-500);
+  margin-bottom: 24px;
+  line-height: 1.55;
+}
+.shipping-gate-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  background: #25D366;
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 50px;
+  box-shadow: 0 4px 18px rgba(37, 211, 102, 0.40), 0 2px 8px rgba(0,0,0,0.10);
+  transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  cursor: pointer;
+  border: none;
+  white-space: nowrap;
+}
+.shipping-gate-btn:hover {
+  transform: translateY(-2px) scale(1.03);
+  background: #20bd5a;
+  box-shadow: 0 8px 28px rgba(37, 211, 102, 0.48), 0 4px 14px rgba(0,0,0,0.12);
+}
+.shipping-gate-btn:active {
+  transform: translateY(0) scale(0.98);
+}
+.shipping-gate-btn svg {
+  flex-shrink: 0;
+  animation: waPulse 2s ease-in-out infinite;
+}
+@keyframes waPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+@media (max-width: 768px) {
+  .shipping-gate-inner { padding: 28px 20px; }
+  .shipping-gate-title { font-size: 17px; }
+  .shipping-gate-btn { padding: 12px 22px; font-size: 14px; }
+}
 .shipping-filmstrip {
   position: relative;
 }
