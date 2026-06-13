@@ -504,6 +504,17 @@ const I18N = {
     'gypsum.specs.r5.grade':       { en:'Moisture-Fire Res.',       fr:'Hydrofuge Coupe-feu' },
     'gypsum.specs.r5.type':        { en:'Moisture+Fire',            fr:'Hydrofuge+Coupe-feu' },
     'gypsum.specs.r5.best_for':    { en:'High-humidity fire zones, commercial kitchens', fr:'Zones feu haute humidité, cuisines professionnelles' },
+    /* Gypsum — thickness & size (per grade) */
+    'gypsum.specs.r1.thickness':   { en:'9.5mm / 12mm',             fr:'9,5 mm / 12 mm' },
+    'gypsum.specs.r1.size':        { en:'1220 × 2440 mm',           fr:'1220 × 2440 mm' },
+    'gypsum.specs.r2.thickness':   { en:'9.5mm / 12mm',             fr:'9,5 mm / 12 mm' },
+    'gypsum.specs.r2.size':        { en:'1220 × 2440 mm',           fr:'1220 × 2440 mm' },
+    'gypsum.specs.r3.thickness':   { en:'9.5mm / 12mm',             fr:'9,5 mm / 12 mm' },
+    'gypsum.specs.r3.size':        { en:'1220 × 2440 mm',           fr:'1220 × 2440 mm' },
+    'gypsum.specs.r4.thickness':   { en:'9.5mm / 12mm / 15mm',      fr:'9,5 mm / 12 mm / 15 mm' },
+    'gypsum.specs.r4.size':        { en:'1220 × 2440 mm',           fr:'1220 × 2440 mm' },
+    'gypsum.specs.r5.thickness':   { en:'9.5mm / 12mm / 15mm',      fr:'9,5 mm / 12 mm / 15 mm' },
+    'gypsum.specs.r5.size':        { en:'1220 × 2440 mm',           fr:'1220 × 2440 mm' },
 
     /* ─── Gypsum — Bento Cards ─── */
     'gypsum.card1.badge':          { en:'BEST SELLER',              fr:'MEILLEURE VENTE' },
@@ -785,8 +796,10 @@ const I18N = {
     'sheet.specs.r1.size':         { en:'1220 x 2440 mm',          fr:'1220 x 2440 mm' },
     'sheet.specs.r2.product':      { en:'MDF',                     fr:'MDF' },
     'sheet.specs.r2.thickness':    { en:'3–18 mm',                 fr:'3–18 mm' },
+    'sheet.specs.r2.size':         { en:'1220 x 2440 mm',           fr:'1220 x 2440 mm' },
     'sheet.specs.r3.product':      { en:'OSB',                     fr:'OSB' },
     'sheet.specs.r3.thickness':    { en:'9 / 12 / 15 mm',          fr:'9 / 12 / 15 mm' },
+    'sheet.specs.r3.size':         { en:'1220 x 2440 mm',           fr:'1220 x 2440 mm' },
 
     /* ─── Sheet Boards — Bento Cards ─── */
     'sheet.card1.title':           { en:'Plywood',                 fr:'Contreplaqué' },
