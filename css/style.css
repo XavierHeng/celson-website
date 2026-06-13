@@ -2419,7 +2419,7 @@ a.product-card:hover {
   .hero-title { font-size: 26px; line-height: 1.2; margin-bottom: 8px; }
   .hero-subtitle { margin-bottom: 8px; }
   .hero-badge { font-size: 11px; padding: 4px 12px; margin-bottom: 10px; }
-  .hero-visual { height: 200px; border-radius: 28px; background: transparent; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+  .hero-visual { display: none; }
   .hero-carousel-img { border-radius: 28px; }
   .hero-ctas { flex-direction: column; gap: 8px; width: 100%; }
   .hero-ctas .btn-primary,
