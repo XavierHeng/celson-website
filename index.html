@@ -242,10 +242,10 @@
     <!-- ===== Preview: First 4 photos always visible ===== -->
     <div class="shipping-preview" id="shippingPreview">
       <div class="shipping-preview-grid">
-        <div class="shipping-preview-item"><img src="assets/container-shipping/ship-01.jpg" alt="Container loading" loading="eager"></div>
-        <div class="shipping-preview-item"><img src="assets/container-shipping/ship-02.jpg" alt="Container loading" loading="lazy"></div>
-        <div class="shipping-preview-item"><img src="assets/container-shipping/ship-03.jpg" alt="Container loading" loading="lazy"></div>
-        <div class="shipping-preview-item"><img src="assets/container-shipping/ship-04.jpg" alt="Container loading" loading="lazy"></div>
+        <div class="shipping-preview-item"><img src="assets/container-shipping/ship-01.jpg" alt="Container loading" loading="eager" decoding="async" onerror="this.style.display='none'"></div>
+        <div class="shipping-preview-item"><img src="assets/container-shipping/ship-02.jpg" alt="Container loading" loading="eager" decoding="async" onerror="this.style.display='none'"></div>
+        <div class="shipping-preview-item"><img src="assets/container-shipping/ship-03.jpg" alt="Container loading" loading="eager" decoding="async" onerror="this.style.display='none'"></div>
+        <div class="shipping-preview-item"><img src="assets/container-shipping/ship-04.jpg" alt="Container loading" loading="eager" decoding="async" onerror="this.style.display='none'"></div>
       </div>
     </div>
 
@@ -278,7 +278,7 @@
       </button>
 
       <div class="shipping-track" id="shippingTrack">
-        <div class="shipping-item"><div class="shipping-photo"><img src="assets/container-shipping/ship-01.jpg" alt="Container loading" loading="eager"></div></div>
+        <div class="shipping-item"><div class="shipping-photo"><img src="assets/container-shipping/ship-01.jpg" alt="Container loading" loading="eager" decoding="async"></div></div>
         <div class="shipping-item"><div class="shipping-photo"><img src="assets/container-shipping/ship-02.jpg" alt="Container loading" loading="lazy"></div></div>
         <div class="shipping-item"><div class="shipping-photo"><img src="assets/container-shipping/ship-03.jpg" alt="Container loading" loading="lazy"></div></div>
         <div class="shipping-item"><div class="shipping-photo"><img src="assets/container-shipping/ship-04.jpg" alt="Container loading" loading="lazy"></div></div>
@@ -543,7 +543,21 @@
     function revealGallery() {
       gate.style.display = 'none';
       if (preview) preview.style.display = 'none';
+      content.style.display = 'block';
       content.classList.add('shipping-content--revealed');
+      // Force all lazy-loaded images to load immediately (browsers skip lazy-load inside display:none)
+      content.querySelectorAll('img[loading="lazy"]').forEach(function(img) {
+        img.loading = 'eager';
+      });
+      // Fallback: after a short delay, show placeholder for any image that still hasn't loaded
+      setTimeout(function() {
+        content.querySelectorAll('img').forEach(function(img) {
+          if (!img.complete || img.naturalWidth === 0) {
+            img.style.backgroundColor = '#e2e8f0';
+            img.style.minHeight = '200px';
+          }
+        });
+      }, 5000);
     }
 
     // Reveal if already unlocked this session
