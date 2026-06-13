@@ -2411,16 +2411,17 @@ a.product-card:hover {
 
   /* --- Hero --- */
   .hero {
-    padding: 24px 16px 20px;
+    padding: 18px 16px 16px;
     border-radius: 12px;
-    gap: 24px;
-    margin-bottom: 28px;
+    gap: 14px;
+    margin-bottom: 20px;
   }
-  .hero-title { font-size: 26px; line-height: 1.2; }
-  .hero-badge { font-size: 11px; padding: 4px 12px; margin-bottom: 16px; }
+  .hero-title { font-size: 26px; line-height: 1.2; margin-bottom: 8px; }
+  .hero-subtitle { margin-bottom: 8px; }
+  .hero-badge { font-size: 11px; padding: 4px 12px; margin-bottom: 10px; }
   .hero-visual { height: 200px; border-radius: 28px; background: transparent; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
   .hero-carousel-img { border-radius: 28px; }
-  .hero-ctas { flex-direction: column; gap: 10px; width: 100%; }
+  .hero-ctas { flex-direction: column; gap: 8px; width: 100%; }
   .hero-ctas .btn-primary,
   .hero-ctas .btn-secondary {
     width: 100%;
