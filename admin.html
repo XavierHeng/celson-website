@@ -431,7 +431,7 @@ a { color: var(--blue); }
     <div class="mobile-search-bar" style="display:none;">
       <input type="text" id="mobileSearch" placeholder="🔍 搜索产品名称..." oninput="onMobileSearch()">
     </div>
-    <input type="file" id="mobileCamInput" accept="image/*" capture="environment" style="display:none;" onchange="onMobileCameraCapture(this)">
+    <input type="file" id="mobileCamInput" accept="image/*" style="display:none;" onchange="onMobileCameraCapture(this)">
 
     <!-- product cards -->
     <div class="prod-grid" id="prodGrid"></div>
@@ -798,7 +798,7 @@ function renderProductCards() {
     html += '<img src="' + imgSrc + '" alt="' + p.name + '" id="img-' + p.id + '" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">';
     html += '<span style="display:none;font-size:11px;color:var(--n4);position:absolute;text-align:center;">暂无图</span>';
     html += '<div class="upload-overlay" onclick="document.getElementById(\'file-' + p.id + '\').click()"><span>📷 换图</span></div>';
-    html += '<input type="file" id="file-' + p.id + '" accept="image/*" capture="environment" style="display:none" onchange="handleImageUpload(this, \'' + p.id + '\')">';
+    html += '<input type="file" id="file-' + p.id + '" accept="image/*" style="display:none" onchange="handleImageUpload(this, \'' + p.id + '\')">';
     html += '<div class="img-changed"></div>';
     html += '</div>';
 
@@ -911,16 +911,6 @@ function openAddProduct(editId) {
     document.getElementById('fMinQty').value = 100;
     document.getElementById('fPrice').value = 0;
     document.getElementById('fImage').value = '';
-  }
-
-  // Mobile: enable camera capture for new product image upload
-  var imgInput = document.getElementById('fImage');
-  if (isMobileView() && !editId) {
-    imgInput.setAttribute('capture', 'environment');
-    imgInput.setAttribute('accept', 'image/*');
-  } else {
-    imgInput.removeAttribute('capture');
-    imgInput.setAttribute('accept', 'image/*');
   }
 
   modal.style.display = 'flex';
