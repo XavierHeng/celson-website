@@ -11,7 +11,7 @@ var CELSON_CONFIG = {
 
 var PRICES_RMB = {
   'gyp-std-12': 35.00,
-  'gyp-mr-12': 18.00,
+  'gyp-mr-12': 40.00,
   'gyp-fr-12': 22.50,
   'ply-18': 132.00,
   'mdf-18': 105.00,
