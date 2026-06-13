@@ -613,6 +613,26 @@
       min-width: 70px;
       text-align: right;
     }
+    .cart-popup-item-remove {
+      width: 28px;
+      height: 28px;
+      border: none;
+      background: none;
+      color: var(--gray-400);
+      font-size: 18px;
+      line-height: 1;
+      cursor: pointer;
+      border-radius: 6px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.15s, background 0.15s;
+    }
+    .cart-popup-item-remove:hover {
+      color: #DC2626;
+      background: #FEF2F2;
+    }
     .cart-popup-footer {
       padding: 16px 24px 24px;
       border-top: 1px solid var(--gray-100);
@@ -1663,8 +1683,12 @@
 
   function loadCart() {
     try { cart = JSON.parse(localStorage.getItem('celson_cart') || '[]'); } catch(e) { cart = []; }
+    // Clean up any qty=0 items from previous versions
+    cart = cart.filter(function(item) { return item.qty > 0; });
   }
   function saveCart() {
+    // Strip qty=0 items before saving
+    cart = cart.filter(function(item) { return item.qty > 0; });
     localStorage.setItem('celson_cart', JSON.stringify(cart));
     updateCartUI();
   }
@@ -1680,7 +1704,7 @@
     var totalItems = 0;
     var totalPrice = 0;
     for (var i = 0; i < cart.length; i++) {
-      totalItems += 1;
+      totalItems += cart[i].qty;
       totalPrice += cart[i].qty * cart[i].price;
     }
     var countEl = document.getElementById('cartCount');
@@ -1848,18 +1872,9 @@
           var step = prod ? prod.minQty : 1;
           var newQty = ci.qty - step;
           if (newQty <= 0) {
-            // Show remove warning instead of instant removal
-            ci.qty = 0;
-            saveCart();
+            removeFromCart(pid);
             renderProductList();
-            var itemEl = document.querySelector('.shop-item[data-pid="' + pid + '"]');
-            if (itemEl) {
-              itemEl.classList.add('removing');
-              // Find qty input and add zero class
-              var inp = itemEl.querySelector('.qty-input');
-              if (inp) { inp.classList.add('qty-zero'); inp.value = '0'; }
-            }
-            showErrorToast('Quantity at 0 — this item will be removed. Click Add to restore, or submit cart without it.');
+            showToast('Removed — ' + ci.name);
           } else {
             ci.qty = newQty;
             saveCart();
@@ -1876,17 +1891,9 @@
         var ci = getCartItem(pid);
         if (ci) {
           if (isNaN(val) || val <= 0) {
-            // Show remove warning
-            ci.qty = 0;
-            saveCart();
+            removeFromCart(pid);
             renderProductList();
-            var itemEl2 = document.querySelector('.shop-item[data-pid="' + pid + '"]');
-            if (itemEl2) {
-              itemEl2.classList.add('removing');
-              var inp2 = itemEl2.querySelector('.qty-input');
-              if (inp2) { inp2.classList.add('qty-zero'); inp2.value = '0'; }
-            }
-            showErrorToast('Quantity at 0 — this item will be removed. Click Add to restore, or submit cart without it.');
+            showToast('Removed — ' + ci.name);
           }
           else { ci.qty = val; saveCart(); }
         }
@@ -1997,10 +2004,21 @@
       html += '</div>';
       html += '<div class="cart-popup-item-qty">&times;' + item.qty + '</div>';
       html += '<div class="cart-popup-item-subtotal">$' + subtotal.toLocaleString('en-US', {minimumFractionDigits:2}) + '</div>';
+      html += '<button class="cart-popup-item-remove" data-id="' + item.id + '" title="Remove from cart">&times;</button>';
       html += '</div>';
     }
     body.innerHTML = html;
     totalEl.innerHTML = '$' + total.toLocaleString('en-US', {minimumFractionDigits:2}) + '<span>ref.</span>';
+
+    // Bind delete buttons in popup
+    var removeBtns = body.querySelectorAll('.cart-popup-item-remove');
+    for (var ri = 0; ri < removeBtns.length; ri++) {
+      removeBtns[ri].addEventListener('click', function() {
+        removeFromCart(this.getAttribute('data-id'));
+        renderCartPopup();
+        updateCartUI();
+      });
+    }
 
     // Bind hover thumbnails on popup items
     bindPopupThumbHover();
