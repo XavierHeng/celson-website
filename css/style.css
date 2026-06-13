@@ -2136,6 +2136,40 @@ a.product-card:hover {
   to   { opacity: 1; transform: translateY(0); }
 }
 
+/* ===== Shipping Preview (always visible first 4) ===== */
+.shipping-preview {
+  max-width: 900px;
+  margin: 0 auto 32px;
+}
+.shipping-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+.shipping-preview-item {
+  border-radius: 12px;
+  overflow: hidden;
+  aspect-ratio: 4/3;
+  background: var(--gray-100);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.shipping-preview-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+.shipping-preview-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+@media (max-width: 768px) {
+  .shipping-preview-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+}
+
 /* ===== WhatsApp Gate Card ===== */
 .shipping-gate {
   max-width: 500px;

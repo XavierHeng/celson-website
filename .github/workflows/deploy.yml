@@ -31,7 +31,7 @@ jobs:
       - name: Build deploy-tmp
         run: |
           rm -rf deploy-tmp
-          mkdir -p deploy-tmp/css deploy-tmp/js deploy-tmp/functions
+          mkdir -p deploy-tmp/css deploy-tmp/js
           cp *.html deploy-tmp/
           cp robots.txt deploy-tmp/ 2>/dev/null || true
           cp sitemap.xml deploy-tmp/ 2>/dev/null || true
@@ -40,7 +40,6 @@ jobs:
           cp js/*.js deploy-tmp/js/
           cp -r assets deploy-tmp/
           rm -rf deploy-tmp/assets/_archive
-          cp functions/*.js deploy-tmp/functions/
           echo "Deploy-tmp built with $(find deploy-tmp -type f | wc -l) files"
 
       - name: Cache-bust CSS/JS in HTML

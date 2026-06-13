@@ -101,9 +101,9 @@ const I18N = {
     'shipping.trust1':             { en:'Real container photos — not stock images', fr:'Photos réelles de conteneurs — pas d\'images de stock' },
     'shipping.trust2':             { en:'Quality checked before loading', fr:'Qualité vérifiée avant chargement' },
     'shipping.trust3':             { en:'On-time delivery to 98 countries', fr:'Livraison ponctuelle dans 98 pays' },
-    'shipping.gate.title':         { en:'Want to see real container loading photos?', fr:'Vous voulez voir de vraies photos de chargement de conteneurs ?' },
-    'shipping.gate.sub':           { en:'Chat with us on WhatsApp — we\'ll share live shipping photos and answer your questions instantly.', fr:'Discutez avec nous sur WhatsApp — nous partagerons des photos d\'expédition en direct et répondrons instantanément à vos questions.' },
-    'shipping.gate.btn':           { en:'Chat on WhatsApp to View Photos', fr:'Discuter sur WhatsApp pour voir les photos' },
+    'shipping.gate.title':         { en:'Want to see all 50 real container loading photos?', fr:'Vous voulez voir les 50 vraies photos de chargement de conteneurs ?' },
+    'shipping.gate.sub':           { en:'Chat with us on WhatsApp — unlock the full gallery and get instant answers.', fr:'Discutez avec nous sur WhatsApp — débloquez la galerie complète et obtenez des réponses instantanées.' },
+    'shipping.gate.btn':           { en:'Unlock Full Gallery on WhatsApp', fr:'Débloquer la galerie sur WhatsApp' },
 
     /* ─── Products Page ─── */
     'products.page.title':         { en:'Our Products',            fr:'Nos produits' },
