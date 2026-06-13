@@ -100,7 +100,6 @@ section {
 }
 
 /* Sections that should not get island/spacing */
-section.stats-section,
 section.clients-section,
 section.footer-full,
 section.products-section.alt-bg,
@@ -733,28 +732,32 @@ a.product-card:hover {
    STATS / TRUST SECTION
    ============================================ */
 .stats-section {
-  padding: 80px 0;
-  background: var(--navy-900);
+  padding: 28px 0 32px;
+  background: var(--white);
+  border-radius: 20px;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+  max-width: 1060px;
+  margin: 0 auto 48px;
 }
 
 .stats-grid {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 48px;
   text-align: center;
 }
 
 .stat-item {
-  flex: 1;
-  padding: 20px 0;
+  padding: 8px 0;
 }
 
 .stat-number {
   font-family: var(--font-display);
-  font-size: 52px;
+  font-size: 36px;
   font-weight: 700;
   color: var(--green-600);
-  line-height: 1.1;
-  margin-bottom: 6px;
+  line-height: 1.15;
+  margin-bottom: 2px;
 }
 
 .stat-item:nth-child(even) .stat-number {
@@ -762,9 +765,14 @@ a.product-card:hover {
 }
 
 .stat-label {
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--slate-400);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--slate-500);
+  white-space: nowrap;
+}
+
+.stats-section .section-header h2 {
+  color: var(--navy-900);
 }
 
 /* ============================================
@@ -2001,7 +2009,7 @@ a.product-card:hover {
 
   .stats-grid { flex-direction: column; }
   .stat-item { flex: 1; }
-  .stat-number { font-size: 40px; }
+  .stat-number { font-size: 28px; }
 
   .projects-grid { grid-template-columns: 1fr; }
   .factory-grid { grid-template-columns: repeat(2, 1fr); }
@@ -2075,4 +2083,167 @@ a.product-card:hover {
   }
   .download-text p { max-width: 100%; }
   .download-text h2 { font-size: 22px; }
+}
+
+/* ==============================================
+   Container Loading Photos — Horizontal Filmstrip
+   ============================================== */
+.shipping-section {
+  padding: 40px 0 48px;
+  background: var(--white);
+  border-radius: 20px;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+  max-width: 1060px;
+  margin: 0 auto 48px;
+}
+.shipping-section .section-header { text-align: center; margin-bottom: 32px; }
+.shipping-section .section-header h2 {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--navy-900);
+  margin-bottom: 12px;
+}
+.shipping-section .section-header p {
+  font-size: 16px;
+  color: var(--slate-500);
+  max-width: 580px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* section label — orange shipping tag */
+.section-label--shipping {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--orange-50);
+  color: var(--orange-600);
+  padding: 6px 18px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  margin-bottom: 16px;
+}
+
+/* ===== Filmstrip Wrapper ===== */
+.shipping-filmstrip {
+  position: relative;
+}
+
+.shipping-track {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-snap-stop: always;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  cursor: grab;
+  padding: 4px 0 16px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.shipping-track::-webkit-scrollbar { display: none; }
+.shipping-track:active { cursor: grabbing; }
+
+.shipping-item {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  width: 340px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.shipping-item:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.shipping-photo {
+  height: 220px;
+  overflow: hidden;
+  background: var(--slate-200);
+  position: relative;
+}
+.shipping-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform 0.4s ease;
+}
+.shipping-item:hover .shipping-photo img { transform: scale(1.02); }
+
+/* ===== Arrows ===== */
+.shipping-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: var(--white);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--navy-900);
+  transition: all 0.2s ease;
+}
+.shipping-arrow:hover {
+  background: var(--green-600);
+  color: var(--white);
+  box-shadow: 0 6px 20px rgba(21,128,61,0.28);
+}
+.shipping-arrow:active { transform: translateY(-50%) scale(0.94); }
+.shipping-prev { left: -18px; }
+.shipping-next { right: -18px; }
+.shipping-arrow svg { width: 20px; height: 20px; }
+
+/* ===== Counter ===== */
+.shipping-counter {
+  text-align: center;
+  margin-top: 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--slate-400);
+  letter-spacing: 0.5px;
+}
+
+/* ===== Trust Bar ===== */
+.shipping-trust {
+  margin-top: 32px;
+  display: flex;
+  justify-content: center;
+  gap: 36px;
+  flex-wrap: wrap;
+}
+.shipping-trust-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--slate-600);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .shipping-section { padding: 32px 0 36px; }
+  .shipping-section .section-header h2 { font-size: 24px; }
+  .shipping-section .section-header p { font-size: 14px; }
+  .shipping-item { width: 260px; }
+  .shipping-photo { height: 160px; }
+  .shipping-arrow { width: 36px; height: 36px; }
+  .shipping-arrow svg { width: 16px; height: 16px; }
+  .shipping-prev { left: 8px; }
+  .shipping-next { right: 8px; }
+  .shipping-trust { gap: 16px; }
+  .shipping-trust-item { font-size: 13px; }
 }

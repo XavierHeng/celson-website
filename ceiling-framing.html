@@ -30,26 +30,28 @@
     .subpage-nav .btn-sm { padding: 6px 18px; font-size: 12px; }
 
     /* ===== Hero ===== */
-    .hero-wrap { background: var(--navy-900); }
+    .hero-wrap { background: transparent; }
     .hero-section {
-      display: flex; align-items: center; gap: 48px;
-      max-width: 1280px; margin: 0 auto; padding: 48px 0;
+      display: flex; align-items: center; gap: 32px;
+      max-width: 1060px; margin: 0 auto; padding: 40px 32px;
+      background: #F0FDF4; border-radius: 20px;
+      box-shadow: 0 2px 16px rgba(21,128,61,0.05);
     }
     .hero-content { flex: 1; min-width: 0; }
     .hero-badge {
       display: inline-flex; align-items: center; justify-content: center;
-      padding: 6px 16px; background: var(--orange-600); border-radius: 4px;
-      font-size: 12px; font-weight: 700; color: var(--white);
-      margin-bottom: 12px;
+      padding: 6px 16px; background: var(--green-100); border-radius: 20px;
+      font-size: 12px; font-weight: 700; color: var(--green-600);
+      margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.06em;
     }
     .hero-headline {
-      font-family: var(--font-display); font-size: 40px; font-weight: 700;
-      line-height: 1.21; color: var(--white); margin-bottom: 16px; letter-spacing: -0.02em;
+      font-family: var(--font-display); font-size: 36px; font-weight: 700;
+      line-height: 1.15; color: var(--navy-900); margin-bottom: 12px; letter-spacing: -0.02em;
     }
     .hero-subheadline {
-      font-size: 17px; color: #94A3B8; line-height: 1.5; margin-bottom: 20px;
+      font-size: 16px; color: var(--slate-500); line-height: 1.5; margin-bottom: 20px;
     }
-    .hero-buttons { display: flex; gap: 16px; }
+    .hero-buttons { display: flex; gap: 14px; }
     .btn-specs {
       display: inline-flex; align-items: center; justify-content: center;
       padding: 14px 32px; background: var(--green-600); color: var(--white);
@@ -58,32 +60,32 @@
     .btn-specs:hover { background: var(--green-700); transform: translateY(-1px); }
     .btn-catalog {
       display: inline-flex; align-items: center; justify-content: center;
-      padding: 14px 32px; background: #1E293B; color: #CBD5E1;
-      font-size: 15px; font-weight: 600; border-radius: 8px; transition: all 0.2s;
+      padding: 14px 32px; background: var(--white); color: var(--green-600);
+      font-size: 15px; font-weight: 600; border: 2px solid var(--green-100); border-radius: 8px; transition: all 0.2s;
     }
-    .btn-catalog:hover { background: #334155; color: #F1F5F9; transform: translateY(-1px); }
+    .btn-catalog:hover { background: #F0FDF4; transform: translateY(-1px); }
     .hero-image {
-      flex: 0 0 440px; height: 280px; background: var(--navy-800); border-radius: 16px; overflow: hidden;
+      flex: 0 0 440px; height: 280px; background: var(--slate-100); border-radius: 24px; overflow: hidden;
     }
     .hero-image img { width: 100%; height: 100%; object-fit: cover; }
 
     /* ===== Specs Section ===== */
-    .specs-section { background: #F8FAFC; padding: 48px 0; }
-    .specs-section .container { max-width: 1280px; }
+    .specs-section { background: var(--white); padding: 48px 0; border-radius: 20px; max-width: 1060px; margin: 0 auto 24px; box-shadow: 0 2px 16px rgba(21,128,61,0.05); }
+    .specs-section .container { max-width: 980px; }
     .section-label {
-      font-size: 13px; font-weight: 700; color: var(--orange-600); text-transform: uppercase;
-      letter-spacing: 0.04em; margin-bottom: 8px;
+      font-size: 12px; font-weight: 700; color: var(--green-600); text-transform: uppercase;
+      letter-spacing: 0.08em; margin-bottom: 8px;
     }
     .section-heading {
       font-family: var(--font-display); font-size: 32px; font-weight: 700;
-      color: var(--navy-900); margin-bottom: 24px; letter-spacing: -0.02em;
+      color: var(--navy-900); margin-bottom: 8px; letter-spacing: -0.02em;
     }
     .specs-table-wrap { border-radius: 12px; overflow: hidden; }
-    .specs-table { width: 100%; border-collapse: collapse; }
+    .specs-table { width: 100%; border-collapse: separate; border-spacing: 0; border: 1px solid var(--slate-200); border-radius: 16px; overflow: hidden; }
     .specs-table thead th {
-      background: var(--navy-900); padding: 12px 16px;
-      font-size: 12px; font-weight: 700; color: #94A3B8; text-align: left;
-      text-transform: uppercase; letter-spacing: 0.04em;
+      background: #F0FDF4; padding: 10px 16px;
+      font-size: 12px; font-weight: 700; color: var(--green-600); text-align: left;
+      text-transform: uppercase; letter-spacing: 0.04em; border-bottom: 1px solid var(--slate-200);
     }
     .specs-table thead th:first-child { width: 180px; }
     .specs-table thead th:nth-child(2) { width: 180px; }
@@ -91,16 +93,15 @@
     .specs-table thead th:nth-child(4) { width: 240px; }
     .specs-table thead th:nth-child(5) { width: auto; }
     .specs-table tbody td {
-      padding: 10px 16px; font-size: 13px; border-bottom: none;
+      padding: 10px 16px; font-size: 14px; border-bottom: 1px solid var(--slate-200);
     }
-    .specs-table tbody td:first-child { font-weight: 600; color: var(--navy-900); }
-    .specs-table tbody td:not(:first-child) { color: #334155; }
-    .specs-table tbody tr:nth-child(odd) td { background: var(--white); }
+    .specs-table tbody td:first-child { font-weight: 700; color: var(--navy-900); }
     .specs-table tbody tr:nth-child(even) td { background: #F8FAFC; }
+    .specs-table tbody tr:last-child td { border-bottom: none; }
 
     /* ===== Product Types Section ===== */
-    .products-section { background: var(--white); padding: 48px 0; }
-    .products-section .container { max-width: 1280px; }
+    .products-section { background: #F0FDF4; padding: 48px 0; border-radius: 20px; max-width: 1060px; margin: 0 auto 24px; box-shadow: 0 2px 16px rgba(21,128,61,0.05); }
+    .products-section .container { max-width: 980px; }
     .bento-grid {
       display: flex; gap: 20px;
     }
@@ -143,12 +144,13 @@
     }
 
     /* ===== Applications Section ===== */
-    .apps-section { background: #F8FAFC; padding: 48px 0; }
-    .apps-section .container { max-width: 1280px; }
+    .apps-section { background: var(--white); padding: 48px 0; border-radius: 20px; max-width: 1060px; margin: 0 auto 24px; box-shadow: 0 2px 16px rgba(21,128,61,0.05); }
+    .apps-section .container { max-width: 980px; }
 
     /* ===== CTA Section ===== */
     .cta-section {
       background: var(--green-600); padding: 48px 0; text-align: center;
+      border-radius: 20px; max-width: 1060px; margin: 0 auto 24px;
     }
     .cta-section .container { max-width: 700px; }
     .cta-heading {
@@ -172,57 +174,17 @@
     }
     .btn-dl:hover { background: #15803D; transform: translateY(-1px); }
 
-    /* ===== Footer ===== */
-    .site-footer {
-      background: var(--navy-900); padding: 48px 0 0;
-    }
-    .site-footer .container { max-width: 1280px; }
-    .footer-top { display: flex; gap: 48px; margin-bottom: 32px; }
-    .footer-brand-col { width: 320px; }
-    .footer-logo {
-      font-family: var(--font-display); font-size: 24px; font-weight: 700;
-      color: var(--white); margin-bottom: 16px;
-    }
-    .footer-tagline {
-      font-size: 14px; color: #94A3B8; line-height: 1.57;
-    }
-    .footer-link-col { flex: 1; }
-    .footer-link-col h4 {
-      font-size: 13px; font-weight: 700; color: #64748B; text-transform: uppercase;
-      letter-spacing: 0.04em; margin-bottom: 16px;
-    }
-    .footer-link-col a {
-      display: block; font-size: 14px; color: #CBD5E1; margin-bottom: 12px; transition: color 0.2s;
-    }
-    .footer-link-col a:hover { color: var(--white); }
-    .footer-divider {
-      height: 1px; background: #1E293B; margin-bottom: 0;
-    }
-    .footer-bottom {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 24px 0;
-    }
-    .footer-copyright {
-      font-size: 13px; color: #64748B;
-    }
-    .footer-lang {
-      font-size: 13px; color: #64748B;
-    }
-
     /* ===== Responsive ===== */
     @media (max-width: 1024px) {
-      .hero-section { flex-direction: column; padding: 60px 32px; gap: 48px; }
+      .hero-section { flex-direction: column; padding: 40px 28px; gap: 32px; }
       .hero-image { flex: none; width: 100%; height: 240px; }
-      .hero-headline { font-size: 36px; }
+      .hero-headline { font-size: 32px; }
       .bento-grid { flex-direction: column; }
       .bento-card-small .bento-img { flex: 0 0 200px; }
       .apps-grid { grid-template-columns: 1fr; }
-      .footer-top { flex-wrap: wrap; gap: 48px; }
-      .footer-brand-col { width: 100%; }
-      .footer-link-col { flex: 0 0 calc(50% - 24px); }
     }
     @media (max-width: 768px) {
-      .hero-section { padding: 48px 20px; gap: 36px; }
+      .hero-section { padding: 32px 20px; gap: 28px; }
       .hero-headline { font-size: 28px; }
       .hero-buttons { flex-direction: column; }
       .subpage-nav { display: none; }
@@ -230,9 +192,6 @@
       .bento-card-small { flex-direction: column; }
       .bento-card-small .bento-img { flex: none; height: 200px; }
       .cta-buttons { flex-direction: column; align-items: center; }
-      .footer-top { gap: 32px; }
-      .footer-link-col { flex: 0 0 100%; }
-      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
     }
   
     /* Explore Other Products */
@@ -316,17 +275,17 @@
 <body>
 
 <!-- ===== NAV BAR (Design: 2:4) ===== -->
-<header class="site-header" style="background:var(--navy-900);border-bottom:1px solid #1E293B">
+<header class="site-header">
   <div class="container header-inner">
-    <a href="index.html" class="header-logo" style="color:var(--white);gap:16px">
+    <a href="index.html" class="header-logo" style="gap:16px">
       <img src="assets/crown-logo-44.webp" srcset="assets/crown-logo@2x.webp 2x" class="logo-icon" alt="CELSON" width="44" height="44" fetchpriority="high">
-      <span style="font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--white)">CELSON</span>
+      <span style="font-family:var(--font-display);font-size:22px;font-weight:700">CELSON</span>
       <span style="display:inline-block;width:2px;height:24px;background:#334155;margin:0 4px"></span>
       <span style="font-size:14px;font-weight:600;color:#94A3B8">CEILING &amp; FRAMING</span>
     </a>
     <nav class="header-nav">
-      <a href="index.html" style="color:#CBD5E1" data-i18n="nav.home">Home</a>
-      <a href="products.html" class="nav-products-trigger" data-href="products.html" style="color:#CBD5E1">
+      <a href="index.html" data-i18n="nav.home">Home</a>
+      <a href="products.html" class="nav-products-trigger" data-href="products.html">
       <span data-i18n="nav.products">Products</span>
       <span class="mega-arrow">
         <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -434,10 +393,10 @@
       </div>
     </div>
   </div>
-      <a href="about.html" style="color:#CBD5E1" data-i18n="nav.about">About</a>
+      <a href="about.html" data-i18n="nav.about">About</a>
       <a href="projects.html" style="color:#CBD5E1" data-i18n="nav.projects">Projects</a>
       <a href="shop.html" data-i18n="nav.shop">Shop</a>
-      <a href="contact.html" style="color:#CBD5E1" data-i18n="nav.contact">Contact</a>
+      <a href="contact.html" data-i18n="nav.contact">Contact</a>
     </nav>
     <div class="header-actions">
       <button class="lang-switch" style="color:#CBD5E1">EN <span style="color:#64748B">/ 中文</span></button>
@@ -711,43 +670,11 @@
   </div>
 </section>
 
-<!-- ===== FOOTER (Design: 2:145) ===== -->
-<footer class="site-footer">
-  <div class="container">
-    <div class="footer-top">
-      <div class="footer-brand-col">
-        <div class="footer-logo">CELSON</div>
-        <p class="footer-tagline" data-i18n="footer.full.brand.desc">Global building materials supplier. Quality products, competitive pricing, reliable delivery &mdash; since 2005.</p>
-      </div>
-      <div class="footer-link-col">
-        <h4 data-i18n="footer.full.col1">PRODUCTS</h4>
-        <a href="gypsum-boards.html">Gypsum Boards</a>
-        <a href="sheet-boards.html">Sheet Boards</a>
-        <a href="wall-panels.html">Wall Panels</a>
-        <a href="ceiling-framing.html">Ceiling &amp; Framing</a>
-      </div>
-      <div class="footer-link-col">
-        <h4 data-i18n="footer.full.col2">COMPANY</h4>
-        <a href="about.html">About Us</a>
-        <a href="contact.html" data-i18n="nav.contact">Contact</a>
-        <a href="#">Careers</a>
-        <a href="#">Quality Policy</a>
-      </div>
-      <div class="footer-link-col">
-        <h4 data-i18n="footer.full.col3">SUPPORT</h4>
-        <a href="#">Technical Specs</a>
-        <a href="#">Installation Guides</a>
-        <a href="#">Shipping Info</a>
-        <a href="#">FAQ</a>
-      </div>
-    </div>
-  </div>
-  <div class="footer-divider"></div>
-  <div class="container">
-    <div class="footer-bottom">
-      <p class="footer-copyright" data-i18n="footer.copyright">&copy; 2025 Jianxin Building Materials Co., Ltd. All rights reserved.</p>
-      <p class="footer-lang">English</p>
-    </div>
+<!-- ===== FOOTER ===== -->
+<footer class="footer-compact">
+  <div class="container footer-compact-inner">
+    <p class="copyright"><span data-i18n="footer.copyright">&copy; 2025 Jianxin Building Materials Co., Ltd. All rights reserved.</span></p>
+    <p class="lang-links"><span data-i18n="footer.lang.links">English · Français · Español</span></p>
   </div>
 </footer>
 

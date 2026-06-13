@@ -94,6 +94,14 @@ const I18N = {
     'download.sub':                { en:'Get detailed specs, full product range, and volume pricing in our PDF catalog.', fr:'Obtenez les spécifications détaillées, la gamme complète et les prix de volume dans notre catalogue PDF.' },
     'download.button':             { en:'Download Catalog (PDF)',   fr:'Télécharger le catalogue (PDF)' },
 
+    /* ─── Container Loading Photos ─── */
+    'shipping.label':              { en:'Real Shipping Photos',  fr:'Photos d\'expédition réelles' },
+    'shipping.title':              { en:'Container Loading — We Deliver What You Order', fr:'Chargement de conteneur — Nous livrons ce que vous commandez' },
+    'shipping.sub':                { en:'Every shipment photographed at our warehouse. Real containers loaded with gypsum boards, tiles, and building materials — exactly what arrives at your port.', fr:'Chaque expédition est photographiée dans notre entrepôt. De vrais conteneurs chargés de plaques de plâtre, carrelages et matériaux de construction — exactement ce qui arrive à votre port.' },
+    'shipping.trust1':             { en:'Real container photos — not stock images', fr:'Photos réelles de conteneurs — pas d\'images de stock' },
+    'shipping.trust2':             { en:'Quality checked before loading', fr:'Qualité vérifiée avant chargement' },
+    'shipping.trust3':             { en:'On-time delivery to 98 countries', fr:'Livraison ponctuelle dans 98 pays' },
+
     /* ─── Products Page ─── */
     'products.page.title':         { en:'Our Products',            fr:'Nos produits' },
     'products.page.subtitle':      { en:'Full-range building materials — factory-direct quality, one-stop supply', fr:'Gamme complète de matériaux de construction — qualité départ usine, guichet unique' },

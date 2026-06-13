@@ -152,15 +152,15 @@
 <body>
 
 <!-- ========== HEADER ========== -->
-<header class="site-header" style="background:rgba(15,23,42,0.95);border-bottom:1px solid rgba(255,255,255,0.06)">
+<header class="site-header">
   <div class="container header-inner">
-    <a href="index.html" class="header-logo" style="color:var(--white)">
+    <a href="index.html" class="header-logo">
       <img src="assets/crown-logo-44.webp" srcset="assets/crown-logo@2x.webp 2x" class="logo-icon" alt="CELSON" width="44" height="44" fetchpriority="high">
       CELSON
     </a>
     <nav class="header-nav">
-      <a href="index.html" style="color:var(--slate-400)">Home</a>
-      <a href="products.html" class="nav-products-trigger" data-href="products.html" style="color:var(--slate-400)">
+      <a href="index.html">Home</a>
+      <a href="products.html" class="nav-products-trigger" data-href="products.html">
       <span data-i18n="nav.products">Products</span>
       <span class="mega-arrow">
         <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -268,29 +268,29 @@
       </div>
     </div>
   </div>
-      <a href="about.html" style="color:var(--slate-400)">About</a>
-      <a href="projects.html" style="color:var(--slate-400)">Projects</a>
+      <a href="about.html">About</a>
+      <a href="projects.html">Projects</a>
       <a href="shop.html" data-i18n="nav.shop">Shop</a>
-      <a href="contact.html" style="color:var(--slate-400)">Contact</a>
+      <a href="contact.html">Contact</a>
     </nav>
     <div class="header-actions">
-      <button class="lang-switch" style="background:rgba(255,255,255,0.08);color:var(--slate-400)">EN <span>/ 中文</span></button>
+      <button class="lang-switch">EN <span>/ 中文</span></button>
       <a href="contact.html" class="btn-primary"><span data-i18n="nav.get-quote" data-i18n="detail.nav.cta">Get Quote</span></a>
     </div>
     <button class="mobile-toggle" aria-label="Menu">
-      <span style="background:var(--white)"></span><span style="background:var(--white)"></span><span style="background:var(--white)"></span>
+      <span></span><span></span><span></span>
     </button>
   </div>
 </header>
 
 <!-- ========== SUBPAGE NAV ========== -->
-<div class="subpage-nav" style="background:rgba(15,23,42,0.92);border-bottom:1px solid rgba(255,255,255,0.05)">
+<div class="subpage-nav">
   <div class="container">
     <div class="subpage-nav-links">
       <a href="#overview" class="active"><span data-i18n="detail.nav.overview">Overview</span></a>
-      <a href="#specs" style="color:var(--slate-400)" data-i18n="detail.nav.specs">Specifications</a>
-      <a href="#types" style="color:var(--slate-400)" data-i18n="detail.nav.types">Product Types</a>
-      <a href="#applications" style="color:var(--slate-400)" data-i18n="detail.nav.applications">Applications</a>
+      <a href="#specs" data-i18n="detail.nav.specs">Specifications</a>
+      <a href="#types" data-i18n="detail.nav.types">Product Types</a>
+      <a href="#applications" data-i18n="detail.nav.applications">Applications</a>
     </div>
     <a href="contact.html" class="btn-primary btn-sm" data-i18n="detail.nav.cta">Get Quote</a>
   </div>
@@ -313,7 +313,7 @@
 </section>
 
 <!-- ========== SPECS ========== -->
-<section class="specs-section" id="specs" style="background:#EFFDF2">
+<section class="specs-section" id="specs">
   <div class="container">
     <p class="specs-label" style="text-align:center"><span data-i18n="detail.specs.label">TECHNICAL SPECIFICATIONS</span></p>
     <h2 class="specs-title" style="text-align:center" data-i18n="wall.specs.section.title">Compare Our Wall Panel Grades</h2>
@@ -322,9 +322,9 @@
     <table class="specs-table">
       <thead>
         <tr>
-          <th style="background:#0F172A;color:var(--white)" data-i18n="wall.specs.th.property">PROPERTY</th>
-          <th style="background:#0F172A;color:var(--white)" data-i18n="wall.specs.th.spec">SPECIFICATION</th>
-          <th style="background:#0F172A;color:var(--white)" data-i18n="wall.specs.th.standard">STANDARD</th>
+          <th data-i18n="wall.specs.th.property">PROPERTY</th>
+          <th data-i18n="wall.specs.th.spec">SPECIFICATION</th>
+          <th data-i18n="wall.specs.th.standard">STANDARD</th>
         </tr>
       </thead>
       <tbody>
@@ -354,7 +354,7 @@
 </section>
 
 <!-- ========== PRODUCT TYPES ========== -->
-<section class="specs-section" id="types" style="background:#F8FAFC">
+<section class="specs-section" id="types" style="background:#F0FDF4">
   <div class="container">
     <p class="specs-label" style="text-align:center" data-i18n="detail.nav.types">Product Types</p>
     <h2 class="specs-title" style="text-align:center" data-i18n="wall.types.section.title">Four Panel Families, Infinite Design Possibilities</h2>
@@ -551,45 +551,10 @@
 
 
 <!-- ========== FOOTER ========== -->
-<footer class="footer-full">
-  <div class="container">
-    <div class="footer-full-top">
-      <div class="footer-brand">
-        <div class="brand-name" style="font-size:24px">CELSON</div>
-        <p data-i18n="footer.full.brand.desc">Jianxin Building Materials — premium wall panels engineered for modern construction. Factory-direct quality since 2005.</p>
-      </div>
-      <div class="footer-nav-col">
-        <h4 data-i18n="footer.full.col1">Products</h4>
-        <ul>
-          <li><a href="gypsum-boards.html" data-i18n="mega.gypsum.label">Gypsum Boards</a></li>
-          <li><a href="sheet-boards.html" data-i18n="mega.sheet.label">Sheet Boards</a></li>
-          <li><a href="wall-panels.html" data-i18n="mega.wall.label">Wall Panels</a></li>
-          <li><a href="ceiling-framing.html" data-i18n="mega.ceiling.label">Ceiling Systems</a></li>
-        </ul>
-      </div>
-      <div class="footer-nav-col">
-        <h4 data-i18n="footer.full.col2">Company</h4>
-        <ul>
-          <li><a href="about.html" data-i18n="footer.full.about">About Us</a></li>
-          <li><a href="contact.html" data-i18n="nav.contact">Contact</a></li>
-          <li><a href="about.html" data-i18n="footer.full.quality">Quality Certifications</a></li>
-          <li><a href="about.html">Privacy Policy</a></li>
-        </ul>
-      </div>
-      <div class="footer-nav-col">
-        <h4 data-i18n="footer.full.col3">Contact</h4>
-        <ul>
-          <li><a href="contact.html">info@celsonmaterials.com</a></li>
-          <li><a href="contact.html" data-i18n="footer.full.quote">Request a Quote</a></li>
-          <li><a href="contact.html" data-i18n="footer.full.distributor">Become a Distributor</a></li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="footer-full-bottom">
-      <p class="copyright"><span data-i18n="footer.copyright">&copy; 2025 Jianxin Building Materials Co., Ltd. All rights reserved.</span></p>
-      <p class="lang-links"><span data-i18n="footer.lang.links">English · Français · Español</span></p>
-    </div>
+<footer class="footer-compact">
+  <div class="container footer-compact-inner">
+    <p class="copyright"><span data-i18n="footer.copyright">&copy; 2025 Jianxin Building Materials Co., Ltd. All rights reserved.</span></p>
+    <p class="lang-links"><span data-i18n="footer.lang.links">English · Français · Español</span></p>
   </div>
 </footer>
 
