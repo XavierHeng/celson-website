@@ -1,0 +1,23 @@
+{
+  "name": "CELSON Admin",
+  "short_name": "CELSON Admin",
+  "description": "CELSON 全球建材后台管理系统",
+  "start_url": "/admin.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#15803D",
+  "background_color": "#F8FAFC",
+  "icons": [
+    {
+      "src": "assets/pwa/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/pwa/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
