@@ -10,7 +10,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Shop — CELSON | In-Stock Building Materials</title>
-  <meta name="description" content="Browse in-stock CELSON building materials with EXW factory-direct pricing. Add to cart and submit your inquiry for a quote within 24 hours.">
+  <meta name="description" content="Browse in-stock CELSON building materials with EXW factory-direct pricing. Add to cart and order via WhatsApp for a quote within 24 hours — no registration needed.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
@@ -684,13 +684,21 @@
       cursor: pointer;
       border: none;
       font-family: 'Poppins', sans-serif;
-      background: var(--green-600);
+      background: #25D366;
       color: #fff;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.3px;
       transition: background-color 0.35s ease, color 0.35s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .btn-ready-to-pay svg {
+      width: 20px; height: 20px;
+      flex-shrink: 0;
     }
     .btn-ready-to-pay:hover {
-      background: #DC2626;
+      background: #1DA851;
       color: #fff;
     }
     .cart-popup-empty {
@@ -1213,8 +1221,8 @@
   </style>
 
   <!-- ========== SEO: Open Graph ========== -->
-  <meta property="og:title" content="CELSON Shop — Building Materials Spot Stock | Quick Inquiry & EXW Price">
-  <meta property="og:description" content="Check CELSON spot stock: gypsum boards, sheet boards, wall panels, and more. EXW pricing, quick inquiry, no registration needed. Factory-direct.">
+  <meta property="og:title" content="CELSON Shop — Building Materials Spot Stock | WhatsApp Order & EXW Price">
+  <meta property="og:description" content="Check CELSON spot stock: gypsum boards, sheet boards, wall panels, and more. EXW pricing, WhatsApp ordering, no registration needed. Factory-direct.">
   <meta property="og:image" content="https://celson.ltd/assets/home-slide-0.webp">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -1225,8 +1233,8 @@
   <meta property="og:locale:alternate" content="fr_FR">
   <!-- ========== SEO: Twitter Card ========== -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="CELSON Shop — Building Materials Spot Stock | Quick Inquiry & EXW Price">
-  <meta name="twitter:description" content="Check CELSON spot stock: gypsum boards, sheet boards, wall panels, and more. EXW pricing, quick inquiry, no registration needed. Factory-direct.">
+  <meta name="twitter:title" content="CELSON Shop — Building Materials Spot Stock | WhatsApp Order & EXW Price">
+  <meta name="twitter:description" content="Check CELSON spot stock: gypsum boards, sheet boards, wall panels, and more. EXW pricing, WhatsApp ordering, no registration needed. Factory-direct.">
   <meta name="twitter:image" content="https://celson.ltd/assets/home-slide-0.webp">
   <!-- ========== SEO: Canonical + Hreflang ========== -->
   <link rel="canonical" href="https://celson.ltd/shop.html">
@@ -1377,7 +1385,7 @@
 
     <div class="shop-header">
       <h1><span data-i18n="shop.hero.title">In-Stock Products</span></h1>
-      <p>EXW factory-direct pricing &mdash; Add items to your cart and submit an inquiry. Our team will contact you within 24 hours.</p>
+      <p>EXW factory-direct pricing &mdash; Add items to your cart and order via WhatsApp. We'll confirm pricing within 24 hours.</p>
     </div>
 
     <div class="shop-search">
@@ -1413,7 +1421,10 @@
             <span class="cart-popup-total-label">EXW Reference Total</span>
             <span class="cart-popup-total-amount" id="popupTotal">$0<span>ref.</span></span>
           </div>
-          <button class="btn-ready-to-pay" id="btnReadyToPay">READY TO PAY</button>
+          <button class="btn-ready-to-pay" id="btnReadyToPay">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+            Order via WhatsApp
+          </button>
         </div>
       </div>
     </div>
@@ -1487,36 +1498,15 @@
       </div>
 
       <div class="order-section">
-        <h3>Place Your Order</h3>
-        <p class="order-subtitle">Fill in your contact details and we'll get back to you within 24 hours.</p>
+        <h3>Confirm Your Order</h3>
+        <p class="order-subtitle">Review your items below, then tap to send your inquiry via WhatsApp. We'll confirm pricing within 24 hours.</p>
 
-        <form id="orderForm">
-          <div class="order-grid">
-            <div class="order-field">
-              <label>Full Name <span class="required">*</span></label>
-              <input type="text" name="name" id="orderName" required placeholder="John Smith">
-            </div>
-            <div class="order-field">
-              <label>Company</label>
-              <input type="text" name="company" id="orderCompany" placeholder="ABC Construction Ltd">
-            </div>
-            <div class="order-field">
-              <label>WhatsApp <span class="required">*</span></label>
-              <input type="text" name="whatsapp" id="orderWhatsapp" placeholder="+1 234 567 8901">
-            </div>
-            <div class="order-field">
-              <label>Email <span class="required">*</span></label>
-              <input type="email" name="email" id="orderEmail" placeholder="john@example.com">
-            </div>
-            <div class="order-field full">
-              <label>Message (optional)</label>
-              <textarea name="message" id="orderMessage" placeholder="Any specific requirements, target port for FOB quote, timeline..."></textarea>
-            </div>
-          </div>
-          <p class="order-hint" id="contactHint">* At least one of WhatsApp or Email must be filled.</p>
-          <button type="submit" class="btn-submit" id="btnSubmit" disabled>Submit Inquiry</button>
-        </form>
-        <p class="order-footer-note">Our team will contact you within 24 hours via WhatsApp or Email to confirm pricing and logistics.</p>
+        <button class="btn-ready-to-pay" id="btnWhatsAppOrder" style="margin-top:16px;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+          Order via WhatsApp
+        </button>
+        <p class="order-footer-note" style="margin-top:10px;">Tapping this opens WhatsApp with your order pre-filled. We'll reply within 24 hours to confirm pricing and logistics.</p>
+        <p class="order-footer-note" style="margin-top:4px;font-size:12px;color:var(--gray-400);">* A backup confirmation email is also sent automatically for your records.</p>
       </div>
     </div>
 
@@ -1838,20 +1828,21 @@
     document.getElementById('btnBackToShop2').addEventListener('click', showListView);
 
     // Cart popup events
+    document.getElementById('btnReadyToPay').addEventListener('click', openWhatsAppOrder);
     document.getElementById('cartPopupClose').addEventListener('click', hideCartPopup);
     document.getElementById('cartPopupOverlay').addEventListener('click', function(e) {
       if (e.target === this) hideCartPopup();
     });
-    document.getElementById('btnReadyToPay').addEventListener('click', showCartView);
+    document.getElementById('btnReadyToPay').addEventListener('click', openWhatsAppOrder);
 
     document.getElementById('searchInput').addEventListener('input', function() {
       searchQuery = this.value;
       renderProductList();
     });
 
-    document.getElementById('orderWhatsapp').addEventListener('input', checkContactFields);
-    document.getElementById('orderEmail').addEventListener('input', checkContactFields);
-    document.getElementById('orderForm').addEventListener('submit', submitOrder);
+    // Cart view WhatsApp button
+    var btnWA = document.getElementById('btnWhatsAppOrder');
+    if (btnWA) btnWA.addEventListener('click', openWhatsAppOrder);
   }
 
   function loadCart() {
@@ -2274,71 +2265,126 @@
     setTimeout(function() { toast.classList.remove('show'); }, 3500);
   }
 
-  function checkContactFields() {
-    var wa = document.getElementById('orderWhatsapp').value.trim();
-    var em = document.getElementById('orderEmail').value.trim();
-    var btn = document.getElementById('btnSubmit');
-    var hint = document.getElementById('contactHint');
-    if (wa || em) { btn.disabled = false; hint.style.color = 'var(--gray-500)'; }
-    else { btn.disabled = true; hint.style.color = 'var(--red-500)'; }
+  // ============================================================
+  //  WHATSAPP ORDER (one-click + silent email backup)
+  // ============================================================
+  var WHATSAPP_NUMBER = '+8613825578911';
+  var FORMSPREE_ENDPOINT = 'https://formspree.io/f/xdavdror';
+  var MAX_WHATSAPP_ITEMS = 8;
+
+  function buildWhatsAppMessage() {
+    var total = 0;
+    var lines = [];
+    lines.push('\uD83D\uDED2 *CELSON Order Inquiry*');
+    lines.push('');
+
+    var displayCount = Math.min(cart.length, MAX_WHATSAPP_ITEMS);
+    for (var i = 0; i < displayCount; i++) {
+      var item = cart[i];
+      var subtotal = item.qty * item.price;
+      total += subtotal;
+      lines.push('*' + (i + 1) + '. ' + item.name + '*');
+      if (item.spec) lines.push('   _' + item.spec + '_');
+      lines.push('   Qty: ' + item.qty + ' \u00d7 $' + item.price.toFixed(2) + ' = *$' + subtotal.toLocaleString('en-US', {minimumFractionDigits: 2}) + '*');
+      lines.push('');
+    }
+
+    if (cart.length > MAX_WHATSAPP_ITEMS) {
+      var remaining = cart.length - MAX_WHATSAPP_ITEMS;
+      var remainingTotal = 0;
+      for (var k = MAX_WHATSAPP_ITEMS; k < cart.length; k++) {
+        remainingTotal += cart[k].qty * cart[k].price;
+        total += cart[k].qty * cart[k].price;
+      }
+      lines.push('_...and ' + remaining + ' more item(s) \u2014 ' + remainingTotal.toLocaleString('en-US', {minimumFractionDigits: 2}) + '_');
+      lines.push('');
+    }
+
+    lines.push('\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501');
+    lines.push('\uD83D\uDCB0 *EXW Total: $' + total.toLocaleString('en-US', {minimumFractionDigits: 2}) + '*');
+    lines.push('\uD83D\uDEE1\uFE0F *30% Deposit: $' + (total * 0.3).toLocaleString('en-US', {minimumFractionDigits: 2}) + '*');
+    lines.push('\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501');
+    lines.push('');
+    lines.push('\uD83D\uDCCD Shipping from Guangdong, China');
+    lines.push('\uD83D\uDE9A Container loading location: Foshan');
+    lines.push('\uD83D\uDCE6 FOB pricing \u2014 reply to this chat');
+    lines.push('');
+    lines.push('_(Please add your company name & contact info)_');
+
+    return lines.join('\n');
   }
 
-  function submitOrder(e) {
-    e.preventDefault();
-    var name = document.getElementById('orderName').value.trim();
-    var wa = document.getElementById('orderWhatsapp').value.trim();
-    var em = document.getElementById('orderEmail').value.trim();
-    if (!name) { showErrorToast('Please enter your full name.'); return; }
-    if (!wa && !em) { showErrorToast('Please provide at least WhatsApp or Email.'); return; }
-
-    var itemsText = '';
+  function buildEmailItemsText() {
     var total = 0;
+    var text = '';
     for (var i = 0; i < cart.length; i++) {
       var sub = cart[i].qty * cart[i].price;
       total += sub;
-      itemsText += (i+1) + '. ' + cart[i].name + ' \u00d7 ' + cart[i].qty + ' \u00d7 $' + cart[i].price.toFixed(2) + ' = $' + sub.toLocaleString('en-US', {minimumFractionDigits:2}) + '\n';
+      text += (i + 1) + '. ' + cart[i].name + ' \u2014 ' + (cart[i].spec || 'N/A') + '\n';
+      text += '   Qty: ' + cart[i].qty + ' \u00d7 $' + cart[i].price.toFixed(2) + ' = $' + sub.toLocaleString('en-US', {minimumFractionDigits: 2}) + '\n\n';
     }
-    var msg = document.getElementById('orderMessage').value.trim();
-    var company = document.getElementById('orderCompany').value.trim();
-    var now = new Date().toISOString();
+    return text;
+  }
 
-    var FORMSPREE_ENDPOINT = 'https://formspree.io/f/xdavdror';
+  function getEmailTotal() {
+    var total = 0;
+    for (var i = 0; i < cart.length; i++) {
+      total += cart[i].qty * cart[i].price;
+    }
+    return total;
+  }
+
+  function sendSilentEmail() {
+    var total = getEmailTotal();
     var formData = new FormData();
-    formData.append('name', name);
-    formData.append('company', company);
-    formData.append('whatsapp', wa);
-    formData.append('email', em);
-    formData.append('message', msg);
-    formData.append('order_items', itemsText);
-    formData.append('exw_total', '$' + total.toLocaleString('en-US', {minimumFractionDigits:2}));
-    formData.append('deposit_30pct', '$' + (total * 0.3).toLocaleString('en-US', {minimumFractionDigits:2}));
+    formData.append('name', 'WhatsApp Order (auto)');
+    formData.append('company', 'N/A');
+    formData.append('whatsapp', WHATSAPP_NUMBER);
+    formData.append('email', '695904082@qq.com');
+    formData.append('message', 'Order placed via WhatsApp one-click. Customer will provide contact details in WhatsApp chat.');
+    formData.append('order_items', buildEmailItemsText());
+    formData.append('exw_total', '$' + total.toLocaleString('en-US', {minimumFractionDigits: 2}));
+    formData.append('deposit_30pct', '$' + (total * 0.3).toLocaleString('en-US', {minimumFractionDigits: 2}));
     formData.append('logistics', 'Included: Foshan city limits only. Not included: container loading, freight outside Foshan, export docs. Free loading location provided in Foshan.');
-    formData.append('submitted_at', now);
-
-    var btn = document.getElementById('btnSubmit');
-    btn.disabled = true;
-    btn.textContent = 'Submitting...';
+    formData.append('submitted_at', new Date().toISOString());
+    formData.append('order_source', 'WhatsApp one-click checkout');
 
     fetch(FORMSPREE_ENDPOINT, { method: 'POST', body: formData, headers: { 'Accept': 'application/json' } })
-      .then(function(res) {
-        if (res.ok) {
-          showToast('Inquiry submitted! We will contact you within 24 hours.');
-          cart = [];
-          saveCart();
-          document.getElementById('orderForm').reset();
-          showListView();
-        } else {
-          return res.json().then(function(data) { throw new Error(data.error || 'Submission failed'); });
-        }
-      })
-      .catch(function(err) {
-        showErrorToast('Failed to submit. Please email us directly at Betty.Mat@foxmail.com');
-        console.error(err);
-      })
-      .finally(function() {
-        btn.disabled = false;
-        btn.textContent = 'Submit Inquiry';
+      .catch(function(err) { console.error('Silent email backup failed:', err); });
+  }
+
+  function openWhatsAppOrder() {
+    if (cart.length === 0) {
+      showErrorToast('Your cart is empty. Add items first.');
+      return;
+    }
+
+    // Close popup if open
+    hideCartPopup();
+
+    // Send silent email backup (fire-and-forget)
+    sendSilentEmail();
+
+    // Open WhatsApp
+    var message = buildWhatsAppMessage();
+    var waUrl = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(message);
+    window.open(waUrl, '_blank');
+
+    // Track conversion
+    if (typeof gtag === 'function') {
+      gtag('event', 'whatsapp_order', {
+        event_category: 'conversion',
+        event_label: 'WhatsApp Checkout',
+        value: getEmailTotal()
       });
+    }
+
+    // Clear cart and go back to list
+    cart = [];
+    saveCart();
+    updateCartUI();
+    showListView();
+    showToast('Opening WhatsApp... Your order details are pre-filled. We\u2019ll confirm within 24 hours.');
   }
 
 })();
