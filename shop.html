@@ -1255,27 +1255,32 @@
         transform: translateY(0);
       }
       .prod-lightbox-close {
-        position: absolute; bottom: 28px; left: 50%; z-index: 20;
-        transform: translateX(-50%);
-        width: auto; min-width: 140px; height: 48px;
-        padding: 0 36px;
-        border-radius: 24px;
-        background: rgba(255,255,255,0.95);
+        position: absolute; top: 16px; left: 16px; z-index: 20;
+        width: 44px; height: 44px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.9);
         color: #0F172A;
         border: none;
-        font-size: 16px; font-weight: 600;
+        font-size: 22px; font-weight: 400;
         cursor: pointer;
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 6px;
         line-height: 1;
         font-family: 'Open Sans', sans-serif;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.25);
-        transition: background 0.2s, transform 0.2s;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+        animation: btnPulse 3s ease-in-out infinite;
+        transition: background 0.4s, color 0.4s;
       }
-      .prod-lightbox-close:hover { background: #fff; transform: translateX(-50%) scale(1.03); }
-      .prod-lightbox-close:active { transform: translateX(-50%) scale(0.97); }
+      .prod-lightbox-close:hover {
+        background: #15803D;
+        color: #fff;
+        box-shadow: 0 4px 20px rgba(21,128,61,0.35);
+      }
+      @keyframes btnPulse {
+        0%, 100% { background: rgba(255,255,255,0.9); }
+        50% { background: #15803D; color: #fff; }
+      }
       .prod-lightbox-gallery {
         position: relative;
         width: 100%; height: 55vh;
@@ -1492,38 +1497,37 @@
     }
     .prod-lightbox-close {
       position: absolute;
-      bottom: 24px;
-      left: 50%;
+      top: 12px;
+      left: 12px;
       z-index: 20;
-      transform: translateX(-50%);
-      width: auto;
-      min-width: 130px;
-      height: 48px;
-      padding: 0 32px;
-      border-radius: 24px;
-      background: rgba(255,255,255,0.95);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.9);
       color: #0F172A;
       border: none;
-      font-size: 16px;
-      font-weight: 600;
+      font-size: 22px;
+      font-weight: 400;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
       line-height: 1;
       font-family: 'Open Sans', sans-serif;
-      transition: background 0.2s, transform 0.2s;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.25);
-      top: auto;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+      animation: btnPulse 3s ease-in-out infinite;
+      transition: background 0.4s, color 0.4s;
+      bottom: auto;
       right: auto;
     }
     .prod-lightbox-close:hover {
-      background: #fff;
-      transform: translateX(-50%) scale(1.03);
+      background: #15803D;
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(21,128,61,0.35);
     }
-    .prod-lightbox-close:active {
-      transform: translateX(-50%) scale(0.97);
+    @keyframes btnPulse {
+      0%, 100% { background: rgba(255,255,255,0.9); color: #0F172A; }
+      50% { background: #15803D; color: #fff; }
     }
 
     /* Gallery panel (left) */
@@ -1960,7 +1964,7 @@
     <!-- Product Lightbox Modal -->
     <div class="prod-lightbox-overlay" id="prodLightboxOverlay">
       <div class="prod-lightbox" id="prodLightbox">
-        <button class="prod-lightbox-close" id="prodLightboxClose">✕ 关闭</button>
+        <button class="prod-lightbox-close" id="prodLightboxClose">✕</button>
         <div class="prod-lightbox-gallery" id="prodLightboxGallery">
           <div class="prod-lightbox-gallery-inner" id="prodLightboxInner"></div>
           <button class="prod-lightbox-prev" id="prodLightboxPrev">&lsaquo;</button>
