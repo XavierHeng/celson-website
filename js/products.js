@@ -37,7 +37,7 @@ var ALL_PRODUCTS = [
     "name": "Moisture-Resistant Gypsum Board 12mm",
     "spec": "1200 &times; 2400mm &middot; Green water-repellent",
     "extra": "Min. 150 m&sup2; &middot; Shipped from Guangdong",
-    "unit": "/m&sup2; EXW",
+    "unit": "/pcs EXW",
     "minQty": 150,
     "thumb": "assets/shop/shop-gyp-mr-12.webp",
     "hidden": false,
@@ -115,7 +115,7 @@ var ALL_PRODUCTS = [
   {
     "id": "mdf-18",
     "category": "Sheet Boards",
-    "name": "MDF Board 18mm â E1 Grade",
+    "name": "MDF Board 18mm Ã¢ÂÂ E1 Grade",
     "spec": "1220 &times; 2440mm &middot; Smooth sanded surface",
     "extra": "Min. 80 sheets &middot; Shipped from Shandong",
     "unit": "/sheet EXW",
@@ -133,7 +133,7 @@ var ALL_PRODUCTS = [
       "size": "1220 &times; 2440mm",
       "weight": "32 kg/sheet",
       "grade": "E1",
-      "density": "680â720 kg/m&sup3;",
+      "density": "680Ã¢ÂÂ720 kg/m&sup3;",
       "surfaceFinish": "Double-sided sanded",
       "edgeFinish": "Smooth, paintable",
       "application": "Furniture, interior doors, millwork"
@@ -142,7 +142,7 @@ var ALL_PRODUCTS = [
   {
     "id": "osb-15",
     "category": "Sheet Boards",
-    "name": "OSB Board 15mm â Structural",
+    "name": "OSB Board 15mm Ã¢ÂÂ Structural",
     "spec": "1220 &times; 2440mm &middot; Oriented strand",
     "extra": "Min. 80 sheets &middot; Shipped from Jiangsu",
     "unit": "/sheet EXW",
@@ -169,7 +169,7 @@ var ALL_PRODUCTS = [
   {
     "id": "wpc-wall-8",
     "category": "Wall Panels",
-    "name": "WPC Wall Panel 8mm â Wood Grain",
+    "name": "WPC Wall Panel 8mm Ã¢ÂÂ Wood Grain",
     "spec": "160 &times; 2900mm &middot; 3D wood texture",
     "extra": "Min. 100 m&sup2; &middot; Shipped from Zhejiang",
     "unit": "/m&sup2; EXW",
@@ -223,7 +223,7 @@ var ALL_PRODUCTS = [
   {
     "id": "pvc-ceiling-7",
     "category": "Wall Panels",
-    "name": "PVC Wall Panel 7mm â Solid Color",
+    "name": "PVC Wall Panel 7mm Ã¢ÂÂ Solid Color",
     "spec": "250 &times; 3000mm &middot; Matte white",
     "extra": "Min. 150 m&sup2; &middot; Shipped from Zhejiang",
     "unit": "/m&sup2; EXW",
@@ -267,7 +267,7 @@ var ALL_PRODUCTS = [
       "thickness": "15mm",
       "size": "600 &times; 600mm",
       "weight": "3.5 kg/pc",
-      "acoustic": "NRC 0.55â0.70",
+      "acoustic": "NRC 0.55Ã¢ÂÂ0.70",
       "fireRating": "A2",
       "edgeType": "Square / Tegular",
       "surfaceFinish": "Smooth white / Fissured",
@@ -304,7 +304,7 @@ var ALL_PRODUCTS = [
   {
     "id": "metal-stud-75",
     "category": "Ceiling &amp; Framing",
-    "name": "Metal Stud 75mm â Galvanized",
+    "name": "Metal Stud 75mm Ã¢ÂÂ Galvanized",
     "spec": "75 &times; 45mm &middot; 0.6mm thick",
     "extra": "Min. 300 pcs &middot; Shipped from Hebei",
     "unit": "/pc EXW",
@@ -358,7 +358,7 @@ var ALL_PRODUCTS = [
   {
     "id": "cs-board-12",
     "category": "Calcium Silicate",
-    "name": "Calcium Silicate Board 12mm â HD",
+    "name": "Calcium Silicate Board 12mm Ã¢ÂÂ HD",
     "spec": "1220 &times; 2440mm &middot; High density",
     "extra": "Min. 80 sheets &middot; Shipped from Guangdong",
     "unit": "/sheet EXW",
@@ -385,7 +385,7 @@ var ALL_PRODUCTS = [
   {
     "id": "wpc-deck-140",
     "category": "Outdoor &amp; Decking",
-    "name": "WPC Decking 140mm â Solid",
+    "name": "WPC Decking 140mm Ã¢ÂÂ Solid",
     "spec": "140 &times; 25mm &middot; Co-extrusion",
     "extra": "Min. 50 m&sup2; &middot; Shipped from Zhejiang",
     "unit": "/m&sup2; EXW",
@@ -413,7 +413,7 @@ var ALL_PRODUCTS = [
   {
     "id": "wpc-clad-150",
     "category": "Outdoor &amp; Decking",
-    "name": "WPC Cladding 150mm â Hollow",
+    "name": "WPC Cladding 150mm Ã¢ÂÂ Hollow",
     "spec": "150 &times; 20mm &middot; UV resistant",
     "extra": "Min. 50 m&sup2; &middot; Shipped from Zhejiang",
     "unit": "/m&sup2; EXW",
@@ -441,7 +441,7 @@ var ALL_PRODUCTS = [
   {
     "id": "joint-compound-20",
     "category": "Accessories",
-    "name": "Joint Compound 20kg â Ready-Mix",
+    "name": "Joint Compound 20kg Ã¢ÂÂ Ready-Mix",
     "spec": "20kg bucket &middot; Premixed",
     "extra": "Min. 50 pcs &middot; Shipped from Guangdong",
     "unit": "/pc EXW",
@@ -467,7 +467,7 @@ var ALL_PRODUCTS = [
   {
     "id": "drywall-screw-25",
     "category": "Accessories",
-    "name": "Drywall Screw 25mm â Phosphated",
+    "name": "Drywall Screw 25mm Ã¢ÂÂ Phosphated",
     "spec": "3.5 &times; 25mm &middot; 1000pcs/box",
     "extra": "Min. 20 boxes &middot; Shipped from Hebei",
     "unit": "/box EXW",
@@ -493,7 +493,7 @@ var ALL_PRODUCTS = [
   {
     "id": "rockwool-50",
     "category": "Insulation",
-    "name": "Rock Wool Board 50mm â 120kg/m&sup3;",
+    "name": "Rock Wool Board 50mm Ã¢ÂÂ 120kg/m&sup3;",
     "spec": "1200 &times; 600mm &middot; 120kg/m&sup3;",
     "extra": "Min. 100 m&sup2; &middot; Shipped from Hebei",
     "unit": "/m&sup2; EXW",
@@ -519,7 +519,7 @@ var ALL_PRODUCTS = [
   {
     "id": "xps-50",
     "category": "Insulation",
-    "name": "XPS Board 50mm â 35kg/m&sup3;",
+    "name": "XPS Board 50mm Ã¢ÂÂ 35kg/m&sup3;",
     "spec": "1200 &times; 600mm &middot; 35kg/m&sup3;",
     "extra": "Min. 100 m&sup2; &middot; Shipped from Jiangsu",
     "unit": "/m&sup2; EXW",
