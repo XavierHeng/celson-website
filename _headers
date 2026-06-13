@@ -1,0 +1,16 @@
+# Cloudflare Pages Headers
+# robots.txt — MUST be served as text/plain
+/robots.txt
+  Content-Type: text/plain
+  Cache-Control: public, max-age=3600
+
+# sitemap.xml — MUST be served as application/xml
+/sitemap.xml
+  Content-Type: application/xml
+  Cache-Control: public, max-age=3600
+
+# Security headers
+/*
+  X-Frame-Options: SAMEORIGIN
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin

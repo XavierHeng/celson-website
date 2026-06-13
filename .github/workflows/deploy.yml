@@ -33,6 +33,9 @@ jobs:
           rm -rf deploy-tmp
           mkdir -p deploy-tmp/css deploy-tmp/js deploy-tmp/assets/shop deploy-tmp/functions
           cp *.html deploy-tmp/
+          cp robots.txt deploy-tmp/ 2>/dev/null || true
+          cp sitemap.xml deploy-tmp/ 2>/dev/null || true
+          cp _headers deploy-tmp/ 2>/dev/null || true
           cp css/style.css deploy-tmp/css/
           cp js/*.js deploy-tmp/js/
           cp assets/*.webp deploy-tmp/assets/
