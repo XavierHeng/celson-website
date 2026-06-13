@@ -2559,6 +2559,31 @@ a.product-card:hover {
   .products-section .container { padding: 0; }     /* undo double-padding with inner container */
   .products-section h2 { font-size: 20px !important; }
 
+  /* --- Contact Page --- */
+  .contact-section {
+    max-width: calc(100% - 12px);
+    border-radius: 12px;
+    padding: 24px 16px;
+    gap: 20px;
+  }
+  .contact-section h2 { font-size: 22px; }
+  .contact-section p { font-size: 14px; }
+
+  /* --- Betty Card (Contact Page) --- */
+  .betty-card-inline { border-radius: 12px; }
+  .bci-profile { padding: 18px 16px 14px; gap: 14px; }
+  .bci-avatar-circle { width: 64px; height: 64px; min-width: 64px; }
+  .bci-name { font-size: 18px; }
+  .bci-title { font-size: 12px; }
+  .bci-contact-item { padding: 10px 16px; font-size: 13px; }
+
+  /* --- Project Cards (Projects page) --- */
+  .project-card-img { height: 180px; }
+  .projects-grid { gap: 14px; }
+
+  /* --- Product Cards (any page) --- */
+  .product-card-img { height: 180px; }
+
   /* --- Touch targets: ensure all interactive elements are ≥44px --- */
   .btn-primary,
   .btn-secondary { min-height: 44px; }
