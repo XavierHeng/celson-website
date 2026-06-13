@@ -202,10 +202,10 @@ const htmlReplacements = [
    'secondes.'],
 
   ['Username',
-   'Nom d\'utilisateur'],
+   'Nom d\u2019utilisateur'],
 
   ['Enter username',
-   'Entrez le nom d\'utilisateur'],
+   'Entrez le nom d\u2019utilisateur'],
 
   ['Password',
    'Mot de passe'],
@@ -213,8 +213,8 @@ const htmlReplacements = [
   ['Enter password',
    'Entrez le mot de passe'],
 
-  ['attempt', 'tentative'],
-  ['remaining', 'restante'],
+  [' attempt', ' tentative'],
+  [' remaining', ' restante'],
   ['Unlock', 'D\u00e9verrouiller'],
 
   ['&larr; Back to Shop',
