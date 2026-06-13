@@ -117,70 +117,70 @@
         name: 'Gypsum Boards',
         description:
           'Standard, Moisture-Resistant (MR), and Fire-Rated gypsum boards for interior wall and ceiling construction. Factory-direct pricing.',
-        image: 'https://celson.ltd/assets/product-gypsum.jpg',
+        image: 'https://celson.ltd/assets/product-hero-gypsum-boards.webp',
         category: 'Gypsum Boards',
       },
       '/sheet-boards.html': {
         name: 'Sheet Boards',
         description:
           'Plywood, MDF, OSB, and Particle boards for construction and furniture applications. Premium quality, factory-direct.',
-        image: 'https://celson.ltd/assets/product-sheet.jpg',
+        image: 'https://celson.ltd/assets/product-hero-sheet-boards.webp',
         category: 'Sheet Boards',
       },
       '/wall-panels.html': {
         name: 'Wall Panels',
         description:
           'Decorative wall panels, WPC panels, and UV marble panels. Modern wall covering solutions for interior and exterior use.',
-        image: 'https://celson.ltd/assets/product-wall.jpg',
+        image: 'https://celson.ltd/assets/product-hero-wall-panels.webp',
         category: 'Wall Panels',
       },
       '/ceiling-framing.html': {
         name: 'Ceiling & Metal Framing',
         description:
           'T-Grid ceiling systems, metal studs, and track framing. Complete suspended ceiling and partition wall solutions.',
-        image: 'https://celson.ltd/assets/product-ceiling.jpg',
+        image: 'https://celson.ltd/assets/product-hero-ceiling-framing.webp',
         category: 'Ceiling Systems',
       },
       '/calcium-silicate.html': {
         name: 'Calcium Silicate Boards',
         description:
           'Fire-rated and moisture-proof calcium silicate boards. High-performance building boards for demanding applications.',
-        image: 'https://celson.ltd/assets/product-calcium.jpg',
+        image: 'https://celson.ltd/assets/product-hero-calcium-silicate.webp',
         category: 'Calcium Silicate',
       },
       '/outdoor-decking.html': {
         name: 'Outdoor & Decking',
         description:
           'WPC decking, composite lumber, and exterior cladding. Durable, weather-resistant outdoor building materials.',
-        image: 'https://celson.ltd/assets/product-outdoor.jpg',
+        image: 'https://celson.ltd/assets/product-hero-outdoor-decking.webp',
         category: 'Outdoor Decking',
       },
       '/tiles.html': {
         name: 'Tiles',
         description:
           'Porcelain tiles, ceramic tiles, and mosaic tiles. Wide range of sizes, finishes, and styles for floors and walls.',
-        image: 'https://celson.ltd/assets/product-tiles.jpg',
+        image: 'https://celson.ltd/assets/product-hero-tiles.webp',
         category: 'Tiles',
       },
       '/roofing-materials.html': {
         name: 'Roofing Materials',
         description:
           'Metal roofing sheets, asphalt shingles, and PVC roofing membranes. Complete roofing solutions for residential and commercial buildings.',
-        image: 'https://celson.ltd/assets/product-roofing.jpg',
+        image: 'https://celson.ltd/assets/product-hero-roofing.webp',
         category: 'Roofing Materials',
       },
       '/accessories.html': {
         name: 'Accessories',
         description:
           'Drywall screws, metal profiles, joint tape, corner beads, and installation accessories. One-stop sourcing for all construction supplies.',
-        image: 'https://celson.ltd/assets/product-accessories.jpg',
+        image: 'https://celson.ltd/assets/product-hero-accessories.webp',
         category: 'Accessories',
       },
       '/insulation-materials.html': {
         name: 'Insulation Materials',
         description:
           'Rock wool, XPS boards, EPS boards, and glass wool. Thermal and acoustic insulation for energy-efficient buildings.',
-        image: 'https://celson.ltd/assets/product-insulation.jpg',
+        image: 'https://celson.ltd/assets/product-hero-insulation.webp',
         category: 'Insulation Materials',
       },
     };
@@ -204,7 +204,7 @@
         '@type': 'AggregateOffer',
         url: 'https://celson.ltd' + path,
         priceCurrency: 'USD',
-        offerCount: '0',
+        offerCount: '1',
         availability: 'https://schema.org/InStock',
         itemCondition: 'https://schema.org/NewCondition',
       },

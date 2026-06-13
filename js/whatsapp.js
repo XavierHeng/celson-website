@@ -15,7 +15,7 @@
 
   // ========== DETECT FRENCH ==========
   function isFrench() {
-    var langCookie = document.cookie.split('; ').find(function (row) { return row.startsWith('lang='); });
+    var langCookie = document.cookie.split('; ').find(function (row) { return row.startsWith('celson_lang='); });
     if (langCookie) return langCookie.split('=')[1] === 'fr';
     var urlParams = new URLSearchParams(window.location.search);
     return urlParams.get('lang') === 'fr';
