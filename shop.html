@@ -1217,7 +1217,493 @@
       /* ===== Tooltip — disable on touch ===== */
       .cat-tooltip { display: none !important; }
       .popup-thumb-tooltip { display: none !important; }
+
+      /* ===== Product Lightbox — mobile fullscreen overlay ===== */
+      .prod-lightbox-overlay {
+        align-items: stretch;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        background: #fff;
+      }
+      .prod-lightbox-overlay .prod-lightbox {
+        width: 100%; max-width: 100%; height: 100%;
+        border-radius: 0;
+        bottom: 0; right: 0; left: 0; top: 0;
+        max-height: 100vh;
+        transform: translateY(30px);
+        display: flex;
+        flex-direction: column;
+        box-shadow: none;
+      }
+      .prod-lightbox-overlay.visible .prod-lightbox {
+        transform: translateY(0);
+      }
+      .prod-lightbox-close {
+        position: absolute; top: 12px; right: 12px; z-index: 20;
+        width: 36px; height: 36px;
+        border-radius: 50%;
+        background: rgba(0,0,0,0.5);
+        color: #fff;
+        border: none;
+        font-size: 22px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1;
+        font-family: 'Open Sans', sans-serif;
+      }
+      .prod-lightbox-gallery {
+        position: relative;
+        width: 100%; height: 55vh;
+        background: #0F172A;
+        overflow: hidden;
+        flex-shrink: 0;
+        touch-action: pan-x pinch-zoom;
+      }
+      .prod-lightbox-gallery-inner {
+        display: flex;
+        height: 100%;
+        transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        will-change: transform;
+      }
+      .prod-lightbox-gallery-inner.swiping {
+        transition: none;
+      }
+      .prod-lightbox-slide {
+        flex: 0 0 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+      .prod-lightbox-slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        pointer-events: auto;
+      }
+      .prod-lightbox-dots {
+        position: absolute;
+        bottom: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 8px;
+        z-index: 10;
+      }
+      .prod-lightbox-dot {
+        width: 8px; height: 8px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.4);
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+      .prod-lightbox-dot.active {
+        background: #fff;
+        box-shadow: 0 0 6px rgba(255,255,255,0.6);
+      }
+      .prod-lightbox-info {
+        flex: 1;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        padding: 20px 18px 32px;
+        background: #fff;
+      }
+      .prod-lightbox-info .plb-name {
+        font-family: 'Poppins', sans-serif;
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--gray-900);
+        margin: 0 0 4px;
+      }
+      .prod-lightbox-info .plb-cat {
+        font-size: 12px;
+        color: var(--green-600);
+        font-weight: 600;
+        margin: 0 0 16px;
+        display: inline-block;
+        background: var(--green-50);
+        padding: 3px 10px;
+        border-radius: 12px;
+      }
+      .prod-lightbox-info .plb-price {
+        font-size: 26px;
+        font-weight: 700;
+        color: var(--gray-900);
+        margin: 0 0 2px;
+      }
+      .prod-lightbox-info .plb-unit {
+        font-size: 13px;
+        color: var(--gray-400);
+        margin: 0 0 8px;
+      }
+      .prod-lightbox-info .plb-minqty {
+        display: inline-block;
+        padding: 4px 10px;
+        background: #FFF7ED;
+        color: #C2410C;
+        border-radius: 6px;
+        font-size: 12px;
+        font-weight: 600;
+        margin-bottom: 16px;
+      }
+      .prod-lightbox-details {
+        border-top: 1px solid var(--gray-100);
+        padding-top: 14px;
+        margin-bottom: 16px;
+      }
+      .prod-lightbox-details h4 {
+        font-family: 'Poppins', sans-serif;
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--gray-700);
+        margin: 0 0 10px;
+      }
+      .prod-lightbox-detail-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 7px 0;
+        border-bottom: 1px solid var(--gray-50);
+        font-size: 13px;
+      }
+      .prod-lightbox-detail-row .dt-label {
+        color: var(--gray-500);
+        font-weight: 500;
+      }
+      .prod-lightbox-detail-row .dt-value {
+        color: var(--gray-900);
+        font-weight: 600;
+        text-align: right;
+        max-width: 60%;
+      }
+      .prod-lightbox-actions {
+        display: flex;
+        gap: 10px;
+      }
+      .btn-lb-add {
+        flex: 1;
+        padding: 14px;
+        border-radius: 10px;
+        font-size: 15px;
+        font-weight: 700;
+        cursor: pointer;
+        border: none;
+        font-family: 'Poppins', sans-serif;
+        background: var(--green-600);
+        color: #fff;
+        transition: background 0.2s;
+      }
+      .btn-lb-add:hover { background: var(--green-700); }
+      .btn-lb-wa {
+        padding: 14px 18px;
+        border-radius: 10px;
+        font-size: 15px;
+        font-weight: 700;
+        cursor: pointer;
+        border: 1px solid #25D366;
+        background: #fff;
+        color: #25D366;
+        font-family: 'Poppins', sans-serif;
+        transition: background 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        white-space: nowrap;
+      }
+      .btn-lb-wa:hover { background: #F0FFF4; }
     }
+  </style>
+  <!-- ===== PRODUCT LIGHTBOX CSS (Desktop) ===== -->
+  <style>
+    .prod-lightbox-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(15, 23, 42, 0.55);
+      z-index: 20000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s;
+      backdrop-filter: blur(3px);
+      -webkit-backdrop-filter: blur(3px);
+    }
+    .prod-lightbox-overlay.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .prod-lightbox {
+      background: #fff;
+      border-radius: 18px;
+      width: 860px;
+      max-width: 95vw;
+      max-height: 85vh;
+      display: flex;
+      box-shadow: 0 24px 72px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.06);
+      transform: translateY(12px);
+      transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      overflow: hidden;
+    }
+    .prod-lightbox-overlay.visible .prod-lightbox {
+      transform: translateY(0);
+    }
+    .prod-lightbox-close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      z-index: 20;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.45);
+      color: #fff;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+      font-family: 'Open Sans', sans-serif;
+      transition: background 0.2s;
+    }
+    .prod-lightbox-close:hover {
+      background: rgba(0,0,0,0.7);
+    }
+
+    /* Gallery panel (left) */
+    .prod-lightbox-gallery {
+      position: relative;
+      width: 420px;
+      min-height: 420px;
+      background: #0F172A;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+    .prod-lightbox-gallery-inner {
+      display: flex;
+      height: 100%;
+      transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      will-change: transform;
+    }
+    .prod-lightbox-gallery-inner.swiping {
+      transition: none;
+    }
+    .prod-lightbox-slide {
+      flex: 0 0 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .prod-lightbox-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    /* Dots */
+    .prod-lightbox-dots {
+      position: absolute;
+      bottom: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      z-index: 10;
+    }
+    .prod-lightbox-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.35);
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .prod-lightbox-dot.active {
+      background: #fff;
+      transform: scale(1.3);
+      box-shadow: 0 0 8px rgba(255,255,255,0.5);
+    }
+
+    /* Nav arrows */
+    .prod-lightbox-prev,
+    .prod-lightbox-next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.9);
+      border: none;
+      cursor: pointer;
+      z-index: 11;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: #0F172A;
+      font-weight: 700;
+      transition: background 0.2s, opacity 0.2s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+      opacity: 0;
+      font-family: 'Open Sans', sans-serif;
+      line-height: 1;
+    }
+    .prod-lightbox-gallery:hover .prod-lightbox-prev,
+    .prod-lightbox-gallery:hover .prod-lightbox-next {
+      opacity: 1;
+    }
+    .prod-lightbox-prev { left: 10px; }
+    .prod-lightbox-next { right: 10px; }
+    .prod-lightbox-prev:hover,
+    .prod-lightbox-next:hover {
+      background: #fff;
+    }
+
+    /* Info panel (right) */
+    .prod-lightbox-info {
+      flex: 1;
+      overflow-y: auto;
+      padding: 28px 28px 24px;
+      display: flex;
+      flex-direction: column;
+    }
+    .prod-lightbox-info::-webkit-scrollbar {
+      width: 4px;
+    }
+    .prod-lightbox-info::-webkit-scrollbar-thumb {
+      background: var(--gray-200);
+      border-radius: 2px;
+    }
+    .plb-name {
+      font-family: 'Poppins', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--gray-900);
+      margin: 0 0 4px;
+      padding-right: 30px;
+    }
+    .plb-cat {
+      font-size: 12px;
+      color: var(--green-600);
+      font-weight: 600;
+      margin: 0 0 20px;
+      display: inline-block;
+      background: var(--green-50);
+      padding: 3px 10px;
+      border-radius: 12px;
+    }
+    .plb-price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 2px;
+    }
+    .plb-price {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--gray-900);
+    }
+    .plb-unit {
+      font-size: 14px;
+      color: var(--gray-400);
+    }
+    .plb-minqty {
+      display: inline-block;
+      padding: 4px 10px;
+      background: #FFF7ED;
+      color: #C2410C;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      margin: 8px 0 20px;
+    }
+
+    /* Details table */
+    .prod-lightbox-details {
+      border-top: 1px solid var(--gray-100);
+      padding-top: 16px;
+      margin-bottom: 16px;
+    }
+    .prod-lightbox-details h4 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--gray-700);
+      margin: 0 0 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .prod-lightbox-detail-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--gray-50);
+      font-size: 13px;
+    }
+    .prod-lightbox-detail-row .dt-label {
+      color: var(--gray-500);
+      font-weight: 500;
+    }
+    .prod-lightbox-detail-row .dt-value {
+      color: var(--gray-900);
+      font-weight: 600;
+      text-align: right;
+      max-width: 60%;
+    }
+
+    /* Action buttons */
+    .prod-lightbox-actions {
+      margin-top: auto;
+      display: flex;
+      gap: 10px;
+      padding-top: 20px;
+    }
+    .btn-lb-add {
+      flex: 1;
+      padding: 14px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      font-family: 'Poppins', sans-serif;
+      background: var(--green-600);
+      color: #fff;
+      transition: background 0.2s;
+    }
+    .btn-lb-add:hover { background: var(--green-700); }
+    .btn-lb-add.in-cart {
+      background: var(--gray-100);
+      color: var(--gray-500);
+    }
+    .btn-lb-wa {
+      padding: 14px 18px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      border: 1px solid #25D366;
+      background: #fff;
+      color: #25D366;
+      font-family: 'Poppins', sans-serif;
+      transition: background 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+    .btn-lb-wa:hover { background: #F0FFF4; }
   </style>
 
   <!-- ========== SEO: Open Graph ========== -->
@@ -1406,6 +1892,20 @@
         EXW Reference $0<span>reference only</span>
       </div>
       <button class="btn-view-cart" id="btnViewCart">View Cart &rarr;</button>
+    </div>
+
+    <!-- Product Lightbox Modal -->
+    <div class="prod-lightbox-overlay" id="prodLightboxOverlay">
+      <div class="prod-lightbox" id="prodLightbox">
+        <button class="prod-lightbox-close" id="prodLightboxClose">&times;</button>
+        <div class="prod-lightbox-gallery" id="prodLightboxGallery">
+          <div class="prod-lightbox-gallery-inner" id="prodLightboxInner"></div>
+          <button class="prod-lightbox-prev" id="prodLightboxPrev">&lsaquo;</button>
+          <button class="prod-lightbox-next" id="prodLightboxNext">&rsaquo;</button>
+          <div class="prod-lightbox-dots" id="prodLightboxDots"></div>
+        </div>
+        <div class="prod-lightbox-info" id="prodLightboxInfo"></div>
+      </div>
     </div>
 
     <!-- Cart Popup Modal -->
@@ -2007,7 +2507,7 @@
       var itemClass = isVolume ? 'shop-item volume-item' : 'shop-item';
       var badgeHtml = isVolume ? '<span class="shop-item-badge"><span class="badge-icon">&#x1F525;</span> Best Value</span>' : '';
       html += '<div class="' + itemClass + '" data-pid="' + p.id + '">';
-      html += '<div class="shop-item-thumb"><img loading="lazy" src="' + (p.thumb || '') + '" alt="' + p.name + '" onerror="this.style.display=\'none\';this.parentElement.innerHTML=\'<svg width=32 height=32 viewBox=\\\'0 0 24 24\\\' fill=\\\'none\\\' stroke=\\\'#15803D\\\' stroke-width=\\\'1.2\\\'><rect x=\\\'3\\\' y=\\\'4\\\' width=\\\'18\\\' height=\\\'14\\\' rx=\\\'1.5\\\'/><line x1=\\\'7\\\' y1=\\\'8\\\' x2=\\\'17\\\' y2=\\\'8\\\'/><line x1=\\\'7\\\' y1=\\\'11\\\' x2=\\\'17\\\' y2=\\\'11\\\'/><line x1=\\\'7\\\' y1=\\\'14\\\' x2=\\\'13\\\' y2=\\\'14\\\'/></svg>\'"></div>';
+      html += '<div class="shop-item-thumb" data-pid="' + p.id + '" title="Click to view details"><img loading="lazy" src="' + (p.thumb || '') + '" alt="' + p.name + '" onerror="this.style.display=\'none\';this.parentElement.innerHTML=\'<svg width=32 height=32 viewBox=\\\'0 0 24 24\\\' fill=\\\'none\\\' stroke=\\\'#15803D\\\' stroke-width=\\\'1.2\\\'><rect x=\\\'3\\\' y=\\\'4\\\' width=\\\'18\\\' height=\\\'14\\\' rx=\\\'1.5\\\'/><line x1=\\\'7\\\' y1=\\\'8\\\' x2=\\\'17\\\' y2=\\\'8\\\'/><line x1=\\\'7\\\' y1=\\\'11\\\' x2=\\\'17\\\' y2=\\\'11\\\'/><line x1=\\\'7\\\' y1=\\\'14\\\' x2=\\\'13\\\' y2=\\\'14\\\'/></svg>\'"></div>';
       html += '<div class="shop-item-info">';
       html += '<div class="shop-item-name">' + p.name + '<span class="shop-item-stock">In Stock</span>' + badgeHtml + '</div>';
       html += '<div class="shop-item-spec">' + p.spec + '</div>';
@@ -2061,6 +2561,15 @@
           }
           else { ci.qty = val; saveCart(); }
         }
+      });
+    }
+
+    // Bind thumb click → lightbox
+    var thumbs = container.querySelectorAll('.shop-item-thumb');
+    for (var t = 0; t < thumbs.length; t++) {
+      thumbs[t].addEventListener('click', function(e) {
+        var pid = this.getAttribute('data-pid');
+        if (pid) openProductLightbox(pid);
       });
     }
   }
@@ -2264,6 +2773,253 @@
     toast.classList.add('show');
     setTimeout(function() { toast.classList.remove('show'); }, 3500);
   }
+
+  // ============================================================
+  //  PRODUCT LIGHTBOX (Multi-image gallery + details)
+  // ============================================================
+  var lightboxCurrentSlide = 0;
+  var lightboxProduct = null;
+  var lightboxTouchStartX = 0;
+  var lightboxTouchStartY = 0;
+  var lightboxTouchMoved = false;
+  var lightboxSwipeThreshold = 50;
+
+  // Pinch zoom state
+  var pinchInitialDistance = 0;
+  var pinchInitialScale = 1;
+  var currentScale = 1;
+  var currentTranslateX = 0;
+  var currentTranslateY = 0;
+
+  function openProductLightbox(productId) {
+    var prod = getProductById(productId);
+    if (!prod) return;
+
+    lightboxProduct = prod;
+    lightboxCurrentSlide = 0;
+    currentScale = 1;
+    currentTranslateX = 0;
+    currentTranslateY = 0;
+
+    // Build gallery slides
+    var thumbs = prod.thumbs || [prod.thumb];
+    if (thumbs.length === 0) thumbs = [prod.thumb];
+
+    var inner = document.getElementById('prodLightboxInner');
+    var dots = document.getElementById('prodLightboxDots');
+    var html = '';
+    var dotHtml = '';
+    for (var i = 0; i < thumbs.length; i++) {
+      html += '<div class="prod-lightbox-slide"><img src="' + thumbs[i] + '" alt="' + prod.name + ' - Image ' + (i + 1) + '" draggable="false"></div>';
+      dotHtml += '<button class="prod-lightbox-dot' + (i === 0 ? ' active' : '') + '" data-index="' + i + '"></button>';
+    }
+    inner.innerHTML = html;
+    inner.style.transform = 'translateX(0)';
+    dots.innerHTML = dotHtml;
+
+    // Build info panel
+    var price = getProductPrice(prod.id);
+    var ci = getCartItem(prod.id);
+    var inCart = !!ci;
+    var details = prod.details || {};
+
+    var infoHtml = '';
+    infoHtml += '<div class="plb-name">' + prod.name + '</div>';
+    infoHtml += '<span class="plb-cat">' + prod.category + '</span>';
+    infoHtml += '<div class="plb-price-row"><span class="plb-price">$' + price.toFixed(2) + '</span><span class="plb-unit">' + prod.unit + '</span></div>';
+    infoHtml += '<div class="plb-minqty">Min. Order: ' + prod.minQty.toLocaleString() + ' ' + (prod.unit.indexOf('m&sup2;') !== -1 ? 'm²' : prod.unit.replace('/','')) + '</div>';
+
+    // Spec info
+    infoHtml += '<div style="font-size:13px;color:var(--gray-500);margin-bottom:14px;line-height:1.6;">' + prod.spec + '<br>' + prod.extra + '</div>';
+
+    // Technical details table
+    if (Object.keys(details).length > 0) {
+      infoHtml += '<div class="prod-lightbox-details"><h4>Technical Specifications</h4>';
+      for (var key in details) {
+        if (details.hasOwnProperty(key)) {
+          var label = key.replace(/([A-Z])/g, ' $1').replace(/^./, function(s) { return s.toUpperCase(); });
+          infoHtml += '<div class="prod-lightbox-detail-row"><span class="dt-label">' + label + '</span><span class="dt-value">' + details[key] + '</span></div>';
+        }
+      }
+      infoHtml += '</div>';
+    }
+
+    // Action buttons
+    infoHtml += '<div class="prod-lightbox-actions">';
+    infoHtml += '<button class="btn-lb-add' + (inCart ? ' in-cart' : '') + '" id="btnLbAdd" data-pid="' + prod.id + '">' + (inCart ? '&#10003; In Cart' : 'Add to Cart') + '</button>';
+    infoHtml += '<button class="btn-lb-wa" id="btnLbWhatsApp"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg> WhatsApp</button>';
+    infoHtml += '</div>';
+
+    document.getElementById('prodLightboxInfo').innerHTML = infoHtml;
+
+    // Show overlay
+    document.getElementById('prodLightboxOverlay').classList.add('visible');
+    document.body.style.overflow = 'hidden';
+
+    // Bind events
+    bindLightboxEvents();
+    updateLightboxSlide(0);
+  }
+
+  function updateLightboxSlide(index) {
+    var thumbs = (lightboxProduct && lightboxProduct.thumbs) ? lightboxProduct.thumbs : [];
+    if (thumbs.length === 0) return;
+
+    lightboxCurrentSlide = Math.max(0, Math.min(index, thumbs.length - 1));
+    var inner = document.getElementById('prodLightboxInner');
+    inner.style.transform = 'translateX(-' + (lightboxCurrentSlide * 100) + '%)';
+
+    // Update dots
+    var dots = document.querySelectorAll('.prod-lightbox-dot');
+    for (var i = 0; i < dots.length; i++) {
+      dots[i].classList.toggle('active', i === lightboxCurrentSlide);
+    }
+
+    // Update prev/next visibility
+    var prev = document.getElementById('prodLightboxPrev');
+    var next = document.getElementById('prodLightboxNext');
+    if (prev) prev.style.display = lightboxCurrentSlide === 0 ? 'none' : 'flex';
+    if (next) next.style.display = lightboxCurrentSlide >= thumbs.length - 1 ? 'none' : 'flex';
+  }
+
+  function bindLightboxEvents() {
+    var closeBtn = document.getElementById('prodLightboxClose');
+    var overlay = document.getElementById('prodLightboxOverlay');
+    var prevBtn = document.getElementById('prodLightboxPrev');
+    var nextBtn = document.getElementById('prodLightboxNext');
+    var gallery = document.getElementById('prodLightboxGallery');
+
+    // Close
+    closeBtn.onclick = closeProductLightbox;
+    overlay.onclick = function(e) {
+      if (e.target === overlay) closeProductLightbox();
+    };
+
+    // Navigation arrows
+    if (prevBtn) prevBtn.onclick = function() { updateLightboxSlide(lightboxCurrentSlide - 1); };
+    if (nextBtn) nextBtn.onclick = function() { updateLightboxSlide(lightboxCurrentSlide + 1); };
+
+    // Dot clicks
+    var dots = document.querySelectorAll('.prod-lightbox-dot');
+    for (var d = 0; d < dots.length; d++) {
+      dots[d].onclick = function() {
+        updateLightboxSlide(parseInt(this.getAttribute('data-index'), 10));
+      };
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', lightboxKeyHandler);
+
+    // Touch swipe
+    if (gallery) {
+      gallery.addEventListener('touchstart', lightboxTouchStart, { passive: false });
+      gallery.addEventListener('touchmove', lightboxTouchMove, { passive: false });
+      gallery.addEventListener('touchend', lightboxTouchEnd, { passive: false });
+    }
+
+    // Action buttons
+    var btnAdd = document.getElementById('btnLbAdd');
+    if (btnAdd) {
+      btnAdd.onclick = function() {
+        addToCart(this.getAttribute('data-pid'));
+        // Refresh lightbox info
+        if (lightboxProduct) openProductLightbox(lightboxProduct.id);
+        renderProductList();
+      };
+    }
+
+    var btnWa = document.getElementById('btnLbWhatsApp');
+    if (btnWa) {
+      btnWa.onclick = function() {
+        var pid = document.getElementById('btnLbAdd').getAttribute('data-pid');
+        addToCart(pid);
+        closeProductLightbox();
+        openWhatsAppOrder();
+      };
+    }
+  }
+
+  function lightboxKeyHandler(e) {
+    if (!lightboxProduct) return;
+    if (e.key === 'Escape') { closeProductLightbox(); return; }
+    if (e.key === 'ArrowLeft') { updateLightboxSlide(lightboxCurrentSlide - 1); return; }
+    if (e.key === 'ArrowRight') { updateLightboxSlide(lightboxCurrentSlide + 1); return; }
+  }
+
+  // Touch swipe handlers
+  function lightboxTouchStart(e) {
+    if (e.touches.length === 1) {
+      lightboxTouchStartX = e.touches[0].clientX;
+      lightboxTouchStartY = e.touches[0].clientY;
+      lightboxTouchMoved = false;
+    } else if (e.touches.length === 2) {
+      // Pinch start
+      pinchInitialDistance = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+      pinchInitialScale = currentScale;
+    }
+  }
+
+  function lightboxTouchMove(e) {
+    if (e.touches.length === 1 && pinchInitialDistance === 0) {
+      // Swipe
+      var dx = e.touches[0].clientX - lightboxTouchStartX;
+      if (Math.abs(dx) > 5) lightboxTouchMoved = true;
+    } else if (e.touches.length === 2) {
+      // Pinch zoom on mobile
+      var dist = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+      var scale = pinchInitialScale * (dist / pinchInitialDistance);
+      scale = Math.max(1, Math.min(scale, 3));
+      currentScale = scale;
+      var img = document.querySelector('.prod-lightbox-slide:nth-child(' + (lightboxCurrentSlide + 1) + ') img');
+      if (img) {
+        img.style.transform = 'scale(' + scale + ')';
+        img.style.transition = 'none';
+      }
+    }
+  }
+
+  function lightboxTouchEnd(e) {
+    if (!lightboxTouchMoved && pinchInitialDistance === 0) return;
+
+    if (pinchInitialDistance > 0) {
+      // End pinch - reset after 1s
+      pinchInitialDistance = 0;
+      currentScale = 1;
+      setTimeout(function() {
+        var img = document.querySelector('.prod-lightbox-slide:nth-child(' + (lightboxCurrentSlide + 1) + ') img');
+        if (img) {
+          img.style.transform = 'scale(1)';
+          img.style.transition = 'transform 0.3s ease';
+        }
+      }, 300);
+      return;
+    }
+
+    // Swipe
+    var dx = e.changedTouches[0].clientX - lightboxTouchStartX;
+    if (Math.abs(dx) > lightboxSwipeThreshold) {
+      if (dx < 0) updateLightboxSlide(lightboxCurrentSlide + 1);
+      else updateLightboxSlide(lightboxCurrentSlide - 1);
+    }
+    lightboxTouchMoved = false;
+  }
+
+  function closeProductLightbox() {
+    document.removeEventListener('keydown', lightboxKeyHandler);
+    document.getElementById('prodLightboxOverlay').classList.remove('visible');
+    document.body.style.overflow = '';
+    lightboxProduct = null;
+  }
+
+  // Expose to window for external use
+  window.openProductLightbox = openProductLightbox;
+  window.closeProductLightbox = closeProductLightbox;
 
   // ============================================================
   //  WHATSAPP ORDER (one-click + silent email backup)

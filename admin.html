@@ -20,6 +20,11 @@ button { cursor: pointer; font-family: inherit; }
 input, select, textarea { font-family: inherit; outline: none; }
 a { color: var(--blue); }
 
+/* mobile-only elements → hidden on desktop */
+.hamburger-btn, .fab-btn, .mobile-search-bar, .bs-handle { display: none; }
+.mobile-menu-overlay { display: none; }
+.mobile-camera-input { display: none; }
+
 /* ===== LOGIN ===== */
 .login-page { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #0F172A 0%, #1E3A5F 100%); }
 .login-card { background: #fff; border-radius: 20px; padding: 48px 40px; width: 400px; max-width: 90vw; box-shadow: 0 25px 60px rgba(0,0,0,0.3); }
@@ -183,7 +188,7 @@ a { color: var(--blue); }
 .spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin 0.6s linear infinite; vertical-align: middle; margin-right: 6px; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* responsive */
+/* ===== RESPONSIVE: Tablet (768px) ===== */
 @media (max-width: 768px) {
   .prod-grid { grid-template-columns: 1fr; }
   .topbar { flex-direction: column; align-items: flex-start; }
@@ -191,6 +196,166 @@ a { color: var(--blue); }
   .batch-bar { flex-direction: column; align-items: flex-start; }
   .cat-filters { gap: 4px; }
   .cat-pill { font-size: 11px; padding: 4px 10px; }
+  .modal-box { width: 90vw; padding: 24px; }
+}
+
+/* ===== RESPONSIVE: Mobile (480px) — warehouse-optimized ===== */
+@media (max-width: 480px) {
+  body { padding-bottom: 130px; }
+
+  /* --- Login --- */
+  .login-card { padding: 32px 24px; border-radius: 16px; }
+  .login-card h1 { font-size: 20px; }
+  .login-card input { padding: 14px 16px; font-size: 16px; }
+  .login-card .btn-login { padding: 15px; font-size: 16px; }
+
+  /* --- Topbar → compact --- */
+  .topbar { padding: 12px 0; gap: 8px; flex-direction: row; align-items: center; }
+  .topbar .brand h2 { font-size: 16px; }
+  .topbar .brand span { display: none; }
+  .topbar .actions { display: none; }
+  .topbar .hamburger-btn { display: flex !important; }
+
+  /* --- Settings bar → compact scroll --- */
+  .settings-bar { padding: 10px 12px; gap: 10px; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; white-space: nowrap; }
+  .settings-bar::-webkit-scrollbar { height: 2px; }
+  .settings-bar .item { font-size: 11px; flex-shrink: 0; }
+  .settings-bar .item label { font-size: 11px; }
+  .settings-bar input[type="number"] { width: 60px; padding: 5px 6px; font-size: 12px; }
+  .settings-bar .sep { display: none; }
+
+  /* --- Category pills → horizontal scroll --- */
+  .cat-filters { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; gap: 6px; padding-bottom: 4px; }
+  .cat-filters::-webkit-scrollbar { height: 0; }
+  .cat-pill { flex-shrink: 0; padding: 6px 14px; font-size: 12px; min-height: 36px; display: flex; align-items: center; }
+
+  /* --- Batch bar --- */
+  .batch-bar { padding: 10px 12px; gap: 8px; }
+  .batch-bar input[type="number"] { width: 56px; }
+  .batch-bar select { font-size: 12px; }
+
+  /* --- Product grid → single column --- */
+  .prod-grid { gap: 10px; }
+
+  /* --- Product card → warehouse mobile layout --- */
+  .prod-card { border-radius: 12px; }
+  .prod-card .head { padding: 8px 12px; gap: 6px; }
+  .prod-card .head .cb { width: 22px; height: 22px; }
+  .prod-card .head .cat-tag { font-size: 9px; padding: 2px 6px; }
+  .prod-card .head .sku { font-size: 10px; }
+  .prod-card .head .sort-btns { display: none; }
+  .prod-card .head .actions-row { gap: 6px; }
+  .prod-card .head .actions-row button { padding: 5px 10px; font-size: 11px; border-radius: 6px; min-height: 32px; min-width: 44px; }
+
+  .prod-card .info { padding: 8px 12px; }
+  .prod-card .info .pname { font-size: 14px; padding: 6px 8px; margin: -4px -8px; }
+  .prod-card .info .pspec, .prod-card .info .pextra { font-size: 12px; padding: 4px 8px; }
+
+  .prod-card .body { flex-direction: column; padding: 8px 12px 12px; gap: 10px; }
+  .prod-card .img-area { width: 100%; height: 160px; border-radius: 10px; }
+  .prod-card .img-area .upload-overlay { opacity: 1; background: rgba(0,0,0,0.3); }
+  .prod-card .img-area .upload-overlay span { font-size: 13px; }
+  .prod-card .fields { gap: 8px; }
+  .prod-card .fields .row { justify-content: space-between; }
+  .prod-card .fields label { font-size: 12px; width: auto; }
+  .prod-card .fields input[type="number"] { flex: 1; padding: 8px 10px; font-size: 15px; }
+  .prod-card .fields .usd-preview { font-size: 13px; }
+  .prod-card .fields .unit-edit { font-size: 12px; padding: 3px 6px; }
+  .prod-card .fields .minqty { font-size: 12px; }
+  .prod-card .fields .minqty input { width: 56px; padding: 5px 8px; font-size: 13px; }
+
+  /* --- Modal → BottomSheet --- */
+  .modal-overlay { align-items: flex-end; background: rgba(0,0,0,0.6); }
+  .modal-box {
+    width: 100%; max-width: 100%; max-height: 88vh;
+    border-radius: 20px 20px 0 0;
+    padding: 24px 18px;
+    box-shadow: 0 -8px 40px rgba(0,0,0,0.2);
+    transform: translateY(100%);
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    overflow-y: auto;
+  }
+  .modal-overlay[style*="flex"] .modal-box { transform: translateY(0); }
+  .modal-box h3 { font-size: 16px; margin-bottom: 16px; }
+  .modal-box .form-row label { font-size: 11px; }
+  .modal-box .form-row input,
+  .modal-box .form-row select,
+  .modal-box .form-row textarea { padding: 12px 14px; font-size: 16px; border-radius: 10px; }
+  .modal-box .btns { gap: 8px; }
+  .modal-box .btns .btn { flex: 1; padding: 13px; font-size: 14px; border-radius: 10px; }
+
+  /* BottomSheet drag handle */
+  .bs-handle { display: block !important; width: 36px; height: 5px; border-radius: 3px; background: var(--n3); margin: 0 auto 18px; }
+
+  /* --- Bottom status bar → TabBar --- */
+  .status-bar { padding: 10px 16px; flex-wrap: wrap; gap: 8px; }
+  .status-bar .info { font-size: 11px; }
+  .status-bar .info strong { font-size: 14px; }
+  .status-bar .btn { padding: 10px 16px; font-size: 13px; border-radius: 10px; min-height: 44px; }
+
+  /* --- Toast --- */
+  .toast { top: 10px; padding: 12px 20px; font-size: 13px; border-radius: 10px; left: 16px; right: 16px; transform: none; max-width: none; }
+  @keyframes slideDown { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* --- FAB: floating camera button --- */
+  .fab-btn {
+    display: flex !important;
+    position: fixed; bottom: 96px; right: 16px; z-index: 500;
+    width: 56px; height: 56px; border-radius: 50%;
+    background: var(--g); color: #fff; border: none;
+    box-shadow: 0 6px 20px rgba(21, 128, 61, 0.4);
+    align-items: center; justify-content: center;
+    cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
+    font-size: 26px;
+  }
+  .fab-btn:active { transform: scale(0.9); box-shadow: 0 3px 10px rgba(21, 128, 61, 0.3); }
+
+  /* --- Hamburger menu panel --- */
+  .mobile-menu-overlay {
+    display: none;
+    position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 900;
+    opacity: 0; transition: opacity 0.25s;
+  }
+  .mobile-menu-overlay.open { display: block; opacity: 1; }
+  .mobile-menu-panel {
+    position: fixed; top: 0; right: 0; bottom: 0; width: 280px;
+    background: #fff; z-index: 901;
+    transform: translateX(100%);
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    padding: 24px 20px;
+    overflow-y: auto;
+    box-shadow: -4px 0 30px rgba(0,0,0,0.15);
+  }
+  .mobile-menu-overlay.open .mobile-menu-panel { transform: translateX(0); }
+  .mobile-menu-panel .menu-close {
+    width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--n3);
+    background: #fff; font-size: 18px; cursor: pointer; display: flex;
+    align-items: center; justify-content: center; margin-bottom: 20px;
+    color: var(--n5); float: right;
+  }
+  .mobile-menu-panel .menu-title {
+    font-family: 'Poppins', sans-serif; font-size: 16px; font-weight: 700;
+    color: var(--n9); margin-bottom: 20px; clear: both;
+  }
+  .mobile-menu-panel .menu-btn {
+    display: block; width: 100%; padding: 14px 16px; margin-bottom: 8px;
+    border-radius: 12px; border: 1.5px solid var(--n3); background: #fff;
+    font-size: 14px; font-weight: 600; color: var(--n7); cursor: pointer;
+    text-align: left; transition: all 0.2s;
+  }
+  .mobile-menu-panel .menu-btn:hover, .mobile-menu-panel .menu-btn:active {
+    border-color: var(--g); color: var(--g); background: var(--g-light);
+  }
+  .mobile-menu-panel .menu-btn.danger { border-color: #FECACA; color: var(--red); }
+  .mobile-menu-panel .menu-btn.danger:hover { background: #FEF2F2; }
+
+  /* --- Mobile search bar --- */
+  .mobile-search-bar { display: flex !important; margin-bottom: 12px; gap: 8px; }
+  .mobile-search-bar input {
+    flex: 1; padding: 12px 14px; border: 1.5px solid var(--n3); border-radius: 10px;
+    font-size: 15px; outline: none; min-height: 44px;
+  }
+  .mobile-search-bar input:focus { border-color: var(--g); }
 }
 </style>
 </head>
@@ -224,6 +389,9 @@ a { color: var(--blue); }
         <span id="ghStatus">未连接GitHub</span>
         <span id="currentUserInfo" style="font-size:11px;color:var(--n5);margin-left:12px;padding:2px 10px;background:var(--n1);border-radius:20px;"></span>
       </div>
+      <button class="hamburger-btn" onclick="toggleMobileMenu()" aria-label="菜单" style="display:none;width:40px;height:40px;border-radius:10px;border:1.5px solid var(--n3);background:#fff;font-size:20px;cursor:pointer;align-items:center;justify-content:center;">☰</button>
+      <!-- Hamburger button (mobile only) -->
+      <button class="hamburger-btn" onclick="toggleMobileMenu()" style="display:none;width:40px;height:40px;border-radius:10px;border:1.5px solid var(--n3);background:#fff;font-size:20px;cursor:pointer;align-items:center;justify-content:center;flex-shrink:0;" title="菜单">☰</button>
       <div class="actions">
         <button class="btn btn-blue" onclick="openAddProduct()">➕ 新增产品</button>
         <button class="btn btn-outline" onclick="openCatManager()">📂 分类管理</button>
@@ -259,6 +427,12 @@ a { color: var(--blue); }
       <span class="cat-pill active" data-cat="all" onclick="filterByCat('all')">全部 <span class="cat-pill-count" id="cntAll">0</span></span>
     </div>
 
+    <!-- Mobile search bar -->
+    <div class="mobile-search-bar" style="display:none;">
+      <input type="text" id="mobileSearch" placeholder="🔍 搜索产品名称..." oninput="onMobileSearch()">
+    </div>
+    <input type="file" id="mobileCamInput" accept="image/*" capture="environment" style="display:none;" onchange="onMobileCameraCapture(this)">
+
     <!-- product cards -->
     <div class="prod-grid" id="prodGrid"></div>
 
@@ -272,11 +446,30 @@ a { color: var(--blue); }
       <button class="btn btn-green" id="btnPublish" onclick="publishAll()" disabled>📤 发布到网站</button>
     </div>
   </div>
+
+  <!-- FAB: Quick camera add (mobile only) -->
+  <button class="fab-btn" onclick="openMobileCamera()" style="display:none;" title="拍照新增产品">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+  </button>
+
+  <!-- Mobile menu overlay -->
+  <div class="mobile-menu-overlay" id="mobileMenuOverlay" onclick="toggleMobileMenu()">
+    <div class="mobile-menu-panel" onclick="event.stopPropagation()">
+      <button class="menu-close" onclick="toggleMobileMenu()">&times;</button>
+      <div class="menu-title">⚙️ 操作菜单</div>
+      <button class="menu-btn" onclick="openAddProduct();toggleMobileMenu()">➕ 新增产品</button>
+      <button class="menu-btn" onclick="openCatManager();toggleMobileMenu()">📂 分类管理</button>
+      <button class="menu-btn" onclick="openTokenSetup();toggleMobileMenu()">⚙️ GitHub设置</button>
+      <button class="menu-btn" onclick="openVersionRollback();toggleMobileMenu()">📜 版本回滚</button>
+      <button class="menu-btn danger" onclick="doLogout();toggleMobileMenu()">🚪 退出登录</button>
+    </div>
+  </div>
 </div>
 
 <!-- ===== MODAL: Add/Edit Product ===== -->
 <div id="prodModal" class="modal-overlay" style="display:none;">
   <div class="modal-box">
+    <div class="bs-handle" style="display:none;"></div>
     <h3 id="prodModalTitle">➕ 新增产品</h3>
     <div class="form-row"><label>SKU 编号</label><input type="text" id="fSku" placeholder="如: tile-ceramic-600" required></div>
     <div class="form-row"><label>所属分类</label><select id="fCat"></select></div>
@@ -298,6 +491,7 @@ a { color: var(--blue); }
 <!-- ===== MODAL: Category Manager ===== -->
 <div id="catModal" class="modal-overlay" style="display:none;">
   <div class="modal-box">
+    <div class="bs-handle" style="display:none;"></div>
     <h3>📂 产品分类管理</h3>
     <div style="display:flex;gap:8px;margin-bottom:16px;">
       <input type="text" id="newCatName" placeholder="新分类名称" style="flex:1;padding:10px 12px;border:1.5px solid var(--n3);border-radius:8px;font-size:14px;outline:none;">
@@ -313,6 +507,7 @@ a { color: var(--blue); }
 <!-- ===== MODAL: GitHub Token ===== -->
 <div id="tokenModal" class="modal-overlay" style="display:none;">
   <div class="modal-box">
+    <div class="bs-handle" style="display:none;"></div>
     <h3>⚙️ 连接 GitHub</h3>
     <p>需要一个 GitHub Personal Access Token 才能自动保存和发布。</p>
     
@@ -343,6 +538,7 @@ a { color: var(--blue); }
 <!-- ===== MODAL: Version Rollback ===== -->
 <div id="rollbackModal" class="modal-overlay" style="display:none;">
   <div class="modal-box" style="width:640px;">
+    <div class="bs-handle" style="display:none;"></div>
     <h3>📜 版本回滚</h3>
     <p>从最近 10 次修改中选择一个版本恢复。回滚会替换当前 prices.js 和 products.js。</p>
     <div style="background:#FEF3C7;border:1px solid #FDE68A;border-radius:8px;padding:10px 14px;margin-bottom:16px;font-size:12px;color:#92400E;">
@@ -602,7 +798,7 @@ function renderProductCards() {
     html += '<img src="' + imgSrc + '" alt="' + p.name + '" id="img-' + p.id + '" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">';
     html += '<span style="display:none;font-size:11px;color:var(--n4);position:absolute;text-align:center;">暂无图</span>';
     html += '<div class="upload-overlay" onclick="document.getElementById(\'file-' + p.id + '\').click()"><span>📷 换图</span></div>';
-    html += '<input type="file" id="file-' + p.id + '" accept="image/*" style="display:none" onchange="handleImageUpload(this, \'' + p.id + '\')">';
+    html += '<input type="file" id="file-' + p.id + '" accept="image/*" capture="environment" style="display:none" onchange="handleImageUpload(this, \'' + p.id + '\')">';
     html += '<div class="img-changed"></div>';
     html += '</div>';
 
@@ -717,6 +913,16 @@ function openAddProduct(editId) {
     document.getElementById('fImage').value = '';
   }
 
+  // Mobile: enable camera capture for new product image upload
+  var imgInput = document.getElementById('fImage');
+  if (isMobileView() && !editId) {
+    imgInput.setAttribute('capture', 'environment');
+    imgInput.setAttribute('accept', 'image/*');
+  } else {
+    imgInput.removeAttribute('capture');
+    imgInput.setAttribute('accept', 'image/*');
+  }
+
   modal.style.display = 'flex';
 }
 
@@ -766,29 +972,35 @@ function saveProduct() {
     toast('✅ 产品已更新', 'success');
   } else {
     var imgInput = document.getElementById('fImage');
-    var thumb = '';
-    if (imgInput.files && imgInput.files[0]) {
-      var reader = new FileReader();
-      reader.onload = function(e) {
-        newImages[sku] = e.target.result;
-        var newP = { id: sku, category: cat, name: name, spec: spec, extra: extra, unit: unit, minQty: minQty, thumb: '', hidden: false, order: maxOrder + 1 };
-        products.push(newP);
-        prices[sku] = price;
-        saveLocal();
-        closeProdModal();
-        selectedCat = cat;
-        renderAll();
-        updateChangeCount();
-        toast('✅ 新产品 "' + name + '" 已添加！记得发布', 'success');
-      };
-      reader.readAsDataURL(imgInput.files[0]);
-      return;
-    } else {
+    var mobileImg = newImages['__mobile_capture__'];
+    delete newImages['__mobile_capture__']; // consume it
+
+    // Helper to finalize new product creation
+    var finalizeNew = function(imgDataUrl) {
+      if (imgDataUrl) newImages[sku] = imgDataUrl;
       var newP = { id: sku, category: cat, name: name, spec: spec, extra: extra, unit: unit, minQty: minQty, thumb: '', hidden: false, order: maxOrder + 1 };
       products.push(newP);
       prices[sku] = price;
+      saveLocal();
+      closeProdModal();
+      selectedCat = cat;
+      renderAll();
+      updateChangeCount();
       toast('✅ 新产品 "' + name + '" 已添加！记得发布', 'success');
+    };
+
+    // Priority: mobile camera compressed image > file input upload > no image
+    if (mobileImg) {
+      finalizeNew(mobileImg);
+    } else if (imgInput.files && imgInput.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function(e) { finalizeNew(e.target.result); };
+      reader.readAsDataURL(imgInput.files[0]);
+      return; // async, don't continue to the saveLocal below
+    } else {
+      finalizeNew(null);
     }
+    return; // finalizeNew is sync for mobile/no-image paths
   }
 
   saveLocal();
@@ -1064,18 +1276,73 @@ function onRateChange() {
   updateChangeCount();
 }
 
+// ============================================================
+//  IMAGE COMPRESSION (Canvas pipeline — mobile camera ready)
+// ============================================================
+function compressImage(file, maxPx) {
+  maxPx = maxPx || 800;
+  return new Promise(function(resolve) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      var img = new Image();
+      img.onload = function() {
+        var w = img.width, h = img.height;
+        if (w > maxPx) { h = Math.round(h * maxPx / w); w = maxPx; }
+        if (h > maxPx) { w = Math.round(w * maxPx / h); h = maxPx; }
+        var canvas = document.createElement('canvas');
+        canvas.width = w; canvas.height = h;
+        var ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, w, h);
+        var dataUrl = canvas.toDataURL('image/jpeg', 0.7);
+        var compressedBytes = Math.round(dataUrl.length * 0.75);
+        resolve({
+          dataUrl: dataUrl,
+          origKB: Math.round(file.size / 1024),
+          compKB: Math.round(compressedBytes / 1024),
+          width: w, height: h
+        });
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
 function handleImageUpload(input, id) {
   if (!input.files || !input.files[0]) return;
   var file = input.files[0];
-  var reader = new FileReader();
-  reader.onload = function(e) {
-    newImages[id] = e.target.result;
+  var origKB = Math.round(file.size / 1024);
+
+  // Show compressing indicator on mobile
+  var isMobile = window.innerWidth <= 480;
+  if (isMobile && origKB > 200) {
+    toast('📷 正在压缩图片 (' + origKB + 'KB)...', 'info');
+  }
+
+  compressImage(file, 800).then(function(result) {
+    newImages[id] = result.dataUrl;
     var imgEl = document.getElementById('img-' + id);
-    if (imgEl) { imgEl.src = e.target.result; imgEl.style.display = ''; if (imgEl.nextElementSibling) imgEl.nextElementSibling.style.display = 'none'; }
+    if (imgEl) { imgEl.src = result.dataUrl; imgEl.style.display = ''; if (imgEl.nextElementSibling) imgEl.nextElementSibling.style.display = 'none'; }
     updateCardDirty(id);
     updateChangeCount();
-  };
-  reader.readAsDataURL(file);
+
+    if (origKB > result.compKB) {
+      toast('✅ 图片已压缩: ' + origKB + 'KB → ' + result.compKB + 'KB (' + result.width + '×' + result.height + ')', 'success');
+    } else {
+      toast('✅ 图片已上传 (' + result.width + '×' + result.height + ')', 'success');
+    }
+  }).catch(function() {
+    // Fallback: raw base64
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      newImages[id] = e.target.result;
+      var imgEl = document.getElementById('img-' + id);
+      if (imgEl) { imgEl.src = e.target.result; imgEl.style.display = ''; }
+      updateCardDirty(id);
+      updateChangeCount();
+    };
+    reader.readAsDataURL(file);
+  });
 }
 
 function updateCardDirty(id) {
@@ -1117,6 +1384,87 @@ function undoAll() {
   renderAll();
   updateChangeCount();
   toast('↩ 已撤销全部改动', 'info');
+}
+
+// ============================================================
+//  MOBILE INTERACTIONS
+// ============================================================
+function isMobileView() { return window.innerWidth <= 480; }
+
+function toggleMobileMenu() {
+  var overlay = document.getElementById('mobileMenuOverlay');
+  if (overlay.classList.contains('open')) { closeMobileMenu(); }
+  else { openMobileMenu(); }
+}
+
+function openMobileMenu() {
+  var overlay = document.getElementById('mobileMenuOverlay');
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeMobileMenu() {
+  var overlay = document.getElementById('mobileMenuOverlay');
+  overlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function onMobileSearch() {
+  var q = document.getElementById('mobileSearch').value.trim().toLowerCase();
+  if (!q) { renderProductCards(); return; }
+  var list = getVisibleProducts();
+  var filtered = [];
+  for (var i = 0; i < list.length; i++) {
+    var p = list[i];
+    if (p.id.toLowerCase().indexOf(q) !== -1 || p.name.toLowerCase().indexOf(q) !== -1 || p.category.toLowerCase().indexOf(q) !== -1) {
+      filtered.push(p);
+    }
+  }
+  renderFilteredCards(filtered);
+}
+
+function renderFilteredCards(list) {
+  var grid = document.getElementById('prodGrid');
+  if (list.length === 0) {
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--n4);"><p style="font-size:16px;">🔍 未找到匹配产品</p></div>';
+    return;
+  }
+  var origVisible = getVisibleProducts;
+  getVisibleProducts = function() { return list; };
+  renderProductCards();
+  getVisibleProducts = origVisible;
+}
+
+// FAB camera capture → compress → open add modal with image pre-filled
+function openMobileCamera() {
+  var input = document.getElementById('mobileCamInput');
+  if (input) { input.click(); }
+}
+
+function onMobileCameraCapture(input) {
+  if (!input.files || !input.files[0]) return;
+  var file = input.files[0];
+  var origKB = Math.round(file.size / 1024);
+  toast('📷 正在压缩图片 (' + origKB + 'KB)...', 'info');
+
+  compressImage(file, 800).then(function(result) {
+    // Open add product modal with image pre-filled
+    openAddProduct();
+    // Store compressed image for the new product
+    var tempId = '__mobile_capture__';
+    newImages[tempId] = result.dataUrl;
+    // Override close to clear temp
+    var origClose = closeProdModal;
+    closeProdModal = function() {
+      delete newImages[tempId];
+      closeProdModal = origClose;
+      origClose();
+    };
+    toast('✅ 图片已压缩: ' + origKB + 'KB → ' + result.compKB + 'KB', 'success');
+  }).catch(function(err) {
+    toast('❌ 图片处理失败: ' + err.message, 'error');
+  });
+  input.value = '';
 }
 
 // ============================================================
