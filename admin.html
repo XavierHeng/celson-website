@@ -1837,6 +1837,18 @@ if ('serviceWorker' in navigator) {
   }).catch(function(err) {
     console.log('PWA: SW registration failed', err);
   });
+  // Show install prompt on Android
+  var deferredPrompt;
+  window.addEventListener('beforeinstallprompt', function(e) {
+    e.preventDefault();
+    deferredPrompt = e;
+    // Show a toast after login
+    setTimeout(function() {
+      if (document.getElementById('dashWrap').style.display !== 'none') {
+        toast('📲 点击添加到主屏幕，像App一样使用', 'info');
+      }
+    }, 3000);
+  });
 }
 </script>
 </body>
