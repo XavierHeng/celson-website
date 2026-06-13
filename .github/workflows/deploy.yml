@@ -31,15 +31,15 @@ jobs:
       - name: Build deploy-tmp
         run: |
           rm -rf deploy-tmp
-          mkdir -p deploy-tmp/css deploy-tmp/js deploy-tmp/assets/shop deploy-tmp/functions
+          mkdir -p deploy-tmp/css deploy-tmp/js deploy-tmp/functions
           cp *.html deploy-tmp/
           cp robots.txt deploy-tmp/ 2>/dev/null || true
           cp sitemap.xml deploy-tmp/ 2>/dev/null || true
           cp _headers deploy-tmp/ 2>/dev/null || true
           cp css/style.css deploy-tmp/css/
           cp js/*.js deploy-tmp/js/
-          cp assets/*.webp deploy-tmp/assets/
-          cp assets/shop/*.webp deploy-tmp/assets/shop/
+          cp -r assets deploy-tmp/
+          rm -rf deploy-tmp/assets/_archive
           cp functions/*.js deploy-tmp/functions/
           echo "Deploy-tmp built with $(find deploy-tmp -type f | wc -l) files"
 
