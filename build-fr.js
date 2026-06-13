@@ -403,7 +403,18 @@ html = html.replace(
 );
 
 // ==================================================================
-// STEP 7: Write output
+// STEP 7: Add cache-busting build timestamp + no-cache meta
+// ==================================================================
+html = html.replace(
+  '<meta http-equiv="X-UA-Compatible" content="IE=edge">',
+  '<meta http-equiv="X-UA-Compatible" content="IE=edge">\n  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">\n  <meta http-equiv="Pragma" content="no-cache">\n  <meta http-equiv="Expires" content="0">'
+);
+// Inject build timestamp comment after <head> for cache busting
+var buildStamp = '<!-- BUILT: ' + new Date().toISOString() + ' -->';
+html = html.replace('<head>', '<head>\n  ' + buildStamp);
+
+// ==================================================================
+// STEP 8: Write output
 // ==================================================================
 fs.writeFileSync(dest, html, 'utf8');
 console.log('✅ shop-fr.html generated (' + (Buffer.byteLength(html, 'utf8') / 1024).toFixed(1) + ' KB)');
