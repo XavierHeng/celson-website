@@ -392,7 +392,18 @@ html = html.replace(
 html = html.split("toLocaleString('en-US'").join("toLocaleString('fr-FR'");
 
 // ==================================================================
-// STEP 6: Write output
+// STEP 6: Remove lang cookie redirect (avoids infinite loop on fr page)
+// ==================================================================
+// shop-fr.html IS the French page — it should never redirect to itself.
+// The redirect script only belongs on shop.html (English → French).
+// Use regex with \s* to handle any line-ending variant (LF/CRLF).
+html = html.replace(
+  /<!-- Language redirect:[\s\S]*?location\.replace\('\/shop-fr\.html'\);[\s\S]*?<\/script>/,
+  "<!-- Lang redirect removed: this is already the French page -->"
+);
+
+// ==================================================================
+// STEP 7: Write output
 // ==================================================================
 fs.writeFileSync(dest, html, 'utf8');
 console.log('✅ shop-fr.html generated (' + (Buffer.byteLength(html, 'utf8') / 1024).toFixed(1) + ' KB)');
