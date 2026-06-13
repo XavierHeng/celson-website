@@ -89,6 +89,11 @@ const I18N = {
     'footer.full.quote':           { en:'Request a Quote',         fr:'Demander un devis' },
     'footer.full.distributor':     { en:'Become a Distributor',    fr:'Devenir distributeur' },
 
+    /* ─── Download ─── */
+    'download.title':              { en:'Download Product Catalog', fr:'Télécharger le catalogue' },
+    'download.sub':                { en:'Get detailed specs, full product range, and volume pricing in our PDF catalog.', fr:'Obtenez les spécifications détaillées, la gamme complète et les prix de volume dans notre catalogue PDF.' },
+    'download.button':             { en:'Download Catalog (PDF)',   fr:'Télécharger le catalogue (PDF)' },
+
     /* ─── Products Page ─── */
     'products.page.title':         { en:'Our Products',            fr:'Nos produits' },
     'products.page.subtitle':      { en:'Full-range building materials — factory-direct quality, one-stop supply', fr:'Gamme complète de matériaux de construction — qualité départ usine, guichet unique' },

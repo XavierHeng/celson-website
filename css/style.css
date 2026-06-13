@@ -2018,4 +2018,61 @@ a.product-card:hover {
 
   .footer-full-top { flex-direction: column; }
   .footer-compact-inner { flex-direction: column; gap: 12px; }
+
+  .download-inner { flex-direction: column; text-align: center; gap: 24px; }
+  .download-text h2 { font-size: 22px; }
+  .download-text p { font-size: 14px; }
+}
+
+/* ==============================================
+   Download Catalog Section
+   ============================================== */
+.download-section {
+  padding: 40px 0 32px;
+}
+.download-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 36px 40px;
+  background: linear-gradient(135deg, var(--green-50) 0%, #F0FDF4 40%, #FFF7ED 100%);
+  border: 2px dashed var(--green-300, #86EFAC);
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+}
+.download-text h2 {
+  font-family: var(--font-display, 'Poppins', sans-serif);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--navy-900);
+  margin-bottom: 8px;
+}
+.download-text p {
+  font-size: 16px;
+  color: #475569;
+  margin-bottom: 20px;
+  max-width: 480px;
+  line-height: 1.6;
+}
+.download-text .btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.download-icon {
+  flex-shrink: 0;
+  color: var(--green-600);
+  opacity: 0.85;
+}
+@media (max-width: 768px) {
+  .download-inner {
+    flex-direction: column;
+    text-align: center;
+    padding: 28px 24px;
+    gap: 20px;
+  }
+  .download-text p { max-width: 100%; }
+  .download-text h2 { font-size: 22px; }
 }
