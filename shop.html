@@ -1436,6 +1436,31 @@
         white-space: nowrap;
       }
       .btn-lb-wa:hover { background: #F0FFF4; }
+
+      /* Mobile: arrows always visible */
+      .prod-lightbox-prev,
+      .prod-lightbox-next {
+        opacity: 0.8;
+        width: 40px; height: 40px;
+      }
+    }
+
+    /* ===== Foldable / Tablet (481–960px) ===== */
+    @media (min-width: 481px) and (max-width: 960px) {
+      .shop-container { padding: 0 20px; }
+      .shop-header h1 { font-size: 28px; }
+      .shop-header p { font-size: 14px; }
+      .shop-item {
+        padding: 14px 18px;
+        gap: 14px;
+      }
+      .shop-item-name { font-size: 15px; }
+      .shop-item-spec { font-size: 13px; }
+      .shop-item-price .price { font-size: 18px; }
+      .cat-filters { gap: 5px; }
+      .cat-pill { font-size: 12px; padding: 6px 12px; }
+      .shop-item-qty-actions { gap: 8px; }
+      .qty-input { width: 60px; }
     }
   </style>
   <!-- ===== PRODUCT LIGHTBOX CSS (Desktop) ===== -->
@@ -1566,7 +1591,7 @@
       box-shadow: 0 0 8px rgba(255,255,255,0.5);
     }
 
-    /* Nav arrows */
+    /* Nav arrows — hidden on desktop, visible on hover */
     .prod-lightbox-prev,
     .prod-lightbox-next {
       position: absolute;
@@ -1587,16 +1612,23 @@
       font-weight: 700;
       transition: background 0.2s, opacity 0.2s;
       box-shadow: 0 2px 8px rgba(0,0,0,0.12);
-      opacity: 0;
       font-family: 'Open Sans', sans-serif;
       line-height: 1;
     }
-    .prod-lightbox-gallery:hover .prod-lightbox-prev,
-    .prod-lightbox-gallery:hover .prod-lightbox-next {
-      opacity: 1;
+    @media (min-width: 481px) {
+      .prod-lightbox-prev,
+      .prod-lightbox-next {
+        opacity: 0;
+      }
     }
     .prod-lightbox-prev { left: 10px; }
     .prod-lightbox-next { right: 10px; }
+    @media (min-width: 481px) {
+      .prod-lightbox-gallery:hover .prod-lightbox-prev,
+      .prod-lightbox-gallery:hover .prod-lightbox-next {
+        opacity: 1;
+      }
+    }
     .prod-lightbox-prev:hover,
     .prod-lightbox-next:hover {
       background: #fff;
@@ -2833,6 +2865,11 @@
     currentTranslateX = 0;
     currentTranslateY = 0;
 
+    // Push history state so iOS swipe-back closes lightbox instead of navigating away
+    if (!history.state || !history.state.lightbox) {
+      history.pushState({ lightbox: Date.now() }, '', window.location.href);
+    }
+
     // Build gallery slides
     var thumbs = prod.thumbs || [prod.thumb];
     if (thumbs.length === 0) thumbs = [prod.thumb];
@@ -3047,7 +3084,22 @@
     document.getElementById('prodLightboxOverlay').classList.remove('visible');
     document.body.style.overflow = '';
     lightboxProduct = null;
+    // Pop the history state we pushed so iOS swipe-back works correctly
+    if (history.state && history.state.lightbox) {
+      history.back();
+    }
   }
+
+  // Listen for browser back/forward (iOS swipe-back gesture)
+  window.addEventListener('popstate', function(e) {
+    if (lightboxProduct && (!e.state || !e.state.lightbox)) {
+      // User navigated back — close lightbox without pushing another state
+      document.removeEventListener('keydown', lightboxKeyHandler);
+      document.getElementById('prodLightboxOverlay').classList.remove('visible');
+      document.body.style.overflow = '';
+      lightboxProduct = null;
+    }
+  });
 
   // Expose to window for external use
   window.openProductLightbox = openProductLightbox;
