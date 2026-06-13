@@ -11,9 +11,7 @@
 (function () {
   'use strict';
 
-  var MEASUREMENT_ID = window.GA4_MEASUREMENT_ID || null;
-
-  if (!MEASUREMENT_ID) return;
+  var MEASUREMENT_ID = window.GA4_MEASUREMENT_ID || 'G-ENPG51ZYW1';
 
   var script = document.createElement('script');
   script.async = true;
