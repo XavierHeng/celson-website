@@ -181,6 +181,13 @@ const htmlReplacements = [
   ['* At least one of WhatsApp or Email must be filled.',
    '* Au moins WhatsApp ou E-mail doit \u00eatre rempli.'],
 
+  // ── Footer nav links ──
+  ['<a href="index.html">Home</a>', '<a href="index.html">Accueil</a>'],
+  ['<a href="products.html">Products</a>', '<a href="products.html">Produits</a>'],
+  ['<a href="projects.html">Projects</a>', '<a href="projects.html">Projets</a>'],
+  ['<a href="about.html">About</a>', '<a href="about.html">\u00c0 propos</a>'],
+  ['<a href="contact.html">Contact</a>', '<a href="contact.html">Contact</a>'],
+
   // ── Submit & Footer ──
   ['Our team will contact you within 24 hours via WhatsApp or Email to confirm pricing and logistics.',
    'Notre \u00e9quipe vous contactera sous 24 heures via WhatsApp ou E-mail pour confirmer les prix et la logistique.'],

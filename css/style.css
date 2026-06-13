@@ -1607,6 +1607,25 @@ a.product-card:hover {
   color: var(--slate-500);
 }
 
+.footer-compact .footer-links {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.footer-compact .footer-links a {
+  font-size: 13px;
+  color: var(--slate-400);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-compact .footer-links a:hover {
+  color: var(--white);
+}
+
 /* ============================================
    FOOTER — FULL (Products, About, Projects, Contact)
    ============================================ */
