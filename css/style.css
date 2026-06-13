@@ -2187,42 +2187,6 @@ a.product-card:hover {
 .shipping-gate-inner:hover {
   border-color: var(--green-400);
 }
-.shipping-gate-visual {
-  position: relative;
-  margin-bottom: 24px;
-}
-.shipping-gate-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
-  filter: blur(12px);
-  opacity: 0.55;
-  max-width: 300px;
-  margin: 0 auto;
-}
-.shipping-gate-thumb {
-  aspect-ratio: 1;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 28px;
-}
-.shipping-gate-lock {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 52px;
-  height: 52px;
-  background: var(--white);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
-  color: var(--green-600);
-}
 .shipping-gate-title {
   font-family: var(--font-display);
   font-size: 19px;

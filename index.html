@@ -528,8 +528,10 @@
 
     // Language detection (matching whatsapp.js pattern)
     function isFrench() {
-      var langCookie = document.cookie.split('; ').find(function(r) { return r.startsWith('lang='); });
+      var langCookie = document.cookie.split('; ').find(function(r) { return r.startsWith('celson_lang='); });
       if (langCookie) return langCookie.split('=')[1] === 'fr';
+      // Fallback: check URL param
+      if ((new URLSearchParams(window.location.search)).get('lang') === 'fr') return true;
       return (new URLSearchParams(window.location.search)).get('lang') === 'fr';
     }
     function setWaUrl() {
