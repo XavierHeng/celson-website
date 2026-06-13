@@ -47,6 +47,7 @@ const I18N = {
     'home.hero.title':             { en:'Your <span class="nowrap">Cost-Value</span> Advantage in Gypsum, Boards &amp; Panels', fr:'Votre avantage qualité-prix en plaques de plâtre, panneaux et revêtements' },
     'home.hero.subtitle':          { en:'Gypsum boards, sheet boards, wall panels — factory-direct pricing, full-range construction supplies, one-stop sourcing.', fr:'Plaques de plâtre, panneaux, revêtements muraux — prix départ usine, gamme complète, guichet unique.' },
     'home.hero.cta1':              { en:'View Our Products',       fr:'Voir nos produits' },
+    'home.hero.shop':              { en:'Shop Now',                fr:'Acheter maintenant' },
     'home.hero.cta2':              { en:'Contact Us',              fr:'Contactez-nous' },
 
     /* ─── Homepage — Why CELSON ─── */

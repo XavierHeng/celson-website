@@ -273,6 +273,14 @@ footer {
   background: var(--orange-700);
 }
 
+.btn-primary.red {
+  background: #DC2626;
+}
+
+.btn-primary.red:hover {
+  background: #B91C1C;
+}
+
 .btn-secondary {
   display: inline-flex;
   align-items: center;
@@ -1977,9 +1985,9 @@ a.product-card:hover {
 
   .mobile-toggle { display: flex; }
 
-  .hero { padding: 32px 24px 48px; border-radius: 14px; background: var(--soft-white); }
+  .hero { padding: 28px 24px 32px; border-radius: 14px; background: var(--soft-white); }
   .hero-title { font-size: 32px; }
-  .hero-visual { height: 280px; border-radius: 34px; }
+  .hero-visual { height: 280px; border-radius: 34px; background: transparent; box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
   .hero-carousel-img { border-radius: 34px; }
 
   .section-island,
@@ -2026,6 +2034,17 @@ a.product-card:hover {
   .download-inner { flex-direction: column; text-align: center; gap: 24px; }
   .download-text h2 { font-size: 22px; }
   .download-text p { font-size: 14px; }
+
+  /* Product page applications duo — fold to single column */
+  .apps-duo { grid-template-columns: 1fr !important; }
+
+  /* Specs tables — enable horizontal scroll on mobile */
+  .specs-table {
+    display: block;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 10px;
+  }
 }
 
 /* ==============================================
@@ -2392,14 +2411,14 @@ a.product-card:hover {
 
   /* --- Hero --- */
   .hero {
-    padding: 24px 16px 36px;
+    padding: 24px 16px 20px;
     border-radius: 12px;
     gap: 24px;
     margin-bottom: 28px;
   }
   .hero-title { font-size: 26px; line-height: 1.2; }
   .hero-badge { font-size: 11px; padding: 4px 12px; margin-bottom: 16px; }
-  .hero-visual { height: 200px; border-radius: 28px; }
+  .hero-visual { height: 200px; border-radius: 28px; background: transparent; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
   .hero-carousel-img { border-radius: 28px; }
   .hero-ctas { flex-direction: column; gap: 10px; width: 100%; }
   .hero-ctas .btn-primary,
