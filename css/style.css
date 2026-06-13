@@ -2150,7 +2150,7 @@ a.product-card:hover {
   border-radius: 12px;
   overflow: hidden;
   aspect-ratio: 4/3;
-  background: var(--gray-100);
+  background: var(--slate-100);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .shipping-preview-item:hover {
@@ -2359,4 +2359,165 @@ a.product-card:hover {
   .shipping-next { right: 8px; }
   .shipping-trust { gap: 16px; }
   .shipping-trust-item { font-size: 13px; }
+}
+
+/* ==============================================
+   MOBILE LAYOUT OPTIMIZATION (480px)
+   Phone-sized screens — tighter spacing, stacking, touch-friendly
+   ============================================== */
+@media (max-width: 480px) {
+  /* --- Container --- */
+  .container { padding: 0 14px; }
+
+  /* --- Section island / products / stats --- */
+  .section-island,
+  .products-section,
+  .stats-section {
+    max-width: calc(100% - 12px);
+    border-radius: 12px;
+    padding: 28px 16px;
+    margin-bottom: 28px;
+  }
+  .section-header h2 { font-size: 22px; }
+  .section-header p { font-size: 14px; }
+
+  /* --- Header --- */
+  .header-logo { font-size: 18px; gap: 8px; }
+  .logo-icon { width: 36px; height: 36px; }
+  .header-actions .btn-primary { display: none; } /* hide "Get Quote" on tiny phones, keep lang switch */
+  .header-actions { gap: 8px; }
+  .lang-switch { padding: 4px 10px; font-size: 12px; }
+  .header-nav.open { padding: 12px 14px; }
+  .header-nav.open a { font-size: 14px; padding: 10px 0; }
+
+  /* --- Hero --- */
+  .hero {
+    padding: 24px 16px 36px;
+    border-radius: 12px;
+    gap: 24px;
+    margin-bottom: 28px;
+  }
+  .hero-title { font-size: 26px; line-height: 1.2; }
+  .hero-badge { font-size: 11px; padding: 4px 12px; margin-bottom: 16px; }
+  .hero-visual { height: 200px; border-radius: 28px; }
+  .hero-carousel-img { border-radius: 28px; }
+  .hero-ctas { flex-direction: column; gap: 10px; width: 100%; }
+  .hero-ctas .btn-primary,
+  .hero-ctas .btn-secondary {
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 14px;
+  }
+
+  /* --- Benefits / Why CELSON --- */
+  .benefits-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .benefit-card { padding: 16px 10px; }
+  .benefit-card h3 { font-size: 13px; }
+  .benefit-card .benefit-num { font-size: 11px; }
+
+  /* --- Stats --- */
+  .stats-grid { gap: 16px; }
+  .stat-number { font-size: 26px; }
+  .stat-label { font-size: 12px; }
+
+  /* --- Shipping --- */
+  .shipping-section {
+    padding: 24px 0 28px;
+    border-radius: 12px;
+    max-width: calc(100% - 12px);
+    margin-bottom: 28px;
+  }
+  .shipping-section .section-header { margin-bottom: 20px; }
+  .shipping-section .section-header h2 { font-size: 20px; }
+  .shipping-section .section-header p { font-size: 13px; }
+  .section-label--shipping { font-size: 11px; padding: 4px 14px; }
+
+  /* Shipping preview */
+  .shipping-preview { max-width: 100%; margin-bottom: 20px; }
+  .shipping-preview-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+  .shipping-preview-item { border-radius: 8px; }
+
+  /* Shipping gate */
+  .shipping-gate { max-width: 100%; }
+  .shipping-gate-inner { padding: 22px 16px; border-radius: 14px; }
+  .shipping-gate-title { font-size: 15px; }
+  .shipping-gate-sub { font-size: 13px; }
+  .shipping-gate-btn { width: 100%; justify-content: center; font-size: 13px; padding: 12px 20px; }
+
+  /* Shipping gallery */
+  .shipping-item { width: 220px; }
+  .shipping-photo { height: 140px; }
+  .shipping-track { gap: 10px; }
+  .shipping-arrow { width: 32px; height: 32px; }
+  .shipping-arrow svg { width: 14px; height: 14px; }
+  .shipping-prev { left: 4px; }
+  .shipping-next { right: 4px; }
+  .shipping-trust {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 0 8px;
+  }
+  .shipping-trust-item { font-size: 12px; }
+
+  /* --- Core Products Grid --- */
+  .core-products-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .product-card-img { height: 180px; }
+
+  /* --- Final CTA --- */
+  .products-section h2 { font-size: 24px !important; }
+  .products-section .btn-primary.orange {
+    width: 100%;
+    padding: 14px 24px;
+    font-size: 15px;
+  }
+
+  /* --- Footer --- */
+  .footer-compact-inner {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+  .copyright { font-size: 12px; }
+  .lang-links { font-size: 12px; }
+
+  /* --- Touch targets: ensure all interactive elements are ≥44px --- */
+  .btn-primary,
+  .btn-secondary { min-height: 44px; }
+  .header-nav a { min-height: 44px; display: flex; align-items: center; }
+  .mobile-toggle { padding: 10px; }
+}
+
+/* ==============================================
+   MOBILE REFINEMENTS (768px level — enhancing existing)
+   ============================================== */
+@media (max-width: 768px) {
+  /* Already: nav toggle, hero column, 2-col grids, etc. Additions below: */
+
+  /* Download catalog CTA: already column, add padding */
+  .download-inner { padding: 24px 20px; }
+
+  /* Shipping section header */
+  .shipping-section .section-header h2 { font-size: 22px; }
+  .section-label--shipping { font-size: 12px; }
+
+  /* Stat labels: allow wrapping on mobile */
+  .stat-label { white-space: normal; max-width: 120px; margin: 0 auto; }
+
+  /* Ensure all touch targets min 44px */
+  .header-nav.open a { padding: 12px 0; }
+  .lang-switch { min-height: 36px; }
+
+  /* Hero CTA buttons: center + min width */
+  .hero-ctas .btn-primary,
+  .hero-ctas .btn-secondary { min-width: 160px; }
+
+  /* Trust bar stacking */
+  .shipping-trust { flex-wrap: wrap; justify-content: flex-start; }
 }
