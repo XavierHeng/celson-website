@@ -43,6 +43,9 @@
 </head>
 <body>
 
+<!-- ========== SCROLL PROGRESS BAR ========== -->
+<div class="scroll-progress"></div>
+
 <!-- ========== HEADER ========== -->
 <header class="site-header">
   <div class="container header-inner">
@@ -393,19 +396,19 @@
     </div>
     <div class="stats-grid">
       <div class="stat-item">
-        <div class="stat-number">98</div>
+        <span class="stat-number" data-target="98">0</span>
         <div class="stat-label"><span data-i18n="home.stats.1.label">Countries Worldwide</span></div>
       </div>
       <div class="stat-item">
-        <div class="stat-number">5,000+</div>
+        <span class="stat-number" data-target="5000">0</span>+
         <div class="stat-label"><span data-i18n="home.stats.2.label">Projects Completed</span></div>
       </div>
       <div class="stat-item">
-        <div class="stat-number">200+</div>
+        <span class="stat-number" data-target="200">0</span>+
         <div class="stat-label"><span data-i18n="home.stats.3.label">Global Partners</span></div>
       </div>
       <div class="stat-item">
-        <div class="stat-number">20+</div>
+        <span class="stat-number" data-target="20">0</span>+
         <div class="stat-label"><span data-i18n="home.stats.4.label">Years of Experience</span></div>
       </div>
     </div>
@@ -528,6 +531,8 @@
   updateCounter();
 })();
 </script>
+  <button class="back-to-top" aria-label="Back to top">↑</button>
+  <script src="js/scroll-effects.js"></script>
   <script src="js/whatsapp.js"></script>
   <script src="js/analytics.js"></script>
   <!-- WhatsApp Gate for Shipping Photos -->
