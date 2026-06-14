@@ -212,4 +212,109 @@
     document.head.appendChild(ld);
   })();
 
+  // ========== FAQPage (on pages with FAQ content) ==========
+  (function injectFAQ() {
+    var path = window.location.pathname;
+    var faqConfig = {
+      '/products.html': {
+        questions: [
+          {
+            q: 'What is the minimum order quantity (MOQ) for CELSON building materials?',
+            a: 'MOQ varies by product type. Gypsum boards typically start at one 20ft container, while accessories can ship in smaller quantities. Contact our sales team for product-specific MOQs.'
+          },
+          {
+            q: 'Do you offer free samples?',
+            a: 'We provide free A4-sized samples shipped via courier. For larger sample pieces, freight cost will apply. Samples are typically dispatched within 3-5 business days.'
+          },
+          {
+            q: 'What certificates do CELSON products have?',
+            a: 'Our products meet international standards including ASTM, EN, and GB. We hold ISO 9001 quality management certification. Product-specific certifications are available upon request.'
+          },
+          {
+            q: 'How long does shipping take?',
+            a: 'Shipping time depends on destination and order volume. Typical sea freight takes 15-45 days depending on the port. Air freight is available for urgent orders. We ship to 98 countries worldwide.'
+          }
+        ]
+      },
+      '/contact.html': {
+        questions: [
+          {
+            q: 'How can I get a quote for building materials?',
+            a: 'Fill out the contact form on this page with your product requirements and quantity, or reach us directly via WhatsApp at +86 13825578911. We respond within 24 hours.'
+          },
+          {
+            q: 'Which countries do you ship to?',
+            a: 'CELSON ships to 98 countries across Asia, Africa, the Middle East, Europe, and the Americas. Contact us with your destination port for a shipping quote.'
+          },
+          {
+            q: 'What payment methods do you accept?',
+            a: 'We accept T/T (bank transfer) and L/C (letter of credit). Payment terms are flexible and negotiable based on order volume and customer relationship.'
+          },
+          {
+            q: 'Can I visit your factory?',
+            a: 'Yes, we welcome factory visits. Our manufacturing facilities are located in China. Contact us to schedule a visit and we will arrange transportation and accommodation assistance.'
+          }
+        ]
+      }
+    };
+
+    var config = faqConfig[path];
+    if (!config) return;
+
+    var mainEntity = config.questions.map(function (item) {
+      return {
+        '@type': 'Question',
+        name: item.q,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: item.a
+        }
+      };
+    });
+
+    var ld = document.createElement('script');
+    ld.type = 'application/ld+json';
+    ld.textContent = JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: mainEntity
+    });
+    document.head.appendChild(ld);
+  })();
+
+  // ========== LocalBusiness (contact page) ==========
+  (function injectLocalBusiness() {
+    if (window.location.pathname !== '/contact.html' && window.location.pathname !== '/contact') return;
+
+    var ld = document.createElement('script');
+    ld.type = 'application/ld+json';
+    ld.textContent = JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'HomeAndConstructionBusiness',
+      '@id': 'https://celson.ltd/#localbusiness',
+      name: 'CELSON Building Materials',
+      alternateName: 'Jianxin Building Materials Co.',
+      url: 'https://celson.ltd',
+      telephone: '+86-13825578911',
+      email: 'Betty.Mat@foxmail.com',
+      description: 'Global building materials supplier — factory-direct gypsum boards, sheet boards, wall panels, ceiling systems, tiles, roofing, and insulation.',
+      address: {
+        '@type': 'PostalAddress',
+        addressCountry: 'CN'
+      },
+      openingHoursSpecification: {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+        opens: '09:00',
+        closes: '18:00'
+      },
+      areaServed: {
+        '@type': 'Continent',
+        name: 'Asia, Africa, Middle East, Europe, Americas'
+      },
+      priceRange: '$$'
+    });
+    document.head.appendChild(ld);
+  })();
+
 })();
