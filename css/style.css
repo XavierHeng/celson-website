@@ -8,36 +8,44 @@
   --green-600: #15803D;
   --green-700: #116A32;
   --green-800: #0E5428;
+  --green-500: #22c55e;
+  --green-400: #4ade80;
   --green-50:  #F0FDF4;
   --green-100: #DCFCE7;
   --orange-600: #D97706;
   --orange-700: #B65C03;
+  --orange-500: #f97316;
+  --orange-400: #fb923c;
   --orange-50:  #FFF7ED;
   --orange-100: #FFEDD5;
   --navy-900:  #0F172A;
   --navy-800:  #1E293B;
-  --slate-400: #94A3B8;
-  --slate-500: #64748B;
-  --slate-600: #475569;
-  --slate-200: #E2E8F0;
-  --slate-100: #F1F5F9;
-  --slate-50:  #F8FAFC;
+  /* DE-AI: warm-tinted grays — natural, not mathematical */
+  --slate-400: #8E8D86;   /* was #94A3B8 (cold blue-gray) */
+  --slate-500: #63625B;   /* was #64748B */
+  --slate-600: #475569;   /* kept — deep enough that tint is invisible */
+  --slate-200: #DFDED8;   /* was #E2E8F0 */
+  --slate-100: #EFEEEA;   /* was #F1F5F9 */
+  --slate-50:  #F7F6F3;   /* was #F8FAFC — ~2% warm yellow */
   --white:     #FFFFFF;
   --soft-white: #F9FBFA;   /* barely-tinted white — easy on eyes, avoids flashlight effect */
   --black:     #000000;
 
+  /* DE-AI: serif body font — industrial authority meets classic readability */
   --font-display: 'Poppins', sans-serif;
-  --font-body:    'Open Sans', sans-serif;
+  --font-body:    'Source Serif 4', 'Open Sans', serif;
 
-  --radius-sm: 8px;
+  /* DE-AI: optical radii — not 8px multiples */
+  --radius-sm: 6px;
   --radius-md: 10px;
-  --radius-lg: 14px;
-  --radius-xl: 20px;
+  --radius-lg: 13px;
+  --radius-xl: 19px;
 
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
-  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
-  --shadow-lg: 0 6px 24px rgba(0,0,0,0.10);
-  --shadow-xl: 0 12px 40px rgba(0,0,0,0.12);
+  /* DE-AI: double-layer shadows with directional+ambient light */
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.04), 0 1px 3px rgba(0,0,0,0.06);
+  --shadow-md: 0 2px 4px rgba(0,0,0,0.03), 0 5px 14px rgba(0,0,0,0.07);
+  --shadow-lg: 0 4px 8px rgba(0,0,0,0.04), 0 8px 30px rgba(21,128,61,0.06);
+  --shadow-xl: 0 6px 12px rgba(0,0,0,0.04), 0 14px 48px rgba(0,0,0,0.10);
 
   --max-width: 1140px;
   --header-height: 72px;
@@ -256,7 +264,7 @@ footer {
   border: none;
   border-radius: var(--radius-sm);
   cursor: pointer;
-  transition: background 0.3s, transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s;
+  transition: background 0.3s, transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s;
   white-space: nowrap;
   box-shadow: 0 2px 8px rgba(21,128,61,0.25);
 }
@@ -311,7 +319,7 @@ footer {
   border: 1px solid var(--slate-200);
   border-radius: var(--radius-sm);
   cursor: pointer;
-  transition: border-color 0.25s, background 0.25s, transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s;
+  transition: border-color 0.25s, background 0.25s, transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.25s;
   white-space: nowrap;
 }
 
@@ -382,21 +390,21 @@ footer {
   gap: 16px;
 }
 
-/* Hero entrance animations */
+/* Hero entrance animations — DE-AI: crisper snap curve */
 .hero-content {
-  animation: heroContentIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: heroContentIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 .hero-visual {
-  animation: heroVisualIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
+  animation: heroVisualIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
 }
 .hero-badge {
-  animation: heroBadgeIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+  animation: heroBadgeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
 }
 .hero-subtitle {
-  animation: heroFadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.25s both;
+  animation: heroFadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both;
 }
 .hero-ctas {
-  animation: heroFadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.4s both;
+  animation: heroFadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
 }
 
 @keyframes heroContentIn {
@@ -635,8 +643,8 @@ a.product-card {
     0 1px 2px rgba(0,0,0,0.04),
     0 2px 8px rgba(21,128,61,0.04),
     0 6px 20px rgba(15,23,42,0.06);
-  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-              box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 0.35s cubic-bezier(0.2, 0, 0, 1),
+              box-shadow 0.35s cubic-bezier(0.2, 0, 0, 1);
   display: block;
   color: inherit;
 }
@@ -679,7 +687,7 @@ a.product-card:hover {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .product-card:hover .product-card-img .placeholder-img,
@@ -832,13 +840,27 @@ a.product-card:hover .product-card-img .placeholder-img {
 /* ============================================
    STATS / TRUST SECTION
    ============================================ */
+/* DE-AI: full-width dark band — breaks white island rhythm */
 .stats-section {
-  padding: 28px 0 32px;
-  background: var(--white);
-  border-radius: 20px;
-  box-shadow: 0 2px 20px rgba(0,0,0,0.08);
-  max-width: 1060px;
-  margin: 0 auto 48px;
+  padding: 56px 0 60px;
+  background: var(--navy-900);
+  border-radius: 0;
+  box-shadow: none;
+  max-width: none;
+  margin: 0 auto 0;
+  position: relative;
+  overflow: hidden;
+}
+/* subtle top accent line */
+.stats-section::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg,
+    transparent 0%, var(--green-600) 15%,
+    var(--green-600) 35%, var(--orange-600) 65%,
+    var(--orange-600) 85%, transparent 100%);
 }
 
 .stats-grid {
@@ -854,26 +876,28 @@ a.product-card:hover .product-card-img .placeholder-img {
 
 .stat-number {
   font-family: var(--font-display);
-  font-size: 36px;
+  font-size: 42px;
   font-weight: 700;
-  color: var(--green-600);
-  line-height: 1.15;
-  margin-bottom: 2px;
+  color: var(--green-400);
+  line-height: 1.1;
+  margin-bottom: 4px;
 }
 
 .stat-item:nth-child(even) .stat-number {
-  color: var(--orange-600);
+  color: var(--orange-400);
 }
 
 .stat-label {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 500;
-  color: var(--slate-500);
+  color: rgba(255,255,255,0.6);
   white-space: nowrap;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
 }
 
 .stats-section .section-header h2 {
-  color: var(--navy-900);
+  color: var(--white);
 }
 
 /* ============================================
@@ -1248,14 +1272,14 @@ a.product-card:hover .product-card-img .placeholder-img {
   box-shadow: 0 4px 20px rgba(21, 128, 61, 0.07);
   position: relative;
   overflow: visible;
-  animation: cardEnter 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: cardEnter 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
 
 /* Staggered card entrance — apply to grid children */
 .core-products-grid > *,
 .secondary-products-grid > *,
 .projects-grid > * {
-  animation: cardEnter 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: cardEnter 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
 .core-products-grid > *:nth-child(1),
 .secondary-products-grid > *:nth-child(1),
@@ -1304,7 +1328,7 @@ a.product-card:hover .product-card-img .placeholder-img {
   overflow: hidden;
   border: 3px solid var(--green-600);
   box-shadow: 0 3px 16px rgba(21,128,61,0.20), 0 0 0 7px rgba(21,128,61,0.06);
-  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .bci-avatar-circle:hover {
@@ -1475,7 +1499,7 @@ a.product-card:hover .product-card-img .placeholder-img {
   width: 260px;
   opacity: 0;
   visibility: hidden;
-  transition: all 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: all 0.28s cubic-bezier(0.25, 1, 0.5, 1);
   z-index: 500;
 }
 
@@ -2060,7 +2084,7 @@ a.product-card:hover .product-card-img .placeholder-img {
 }
 
 .specs-table tbody tr {
-  animation: specRowIn 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: specRowIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 .specs-table tbody tr:nth-child(1) { animation-delay: 0.06s; }
 .specs-table tbody tr:nth-child(2) { animation-delay: 0.12s; }
@@ -2350,7 +2374,7 @@ a.product-card:hover .product-card-img .placeholder-img {
 }
 .shipping-content.shipping-content--revealed {
   display: block !important;
-  animation: shippingReveal 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: shippingReveal 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 @keyframes shippingReveal {
   from { opacity: 0; transform: translateY(20px); }
@@ -2435,7 +2459,7 @@ a.product-card:hover .product-card-img .placeholder-img {
   text-decoration: none;
   border-radius: 50px;
   box-shadow: 0 4px 18px rgba(37, 211, 102, 0.40), 0 2px 8px rgba(0,0,0,0.10);
-  transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
   cursor: pointer;
   border: none;
   white-space: nowrap;
@@ -2827,7 +2851,7 @@ a.product-card:hover .product-card-img .placeholder-img {
 
 /* --- Section reveal on scroll (uses existing cardEnter) --- */
 section:not(.clients-section):not(.footer-full):not(footer) {
-  animation: sectionReveal 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: sectionReveal 0.7s cubic-bezier(0.2, 0, 0, 1) both;
 }
 @keyframes sectionReveal {
   from { opacity: 0; transform: translateY(24px); }
@@ -2842,7 +2866,7 @@ section:not(.clients-section):not(.footer-full):not(footer) {
 .form-group textarea,
 .footer-nav-col ul li a,
 .footer-compact .footer-links a {
-  transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 /* --- Focus ring — accessible + branded --- */
@@ -2888,8 +2912,8 @@ textarea:focus-visible {
 .product-card-sm,
 .client-logo,
 .stat-item {
-  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
-              box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 0.3s cubic-bezier(0.2, 0, 0, 1),
+              box-shadow 0.3s cubic-bezier(0.2, 0, 0, 1);
 }
 
 .benefit-card:hover,
@@ -3034,4 +3058,19 @@ a:not(.btn-primary):not(.btn-secondary):not(.header-nav a):not(.footer-nav-col a
 .stat-number,
 .factory-card .num {
   font-variant-numeric: tabular-nums;
+}
+
+/* ============================================
+   DE-AI: Full-site Noise Texture Overlay
+   Subtle grain mimics paper/print material feel.
+   0.025 opacity — barely visible but subconsciously felt.
+   ============================================ */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  pointer-events: none;
+  opacity: 0.022;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
