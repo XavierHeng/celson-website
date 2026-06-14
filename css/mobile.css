@@ -1,0 +1,356 @@
+/* ============================================
+   CELSON — Mobile Dedicated Styles
+   Fixes: iOS zoom, touch targets, safe areas,
+   overscroll, tap highlight, orientation,
+   viewport units, font scaling
+   ============================================ */
+
+/* --- 1. GLOBAL MOBILE RESETS (all viewports, applied last) --- */
+
+/* Prevent iOS tap highlight flash */
+* {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(21, 128, 61, 0.08);
+}
+
+/* Custom tap highlight for interactive elements */
+a, button, [role="button"], .btn-primary, .btn-secondary,
+.product-card, .bento-card, .explore-card,
+.shop-item, .subpage-nav-links a {
+  -webkit-tap-highlight-color: rgba(21, 128, 61, 0.12);
+}
+
+/* Improve touch scrolling everywhere */
+html {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+/* Prevent pull-to-refresh chain on scrollable containers */
+.specs-table-wrapper,
+.subpage-nav-links,
+.shop-product-list,
+.shipping-preview-grid,
+.cart-popup-body,
+.shop-filter-bar {
+  overscroll-behavior: contain;
+}
+
+/* --- 2. FIX iOS INPUT ZOOM (CRITICAL) --- */
+
+/* iOS Safari auto-zooms when font-size < 16px on focused inputs.
+   Force 16px on all form elements at mobile breakpoints. */
+@media (max-width: 768px) {
+  input, select, textarea, button {
+    font-size: 16px !important;
+  }
+}
+
+/* --- 3. IMPROVED TOUCH TARGETS --- */
+
+/* Enforce 44×44px minimum touch target on all interactive elements */
+@media (max-width: 768px) {
+  a, button, .btn-primary, .btn-secondary, .btn-sm,
+  .subpage-nav-links a, .lang-switch,
+  .nav-toggle, .header-nav a,
+  .explore-card-link, .product-card,
+  .cat-pill, .btn-add, .btn-view-cart,
+  .cart-qty-btn, .btn-back, .cart-popup-close,
+  .lightbox-close, .lightbox-nav,
+  .shipping-gate-btn, .download-btn {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Keep inline elements from breaking layout */
+  .coming-soon-badge, .product-card-badge,
+  .hero-badge, .subpage-hero-badge,
+  .section-label, .section-label--shipping {
+    min-height: auto;
+    min-width: auto;
+  }
+
+  /* Enforce on icon-only elements */
+  .nav-toggle, .cart-popup-close, .lightbox-close,
+  .back-to-top {
+    min-width: 44px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Ensure nav links are tall enough */
+  .header-nav a {
+    padding: 12px 0 !important;
+  }
+
+  /* Product grid cards — full width tap area */
+  .product-card, .bento-card, .explore-card {
+    cursor: pointer;
+  }
+
+  /* Shop quantity buttons */
+  .cart-qty-btn {
+    width: 44px;
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* --- 4. SAFE AREA INSETS (consistent across all pages) --- */
+
+/* Top safe area for fixed headers */
+.site-header {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+/* Bottom safe area for fixed bottom elements */
+.cro-floating-bar,
+.shop-cart-bar,
+.shop-fab,
+.back-to-top {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Content padding respects safe areas */
+@media (max-width: 768px) {
+  .container {
+    padding-left: max(14px, env(safe-area-inset-left, 14px));
+    padding-right: max(14px, env(safe-area-inset-right, 14px));
+  }
+
+  body {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+}
+
+/* --- 5. FIX 100vh MOBILE ISSUE --- */
+
+/* Use -webkit-fill-available for full-height sections on iOS */
+@supports (-webkit-touch-callout: none) {
+  .hero-section,
+  .splash-screen,
+  .lightbox-overlay,
+  .cart-popup-overlay {
+    min-height: -webkit-fill-available;
+  }
+}
+
+/* --- 6. ORIENTATION HANDLING --- */
+
+/* Landscape phone adjustments */
+@media (max-width: 896px) and (orientation: landscape) {
+  .hero-section {
+    min-height: auto;
+    padding: 40px 0;
+  }
+
+  .site-header {
+    position: relative;
+  }
+
+  /* Reduce vertical content to fit landscape viewport */
+  .hero-content h1 {
+    font-size: clamp(1.5rem, 4vw, 2.2rem);
+    margin-bottom: 8px;
+  }
+
+  .hero-content p {
+    margin-bottom: 12px;
+    font-size: 14px;
+  }
+
+  /* Keep nav scrollable in landscape */
+  .header-nav.open {
+    max-height: 70vh;
+    overflow-y: auto;
+  }
+}
+
+/* --- 7. FONT SCALING (clamp-based responsive typography) --- */
+
+/* Mobile-first fluid typography using clamp() */
+@media (max-width: 768px) {
+  html {
+    font-size: clamp(14px, 3.5vw, 16px);
+  }
+
+  /* Product card titles */
+  .product-card-body h3 {
+    font-size: clamp(15px, 4vw, 18px);
+  }
+
+  /* Bento card titles */
+  .bento-card-body h3,
+  .bento-card-body h4 {
+    font-size: clamp(14px, 3.8vw, 17px);
+  }
+
+  /* Section headers */
+  .section-header h2 {
+    font-size: clamp(1.25rem, 5vw, 1.75rem);
+  }
+
+  /* Hero titles */
+  .hero-content h1 {
+    font-size: clamp(1.5rem, 6vw, 2.5rem);
+    line-height: 1.2;
+  }
+}
+
+/* --- 8. TOUCH SCROLLING IMPROVEMENTS --- */
+
+/* Smooth momentum scrolling on iOS */
+.scroll-container,
+.specs-table-wrapper,
+.subpage-nav-links,
+.shipping-preview-grid,
+.shop-product-list {
+  -webkit-overflow-scrolling: touch;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  /* Hide scrollbar but keep functionality */
+  scrollbar-width: thin;
+  scrollbar-color: var(--slate-200) transparent;
+}
+
+/* Custom scrollbar for WebKit */
+.scroll-container::-webkit-scrollbar,
+.specs-table-wrapper::-webkit-scrollbar,
+.subpage-nav-links::-webkit-scrollbar,
+.shipping-preview-grid::-webkit-scrollbar {
+  height: 4px;
+}
+
+.scroll-container::-webkit-scrollbar-thumb,
+.specs-table-wrapper::-webkit-scrollbar-thumb,
+.subpage-nav-links::-webkit-scrollbar-thumb,
+.shipping-preview-grid::-webkit-scrollbar-thumb {
+  background: var(--slate-200);
+  border-radius: 2px;
+}
+
+/* --- 9. TOUCH INTERACTION POLISH --- */
+
+/* Remove hover states on touch devices (use :active instead) */
+@media (hover: none) and (pointer: coarse) {
+  /* Replace hover with active states */
+  .product-card:hover,
+  .bento-card:hover,
+  .explore-card:hover {
+    transform: none;
+    box-shadow: var(--shadow-md);
+  }
+
+  .product-card:active,
+  .bento-card:active,
+  .explore-card:active {
+    transform: scale(0.98);
+    transition: transform 0.1s;
+  }
+
+  .btn-primary:hover,
+  .btn-secondary:hover {
+    transform: none;
+  }
+
+  .btn-primary:active {
+    transform: scale(0.96);
+    transition: transform 0.1s;
+  }
+
+  /* Disable animations that hurt touch UX */
+  .bento-card,
+  .product-card,
+  .explore-card {
+    transition: transform 0.15s ease, box-shadow 0.2s ease;
+  }
+}
+
+/* --- 10. STICKY/FIXED ELEMENT ADJUSTMENTS --- */
+
+@media (max-width: 768px) {
+  /* Ensure fixed elements don't overlap content */
+  .cro-floating-bar {
+    z-index: 1000;
+  }
+
+  /* Back to top button position */
+  .back-to-top {
+    bottom: max(80px, calc(env(safe-area-inset-bottom, 20px) + 70px));
+    right: 16px;
+    z-index: 999;
+  }
+
+  /* WhatsApp floating button */
+  .whatsapp-float {
+    bottom: max(140px, calc(env(safe-area-inset-bottom, 20px) + 130px));
+  }
+}
+
+/* --- 11. REDUCED MOTION — NEVER SKIP --- */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* --- 12. DARK MODE SUPPORT --- */
+
+@media (prefers-color-scheme: dark) {
+  /* Keep the site usable in dark mode even without full dark theme */
+  img:not([src*=".svg"]) {
+    opacity: 0.95;
+  }
+
+  /* Ensure text contrast */
+  .hero-content h1,
+  .section-header h2,
+  .product-card-body h3 {
+    text-shadow: none;
+  }
+}
+
+/* --- 13. PRINT STYLES --- */
+
+@media print {
+  .cro-floating-bar,
+  .whatsapp-float,
+  .back-to-top,
+  .site-header,
+  .site-footer,
+  .subpage-nav,
+  .lang-switch,
+  .splash-screen,
+  .skeleton-placeholder {
+    display: none !important;
+  }
+
+  body {
+    font-size: 12pt;
+    color: #000;
+    background: #fff;
+  }
+
+  .container {
+    max-width: 100%;
+    padding: 0;
+  }
+
+  a[href]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+    color: #666;
+  }
+}
+
+/* --- 14. VIEWPORT META FALLBACK (handled via JS for dynamic updates) --- */
+
+/* Visual viewport API — handled in mobile.js */
