@@ -8,8 +8,9 @@
   <meta name="description" content="CELSON, backed by Jianxin Building Materials, delivers premium gypsum boards, sheet boards, wall panels, and ceiling systems at factory-direct pricing to 98 countries.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="assets/css/splash.css">
   <link rel="preload" as="image" href="assets/home-slide-0.webp" fetchpriority="high">
   <link rel="preload" as="image" href="assets/crown-logo-44.webp" fetchpriority="high">
   <link rel="preload" as="image" href="assets/container-shipping/ship-01.jpg">
@@ -41,6 +42,17 @@
   <script src="js/seo.js" defer></script>
 </head>
 <body>
+
+<!-- ═══════════════════════════════════════════════
+     SPLASH SCREEN — Premium Brand Animation
+     First visit only, localStorage permanent flag
+     ═══════════════════════════════════════════════ -->
+<div id="celson-splash" aria-hidden="true">
+  <div class="splash-bg"></div>
+  <div class="splash-text">CELSON</div>
+  <div class="splash-subtitle">Global Building Materials</div>
+  <div class="splash-progress"></div>
+</div>
 
 <!-- ========== SCROLL PROGRESS BAR ========== -->
 <div class="scroll-progress"></div>
@@ -624,5 +636,6 @@
     });
   })();
   </script>
+  <script src="js/splash.js" defer></script>
 </body>
 </html>

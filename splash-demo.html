@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CELSON Splash Demo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/splash.css">
+  <style>
+    /* ── Demo page underneath (mimics CELSON homepage) ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background: #f8fafc;
+      color: #0F172A;
+      overflow-x: hidden;
+    }
+
+    /* Header */
+    .demo-header {
+      background: #0F172A;
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .demo-logo {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 24px;
+      color: #FFFFFF;
+      letter-spacing: 0.04em;
+    }
+    .demo-logo span { color: #15803D; }
+
+    /* Hero */
+    .demo-hero {
+      background: linear-gradient(135deg, #0F172A 0%, #1a2f4a 100%);
+      padding: 80px 40px;
+      text-align: center;
+      color: #FFFFFF;
+    }
+    .demo-hero h1 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: clamp(32px, 5vw, 56px);
+      margin-bottom: 16px;
+    }
+    .demo-hero h1 span { color: #15803D; }
+    .demo-hero p {
+      font-size: 18px;
+      opacity: 0.7;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Cards grid */
+    .demo-grid {
+      max-width: 1200px;
+      margin: -40px auto 40px;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+      position: relative;
+      z-index: 1;
+    }
+    .demo-card {
+      background: #FFFFFF;
+      border-radius: 12px;
+      padding: 32px 24px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);
+      text-align: center;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .demo-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    .demo-card h3 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      font-size: 18px;
+      margin-bottom: 8px;
+      color: #0F172A;
+    }
+    .demo-card p {
+      font-size: 14px;
+      color: #64748B;
+      line-height: 1.6;
+    }
+
+    /* Stats section */
+    .demo-stats {
+      max-width: 1200px;
+      margin: 60px auto;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      text-align: center;
+    }
+    .demo-stat h2 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 36px;
+      color: #15803D;
+    }
+    .demo-stat p {
+      font-size: 14px;
+      color: #64748B;
+      margin-top: 4px;
+    }
+
+    /* Controls bar */
+    .demo-controls {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 100;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    .demo-btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .demo-btn-replay {
+      background: #15803D;
+      color: #FFFFFF;
+    }
+    .demo-btn-replay:hover { background: #166534; transform: translateY(-1px); }
+    .demo-btn-reset {
+      background: #EA580C;
+      color: #FFFFFF;
+    }
+    .demo-btn-reset:hover { background: #C2410C; transform: translateY(-1px); }
+    .demo-btn-toggle {
+      background: #0F172A;
+      color: #FFFFFF;
+    }
+    .demo-btn-toggle:hover { background: #1E293B; transform: translateY(-1px); }
+
+    /* Badge */
+    .demo-badge {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      z-index: 100;
+      background: rgba(15, 23, 42, 0.85);
+      color: #FFFFFF;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    /* Mobile responsive */
+    @media (max-width: 767px) {
+      .demo-header { padding: 16px 20px; }
+      .demo-hero { padding: 50px 20px; }
+      .demo-stats { grid-template-columns: repeat(2, 1fr); }
+      .demo-controls { bottom: 16px; right: 16px; flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════
+       SPLASH OVERLAY
+       ═══════════════════════════════════════════════ -->
+  <div id="celson-splash" aria-hidden="true">
+    <div class="splash-bg"></div>
+    <div class="splash-text">CELSON</div>
+    <div class="splash-subtitle">Global Building Materials</div>
+    <div class="splash-progress"></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
+       DEMO PAGE CONTENT (simulates CELSON homepage)
+       ═══════════════════════════════════════════════ -->
+  <div class="demo-badge" id="deviceBadge">DESKTOP</div>
+
+  <header class="demo-header">
+    <div class="demo-logo">CELSON<span>.</span></div>
+  </header>
+
+  <section class="demo-hero">
+    <h1>Global <span>Building Materials</span> Supplier</h1>
+    <p>Premium gypsum boards, sheet boards, wall panels &amp; ceiling systems. Factory-direct pricing, serving 98 countries worldwide.</p>
+  </section>
+
+  <div class="demo-grid">
+    <div class="demo-card">
+      <h3>Gypsum Boards</h3>
+      <p>Standard, Moisture-Resistant, and Fire-Rated boards for any construction need.</p>
+    </div>
+    <div class="demo-card">
+      <h3>Sheet Boards</h3>
+      <p>Plywood, MDF, OSB, and Particle boards in all standard thicknesses.</p>
+    </div>
+    <div class="demo-card">
+      <h3>Wall Panels</h3>
+      <p>3D decorative panels, WPC, PVC, and acoustic solutions for interior design.</p>
+    </div>
+    <div class="demo-card">
+      <h3>Ceiling Systems</h3>
+      <p>T-grid, furring channels, and complete suspended ceiling solutions.</p>
+    </div>
+  </div>
+
+  <div class="demo-stats">
+    <div class="demo-stat"><h2>98+</h2><p>Countries Served</p></div>
+    <div class="demo-stat"><h2>500+</h2><p>Container Shipments</p></div>
+    <div class="demo-stat"><h2>15+</h2><p>Years Experience</p></div>
+    <div class="demo-stat"><h2>200+</h2><p>Product SKUs</p></div>
+  </div>
+
+  <!-- Controls -->
+  <div class="demo-controls">
+    <button class="demo-btn demo-btn-replay" onclick="replaySplash()" title="Replay animation (clears flag)">⟳ Replay</button>
+    <button class="demo-btn demo-btn-toggle" onclick="toggleDevice()" title="Toggle desktop/mobile layout">📱 Toggle View</button>
+    <button class="demo-btn demo-btn-reset" onclick="hardReset()" title="Full reset + reload">↺ Full Reset</button>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
+       SCRIPTS
+       ═══════════════════════════════════════════════ -->
+  <script>
+    /* ── Device toggle (demo only) ── */
+    var isDemoMobile = false;
+    function toggleDevice() {
+      isDemoMobile = !isDemoMobile;
+      var vp = document.querySelector('meta[name="viewport"]');
+      var badge = document.getElementById('deviceBadge');
+      if (isDemoMobile) {
+        vp.setAttribute('content', 'width=390, initial-scale=1.0');
+        badge.textContent = 'MOBILE (390px)';
+        badge.style.background = 'rgba(21,128,61,0.85)';
+      } else {
+        vp.setAttribute('content', 'width=device-width, initial-scale=1.0');
+        badge.textContent = 'DESKTOP';
+        badge.style.background = 'rgba(15, 23, 42, 0.85)';
+      }
+    }
+
+    /* ── Replay ── */
+    function replaySplash() {
+      localStorage.removeItem('celson_splash_done');
+      location.reload();
+    }
+
+    /* ── Hard reset ── */
+    function hardReset() {
+      localStorage.removeItem('celson_splash_done');
+      sessionStorage.clear();
+      location.href = location.pathname;
+    }
+
+    /* ── Auto-hide badge on small screens ── */
+    function updateBadge() {
+      var badge = document.getElementById('deviceBadge');
+      if (window.innerWidth <= 767 && !isDemoMobile) {
+        badge.textContent = 'MOBILE';
+        badge.style.background = 'rgba(21,128,61,0.85)';
+      }
+    }
+    window.addEventListener('resize', updateBadge);
+    updateBadge();
+  </script>
+
+  <!-- Splash engine (deferred, runs after DOM) -->
+  <script src="js/splash.js"></script>
+
+</body>
+</html>
