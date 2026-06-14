@@ -1,0 +1,232 @@
+/* ================================================================
+   CELSON Splash Screen — Premium UI Animation
+   Desktop & Mobile variants, first-visit only
+   ================================================================ */
+
+/* --- Overlay Container --- */
+#celson-splash {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: all;
+  overflow: hidden;
+}
+
+/* --- Background Layer --- */
+#celson-splash .splash-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #0F172A 0%, #0A0F1A 100%);
+  will-change: opacity;
+}
+
+/* --- Text Layer --- */
+#celson-splash .splash-text {
+  position: relative;
+  z-index: 2;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 800;
+  color: #FFFFFF;
+  will-change: transform;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* slight text glow for depth */
+  text-shadow: 0 0 80px rgba(21, 128, 61, 0.25),
+               0 0 160px rgba(21, 128, 61, 0.08);
+}
+
+/* --- Subtitle --- */
+#celson-splash .splash-subtitle {
+  position: relative;
+  z-index: 2;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  will-change: opacity;
+}
+
+/* --- Progress Bar --- */
+#celson-splash .splash-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  background: #15803D;
+  z-index: 3;
+  width: 0;
+  will-change: width;
+}
+
+/* ============================================================
+   DESKTOP Keyframes (≥ 768px)
+   ============================================================ */
+
+/* Phase 1 — Parallax Drop & Scale (650ms) */
+@keyframes dropAndScale {
+  0% {
+    transform: translateY(-120vh) scale(4);
+  }
+  82% {
+    transform: translateY(2.5vh) scale(0.97);
+  }
+  90% {
+    transform: translateY(-0.6vh) scale(1.03);
+  }
+  96% {
+    transform: translateY(0.1vh) scale(0.995);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Phase 3 — Impact Shake (150ms, 6 oscillations) */
+@keyframes impactShake {
+  0%   { transform: translate(0, 0) scale(1); }
+  8%   { transform: translate(-2.5px, 1px) scale(1); }
+  17%  { transform: translate(2.5px, -1px) scale(1); }
+  25%  { transform: translate(-1.5px, 2px) scale(1); }
+  33%  { transform: translate(1.5px, -2px) scale(1); }
+  42%  { transform: translate(-2px, 0.5px) scale(1); }
+  50%  { transform: translate(2px, 1px) scale(1); }
+  58%  { transform: translate(-1px, -1px) scale(1); }
+  67%  { transform: translate(1px, 0.5px) scale(1); }
+  75%  { transform: translate(-0.5px, 0) scale(1); }
+  83%  { transform: translate(0.5px, -0.5px) scale(1); }
+  92%  { transform: translate(0, 0.3px) scale(1); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+
+/* Phase 4 subtitle fade-in */
+@keyframes subtitleIn {
+  0%   { opacity: 0; transform: translateY(8px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================================
+   MOBILE Keyframes (≤ 767px)
+   Shorter drop, gentler shake, smaller scale delta
+   ============================================================ */
+
+@keyframes dropAndScaleMobile {
+  0% {
+    transform: translateY(-80vh) scale(2.8);
+  }
+  82% {
+    transform: translateY(1.8vh) scale(0.98);
+  }
+  90% {
+    transform: translateY(-0.4vh) scale(1.02);
+  }
+  96% {
+    transform: translateY(0.08vh) scale(0.998);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes impactShakeMobile {
+  0%   { transform: translate(0, 0) scale(1); }
+  10%  { transform: translate(-1.2px, 0.5px) scale(1); }
+  20%  { transform: translate(1.2px, -0.5px) scale(1); }
+  30%  { transform: translate(-0.8px, 1px) scale(1); }
+  40%  { transform: translate(0.8px, -1px) scale(1); }
+  50%  { transform: translate(-1px, 0.3px) scale(1); }
+  60%  { transform: translate(1px, 0.5px) scale(1); }
+  70%  { transform: translate(-0.5px, -0.5px) scale(1); }
+  80%  { transform: translate(0.5px, 0.3px) scale(1); }
+  90%  { transform: translate(0, 0.3px) scale(1); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+
+/* ============================================================
+   SHARED Keyframes
+   ============================================================ */
+
+/* Phase 5 — Dissolve Fade-Out */
+@keyframes dissolve {
+  0%   { transform: scale(1);   opacity: 1; }
+  100% { transform: scale(1.06); opacity: 0; }
+}
+
+/* Phase 5 Mobile — slightly less scale-up */
+@keyframes dissolveMobile {
+  0%   { transform: scale(1);   opacity: 1; }
+  100% { transform: scale(1.04); opacity: 0; }
+}
+
+/* Progress bar fill */
+@keyframes progressFill {
+  0%   { width: 0%; }
+  100% { width: 100%; }
+}
+
+/* ============================================================
+   RESPONSIVE Sizing
+   ============================================================ */
+
+/* Desktop */
+@media (min-width: 768px) {
+  #celson-splash .splash-text {
+    font-size: clamp(64px, 9vw, 120px);
+    letter-spacing: 0.06em;
+  }
+  #celson-splash .splash-subtitle {
+    font-size: 16px;
+    letter-spacing: 0.25em;
+    margin-top: 20px;
+  }
+  #celson-splash .splash-progress {
+    height: 2px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+  #celson-splash .splash-text {
+    font-size: clamp(36px, 11vw, 56px);
+    letter-spacing: 0.04em;
+    text-shadow: 0 0 50px rgba(21, 128, 61, 0.2),
+                 0 0 100px rgba(21, 128, 61, 0.05);
+  }
+  #celson-splash .splash-subtitle {
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    margin-top: 14px;
+  }
+  #celson-splash .splash-progress {
+    height: 3px;
+  }
+}
+
+/* ============================================================
+   Reduce Motion — Accessibility
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  #celson-splash .splash-text {
+    animation: none !important;
+    transform: translate(0, 0) scale(1) !important;
+  }
+  #celson-splash .splash-subtitle {
+    opacity: 1 !important;
+    animation: none !important;
+  }
+  #celson-splash .splash-progress {
+    animation: none !important;
+    width: 100% !important;
+  }
+  /* Keep dissolve but make it instant */
+  @keyframes dissolveReduced {
+    0%   { opacity: 1; }
+    100% { opacity: 0; }
+  }
+}

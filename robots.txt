@@ -1,6 +1,11 @@
 User-agent: *
 Allow: /
 Disallow: /admin.html
+Disallow: /betty-card.html
+Disallow: /splash-demo.html
+Disallow: /daily-report-*.html
+Disallow: /website-audit-report-*.html
+Disallow: /website-review-report.html
 Disallow: /员工操作手册.html
 
 Sitemap: https://celson.ltd/sitemap.xml

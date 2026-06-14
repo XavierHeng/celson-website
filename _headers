@@ -1,37 +1,36 @@
-# Cloudflare Pages Headers
-# robots.txt — MUST be served as text/plain
-/robots.txt
-  Content-Type: text/plain
-  Cache-Control: public, max-age=3600
+# Cloudflare Pages Cache-Control Headers
+# https://developers.cloudflare.com/pages/configuration/headers/
 
-# sitemap.xml — MUST be served as application/xml
-/sitemap.xml
-  Content-Type: application/xml
-  Cache-Control: public, max-age=3600
+# HTML — short cache (content changes frequently)
+/*.html
+  Cache-Control: public, max-age=3600, must-revalidate
 
-# CSS/JS: cache 1 year (versioned via ?v= timestamp)
+# CSS / JS — long cache with content hash busting
 /css/*
-  X-Frame-Options: SAMEORIGIN
-  X-Content-Type-Options: nosniff
-  Referrer-Policy: strict-origin-when-cross-origin
   Cache-Control: public, max-age=31536000, immutable
 
 /js/*
-  X-Frame-Options: SAMEORIGIN
-  X-Content-Type-Options: nosniff
-  Referrer-Policy: strict-origin-when-cross-origin
   Cache-Control: public, max-age=31536000, immutable
 
-# Images: cache 30 days
-/assets/*
-  X-Frame-Options: SAMEORIGIN
-  X-Content-Type-Options: nosniff
-  Referrer-Policy: strict-origin-when-cross-origin
-  Cache-Control: public, max-age=2592000
+# Images (WebP) — very long cache
+/assets/*.webp
+  Cache-Control: public, max-age=31536000, immutable
 
-# HTML + everything else: no browser cache, always revalidate
+# Images (JPG fallback) — very long cache
+/assets/*.jpg
+  Cache-Control: public, max-age=31536000, immutable
+
+# SVG — long cache
+/assets/*.svg
+  Cache-Control: public, max-age=31536000, immutable
+
+# Root (/) — short cache
+/
+  Cache-Control: public, max-age=3600, must-revalidate
+
+# Security headers
 /*
-  X-Frame-Options: SAMEORIGIN
   X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
   Referrer-Policy: strict-origin-when-cross-origin
-  Cache-Control: public, max-age=0, must-revalidate
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
