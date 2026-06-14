@@ -592,9 +592,9 @@ function renderProductList() {
     html += '<button class="btn-minus" data-id="' + p.id + '" data-action="minus"' + (inCart ? '' : ' disabled style="opacity:0.35;cursor:default"') + '>&minus;</button>';
     html += '<div class="shop-item-qty"><input type="number" value="' + qty + '" min="1" data-id="' + p.id + '" class="qty-input"><span class="qty-label">qty</span></div>';
     html += '<div class="qty-stepper">';
-    html += '<button class="qty-btn qty-btn-minus" data-pid="' + p.id + '" data-step="' + (-(prod.minQty || 1)) + '">\u2212</button>';
+    html += '<button class="qty-btn qty-btn-minus" data-pid="' + p.id + '" data-step="' + (-(p.minQty || 1)) + '">\u2212</button>';
     html += '<span class="qty-val" data-pid="' + p.id + '">' + qty + '</span>';
-    html += '<button class="qty-btn qty-btn-plus" data-pid="' + p.id + '" data-step="' + (prod.minQty || 1) + '">+</button>';
+    html += '<button class="qty-btn qty-btn-plus" data-pid="' + p.id + '" data-step="' + (p.minQty || 1) + '">+</button>';
     html += '</div>';
     html += '<div class="shop-item-add"><button class="' + btnClass + '" data-id="' + p.id + '" data-action="add">' + btnText + '</button></div>';
     html += '</div>';
