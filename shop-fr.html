@@ -1,41 +1,46 @@
 <!DOCTYPE html>
 <html lang="en" data-i18n-title-key="title.shop">
 <head>
-  <!-- Language redirect: Cloudflare Pages Functions removed due to Error 1000 loop -->
+  <!-- BUILT: 2026-06-14T14:55:00.090Z -->
+  <script>try{localStorage.setItem('celson_lang','fr');document.cookie='celson_lang=fr;path=/;max-age=31536000;SameSite=Lax'}catch(e){}</script>
+  <!-- FR redirect: go to English shop if user chose EN -->
   <script>
-  (function(){var c=document.cookie.match(/celson_lang=(\w+)/);if(c&&c[1]==='fr')location.replace('/shop-fr.html');})();
+  (function(){var c=document.cookie.match(/celson_lang=(\w+)/);if(c&&c[1]==='en')location.replace('/shop.html');})();
   </script>
   <meta charset="UTF-8">
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Shop — CELSON | In-Stock Building Materials</title>
-  <meta name="description" content="Browse in-stock CELSON building materials with EXW factory-direct pricing. Add to cart and order via WhatsApp for a quote within 24 hours — no registration needed.">
+  <title>Boutique — CELSON | Matériaux de construction en stock</title>
+  <meta name="description" content="Parcourez les matériaux de construction CELSON en stock aux prix départ usine EXW. Ajoutez au panier et commandez via WhatsApp pour un devis sous 24 heures — sans inscription.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="assets/css/shop-enhancements.css">
   <!-- ========== SEO: Open Graph ========== -->
-  <meta property="og:title" content="CELSON Shop — Building Materials Spot Stock | WhatsApp Order & EXW Price">
-  <meta property="og:description" content="Check CELSON spot stock: gypsum boards, sheet boards, wall panels, and more. EXW pricing, WhatsApp ordering, no registration needed. Factory-direct.">
+  <meta property="og:title" content="CELSON Boutique — Matériaux de construction en stock | Commande WhatsApp & Prix EXW">
+  <meta property="og:description" content="Découvrez le stock disponible CELSON : plaques de plâtre, panneaux, panneaux muraux et plus. Prix EXW, commande WhatsApp, sans inscription. Direct usine.">
   <meta property="og:image" content="https://celson.ltd/assets/home-slide-0.webp">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:url" content="https://celson.ltd/shop.html">
+  <meta property="og:url" content="https://celson.ltd/shop-fr.html">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="CELSON">
-  <meta property="og:locale" content="en_US">
-  <meta property="og:locale:alternate" content="fr_FR">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:locale:alternate" content="en_US">
   <!-- ========== SEO: Twitter Card ========== -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="CELSON Shop — Building Materials Spot Stock | WhatsApp Order & EXW Price">
-  <meta name="twitter:description" content="Check CELSON spot stock: gypsum boards, sheet boards, wall panels, and more. EXW pricing, WhatsApp ordering, no registration needed. Factory-direct.">
+  <meta name="twitter:title" content="CELSON Boutique — Matériaux de construction en stock | Commande WhatsApp & Prix EXW">
+  <meta name="twitter:description" content="Découvrez le stock disponible CELSON : plaques de plâtre, panneaux, panneaux muraux et plus. Prix EXW, commande WhatsApp, sans inscription. Direct usine.">
   <meta name="twitter:image" content="https://celson.ltd/assets/home-slide-0.webp">
   <!-- ========== SEO: Canonical + Hreflang ========== -->
-  <link rel="canonical" href="https://celson.ltd/shop.html">
+  <link rel="canonical" href="https://celson.ltd/shop-fr.html">
   <link rel="alternate" hreflang="en" href="https://celson.ltd/shop.html">
-  <link rel="alternate" hreflang="fr" href="https://celson.ltd/shop.html?lang=fr">
+  <link rel="alternate" hreflang="fr" href="https://celson.ltd/shop-fr.html">
   <link rel="alternate" hreflang="x-default" href="https://celson.ltd/shop.html">
   <!-- ========== SEO: Structured Data (JSON-LD) ========== -->
   <script src="js/seo.js" defer></script>
@@ -205,7 +210,7 @@
         <span data-i18n="shop.cart_bar.title_prefix">Cart</span>
       </div>
       <div class="cart-total" id="cartTotal">
-        EXW Reference $0<span>reference only</span>
+        Réf. EXW $0<span>à titre indicatif</span>
       </div>
       <button class="btn-view-cart" id="btnViewCart" data-i18n="shop.cart_bar.view">View Cart →</button>
     </div>
@@ -236,11 +241,11 @@
         <div class="cart-popup-footer" id="cartPopupFooter">
           <div class="cart-popup-total">
             <span class="cart-popup-total-label" data-i18n="shop.cart_popup.total_label">EXW Reference Total</span>
-            <span class="cart-popup-total-amount" id="popupTotal">$0<span>ref.</span></span>
+            <span class="cart-popup-total-amount" id="popupTotal">$0<span>réf.</span></span>
           </div>
           <button class="btn-ready-to-pay" id="btnReadyToPay">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
-            <span data-i18n="shop.cart_popup.order_btn">Order via WhatsApp</span>
+            <span data-i18n="shop.cart_popup.order_btn">Commander via WhatsApp</span>
           </button>
         </div>
       </div>
@@ -258,7 +263,7 @@
     </div>
 
     <!-- SM8: WhatsApp Floating Button (mobile) -->
-    <a href="#" class="wa-float" id="waFloatBtn" data-i18n-title="shop.cart_view.order_btn" title="Order via WhatsApp">
+    <a href="#" class="wa-float" id="waFloatBtn" data-i18n-title="shop.cart_view.order_btn" title="Commander via WhatsApp">
       <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
     </a>
 
@@ -270,7 +275,7 @@
   <div class="shop-container">
 
     <div class="cart-header">
-      <button class="btn-back" id="btnBackToShop" data-i18n="shop.cart_view.back">&larr; Back to Shop</button>
+      <button class="btn-back" id="btnBackToShop" data-i18n="shop.cart_view.back">&larr; Retour à la boutique</button>
       <h2 data-i18n="shop.cart_view.title">Shopping Cart</h2>
     </div>
 
@@ -278,7 +283,7 @@
       <div style="font-size:48px; margin-bottom:16px;">&#x1F6D2;</div>
       <p style="font-size:16px; color:#64748b; margin-bottom:8px;" data-i18n="shop.cart_view.empty">Your cart is empty</p>
       <p style="font-size:13px; color:#94a3b8;" data-i18n="shop.cart_view.empty_sub">Browse products and add items to get started</p>
-      <button class="btn-back" id="btnBackToShop2" style="margin-top:16px;" data-i18n="shop.cart_view.back">&larr; Back to Shop</button>
+      <button class="btn-back" id="btnBackToShop2" style="margin-top:16px;" data-i18n="shop.cart_view.back">&larr; Retour à la boutique</button>
     </div>
 
     <div id="cartContent" style="display:none;">
@@ -327,7 +332,7 @@
 
         <button class="btn-ready-to-pay" id="btnWhatsAppOrder" style="margin-top:16px;">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
-          <span data-i18n="shop.cart_view.order_btn">Order via WhatsApp</span>
+          <span data-i18n="shop.cart_view.order_btn">Commander via WhatsApp</span>
         </button>
         <p class="order-footer-note" style="margin-top:10px;" data-i18n="shop.cart_view.order_note">Tapping this opens WhatsApp with your order pre-filled. We'll reply within 24 hours to confirm pricing and logistics.</p>
         <p class="order-footer-note" style="margin-top:4px;font-size:12px;color:var(--gray-400);" data-i18n="shop.cart_view.order_auto_email">* A backup confirmation email is also sent automatically for your records.</p>

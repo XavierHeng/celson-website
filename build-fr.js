@@ -1,12 +1,17 @@
 /**
  * build-fr.js — Generate shop-fr.html from shop.html
  * 
- * Replaces all English UI strings with French equivalents.
- * Product names, specs, and technical data stay in English (industry standard).
- * Category internal values stay in English (for filter logic) — only display text changes.
+ * shop.html now uses data-i18n + I18N.t() for most UI text.
+ * catLabel() + __t() handles category tabs via the I18N dictionary.
+ * 
+ * For shop-fr.html we:
+ *   1. Force I18N.lang = 'fr' so data-i18n elements show French
+ *   2. Replace non-data-i18n static text (title, meta, JS literals)
+ *   3. Fix SEO (og:locale, canonical, hreflang)
+ *   4. Handle redirects and cache-busting
  * 
  * Usage: node build-fr.js
- * Output: shop-fr.html (gitignored, generated at deploy time)
+ * Output: shop-fr.html
  */
 
 const fs = require('fs');
@@ -18,47 +23,40 @@ const dest = path.join(__dirname, 'shop-fr.html');
 let html = fs.readFileSync(src, 'utf8');
 
 // ==================================================================
-// STEP 1: Inject French Category Display Mapping + modify render
+// STEP 1: Force I18N.lang = 'fr' before i18n.js loads
 // ==================================================================
-// We add CAT_FR object BEFORE the JS code, and patch renderCategoryTabs
-// so filtering stays in English but display shows French.
+// i18n.js reads localStorage on init. We pre-set it so:
+//   I18N.lang → 'fr'
+//   lang.js → applyTranslations() → all data-i18n elements → French
+//   catLabel() → __t() → I18N.t() → French category names
+const langPreSet = '\n  <script>try{localStorage.setItem(\'celson_lang\',\'fr\')}catch(e){}</script>';
+// Inject right after <head> so it runs before any other script
+html = html.replace('<head>', '<head>' + langPreSet);
 
-const catFrInject = `
-  var CAT_FR = {
-    'All': 'Tout',
-    'Gypsum Boards': 'Plaques de pl\u00e2tre',
-    'Sheet Boards': 'Panneaux',
-    'Wall Panels': 'Panneaux muraux',
-    'Ceiling &amp; Framing': 'Plafonds &amp; Ossatures',
-    'Calcium Silicate': 'Silicate de calcium',
-    'Outdoor &amp; Decking': 'Ext\u00e9rieur &amp; Terrasses',
-    'Accessories': 'Accessoires',
-    'Insulation': 'Isolation'
-  };
-`;
-
-// Inject CAT_FR after the CATEGORY_THUMBS block
+// Also set cookie so the FR→EN redirect below works correctly
 html = html.replace(
-  "var cart = [];",
-  catFrInject + "\n  var cart = [];"
-);
-
-// Modify renderCategoryTabs: use CAT_FR for display text
-html = html.replace(
-  "html += '<span class=\"' + cls + '\" data-cat=\"' + CATEGORIES[i] + '\" data-thumb=\"' + thumb + '\">' + CATEGORIES[i] + '</span>';",
-  "html += '<span class=\"' + cls + '\" data-cat=\"' + CATEGORIES[i] + '\" data-thumb=\"' + thumb + '\">' + (CAT_FR[CATEGORIES[i]] || CATEGORIES[i]) + '</span>';"
-);
-
-// Modify category tooltip label to use French
-html = html.replace(
-  "tt.querySelector('.cat-tooltip-label').textContent = catName;",
-  "tt.querySelector('.cat-tooltip-label').textContent = CAT_FR[catName] || catName;"
+  '<head>' + langPreSet,
+  '<head>' + langPreSet.replace("localStorage.setItem('celson_lang','fr')", "localStorage.setItem('celson_lang','fr');document.cookie='celson_lang=fr;path=/;max-age=31536000;SameSite=Lax'")
 );
 
 // ==================================================================
-// STEP 2: HTML Static Text Replacements
+// STEP 2: Fix language redirect for shop-fr.html
 // ==================================================================
-// Ordered from longest/most-specific to shortest to avoid partial matches.
+// shop.html has: if cookie==='fr' → redirect to shop-fr.html (EN→FR)
+// shop-fr.html needs: if cookie==='en' → redirect to shop.html (FR→EN)
+// We remove the EN→FR redirect and add a FR→EN redirect instead.
+
+// Remove the EN→FR redirect block (shop.html → shop-fr.html)
+html = html.replace(
+  /<!-- Language redirect:[\s\S]*?location\.replace\('\/shop-fr\.html'\);[\s\S]*?<\/script>/,
+  '<!-- FR redirect: go to English shop if user chose EN -->\n  <script>\n  (function(){var c=document.cookie.match(/celson_lang=(\\w+)/);if(c&&c[1]===\'en\')location.replace(\'/shop.html\');})();\n  </script>'
+);
+
+// ==================================================================
+// STEP 3: HTML Static Text Replacements (non-data-i18n only)
+// ==================================================================
+// These target text that does NOT have data-i18n attributes.
+// Text with data-i18n is handled by lang.js at runtime.
 
 const htmlReplacements = [
   // ── Page title & meta ──
@@ -68,221 +66,119 @@ const htmlReplacements = [
   ['<meta name="description" content="Browse in-stock CELSON building materials with EXW factory-direct pricing. Add to cart and order via WhatsApp for a quote within 24 hours — no registration needed.">',
    '<meta name="description" content="Parcourez les mat\u00e9riaux de construction CELSON en stock aux prix d\u00e9part usine EXW. Ajoutez au panier et commandez via WhatsApp pour un devis sous 24 heures — sans inscription.">'],
 
-  // ── Shop Header ──
-  ['EXW factory-direct pricing &mdash; Add items to your cart and order via WhatsApp. We\'ll confirm pricing within 24 hours.',
-   'Prix d\u00e9part usine EXW &mdash; Ajoutez des articles \u00e0 votre panier et commandez via WhatsApp. Nous confirmerons les prix sous 24 heures.'],
+  // ── OG meta (French) ──
+  ['<meta property="og:title" content="CELSON Shop — Building Materials Spot Stock | WhatsApp Order & EXW Price">',
+   '<meta property="og:title" content="CELSON Boutique — Mat\u00e9riaux de construction en stock | Commande WhatsApp & Prix EXW">'],
 
-  // ── Search ──
-  ['placeholder="Search products..."',
-   'placeholder="Rechercher des produits..."'],
+  ['<meta property="og:description" content="Check CELSON spot stock: gypsum boards, sheet boards, wall panels, and more. EXW pricing, WhatsApp ordering, no registration needed. Factory-direct.">',
+   '<meta property="og:description" content="D\u00e9couvrez le stock disponible CELSON : plaques de pl\u00e2tre, panneaux, panneaux muraux et plus. Prix EXW, commande WhatsApp, sans inscription. Direct usine.">'],
 
-  // ── No results ──
-  ['No products match your search.',
-   'Aucun produit ne correspond \u00e0 votre recherche.'],
+  ['<meta property="og:url" content="https://celson.ltd/shop.html">',
+   '<meta property="og:url" content="https://celson.ltd/shop-fr.html">'],
 
-  // ── Cart Bar ──
+  ['<meta property="og:locale" content="en_US">',
+   '<meta property="og:locale" content="fr_FR">'],
+
+  ['<meta property="og:locale:alternate" content="fr_FR">',
+   '<meta property="og:locale:alternate" content="en_US">'],
+
+  // ── Twitter Card (French) ──
+  ['<meta name="twitter:title" content="CELSON Shop — Building Materials Spot Stock | WhatsApp Order & EXW Price">',
+   '<meta name="twitter:title" content="CELSON Boutique — Mat\u00e9riaux de construction en stock | Commande WhatsApp & Prix EXW">'],
+
+  ['<meta name="twitter:description" content="Check CELSON spot stock: gypsum boards, sheet boards, wall panels, and more. EXW pricing, WhatsApp ordering, no registration needed. Factory-direct.">',
+   '<meta name="twitter:description" content="D\u00e9couvrez le stock disponible CELSON : plaques de pl\u00e2tre, panneaux, panneaux muraux et plus. Prix EXW, commande WhatsApp, sans inscription. Direct usine.">'],
+
+  // ── Canonical + Hreflang ──
+  ['<link rel="canonical" href="https://celson.ltd/shop.html">',
+   '<link rel="canonical" href="https://celson.ltd/shop-fr.html">'],
+
+  ['<link rel="alternate" hreflang="en" href="https://celson.ltd/shop.html">',
+   '<link rel="alternate" hreflang="en" href="https://celson.ltd/shop.html">'],
+
+  ['<link rel="alternate" hreflang="fr" href="https://celson.ltd/shop.html?lang=fr">',
+   '<link rel="alternate" hreflang="fr" href="https://celson.ltd/shop-fr.html">'],
+
+  ['<link rel="alternate" hreflang="x-default" href="https://celson.ltd/shop.html">',
+   '<link rel="alternate" hreflang="x-default" href="https://celson.ltd/shop.html">'],
+
+  // ── <html lang> ──
+  ['<html lang="en">', '<html lang="fr">'],
+
+  // ── Cart Bar: EXW Reference placeholder (no data-i18n, JS updates it) ──
   ['EXW Reference $0<span>reference only</span>',
    'R\u00e9f. EXW $0<span>\u00e0 titre indicatif</span>'],
 
-  ['<button class="btn-view-cart" id="btnViewCart">View Cart &rarr;</button>',
-   '<button class="btn-view-cart" id="btnViewCart">Voir le panier &rarr;</button>'],
+  // ── Cart Bar: View Cart button (no data-i18n) ──
+  ['View Cart &rarr;', 'Voir le panier &rarr;'],
 
-  // The word "Cart" in cart bar (after count span, before closing div)
-  // We'll handle this via the JS replacement below
+  // ── Cart Popup: ref. span (dynamically updated by JS) ──
+  ['<span>ref.</span>', '<span>r\u00e9f.</span>'],
 
-  // ── Cart Popup ──
-  ['<span class="cart-popup-total-label">EXW Reference Total</span>',
-   '<span class="cart-popup-total-label">Total r\u00e9f\u00e9rence EXW</span>'],
+  // ── WhatsApp button text (inside SVG button, before data-i18n span) ──
+  // The data-i18n span handles translation, but we also replace the static fallback
+  ["Order via WhatsApp</span>", "Commander via WhatsApp</span>"],
 
-  ['<button class="btn-ready-to-pay" id="btnReadyToPay">\n            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>\n            Commander via WhatsApp\n          </button>',
-   '<button class="btn-ready-to-pay" id="btnReadyToPay">\n            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>\n            Commander via WhatsApp\n          </button>'],
-
-  // ── Cart View ──
-  ['<button class="btn-back" id="btnBackToShop">&larr; Back to Shop</button>',
-   '<button class="btn-back" id="btnBackToShop">&larr; Retour \u00e0 la boutique</button>'],
-
-  ['<h2>Shopping Cart</h2>',
-   '<h2>Panier</h2>'],
-
-  ['Your cart is empty.',
-   'Votre panier est vide.'],
-
-  // ── Cart Table Headers ──
-  ['<th>Product</th>', '<th>Produit</th>'],
-  ['<th>Specification</th>', '<th>Sp\u00e9cification</th>'],
-  // 'Qty' and 'Unit Price' and 'Subtotal' are handled with context below
-
-  // ── Cart Summary ──
-  ['<span class="cart-summary-label">EXW Reference Total</span>',
-   '<span class="cart-summary-label">Total r\u00e9f\u00e9rence EXW</span>'],
-
-  ['<span class="cart-summary-label">30% Deposit Required</span>',
-   '<span class="cart-summary-label">Acompte 30 % requis</span>'],
-
-  ['This is a reference price only. A <strong>30% deposit</strong> is required to confirm your order. Final pricing will be confirmed by our team. No payment is processed on this page.',
-   'Ceci est un prix de r\u00e9f\u00e9rence uniquement. Un <strong>acompte de 30 %</strong> est requis pour confirmer votre commande. Le prix final sera confirm\u00e9 par notre \u00e9quipe. Aucun paiement n\u2019est trait\u00e9 sur cette page.'],
-
-  // ── Logistics Section ──
-  ['<strong>Shipping & Logistics</strong>',
-   '<strong>Exp\u00e9dition &amp; Logistique</strong>'],
-
-  ['Delivery is included only within <strong>Foshan city limits</strong>. The following costs are <strong>not included</strong> and are the buyer\'s responsibility:',
-   'La livraison est incluse uniquement dans <strong>les limites de la ville de Foshan</strong>. Les frais suivants <strong>ne sont pas inclus</strong> et sont \u00e0 la charge de l\'acheteur :'],
-
-  ['Container loading fees (stuffing charges)',
-   'Frais de chargement du conteneur (frais d\'empotage)'],
-
-  ['Freight / shipping to destinations outside Foshan',
-   'Fret / exp\u00e9dition vers des destinations hors Foshan'],
-
-  ['Export documentation and customs clearance',
-   'Documents d\'exportation et d\u00e9douanement'],
-
-  ['We provide a <strong>free container loading location</strong> in Foshan for your forwarder.',
-   'Nous fournissons un <strong>lieu de chargement gratuit</strong> \u00e0 Foshan pour votre transitaire.'],
-
-  // ── Order Form → WhatsApp Checkout ──
-  ['<h3>Confirm Your Order</h3>',
-   '<h3>Confirmer votre commande</h3>'],
-
-  ['Review your items below, then tap to send your inquiry via WhatsApp. We\'ll confirm pricing within 24 hours.',
-   'V\u00e9rifiez vos articles ci-dessous, puis appuyez pour envoyer votre demande via WhatsApp. Nous confirmerons les prix sous 24 heures.'],
-
-  ['<button class="btn-ready-to-pay" id="btnWhatsAppOrder" style="margin-top:16px;">\n          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>\n          Commander via WhatsApp\n        </button>'],
-
-  ['Tapping this opens WhatsApp with your order pre-filled. We\'ll reply within 24 hours to confirm pricing and logistics.',
-   'Appuyez pour ouvrir WhatsApp avec votre commande pr\u00e9-remplie. Nous r\u00e9pondrons sous 24 heures pour confirmer les prix et la logistique.'],
-
-  ['* A backup confirmation email is also sent automatically for your records.',
-   '* Un e-mail de confirmation est \u00e9galement envoy\u00e9 automatiquement.'],
-
-  // ── Old form labels (kept for backwards compat, now unused but harmless) ──
-  ['<h3>Place Your Order</h3>',
-   '<h3>Passer votre commande</h3>'],
-
-  ['Fill in your contact details and we\'ll get back to you within 24 hours.',
-   'Remplissez vos coordonn\u00e9es et nous vous r\u00e9pondrons sous 24 heures.'],
-
-  ['<label>Full Name <span class="required">*</span></label>',
-   '<label>Nom complet <span class="required">*</span></label>'],
-
-  ['placeholder="John Smith"',
-   'placeholder="Jean Dupont"'],
-
-  ['<label>Company</label>',
-   '<label>Entreprise</label>'],
-
-  ['placeholder="ABC Construction Ltd"',
-   'placeholder="ABC Construction Lt\u00e9e"'],
-
-  ['<label>WhatsApp <span class="required">*</span></label>',
-   '<label>WhatsApp <span class="required">*</span></label>'],
-
-  ['placeholder="+1 234 567 8901"',
-   'placeholder="+33 6 12 34 56 78"'],
-
-  ['<label>Email <span class="required">*</span></label>',
-   '<label>E-mail <span class="required">*</span></label>'],
-
-  ['placeholder="john@example.com"',
-   'placeholder="jean@exemple.com"'],
-
-  ['<label>Message (optional)</label>',
-   '<label>Message (optionnel)</label>'],
-
-  ['placeholder="Any specific requirements, target port for FOB quote, timeline..."',
-   'placeholder="Exigences sp\u00e9cifiques, port de destination pour devis FOB, d\u00e9lais..."'],
-
-  ['* At least one of WhatsApp or Email must be filled.',
-   '* Au moins WhatsApp ou E-mail doit \u00eatre rempli.'],
-
-  // ── Footer nav links ──
-  ['<a href="index.html">Home</a>', '<a href="index.html">Accueil</a>'],
-  ['<a href="products.html">Products</a>', '<a href="products.html">Produits</a>'],
-  ['<a href="projects.html">Projects</a>', '<a href="projects.html">Projets</a>'],
-  ['<a href="about.html">About</a>', '<a href="about.html">\u00c0 propos</a>'],
-  ['<a href="contact.html">Contact</a>', '<a href="contact.html">Contact</a>'],
-
-  ['&copy; 2026 CELSON &mdash; A brand of Jianxin Building Materials Co. All rights reserved.',
-   '&copy; 2026 CELSON &mdash; Une marque de Jianxin Building Materials Co. Tous droits r\u00e9serv\u00e9s.'],
-
-  // ── Admin Panel ──
-  ['Admin Access',
-   'Acc\u00e8s administrateur'],
-
-  ['Enter your credentials to manage prices',
-   'Entrez vos identifiants pour g\u00e9rer les prix'],
-
-  ['Too many failed attempts. Please wait',
-   'Trop de tentatives \u00e9chou\u00e9es. Veuillez patienter'],
-
-  ['seconds.',
-   'secondes.'],
-
-  ['Username',
-   'Nom d\u2019utilisateur'],
-
-  ['Enter username',
-   'Entrez le nom d\u2019utilisateur'],
-
-  ['Password',
-   'Mot de passe'],
-
-  ['Enter password',
-   'Entrez le mot de passe'],
-
+  // ── Old admin panel form (no data-i18n for admin section) ──
+  ['Admin Access', 'Acc\u00e8s administrateur'],
+  ['Enter your credentials to manage prices', 'Entrez vos identifiants pour g\u00e9rer les prix'],
+  ['Too many failed attempts. Please wait', 'Trop de tentatives \u00e9chou\u00e9es. Veuillez patienter'],
+  ['seconds.', 'secondes.'],
+  ['Username', 'Nom d\u2019utilisateur'],
+  ['Enter username', 'Entrez le nom d\u2019utilisateur'],
+  ['Password', 'Mot de passe'],
+  ['Enter password', 'Entrez le mot de passe'],
   [' attempt', ' tentative'],
   [' remaining', ' restante'],
   ['Unlock', 'D\u00e9verrouiller'],
-
-  ['&larr; Back to Shop',
-   '&larr; Retour \u00e0 la boutique'],
-
-  ['Price Management',
-   'Gestion des prix'],
-
-  ['Edit RMB prices and exchange rate',
-   'Modifier les prix RMB et le taux de change'],
-
-  ['Export JSON',
-   'Exporter JSON'],
-
+  ['&larr; Back to Shop', '&larr; Retour \u00e0 la boutique'],
+  ['Price Management', 'Gestion des prix'],
+  ['Edit RMB prices and exchange rate', 'Modifier les prix RMB et le taux de change'],
+  ['Export JSON', 'Exporter JSON'],
   ['Logout', 'D\u00e9connexion'],
-
   ['Exchange Rate:', 'Taux de change :'],
+  ['RMB &divide; Rate = USD', 'RMB &divide; Taux = USD'],
+  ['Search by product name...', 'Rechercher par nom de produit...'],
+  ['RMB Price', 'Prix RMB'],
+  ['USD Price', 'Prix USD'],
 
-  ['1 USD =', '1 USD ='],
-
-  ['CNY', 'CNY'],
-
-  ['RMB &divide; Rate = USD',
-   'RMB &divide; Taux = USD'],
-
-  ['Search by product name...',
-   'Rechercher par nom de produit...'],
-
-  ['RMB Price',
-   'Prix RMB'],
-
-  ['USD Price',
-   'Prix USD'],
-
-  ['Changes are saved to your browser\'s local storage. Click <strong>Export JSON</strong> to get the updated data, then paste it into <code>js/prices.js</code> to make changes permanent.',
+  // Note: 'Export JSON' is already replaced to 'Exporter JSON' above, so match that.
+  // Also browser\\'s has a literal backslash in the raw HTML (JS single-quote string).
+  ["Changes are saved to your browser\\'s local storage. Click <strong>Exporter JSON</strong> to get the updated data, then paste it into <code>js/prices.js</code> to make changes permanent.",
    'Les modifications sont enregistr\u00e9es dans le stockage local. Cliquez sur <strong>Exporter JSON</strong> pour obtenir les donn\u00e9es, puis collez-les dans <code>js/prices.js</code> pour les rendre permanentes.'],
 
-  ['&copy; 2026 CELSON &mdash; Admin Panel',
-   '&copy; 2026 CELSON &mdash; Panneau admin'],
-
-  ['Export Price Data',
-   'Exporter les donn\u00e9es de prix'],
+  ['&copy; 2026 CELSON &mdash; Admin Panel', '&copy; 2026 CELSON &mdash; Panneau admin'],
+  ['Export Price Data', 'Exporter les donn\u00e9es de prix'],
 
   ['Copy this JSON and paste it into <code>js/prices.js</code> to save changes permanently.',
    'Copiez ce JSON et collez-le dans <code>js/prices.js</code> pour enregistrer les modifications.'],
 
-  ['Copy to Clipboard',
-   'Copier'],
+  ['Copy to Clipboard', 'Copier'],
+  // NOTE: 'Close' is too broad — would break IDs like prodLightboxClose, cartPopupClose
 
-  ['Close', 'Fermer'],
+  // ── Old form labels (unused form, fallback) ──
+  ['<h3>Place Your Order</h3>', '<h3>Passer votre commande</h3>'],
+  ["Fill in your contact details and we'll get back to you within 24 hours.",
+   'Remplissez vos coordonn\u00e9es et nous vous r\u00e9pondrons sous 24 heures.'],
+  ['<label>Full Name <span class="required">*</span></label>',
+   '<label>Nom complet <span class="required">*</span></label>'],
+  ['placeholder="John Smith"', 'placeholder="Jean Dupont"'],
+  ['<label>Company</label>', '<label>Entreprise</label>'],
+  ['placeholder="ABC Construction Ltd"', 'placeholder="ABC Construction Lt\u00e9e"'],
+  ['<label>WhatsApp <span class="required">*</span></label>',
+   '<label>WhatsApp <span class="required">*</span></label>'],
+  ['placeholder="+1 234 567 8901"', 'placeholder="+33 6 12 34 56 78"'],
+  ['<label>Email <span class="required">*</span></label>',
+   '<label>E-mail <span class="required">*</span></label>'],
+  ['placeholder="john@example.com"', 'placeholder="jean@exemple.com"'],
+  ['<label>Message (optional)</label>', '<label>Message (optionnel)</label>'],
+  ['placeholder="Any specific requirements, target port for FOB quote, timeline..."',
+   'placeholder="Exigences sp\u00e9cifiques, port de destination pour devis FOB, d\u00e9lais..."'],
+  ['* At least one of WhatsApp or Email must be filled.',
+   '* Au moins WhatsApp ou E-mail doit \u00eatre rempli.'],
+
+  // ── Lightbox "In Stock" label (dynamically generated, no data-i18n) ──
+  ['\u2713 In Stock', '\u2713 En stock'],
 ];
 
 for (const [en, fr] of htmlReplacements) {
@@ -290,10 +186,10 @@ for (const [en, fr] of htmlReplacements) {
 }
 
 // ==================================================================
-// STEP 3: JS String Literal Replacements
+// STEP 4: JS String Literal Replacements
 // ==================================================================
-// These replace JavaScript string literals used for UI display.
-// We use the quote-delimited form to avoid matching variable names.
+// These replace JavaScript string literals used for UI display
+// that are NOT handled by __t() / I18N.t().
 
 const jsReplacements = [
   // ── Cart bar JS (updateCartUI) ──
@@ -301,7 +197,6 @@ const jsReplacements = [
    "'R\\u00e9f. EXW $' + totalPrice.toLocaleString('fr-FR', {minimumFractionDigits:2}) + '<span>\\u00e0 titre indicatif</span>'"],
 
   // ── Product list rendering ──
-  // Note: &#10003; is the HTML entity for ✓ checkmark
   ["'&#10003; In Cart'", "'&#10003; Panier'"],
   ["'Add'", "'Ajouter'"],
   ["'qty'", "'qt\\u00e9'"],
@@ -317,7 +212,7 @@ const jsReplacements = [
   ["'<div class=\"cart-popup-empty\">Your cart is empty.</div>'",
    "'<div class=\"cart-popup-empty\">Votre panier est vide.</div>'"],
 
-  // ── Cart popup total ──
+  // ── Cart popup total ref span ──
   ["'<span>ref.</span>'", "'<span>r\\u00e9f.</span>'"],
 
   // ── WhatsApp order toasts ──
@@ -327,29 +222,11 @@ const jsReplacements = [
   ["'Your cart is empty. Add items first.'",
    "'Votre panier est vide. Ajoutez d\\u2019abord des articles.'"],
 
-  // ── "Cart" word in cart bar (specific context: after close of cart-info div) ──
-  // The HTML pattern: <span class="cart-count"...>0</span>\n        Cart
-  // This is tricky — let's target the exact pattern
-  ['>\n        Cart\n      </div>', '>\n        Panier\n      </div>'],
-
-  // ── Cart popup header ──
-  ['Cart <span class="popup-count"', 'Panier <span class="popup-count"'],
-
-  // ── Table header: Qty (in cart view, as standalone th) ──
-  ['<th>Qty</th>', '<th>Qt\u00e9</th>'],
-
-  // ── Table header: Unit Price ──
-  ['<th>Unit Price</th>', '<th>Prix unitaire</th>'],
-
-  // ── Table header: Subtotal ──
-  ['<th>Subtotal</th>', '<th>Sous-total</th>'],
-
   // ── Shop item labels (inside JS template strings) ──
   ['<span class="shop-item-stock">In Stock</span>',
    '<span class="shop-item-stock">En stock</span>'],
 
-  ['Best Value</span>',
-   'Meilleur prix</span>'],
+  ['Best Value</span>', 'Meilleur prix</span>'],
 
   // ── Remove button title ──
   ["title=\"Remove\"", "title=\"Retirer\""],
@@ -357,9 +234,6 @@ const jsReplacements = [
   // ── Admin attempt counter ──
   ["' attempt' + (left !== 1 ? 's' : '') + ' remaining'",
    "' tentative' + (left !== 1 ? 's' : '') + ' restante'"],
-
-  // ── Admin button text ──
-  // These are already handled by HTML replacements above for the static HTML
 
   // ── Admin copy ──
   ["'Copied!'", "'Copi\\u00e9 !'"],
@@ -370,49 +244,34 @@ for (const [en, fr] of jsReplacements) {
 }
 
 // ==================================================================
-// STEP 4: Clean up duplicate i18n.js/lang.js references
+// STEP 5: Clean up duplicate i18n.js/lang.js references
 // ==================================================================
-// Remove the 3x duplicate references inherited from shop.html,
-// keep only 1 pair (lang.js is needed for the lang-switch button).
 html = html.replace(
   '<script src="js/i18n.js"></script>\n<script src="js/lang.js"></script>\n\n<script src="js/i18n.js"></script>\n<script src="js/lang.js"></script>\n\n\n<script src="js/i18n.js"></script>\n<script src="js/lang.js"></script>',
   '<script src="js/i18n.js"></script>\n<script src="js/lang.js"></script>'
 );
-// Also handle variant without extra blank line
 html = html.replace(
   '<script src="js/i18n.js"></script>\n<script src="js/lang.js"></script>\n\n<script src="js/i18n.js"></script>\n<script src="js/lang.js"></script>\n\n<script src="js/i18n.js"></script>\n<script src="js/lang.js"></script>',
   '<script src="js/i18n.js"></script>\n<script src="js/lang.js"></script>'
 );
 
 // ==================================================================
-// STEP 5: Fix locale formatting (en-US → fr-FR for prices)
+// STEP 6: Fix locale formatting (en-US → fr-FR for prices)
 // ==================================================================
 html = html.split("toLocaleString('en-US'").join("toLocaleString('fr-FR'");
 
 // ==================================================================
-// STEP 6: Remove lang cookie redirect (avoids infinite loop on fr page)
-// ==================================================================
-// shop-fr.html IS the French page — it should never redirect to itself.
-// The redirect script only belongs on shop.html (English → French).
-// Use regex with \s* to handle any line-ending variant (LF/CRLF).
-html = html.replace(
-  /<!-- Language redirect:[\s\S]*?location\.replace\('\/shop-fr\.html'\);[\s\S]*?<\/script>/,
-  "<!-- Lang redirect removed: this is already the French page -->"
-);
-
-// ==================================================================
-// STEP 7: Add cache-busting build timestamp + no-cache meta
+// STEP 7: Cache-busting build timestamp + no-cache meta
 // ==================================================================
 html = html.replace(
   '<meta http-equiv="X-UA-Compatible" content="IE=edge">',
   '<meta http-equiv="X-UA-Compatible" content="IE=edge">\n  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">\n  <meta http-equiv="Pragma" content="no-cache">\n  <meta http-equiv="Expires" content="0">'
 );
-// Inject build timestamp comment after <head> for cache busting
 var buildStamp = '<!-- BUILT: ' + new Date().toISOString() + ' -->';
 html = html.replace('<head>', '<head>\n  ' + buildStamp);
 
 // ==================================================================
-// STEP 8: Universal text replacements (immune to line-ending issues)
+// STEP 8: Universal text replacement (immune to line-ending issues)
 // ==================================================================
 html = html.split('Order via WhatsApp').join('Commander via WhatsApp');
 

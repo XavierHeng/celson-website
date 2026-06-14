@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-i18n-title-key="title.contact">
 <head>
   <meta charset="UTF-8">
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
@@ -158,13 +158,13 @@
       <a href="about.html" data-i18n="nav.about">About</a>
       <a href="projects.html" data-i18n="nav.projects">Projects</a>
       <a href="shop.html" data-i18n="nav.shop">Shop</a>
-      <a href="contact.html" class="active">Contact</a>
+      <a href="contact.html" class="active" data-i18n="nav.contact">Contact</a>
     </nav>
     <div class="header-actions">
-      <button class="lang-switch" aria-label="Switch language"><span class="lang-active">EN</span> <span class="lang-sep">/</span> <span class="lang-inactive">FR</span></button>
+      <button class="lang-switch" data-i18n-aria="aria.switch_lang" aria-label="Switch language"><span class="lang-active">EN</span> <span class="lang-sep">/</span> <span class="lang-inactive">FR</span></button>
       <a href="contact.html" class="btn-primary"><span data-i18n="nav.get-quote">Get Quote</span></a>
     </div>
-    <button class="mobile-toggle" aria-label="Menu">
+    <button class="mobile-toggle" data-i18n-aria="aria.menu" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
   </div>
@@ -173,9 +173,9 @@
 <!-- ========== CONTACT HERO ========== -->
 <section class="contact-hero">
   <div class="container">
-    <div class="contact-hero-badge">GET IN TOUCH</div>
+    <div class="contact-hero-badge" data-i18n="contact.hero.badge">GET IN TOUCH</div>
     <h1 class="contact-hero-title"><span data-i18n="contact.hero.title">Let's Build Together</span></h1>
-    <p class="contact-hero-sub">Need a quote? Want to distribute? Have questions? We're here — across 98 countries.</p>
+    <p class="contact-hero-sub" data-i18n="contact.hero.subtitle">Need a quote? Want to distribute? Have questions? We're here — across 98 countries.</p>
   </div>
 </section>
 
@@ -186,19 +186,19 @@
   <div class="contact-info-col">
 
     <!-- Betty Personal Card -->
-    <div class="betty-card-inline" role="region" aria-label="Betty's contact card">
+    <div class="betty-card-inline" role="region" data-i18n-aria="contact.betty.aria_card" aria-label="Betty's contact card">
       <!-- Top gradient strip -->
       <div class="bci-top-strip"></div>
 
       <!-- Avatar + Name -->
       <div class="bci-profile">
         <div class="bci-avatar-circle">
-          <img src="assets/betty-avatar-96.webp" srcset="assets/betty-avatar@2x.webp 2x" alt="Betty's profile photo" loading="lazy">
+          <img src="assets/betty-avatar-96.webp" srcset="assets/betty-avatar@2x.webp 2x" data-i18n-alt="img.alt.betty_profile" alt="Betty's profile photo" loading="lazy">
         </div>
         <div class="bci-profile-text">
-          <div class="bci-name">Betty Liang</div>
-          <div class="bci-title">International Sales · CELSON</div>
-          <div class="bci-company-tag">Jianxin Building Materials Co.</div>
+          <div class="bci-name" data-i18n="contact.betty.name">Betty Liang</div>
+          <div class="bci-title" data-i18n="contact.betty.title">International Sales · CELSON</div>
+          <div class="bci-company-tag" data-i18n="contact.betty.company">Jianxin Building Materials Co.</div>
         </div>
       </div>
 
@@ -206,39 +206,39 @@
       <div class="bci-list">
 
         <!-- Email -->
-        <button class="bci-item" onclick="copyToClipboard('Betty.Mat@foxmail.com', this)" aria-label="Copy email address">
+        <button class="bci-item" onclick="copyToClipboard('Betty.Mat@foxmail.com', this)" data-i18n-aria="contact.betty.aria_copy_email" aria-label="Copy email address">
           <div class="bci-icon">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
           </div>
           <div class="bci-content">
-            <div class="bci-label">Email</div>
+            <div class="bci-label" data-i18n="contact.betty.email_label">Email</div>
             <div class="bci-value">Betty.Mat@foxmail.com</div>
           </div>
-          <div class="bci-copy-hint">Copy</div>
+          <div class="bci-copy-hint" data-i18n="contact.betty.copy">Copy</div>
         </button>
 
         <!-- WhatsApp -->
-        <button class="bci-item" onclick="copyToClipboard('+8613825578911', this)" aria-label="Copy WhatsApp number">
+        <button class="bci-item" onclick="copyToClipboard('+8613825578911', this)" data-i18n-aria="contact.betty.aria_copy_wa" aria-label="Copy WhatsApp number">
           <div class="bci-icon bci-icon-wa">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
           </div>
           <div class="bci-content">
-            <div class="bci-label">WhatsApp / Phone</div>
+            <div class="bci-label" data-i18n="contact.betty.whatsapp_label">WhatsApp / Phone</div>
             <div class="bci-value">+86 138 2557 8911</div>
           </div>
-          <div class="bci-copy-hint">Copy</div>
+          <div class="bci-copy-hint" data-i18n="contact.betty.copy">Copy</div>
         </button>
 
         <!-- WeChat -->
-        <button class="bci-item" onclick="copyToClipboard('Lwz13825578911', this)" aria-label="Copy WeChat ID">
+        <button class="bci-item" onclick="copyToClipboard('Lwz13825578911', this)" data-i18n-aria="contact.betty.aria_copy_wechat" aria-label="Copy WeChat ID">
           <div class="bci-icon bci-icon-wc">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.328.328 0 0 0 .168-.054l1.903-1.114a.864.864 0 0 1 .718-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-3.898-6.348-7.598-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.49.49 0 0 1 .177-.554C23.081 18.625 24 17.074 24 15.394c0-3.391-3.186-6.048-7.062-6.536zm-1.732 2.572a.975.975 0 0 1 .968.978.975.975 0 0 1-.968.979.975.975 0 0 1-.968-.979.975.975 0 0 1 .968-.978zm3.448 0a.975.975 0 0 1 .968.978.975.975 0 0 1-.968.979.975.975 0 0 1-.968-.979.975.975 0 0 1 .968-.978z"/></svg>
           </div>
           <div class="bci-content">
-            <div class="bci-label">WeChat ID</div>
+            <div class="bci-label" data-i18n="contact.betty.wechat_label">WeChat ID</div>
             <div class="bci-value">Lwz13825578911</div>
           </div>
-          <div class="bci-copy-hint">Copy</div>
+          <div class="bci-copy-hint" data-i18n="contact.betty.copy">Copy</div>
         </button>
 
         <!-- Address -->
@@ -247,7 +247,7 @@
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
           </div>
           <div class="bci-content">
-            <div class="bci-label">Location</div>
+            <div class="bci-label" data-i18n="contact.betty.location">Location</div>
             <div class="bci-value bci-addr-text">Crown Board, Bldg 3, Unit 11–13,<br>Yimeijia Hongyi Materials City,<br>Shiwan Town, Foshan, Guangdong, China</div>
           </div>
           <!-- Map Tooltip (triggered on hover) -->
@@ -264,9 +264,9 @@
                 <svg class="bci-pin-svg" viewBox="0 0 24 32"><path d="M12 0C5.37 0 0 5.37 0 12c0 9 12 20 12 20s12-11 12-20C24 5.37 18.63 0 12 0z" fill="#15803D"/><circle cx="12" cy="12" r="5" fill="white"/></svg>
                 <div class="bci-pin-shadow"></div>
               </div>
-              <div class="bci-map-tag">📍 Foshan, China</div>
+              <div class="bci-map-tag" data-i18n="contact.betty.map_tag">📍 Foshan, China</div>
             </div>
-            <a class="bci-map-link" href="https://www.google.com/maps/search/?api=1&query=Shiwan+Town+Foshan+Guangdong+China+Building+Materials" target="_blank" rel="noopener noreferrer">Open in Google Maps ↗</a>
+            <a class="bci-map-link" href="https://www.google.com/maps/search/?api=1&query=Shiwan+Town+Foshan+Guangdong+China+Building+Materials" target="_blank" rel="noopener noreferrer" data-i18n="contact.betty.map_link">Open in Google Maps ↗</a>
           </div>
         </div>
 
@@ -487,66 +487,66 @@
 
   <!-- Right: Contact Form -->
   <div class="contact-form-card">
-    <h3>Send Us a Message</h3>
-    <p class="form-sub">Fill in the form below and we'll get back to you within 24 hours.</p>
+    <h3 data-i18n="contact.form.title">Send Us a Message</h3>
+    <p class="form-sub" data-i18n="contact.form.subtitle">Fill in the form below and we'll get back to you within 24 hours.</p>
     <form>
       <div class="form-row">
         <div class="form-group">
-          <label for="name">Full Name <span class="req">*</span></label>
-          <input type="text" id="name" name="name" placeholder="Your full name" required>
+          <label for="name"><span data-i18n="contact.form.name_label">Full Name</span> <span class="req">*</span></label>
+          <input type="text" id="name" name="name" data-i18n-placeholder="contact.form.name_placeholder" placeholder="Your full name" required>
         </div>
         <div class="form-group">
-          <label for="email">Email Address <span class="req">*</span></label>
-          <input type="email" id="email" name="email" placeholder="your@email.com" required>
+          <label for="email"><span data-i18n="contact.form.email_label">Email Address</span> <span class="req">*</span></label>
+          <input type="email" id="email" name="email" data-i18n-placeholder="contact.form.email_placeholder" placeholder="your@email.com" required>
         </div>
       </div>
       <div class="form-row">
         <div class="form-group">
-          <label for="company">Company</label>
-          <input type="text" id="company" name="company" placeholder="Your company name">
+          <label for="company"><span data-i18n="contact.form.company_label">Company</span></label>
+          <input type="text" id="company" name="company" data-i18n-placeholder="contact.form.company_placeholder" placeholder="Your company name">
         </div>
         <div class="form-group">
-          <label for="country">Country <span class="req">*</span></label>
+          <label for="country"><span data-i18n="contact.form.country_label">Country</span> <span class="req">*</span></label>
           <select id="country" name="country" required>
-            <option value="">Select country</option>
-            <option value="US">United States</option>
-            <option value="UK">United Kingdom</option>
-            <option value="AE">United Arab Emirates</option>
-            <option value="SA">Saudi Arabia</option>
-            <option value="IN">India</option>
-            <option value="NG">Nigeria</option>
-            <option value="KE">Kenya</option>
-            <option value="ZA">South Africa</option>
-            <option value="BR">Brazil</option>
-            <option value="MX">Mexico</option>
-            <option value="ID">Indonesia</option>
-            <option value="PH">Philippines</option>
-            <option value="VN">Vietnam</option>
-            <option value="TH">Thailand</option>
-            <option value="AU">Australia</option>
-            <option value="CN">China</option>
-            <option value="OTHER">Other</option>
+            <option value="" data-i18n="contact.form.country_select">Select country</option>
+            <option value="US" data-i18n="contact.form.country.US">United States</option>
+            <option value="UK" data-i18n="contact.form.country.UK">United Kingdom</option>
+            <option value="AE" data-i18n="contact.form.country.AE">United Arab Emirates</option>
+            <option value="SA" data-i18n="contact.form.country.SA">Saudi Arabia</option>
+            <option value="IN" data-i18n="contact.form.country.IN">India</option>
+            <option value="NG" data-i18n="contact.form.country.NG">Nigeria</option>
+            <option value="KE" data-i18n="contact.form.country.KE">Kenya</option>
+            <option value="ZA" data-i18n="contact.form.country.ZA">South Africa</option>
+            <option value="BR" data-i18n="contact.form.country.BR">Brazil</option>
+            <option value="MX" data-i18n="contact.form.country.MX">Mexico</option>
+            <option value="ID" data-i18n="contact.form.country.ID">Indonesia</option>
+            <option value="PH" data-i18n="contact.form.country.PH">Philippines</option>
+            <option value="VN" data-i18n="contact.form.country.VN">Vietnam</option>
+            <option value="TH" data-i18n="contact.form.country.TH">Thailand</option>
+            <option value="AU" data-i18n="contact.form.country.AU">Australia</option>
+            <option value="CN" data-i18n="contact.form.country.CN">China</option>
+            <option value="OTHER" data-i18n="contact.form.country.OTHER">Other</option>
           </select>
         </div>
       </div>
       <div class="form-group">
-        <label for="interest">I'm interested in <span class="req">*</span></label>
+        <label for="interest"><span data-i18n="contact.form.interest_label">I'm interested in</span> <span class="req">*</span></label>
         <select id="interest" name="interest" required>
-          <option value="">Select an option</option>
-          <option value="quote">Getting a price quote</option>
-          <option value="sample">Requesting product samples</option>
-          <option value="distributor">Becoming a distributor</option>
-          <option value="partnership">Partnership opportunity</option>
-          <option value="other">Other inquiry</option>
+          <option value="" data-i18n="contact.form.interest_select">Select an option</option>
+          <option value="quote" data-i18n="contact.form.interest.quote">Getting a price quote</option>
+          <option value="sample" data-i18n="contact.form.interest.sample">Requesting product samples</option>
+          <option value="distributor" data-i18n="contact.form.interest.distributor">Becoming a distributor</option>
+          <option value="partnership" data-i18n="contact.form.interest.partnership">Partnership opportunity</option>
+          <option value="other" data-i18n="contact.form.interest.other">Other inquiry</option>
         </select>
       </div>
       <div class="form-group">
-        <label for="message">Message <span class="req">*</span></label>
-        <textarea id="message" name="message" placeholder="Tell us about your project, required quantities, timeline, and any specific questions..." required></textarea>
+        <label for="message"><span data-i18n="contact.form.message_label">Message</span> <span class="req">*</span></label>
+        <textarea id="message" name="message" data-i18n-placeholder="contact.form.message_placeholder" placeholder="Tell us about your project, required quantities, timeline, and any specific questions..." required></textarea>
       </div>
       <button type="submit" class="btn-primary orange btn-submit">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
-        Send Message
+        <span data-i18n="contact.form.submit">Send Message</span>
       </button>
     </form>
   </div>
@@ -564,10 +564,10 @@
       <div class="footer-nav-col">
         <h4 data-i18n="footer.full.col1">Products</h4>
         <ul>
-          <li><a href="gypsum-boards.html">Gypsum Boards</a></li>
-          <li><a href="sheet-boards.html">Sheet Boards</a></li>
-          <li><a href="wall-panels.html">Wall Panels</a></li>
-          <li><a href="ceiling-framing.html">Ceiling Systems</a></li>
+          <li><a href="gypsum-boards.html"><span data-i18n="mega.gypsum.label">Gypsum Boards</span></a></li>
+          <li><a href="sheet-boards.html"><span data-i18n="mega.sheet.label">Sheet Boards</span></a></li>
+          <li><a href="wall-panels.html"><span data-i18n="mega.wall.label">Wall Panels</span></a></li>
+          <li><a href="ceiling-framing.html"><span data-i18n="mega.ceiling.label">Ceiling Systems</span></a></li>
         </ul>
       </div>
       <div class="footer-nav-col">
@@ -604,10 +604,10 @@
       if (btn) {
         const hint = btn.querySelector('.bci-copy-hint');
         if (hint) {
-          hint.textContent = '✓ Copied!';
+          hint.textContent = I18N.t('contact.betty.copied');
           hint.classList.add('copied');
           setTimeout(() => {
-            hint.textContent = 'Copy';
+            hint.textContent = I18N.t('contact.betty.copy');
             hint.classList.remove('copied');
           }, 1800);
         }
@@ -638,7 +638,7 @@
       toast.style.cssText = 'position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(80px);background:#0F172A;color:#fff;padding:10px 24px;border-radius:30px;font-size:13px;font-weight:600;opacity:0;pointer-events:none;transition:all .35s cubic-bezier(.22,1,.36,1);z-index:9999;box-shadow:0 4px 20px rgba(15,23,42,.3)';
       document.body.appendChild(toast);
     }
-    toast.textContent = '✓ Copied to clipboard';
+    toast.textContent = I18N.t('contact.toast.copied');
     toast.style.transform = 'translateX(-50%) translateY(0)';
     toast.style.opacity = '1';
     clearTimeout(toast._t);
@@ -663,7 +663,7 @@
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     submitBtn.disabled = true;
-    submitBtn.textContent = 'Sending...';
+    submitBtn.innerHTML = '<span data-i18n="contact.form.sending">Sending...</span>';
 
     const data = new FormData(form);
     const payload = Object.fromEntries(data.entries());
@@ -675,18 +675,19 @@
         body: data
       });
       if (res.ok) {
-        showToast('✓ Message sent! We\'ll reply within 24 hours.', 'success');
+        showToast(I18N.t('contact.form.success'), 'success');
         form.reset();
       } else {
         const err = await res.json();
         throw new Error(err.error || 'Submission failed');
       }
     } catch (err) {
-      showToast('⚠ Network error — please email us directly: Betty.Mat@foxmail.com', 'error');
+      showToast(I18N.t('contact.form.error'), 'error');
       console.error('Form error:', err);
     } finally {
       submitBtn.disabled = false;
-      submitBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg> Send Message';
+      var submitHtml = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg> <span data-i18n="contact.form.submit">Send Message</span>';
+      submitBtn.innerHTML = submitHtml;
     }
   });
 

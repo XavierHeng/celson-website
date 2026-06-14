@@ -40,3 +40,4 @@ assets/Beautiful_*.webp
 
 # French build output (generated at deploy time)
 shop-fr.html
+css/style.css.backup

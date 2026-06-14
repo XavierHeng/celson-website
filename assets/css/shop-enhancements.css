@@ -17,7 +17,7 @@
 
   .shop-page {
     padding: 0;
-    background: #fff;
+    background: linear-gradient(180deg, #F9FAFB 0%, #fff 120px, #fff 100%);
   }
 
   .shop-container {
@@ -26,13 +26,20 @@
     padding: 0 24px;
   }
 
+  /* SD1: Shop Header — entrance animation */
   .shop-header {
     padding: 40px 0 24px;
+    animation: shopHeaderIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  @keyframes shopHeaderIn {
+    from { opacity: 0; transform: translateY(-16px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
   .shop-header h1 {
     font-family: 'Poppins', sans-serif;
     font-size: 32px;
-    font-weight: 700;
+    font-weight: 300;
+    letter-spacing: -0.02em;
     color: var(--gray-900);
     margin: 0 0 6px;
   }
@@ -40,27 +47,57 @@
     font-size: 15px;
     color: var(--gray-500);
     margin: 0;
+    animation: shopHeaderIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
   }
 
+  /* SD2: Search bar — glassmorphism + entrance */
   .shop-search {
     margin-bottom: 16px;
     position: relative;
+    animation: shopHeaderIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
   }
   .shop-search input {
     width: 100%;
     max-width: 400px;
-    padding: 10px 16px;
+    padding: 11px 18px 11px 40px;
     border: 1px solid var(--gray-200);
-    border-radius: 10px;
+    border-radius: 12px;
     font-size: 14px;
     font-family: 'Open Sans', sans-serif;
     outline: none;
-    transition: border-color 0.2s;
+    transition: border-color 0.3s, box-shadow 0.3s, background 0.3s;
     box-sizing: border-box;
+    background: rgba(255,255,255,0.75);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  .shop-search::before {
+    content: '';
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    background: currentColor;
+    opacity: 0.35;
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E");
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E");
+    mask-size: contain;
+    -webkit-mask-size: contain;
+    z-index: 2;
+    pointer-events: none;
+    color: var(--gray-400);
+    transition: opacity 0.3s;
+  }
+  .shop-search:focus-within::before {
+    opacity: 0.6;
+    color: var(--green-600);
   }
   .shop-search input:focus {
     border-color: var(--green-600);
-    box-shadow: 0 0 0 3px var(--green-50);
+    box-shadow: 0 0 0 4px rgba(21,128,61,0.08), 0 4px 16px rgba(21,128,61,0.06);
+    background: #fff;
   }
   .shop-search input::placeholder {
     color: var(--gray-400);
@@ -100,6 +137,7 @@
     border-bottom: none;
   }
 
+  /* SD3: Category pills — enhanced design */
   .shop-categories {
     display: flex;
     gap: 8px;
@@ -107,29 +145,35 @@
     margin-bottom: 24px;
     padding-bottom: 16px;
     border-bottom: 1px solid var(--gray-100);
+    animation: shopHeaderIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
   }
   .shop-cat {
-    padding: 6px 14px;
-    border-radius: 20px;
+    padding: 7px 16px;
+    border-radius: 22px;
     font-size: 13px;
     font-weight: 500;
     cursor: pointer;
     border: 1px solid var(--gray-200);
-    background: #f1f5f9;
+    background: rgba(255,255,255,0.7);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     color: #475569;
-    transition: all 0.25s ease;
+    transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
     font-family: 'Open Sans', sans-serif;
   }
   .shop-cat:hover {
     background: var(--gray-50);
     border-color: var(--gray-300);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
   }
   .shop-cat.active {
-    background: var(--green-600);
+    background: linear-gradient(135deg, var(--green-600), #1a9a4a);
     border-color: var(--green-600);
     color: #fff;
     font-weight: 600;
-    box-shadow: 0 2px 8px rgba(21,128,61,0.2);
+    box-shadow: 0 4px 16px rgba(21,128,61,0.25);
+    transform: translateY(-2px);
   }
 
   /* Category hover thumbnail tooltip */
@@ -175,6 +219,7 @@
     flex-direction: column;
     gap: 12px;
   }
+  /* SD4: Product list staggered entrance */
   .shop-item {
     display: flex;
     align-items: center;
@@ -184,7 +229,43 @@
     background: #fff;
     box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 2px 8px rgba(21,128,61,0.04), 0 6px 20px rgba(15,23,42,0.06);
     transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s cubic-bezier(0.22,1,0.36,1);
+    animation: shopItemIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
+  @keyframes shopItemIn {
+    from { opacity: 0; transform: translateY(20px) scale(0.98); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  /* Staggered delays for first 30 items */
+  .shop-item:nth-child(1) { animation-delay: 0.25s; }
+  .shop-item:nth-child(2) { animation-delay: 0.3s; }
+  .shop-item:nth-child(3) { animation-delay: 0.35s; }
+  .shop-item:nth-child(4) { animation-delay: 0.4s; }
+  .shop-item:nth-child(5) { animation-delay: 0.45s; }
+  .shop-item:nth-child(6) { animation-delay: 0.5s; }
+  .shop-item:nth-child(7) { animation-delay: 0.55s; }
+  .shop-item:nth-child(8) { animation-delay: 0.6s; }
+  .shop-item:nth-child(9) { animation-delay: 0.65s; }
+  .shop-item:nth-child(10) { animation-delay: 0.7s; }
+  .shop-item:nth-child(11) { animation-delay: 0.74s; }
+  .shop-item:nth-child(12) { animation-delay: 0.78s; }
+  .shop-item:nth-child(13) { animation-delay: 0.82s; }
+  .shop-item:nth-child(14) { animation-delay: 0.86s; }
+  .shop-item:nth-child(15) { animation-delay: 0.9s; }
+  .shop-item:nth-child(16) { animation-delay: 0.93s; }
+  .shop-item:nth-child(17) { animation-delay: 0.96s; }
+  .shop-item:nth-child(18) { animation-delay: 0.99s; }
+  .shop-item:nth-child(19) { animation-delay: 1.02s; }
+  .shop-item:nth-child(20) { animation-delay: 1.05s; }
+  .shop-item:nth-child(21) { animation-delay: 1.07s; }
+  .shop-item:nth-child(22) { animation-delay: 1.09s; }
+  .shop-item:nth-child(23) { animation-delay: 1.11s; }
+  .shop-item:nth-child(24) { animation-delay: 1.13s; }
+  .shop-item:nth-child(25) { animation-delay: 1.15s; }
+  .shop-item:nth-child(26) { animation-delay: 1.16s; }
+  .shop-item:nth-child(27) { animation-delay: 1.17s; }
+  .shop-item:nth-child(28) { animation-delay: 1.18s; }
+  .shop-item:nth-child(29) { animation-delay: 1.19s; }
+  .shop-item:nth-child(30) { animation-delay: 1.2s; }
   .shop-item:hover {
     transform: translateY(-6px);
     box-shadow: 0 1px 2px rgba(0,0,0,0.06), 0 4px 12px rgba(21,128,61,0.12), 0 12px 36px rgba(21,128,61,0.10);
@@ -352,25 +433,29 @@
     font-weight: 600;
     cursor: pointer;
     border: 1px solid #e2e8f0;
-    background: #fff;
+    background: rgba(255,255,255,0.8);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     color: var(--gray-500);
     font-family: 'Open Sans', sans-serif;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 0;
-    transition: all 0.2s ease;
+    transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
     line-height: 1;
   }
   .btn-minus:hover {
     border-color: var(--green-600);
     background: #f0fdf4;
     color: var(--gray-700);
+    transform: scale(1.05);
   }
   .btn-minus:active {
-    transform: scale(0.95);
+    transform: scale(0.92);
     background: #dcfce7;
   }
+  /* SD5: Add button — gradient green + glow */
   .btn-add {
     padding: 9px 20px;
     border-radius: 8px;
@@ -379,13 +464,27 @@
     cursor: pointer;
     border: none;
     font-family: 'Open Sans', sans-serif;
-    background: var(--green-600);
+    background: linear-gradient(135deg, var(--green-600), #1a9a4a);
     color: #fff;
-    transition: background 0.2s;
+    box-shadow: 0 2px 8px rgba(21,128,61,0.2);
+    transition: background 0.3s, box-shadow 0.3s, transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-add::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.15) 50%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s;
   }
   .btn-add:hover {
-    background: var(--green-700);
+    background: linear-gradient(135deg, var(--green-700), #15803d);
+    box-shadow: 0 4px 20px rgba(21,128,61,0.35);
+    transform: translateY(-2px);
   }
+  .btn-add:hover::after { opacity: 1; }
   .btn-add.in-cart {
     background: var(--gray-100);
     color: var(--gray-500);
@@ -400,43 +499,56 @@
     color: var(--gray-400);
   }
 
-  /* SD5: Skeleton Loading */
+  /* SD5: Skeleton Loading — gradient shimmer */
   .skeleton-card {
-    background: #f1f5f9;
+    background: #f8fafc;
     border-radius: 12px;
     overflow: hidden;
-    animation: shimmer 1.5s infinite;
+    border: 1px solid #e2e8f0;
+    box-shadow: none;
   }
   .skeleton-card .img-placeholder {
     height: 180px;
-    background: #e2e8f0;
+    background: linear-gradient(90deg, #e2e8f0 25%, #f1f5f9 50%, #e2e8f0 75%);
+    background-size: 800px 100%;
+    animation: skeletonShimmer 1.8s ease-in-out infinite;
   }
   .skeleton-card .text-line {
     height: 14px;
     margin: 12px;
-    background: #e2e8f0;
+    background: linear-gradient(90deg, #e2e8f0 25%, #f1f5f9 50%, #e2e8f0 75%);
+    background-size: 800px 100%;
+    animation: skeletonShimmer 1.8s ease-in-out infinite;
     border-radius: 4px;
   }
   .skeleton-card .text-line.short {
     width: 60%;
   }
-  @keyframes shimmer {
-    0% { opacity: 0.6; }
-    50% { opacity: 1; }
-    100% { opacity: 0.6; }
+  @keyframes skeletonShimmer {
+    0% { background-position: -400px 0; }
+    100% { background-position: 400px 0; }
   }
 
+  /* SD6: Cart bar — glassmorphism */
   .shop-cart-bar {
     position: sticky;
     bottom: 24px;
     margin-top: 32px;
     padding: 14px 24px;
-    background: #0F172A;
+    background: rgba(15, 23, 42, 0.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border-radius: 14px;
     display: flex;
     align-items: center;
     gap: 24px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18), 0 0 0 1px rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.06);
+    animation: cartBarIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both;
+  }
+  @keyframes cartBarIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
   .shop-cart-bar .cart-info {
     display: flex;
@@ -477,12 +589,15 @@
     cursor: pointer;
     border: none;
     font-family: 'Open Sans', sans-serif;
-    background: var(--green-600);
+    background: linear-gradient(135deg, var(--green-600), #1a9a4a);
     color: #fff;
-    transition: background 0.2s;
+    box-shadow: 0 2px 12px rgba(21,128,61,0.3);
+    transition: background 0.3s, box-shadow 0.3s, transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
   }
   .btn-view-cart:hover {
-    background: var(--green-700);
+    background: linear-gradient(135deg, var(--green-700), #15803d);
+    box-shadow: 0 4px 20px rgba(21,128,61,0.4);
+    transform: translateY(-2px);
   }
 
   .shop-footer {
@@ -1094,11 +1209,12 @@
     margin-top: 12px;
   }
 
+  /* SD9: Toast — spring slide-in */
   .toast {
     position: fixed;
     top: 24px;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%) translateY(-100px);
     padding: 14px 28px;
     border-radius: 10px;
     font-size: 14px;
@@ -1106,11 +1222,15 @@
     font-family: 'Open Sans', sans-serif;
     z-index: 9999;
     opacity: 0;
-    transition: opacity 0.3s;
+    transition: opacity 0.3s, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
     pointer-events: none;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
   }
   .toast.show {
     opacity: 1;
+    transform: translateX(-50%) translateY(0);
   }
   .toast.success {
     background: var(--green-600);
@@ -1970,3 +2090,249 @@
     white-space: nowrap;
   }
   .btn-lb-wa:hover { background: #F0FFF4; }
+/* ══════════════════════════════════════════════════════════════
+   SHOP UI ENHANCEMENTS — Desktop (SD1–SD12) + Mobile (SM1–SM12)
+   ══════════════════════════════════════════════════════════════ */
+
+/* SD1: Search bar with icon + pill shape */
+.shop-search { position: relative; }
+.shop-search::before {
+  content: '';
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px; height: 18px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E") center/contain no-repeat;
+  pointer-events: none;
+  z-index: 2;
+}
+.shop-search input {
+  padding-left: 42px;
+  border-radius: 24px;
+  background: #F8FAFC;
+  border-color: #E2E8F0;
+  transition: all 0.25s ease;
+}
+.shop-search input:focus {
+  background: #fff;
+  border-color: var(--green-600);
+  box-shadow: 0 0 0 3px rgba(21,128,61,0.1), 0 4px 12px rgba(21,128,61,0.06);
+}
+
+/* SD2: Category tabs — count badge + active animation */
+.cat-tab {
+  position: relative;
+  padding: 7px 16px;
+  border-radius: 22px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid var(--gray-200);
+  background: #fff;
+  color: var(--gray-600);
+  transition: all 0.25s ease;
+  font-family: 'Open Sans', sans-serif;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.cat-tab:hover {
+  background: var(--green-50);
+  border-color: var(--green-200);
+  color: var(--green-700);
+}
+.cat-tab.active {
+  background: var(--green-600);
+  border-color: var(--green-600);
+  color: #fff;
+  font-weight: 600;
+  box-shadow: 0 2px 12px rgba(21,128,61,0.25);
+  transform: translateY(-1px);
+}
+
+/* SD3: Staggered card entrance animation */
+@keyframes cardSlideUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.shop-item { animation: cardSlideUp 0.5s cubic-bezier(0.22,1,0.36,1) both; }
+.shop-item:nth-child(1) { animation-delay: 0.03s; }
+.shop-item:nth-child(2) { animation-delay: 0.06s; }
+.shop-item:nth-child(3) { animation-delay: 0.09s; }
+.shop-item:nth-child(4) { animation-delay: 0.12s; }
+.shop-item:nth-child(5) { animation-delay: 0.15s; }
+.shop-item:nth-child(6) { animation-delay: 0.18s; }
+.shop-item:nth-child(7) { animation-delay: 0.21s; }
+.shop-item:nth-child(8) { animation-delay: 0.24s; }
+
+/* SD4: Product thumb size refinement */
+.shop-item-thumb { width: 64px; height: 64px; border-radius: 10px; }
+
+/* SD5: Promo badge — animated gradient shimmer */
+@keyframes promoShimmer {
+  0% { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+.shop-item-badge {
+  background: linear-gradient(135deg, #FFF7ED, #FFEDD5, #FFF7ED);
+  background-size: 200% auto;
+  animation: promoShimmer 3s ease-in-out infinite;
+}
+
+/* SD6: Cart bar — smooth pulse when items change */
+@keyframes barGlow {
+  0%,100% { box-shadow: 0 8px 32px rgba(0,0,0,0.18); }
+  50% { box-shadow: 0 8px 40px rgba(21,128,61,0.25), 0 0 0 2px rgba(21,128,61,0.1); }
+}
+.shop-cart-bar.has-items { animation: barGlow 2.5s ease-in-out infinite; }
+.shop-cart-bar .cart-total { font-family: 'Poppins',sans-serif; }
+
+/* SD7: Quantity stepper button refinement */
+.btn-minus:active, .qty-btn:active { transform: scale(0.9); }
+
+/* SD8: Toast — slide down + brand color */
+.toast {
+  background: linear-gradient(135deg, var(--green-600), #1a9a4a);
+  color: #fff;
+  box-shadow: 0 8px 28px rgba(21,128,61,0.3);
+  top: 20px;
+  border-radius: 12px;
+}
+@keyframes toastIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+.toast.show { animation: toastIn 0.35s cubic-bezier(0.22,1,0.36,1); }
+
+/* SD9: Cart popup smooth scroll */
+.cart-popup-body { scroll-behavior: smooth; }
+
+/* SD10: Lightbox info panel scrollbar */
+.prod-lightbox-info::-webkit-scrollbar { width: 4px; }
+.prod-lightbox-info::-webkit-scrollbar-track { background: transparent; }
+.prod-lightbox-info::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 2px; }
+
+/* SD11: Unified button hover lift */
+.btn-add, .btn-view-cart, .btn-ready-to-pay, .btn-lb-add {
+  transition: all 0.2s cubic-bezier(0.22,1,0.36,1);
+}
+.btn-add:hover, .btn-view-cart:hover, .btn-lb-add:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(21,128,61,0.25);
+}
+
+/* SD12: Skeleton loading refinement — core rules now in SD5 above */
+
+/* ═══════════════════════════════════════════════════
+   MOBILE ENHANCEMENTS (SM1–SM12) ≤480px
+   ═══════════════════════════════════════════════════ */
+@media (max-width: 480px) {
+
+  /* SM1: Search — full width + icon adjustment */
+  .shop-search input { padding-left: 40px; border-radius: 20px; font-size: 15px; }
+
+  /* SM2: Category tabs — snap scroll + count badges inline */
+  .shop-categories {
+    scroll-snap-type: x mandatory;
+    gap: 6px;
+    padding-bottom: 12px;
+  }
+  .cat-tab {
+    scroll-snap-align: start;
+    font-size: 11px;
+    padding: 0 14px;
+    min-height: 44px;
+    line-height: 44px;
+    border-radius: 22px;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  /* SM3: Card touch feedback — press scale */
+  .shop-item:active { transform: scale(0.98); }
+  .shop-item:hover { transform: none; box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 2px 8px rgba(21,128,61,0.04), 0 6px 20px rgba(15,23,42,0.06); }
+
+  /* SM4: FAB button — bigger touch target + vibration hint */
+  .card-fab {
+    width: 52px; height: 52px;
+    bottom: 14px; right: 14px;
+    font-size: 26px;
+    box-shadow: 0 4px 20px rgba(21,128,61,0.35);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .card-fab:active { transform: scale(0.85); box-shadow: 0 2px 8px rgba(21,128,61,0.2); }
+
+  /* SM5: Stepper buttons — bigger touch area */
+  .qty-stepper { gap: 2px; }
+  .qty-btn { width: 48px; height: 48px; font-size: 22px; }
+  .qty-val { min-width: 32px; font-size: 17px; }
+
+  /* SM6: Cart bar — safe area bottom + compact */
+  .shop-cart-bar {
+    padding-bottom: max(14px, env(safe-area-inset-bottom, 14px));
+    border-radius: 16px 16px 0 0;
+    margin-bottom: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 500;
+  }
+
+  /* SM7: Cart popup drag handle visual */
+  .bs-handle {
+    width: 48px; height: 5px;
+    background: #cbd5e1;
+    border-radius: 3px;
+    margin: 14px auto 10px;
+  }
+
+  /* SM8: WhatsApp float — adjust position for cart bar */
+  .wa-float {
+    bottom: max(90px, calc(env(safe-area-inset-bottom, 20px) + 80px));
+    right: 16px;
+    width: 52px; height: 52px;
+  }
+
+  /* SM9: Cart table — hide unit price column on small screens */
+  .cart-table th:nth-child(4), .cart-table td:nth-child(4) { display: none; }
+  .cart-prod-name { font-size: 12px; }
+
+  /* SM10: Empty cart — cozy spacing */
+  .cart-empty { padding: 48px 20px; }
+  .cart-empty p { font-size: 15px; }
+
+  /* SM11: Lightbox gallery — pull-down hint */
+  .prod-lightbox-gallery::after {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 36px; height: 4px;
+    background: rgba(255,255,255,0.3);
+    border-radius: 2px;
+    z-index: 15;
+  }
+
+  /* SM12: Toast — top safe area + centered */
+  .toast {
+    top: max(20px, env(safe-area-inset-top, 20px));
+    left: 16px; right: 16px;
+    transform: none;
+    width: auto;
+    text-align: center;
+  }
+  @keyframes toastInMobile {
+    from { opacity: 0; transform: translateY(-16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .toast.show { animation: toastInMobile 0.35s cubic-bezier(0.22,1,0.36,1); }
+}
+
+/* Tablet (481–960px) */
+@media (min-width: 481px) and (max-width: 960px) {
+  .shop-search input { padding-left: 42px; }
+  .shop-item-thumb { width: 56px; height: 56px; }
+  .cat-tab { padding: 7px 14px; }
+}

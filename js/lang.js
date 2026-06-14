@@ -35,11 +35,29 @@
       el.setAttribute('title', I18N.t(key));
     });
 
+    // Handle data-i18n-aria for aria-label attributes
+    document.querySelectorAll('[data-i18n-aria]').forEach(function(el) {
+      var key = el.getAttribute('data-i18n-aria');
+      el.setAttribute('aria-label', I18N.t(key));
+    });
+
+    // Handle data-i18n-alt for img alt attributes
+    document.querySelectorAll('[data-i18n-alt]').forEach(function(el) {
+      var key = el.getAttribute('data-i18n-alt');
+      el.setAttribute('alt', I18N.t(key));
+    });
+
     // Update the language toggle button
     updateLangButton();
 
     // Update <html lang> attribute
     document.documentElement.setAttribute('lang', I18N.lang);
+
+    // Update document.title dynamically
+    var titleKey = document.documentElement.getAttribute('data-i18n-title-key');
+    if (titleKey) {
+      document.title = I18N.t(titleKey);
+    }
 
     // Sync cookie for Cloudflare Functions routing (shop page)
     setLangCookie(I18N.lang);
