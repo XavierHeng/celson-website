@@ -72,31 +72,11 @@
   }
 
   // ─── 5. PASSIVE SCROLL LISTENERS ───
-  // Mark scroll event listeners as passive for better scroll perf
-  // This is done by monkey-patching addEventListener for touch/wheel events
-  (function enablePassiveListeners() {
-    var supportsPassive = false;
-    try {
-      var opts = Object.defineProperty({}, 'passive', {
-        get: function () { supportsPassive = true; return true; }
-      });
-      window.addEventListener('testPassive', null, opts);
-      window.removeEventListener('testPassive', null, opts);
-    } catch (e) { /* not supported */ }
-
-    if (supportsPassive) {
-      var addEvent = EventTarget.prototype.addEventListener;
-      EventTarget.prototype.addEventListener = function (type, fn, opts) {
-        var useOpts = opts;
-        if ((type === 'touchstart' || type === 'touchmove' ||
-            type === 'wheel' || type === 'mousewheel') &&
-            (opts === undefined || opts === false || opts === true)) {
-          useOpts = { passive: true, capture: !!opts };
-        }
-        addEvent.call(this, type, fn, useOpts);
-      };
-    }
-  })();
+  // We do NOT monkey-patch EventTarget.prototype.addEventListener globally,
+  // as that would silently break any code that calls e.preventDefault() on
+  // touch/wheel events (e.g. custom scroll-jacking, swipe handlers).
+  // Instead, each touch/wheel listener in this file explicitly passes { passive: true }.
+  // (This comment intentionally replaces the former monkey-patch block.)
 
   // ─── 6. ORIENTATION CHANGE — UPDATE STICKY ELEMENTS ───
   var orientationCleanup = null;

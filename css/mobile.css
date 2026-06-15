@@ -7,10 +7,9 @@
 
 /* --- 1. GLOBAL MOBILE RESETS (all viewports, applied last) --- */
 
-/* Prevent iOS tap highlight flash */
+/* Prevent iOS tap highlight flash — transparent for all elements by default */
 * {
   -webkit-tap-highlight-color: transparent;
-  -webkit-tap-highlight-color: rgba(21, 128, 61, 0.08);
 }
 
 /* Custom tap highlight for interactive elements */

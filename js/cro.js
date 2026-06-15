@@ -290,12 +290,10 @@
         '.cro-btn { padding: 10px 14px; font-size: 13px; flex-direction: column; gap: 4px; }',
         '.cro-btn svg { width: 22px; height: 22px; }',
         '.cro-bar-compact { transform: translateY(-50%) translateX(calc(100% - 28px)) !important; }',
-        '#wa-floating-wrapper { display: none; }', // Hide old WA button
         '.cro-strip-items { gap: 48px; }',
         '.cro-strip-item { font-size: 14px; }',
       '}',
       '@media (max-width: 768px) {',
-        '#wa-floating-wrapper { display: none; }', // Hide old WA button on mobile
         '.cro-trust-badge { font-size: 11px; }',
         '.cro-btn { padding: 8px 14px; font-size: 13px; }',
         '.cro-trust-strip { border-radius: 12px; max-width: calc(100% - 12px); margin: -8px auto 20px; }',
