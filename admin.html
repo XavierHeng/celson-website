@@ -7457,8 +7457,15 @@ function _shopDetailsObj(p) {
 }
 
 function _shopThumbImg(p) {
+  // Preserve original Shop thumb path if synced from Shop
+  if (p._shopRaw && p._shopRaw.thumb) {
+    return p._shopRaw.thumb;
+  }
+  // Generate from images array (PWA-native products)
   if (p.images && p.images.length) {
-    return 'assets/shop/' + p.images[0].name;
+    var name = p.images[0].name;
+    // Ensure shop- prefix for thumb images
+    return 'assets/shop/' + (name.indexOf('shop-') === 0 ? name : 'shop-' + name);
   }
   // Fallback pattern: shop-<id>.webp
   return 'assets/shop/shop-' + (p.id || 'unknown') + '.webp';
@@ -7480,7 +7487,7 @@ function generateShopProductsJS() {
       "thumb": _shopThumbImg(p),
       "hidden": !!p.hidden,
       "order": idx + 1,
-      "thumbs": (p.images || []).map(function(img) { return 'assets/shop/' + img.name; }),
+      "thumbs": (p.images || []).map(function(img) { return img.src || ('assets/bento-' + img.name); }),
       "details": _shopDetailsObj(p)
     };
   });
@@ -7634,6 +7641,21 @@ function _base64EncodeUTF8(str) {
   return btoa(unescape(encodeURIComponent(str)));
 }
 
+function _blobToBase64(blob) {
+  // Convert a Blob to a base64 string (no data URI prefix)
+  return new Promise(function(resolve, reject) {
+    var reader = new FileReader();
+    reader.onload = function() {
+      var dataUrl = reader.result;
+      // Strip "data:image/webp;base64," prefix
+      var commaIdx = dataUrl.indexOf(',');
+      resolve(commaIdx >= 0 ? dataUrl.slice(commaIdx + 1) : dataUrl);
+    };
+    reader.onerror = function() { reject(reader.error); };
+    reader.readAsDataURL(blob);
+  });
+}
+
 async function _githubPushFile(token, path, content) {
   var url = 'https://api.github.com/repos/' + GITHUB_REPO_OWNER + '/' + GITHUB_REPO_NAME + '/contents/' + path;
   var headers = {
@@ -7696,6 +7718,36 @@ async function publishToGitHub() {
       results.push({ path: path, status: 'error', message: e.message });
     }
   }
+
+  // Push image blobs for PWA-native products (best-effort, safe to skip)
+  try {
+    var allImages = await dbGetAll('images');
+    if (allImages && allImages.length) {
+      var prodById = {};
+      products.forEach(function(p) { if (!p.hidden) prodById[p.id] = p; });
+      for (var x = 0; x < allImages.length; x++) {
+        var img = allImages[x];
+        if (!img || !img.blob) continue;
+        // Find the product that owns this image
+        var matchProd = null;
+        var prodIds = Object.keys(prodById);
+        for (var y = 0; y < prodIds.length; y++) {
+          var pp = prodById[prodIds[y]];
+          var match = (pp.images || []).some(function(pi) { return pi.name === img.name; });
+          if (match) { matchProd = pp; break; }
+        }
+        if (!matchProd) continue;
+        var imgPath = 'assets/products/' + img.name;
+        try {
+          var imgBase64 = await _blobToBase64(img.blob);
+          var imgResult = await _githubPushFile(token, imgPath, imgBase64);
+          results.push({ path: imgPath, status: 'ok', sha: imgResult.content ? imgResult.content.sha : '' });
+        } catch(e2) {
+          console.warn('[Publish] Image push skipped for', imgPath, ':', e2.message);
+        }
+      }
+    }
+  } catch(e) { /* image push is optional, never blocks publish */ }
 
   // Mark products as exported
   var now = new Date().toISOString();
