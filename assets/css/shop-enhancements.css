@@ -1377,8 +1377,17 @@
     .shop-item-info {
       grid-column: 2; grid-row: 1;
       flex: none; min-width: 0;
+      padding-right: 60px; /* Prevent text overlap with card-fab (52px fab + 8px gap) */
+      overflow: hidden;
     }
-    .shop-item-name { font-size: 14px; }
+    .shop-item-name {
+      font-size: 14px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
     .shop-item-spec { font-size: 12px; }
     .shop-item-extra { font-size: 11px; }
     .shop-item-stock { font-size: 10px; padding: 1px 8px; margin-left: 6px; vertical-align: middle; }
@@ -1402,6 +1411,7 @@
     .shop-item-qty { display: none; }
     .shop-item-qty .qty-label { font-size: 9px; margin-top: 2px; }
     .btn-add { min-height: 44px; padding: 7px 14px; font-size: 13px; border-radius: 6px; }
+    .shop-item-add { display: none; } /* Hide square button — use card-fab on mobile */
 
     /* SM4: Stepper */
     .qty-stepper {
