@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>CELSON PWA — 测试数据种子</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f7;padding:40px 20px}
+.card{max-width:700px;margin:0 auto;background:#fff;border-radius:16px;padding:32px;box-shadow:0 2px 16px rgba(0,0,0,.08)}
+h1{font-size:22px;margin-bottom:8px}h1 span{color:#0071e3}
+p.desc{color:#86868b;font-size:14px;margin-bottom:24px}
+.stats{display:flex;gap:12px;margin-bottom:24px;flex-wrap:wrap}
+.stat{flex:1;min-width:100px;background:#f5f5f7;border-radius:10px;padding:16px;text-align:center}
+.stat .n{font-size:28px;font-weight:700;color:#1d1d1f}.stat .l{font-size:11px;color:#86868b;margin-top:4px}
+.btns{display:flex;gap:10px;flex-wrap:wrap}
+.btn{padding:10px 24px;border:none;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;transition:all .15s}
+.btn-primary{background:#0071e3;color:#fff}.btn-primary:hover{background:#005bb5}
+.btn-danger{background:#ff3b30;color:#fff}.btn-danger:hover{background:#d63029}
+.btn-outline{background:transparent;border:1.5px solid #d2d2d7;color:#1d1d1f}
+.log{background:#1d1d1f;color:#30d158;font-family:'SF Mono',Consolas,monospace;font-size:12px;padding:16px;border-radius:10px;margin-top:20px;max-height:300px;overflow-y:auto;line-height:1.6;white-space:pre-wrap}
+.log .err{color:#ff453a}.log .warn{color:#ff9f0a}.log .info{color:#5e5ce6}
+</style>
+</head>
+<body>
+<div class="card">
+<h1>CELSON PWA <span>测试数据种子</span></h1>
+<p class="desc">生成 30 条建材产品 + 6 额外分类，覆盖中英法三语，含部分缺失翻译（测试翻译引擎）。<br><b>使用前请确保 PWA 中无重要数据，或先导出备份。</b></p>
+
+<div class="stats">
+  <div class="stat"><div class="n" id="statCat">0</div><div class="l">分类</div></div>
+  <div class="stat"><div class="n" id="statProd">0</div><div class="l">产品</div></div>
+  <div class="stat"><div class="n" id="statMiss">0</div><div class="l">缺翻译</div></div>
+  <div class="stat"><div class="n" id="statDraft">0</div><div class="l">草稿</div></div>
+</div>
+
+<div class="btns">
+  <button class="btn btn-primary" onclick="seedAll()">🌱 一键注入测试数据</button>
+  <button class="btn btn-danger" onclick="clearAll()">🗑 清除所有数据</button>
+  <button class="btn btn-outline" onclick="location.href='index.html'">→ 打开 PWA 管理器</button>
+</div>
+<div class="log" id="log">等待操作…</div>
+</div>
+
+<script>
+const DB_NAME = 'celson_products_db';
+const DB_VERSION = 3;
+
+function log(msg, cls) {
+  const el = document.getElementById('log');
+  const t = new Date().toLocaleTimeString();
+  el.innerHTML += `<span class="${cls||''}">[${t}] ${msg}</span>\n`;
+  el.scrollTop = el.scrollHeight;
+}
+
+function openDB() {
+  return new Promise((res, rej) => {
+    const r = indexedDB.open(DB_NAME, DB_VERSION);
+    r.onsuccess = () => res(r.result);
+    r.onerror = () => rej(r.error);
+    r.onupgradeneeded = (e) => {
+      const d = e.target.result;
+      if (!d.objectStoreNames.contains('products')) d.createObjectStore('products', { keyPath: 'id' });
+      if (!d.objectStoreNames.contains('categories')) d.createObjectStore('categories', { keyPath: 'id' });
+      if (!d.objectStoreNames.contains('images')) d.createObjectStore('images', { keyPath: 'id' });
+      if (!d.objectStoreNames.contains('meta')) d.createObjectStore('meta', { keyPath: 'key' });
+    };
+  });
+}
+
+function putAll(db, store, items) {
+  return Promise.all(items.map(item => new Promise((res, rej) => {
+    const t = db.transaction(store, 'readwrite').objectStore(store).put(item);
+    t.onsuccess = res; t.onerror = rej;
+  })));
+}
+
+function clearStore(db, store) {
+  return new Promise((res, rej) => {
+    const t = db.transaction(store, 'readwrite').objectStore(store).clear();
+    t.onsuccess = res; t.onerror = rej;
+  });
+}
+
+function genId() { return 'p_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2,8); }
+
+// === Extra categories beyond defaults ===
+const extraCategories = [
+  { id: 'metal-studs', color: '#0284C7', name: 'Metal Studs', nameZh: '轻钢龙骨', slug: 'metal-studs' },
+  { id: 'drywall-screws', color: '#E11D48', name: 'Drywall Screws', nameZh: '干壁钉', slug: 'drywall-screws' },
+  { id: 'self-tapping', color: '#F59E0B', name: 'Self-Tapping Screws', nameZh: '自攻螺丝', slug: 'self-tapping' },
+  { id: 'fiber-cement', color: '#8B5CF6', name: 'Fiber Cement Board', nameZh: '纤维水泥板', slug: 'fiber-cement' },
+  { id: 'aluminum-profiles', color: '#06B6D4', name: 'Aluminum Profiles', nameZh: '铝合金型材', slug: 'aluminum-profiles' },
+  { id: 'floor-underlay', color: '#84CC16', name: 'Floor Underlayment', nameZh: '地板垫层', slug: 'floor-underlay' }
+];
+
+// === 30 Realistic CELSON Products ===
+// Mix of building materials & fasteners with realistic Chinese names
+const seedProducts = [
+  // ---- Gypsum Boards ----
+  {sku:'GB-1200-12',cat:'gypsum-boards',zh:'标准石膏板 1200×2400×12mm',en:'Standard Gypsum Board 1200×2400×12mm',fr:'Plaque de plâtre standard 1200×2400×12mm',rmb:38.5,usd:5.3,t:'waterproof,fire-rated',status:'active'},
+  {sku:'GB-1200-9',cat:'gypsum-boards',zh:'薄型石膏板 1200×2400×9.5mm',en:'Slim Gypsum Board 1200×2400×9.5mm',rmb:28.0,usd:3.85,t:'interior',status:'active'},
+  {sku:'GB-MR-12',cat:'gypsum-boards',zh:'防潮石膏板 1200×2400×12mm',en:'Moisture-Resistant Gypsum Board 1200×2400×12mm',fr:'Plaque de plâtre hydrofuge 1200×2400×12mm',rmb:52.0,usd:7.15,t:'moisture-proof,bathroom',status:'active'},
+  {sku:'GB-FR-15',cat:'gypsum-boards',zh:'耐火石膏板 1200×2400×15mm',en:'Fire-Rated Gypsum Board 1200×2400×15mm',rmb:68.0,usd:9.35,t:'fire-rated,2hr',status:'active'},
+  {sku:'GB-PERF-12',cat:'gypsum-boards',zh:'',en:'Perforated Acoustic Gypsum Board 1200×2400×12mm',rmb:85.0,usd:11.7,t:'acoustic',status:'draft'},
+
+  // ---- Sheet Boards ----
+  {sku:'SB-MGO-6',cat:'sheet-boards',zh:'氧化镁板 1220×2440×6mm',en:'Magnesium Oxide Board 1220×2440×6mm',fr:'Panneau d\'oxyde de magnésium 1220×2440×6mm',rmb:45.0,usd:6.2,t:'fireproof,eco',status:'active'},
+  {sku:'SB-PLY-12',cat:'sheet-boards',zh:'水泥纤维木纹板 1220×2440×12mm',en:'Cement Fiber Wood-Grain Board 1220×2440×12mm',rmb:95.0,usd:13.05,t:'exterior,wood-look',status:'active'},
+  {sku:'SB-PVC-3',cat:'sheet-boards',zh:'PVC发泡板 1220×2440×3mm',en:'',rmb:22.0,usd:3.0,t:'lightweight,waterproof',status:'draft'},
+
+  // ---- Wall Panels ----
+  {sku:'WP-WPC-8',cat:'wall-panels',zh:'木塑墙板 200×3000×8mm (柚木纹)',en:'WPC Wall Panel 200×3000×8mm Teak Grain',fr:'Panneau mural WPC 200×3000×8mm grain teck',rmb:18.5,usd:2.55,t:'WPC,outdoor',status:'active'},
+  {sku:'WP-3D-10',cat:'wall-panels',zh:'3D浮雕墙板 600×600×10mm',en:'3D Embossed Wall Panel 600×600×10mm',rmb:32.0,usd:4.4,t:'decorative,indoor',status:'active'},
+  {sku:'WP-ALU-4',cat:'wall-panels',zh:'',en:'Aluminum Composite Panel 1220×2440×4mm',fr:'Panneau composite aluminium 1220×2440×4mm',rmb:120.0,usd:16.5,t:'ACP,exterior',status:'active'},
+
+  // ---- Ceiling Framing ----
+  {sku:'CF-MAIN-38',cat:'ceiling-framing',zh:'主龙骨 38×12×3000mm',en:'Main Tee 38×12×3000mm',fr:'Té principal 38×12×3000mm',rmb:12.5,usd:1.72,t:'galvanized,T-bar',status:'active'},
+  {sku:'CF-CROSS-600',cat:'ceiling-framing',zh:'次龙骨 600mm 十字接头',en:'Cross Tee 600mm',rmb:8.0,usd:1.1,t:'galvanized',status:'active'},
+  {sku:'CF-EDGE-3000',cat:'ceiling-framing',zh:'边角龙骨 3000mm L型',en:'Wall Angle 3000mm L-Shape',rmb:6.5,usd:0.9,t:'galvanized',status:'active'},
+
+  // ---- Calcium Silicate ----
+  {sku:'CS-1220-6',cat:'calcium-silicate',zh:'硅酸钙板 1220×2440×6mm',en:'Calcium Silicate Board 1220×2440×6mm',fr:'Panneau silicate de calcium 1220×2440×6mm',rmb:55.0,usd:7.55,t:'fireproof,moisture-proof',status:'active'},
+  {sku:'CS-1220-9',cat:'calcium-silicate',zh:'硅酸钙板 1220×2440×9mm',en:'Calcium Silicate Board 1220×2440×9mm',rmb:72.0,usd:9.9,t:'fireproof,exterior',status:'active'},
+
+  // ---- Outdoor Decking ----
+  {sku:'OD-WPC-25',cat:'outdoor-decking',zh:'木塑户外地板 140×25mm 共挤',en:'WPC Decking 140×25mm Co-Extrusion',fr:'Lame terrasse WPC 140×25mm co-extrusion',rmb:28.0,usd:3.85,t:'outdoor,WPC',status:'active'},
+  {sku:'OD-WPC-23',cat:'outdoor-decking',zh:'木塑户外地板 140×23mm 圆孔',en:'WPC Decking 140×23mm Round Hole',rmb:22.0,usd:3.0,t:'outdoor,WPC',status:'active'},
+
+  // ---- Accessories ----
+  {sku:'AC-JOINT-50',cat:'accessories',zh:'石膏板接缝带 50mm×50m',en:'Joint Tape 50mm×50m',fr:'Bande à joint 50mm×50m',rmb:3.5,usd:0.48,t:'fiberglass',status:'active'},
+  {sku:'AC-CORNER-25',cat:'accessories',zh:'',en:'Corner Bead 25×25mm PVC',rmb:5.0,usd:0.69,t:'PVC,corner',status:'active'},
+  {sku:'AC-SEAL-310',cat:'accessories',zh:'中性硅酮密封胶 310ml 白色',en:'Neutral Silicone Sealant 310ml White',fr:'Mastic silicone neutre 310ml blanc',rmb:8.0,usd:1.1,t:'sealant,white',status:'active'},
+
+  // ---- Insulation ----
+  {sku:'IN-ROCK-50',cat:'insulation',zh:'岩棉保温板 1200×600×50mm 80kg/m³',en:'Rock Wool Insulation Board 1200×600×50mm 80kg/m³',rmb:25.0,usd:3.44,t:'fireproof,A1',status:'active'},
+  {sku:'IN-XPS-30',cat:'insulation',zh:'XPS挤塑板 1200×600×30mm B1级',en:'',rmb:18.0,usd:2.48,t:'B1,XPS',status:'active'},
+
+  // ---- Tiles ----
+  {sku:'TL-PORC-600',cat:'tiles',zh:'玻化砖 600×600mm 米白色',en:'Porcelain Tile 600×600mm Cream',fr:'Carreau porcelaine 600×600mm crème',rmb:42.0,usd:5.78,t:'glazed,floor',status:'active'},
+  {sku:'TL-MOS-300',cat:'tiles',zh:'马赛克瓷砖 300×300mm 混色',en:'Mosaic Tile 300×300mm Mixed',rmb:35.0,usd:4.8,t:'mosaic,wall',status:'draft'},
+
+  // ---- Roofing ----
+  {sku:'RF-STONE-3',cat:'roofing',zh:'彩石金属瓦 1340×420mm',en:'Stone-Coated Metal Roof Tile 1340×420mm',fr:'Tuile métallique granulée 1340×420mm',rmb:15.0,usd:2.06,t:'stone-coated,metal',status:'active'},
+  {sku:'RF-ASPH-10',cat:'roofing',zh:'',en:'Asphalt Shingle 1000×333mm Charcoal',rmb:12.0,usd:1.65,t:'asphalt',status:'active'},
+
+  // ---- NEW: Metal Studs (extra cat) ----
+  {sku:'MS-75-05',cat:'metal-studs',zh:'轻钢龙骨 75×50×0.5mm',en:'Metal Stud 75×50×0.5mm',rmb:16.0,usd:2.2,t:'galvanized,partition',status:'active'},
+  {sku:'MS-100-06',cat:'metal-studs',zh:'',en:'Heavy-Duty Metal Stud 100×50×0.6mm',fr:'Montant métallique 100×50×0.6mm',rmb:22.0,usd:3.02,t:'heavy-duty',status:'active'},
+
+  // ---- NEW: Self-Tapping Screws (extra cat) ----
+  {sku:'STS-4.2-25',cat:'self-tapping',zh:'自攻螺丝 4.2×25mm 磷化黑',en:'Self-Tapping Screw 4.2×25mm Phosphated Black',fr:'Vis autotaraudeuse 4.2×25mm phosphatée noire',rmb:0.08,usd:0.011,t:'phosphate',status:'active'},
+  {sku:'STS-4.8-50',cat:'self-tapping',zh:'自攻螺丝 4.8×50mm 达克罗',en:'Self-Tapping Screw 4.8×50mm Dacromet',rmb:0.12,usd:0.016,t:'dacromet',status:'active'},
+];
+
+async function seedAll() {
+  log('🔧 正在打开数据库…', 'info');
+  try {
+    const db = await openDB();
+    
+    // Seed extra categories
+    log('📁 注入 ' + extraCategories.length + ' 个额外分类…', 'info');
+    
+    // Check existing categories to avoid duplicates
+    const existing = await new Promise(res => {
+      const t = db.transaction('categories','readonly').objectStore('categories').getAll();
+      t.onsuccess = () => res(t.result);
+    });
+    
+    const existingIds = new Set(existing.map(c => c.id));
+    const newCats = extraCategories.filter(c => !existingIds.has(c.id));
+    
+    if (newCats.length > 0) {
+      await putAll(db, 'categories', newCats);
+      log('✅ 已添加 ' + newCats.length + ' 个分类: ' + newCats.map(c=>c.nameZh).join(', '));
+    } else {
+      log('⚠ 所有额外分类已存在，跳过', 'warn');
+    }
+    
+    // Seed products
+    log('📦 注入 ' + seedProducts.length + ' 个产品…', 'info');
+    const now = new Date().toISOString();
+    const products = seedProducts.map((p, i) => ({
+      id: genId(),
+      sku: p.sku,
+      name: { zh: p.zh, en: p.en || '', fr: p.fr || '' },
+      category: p.cat,
+      spec: {
+        thickness: p.sku.includes('-') ? parseFloat(p.sku.split('-').pop()) || null : null,
+        width: null,
+        length: null
+      },
+      pricing: { rmb: p.rmb, usd: p.usd },
+      status: p.status || 'active',
+      tags: p.t || '',
+      images: [],
+      meta: {
+        createdAt: now,
+        updatedAt: now,
+        publishedAt: p.status === 'active' ? now : null
+      },
+      hidden: false,
+      description: ''
+    }));
+    
+    await putAll(db, 'products', products);
+    
+    // Stats
+    let missing = 0, draft = 0;
+    products.forEach(p => {
+      if (!p.name.en && !p.name.fr) missing++;
+      else if (!p.name.en || !p.name.fr) missing++;
+      if (p.status === 'draft') draft++;
+    });
+    
+    document.getElementById('statCat').textContent = existing.length + newCats.length;
+    document.getElementById('statProd').textContent = products.length;
+    document.getElementById('statMiss').textContent = missing;
+    document.getElementById('statDraft').textContent = draft;
+    
+    log('✅ 全部完成！', 'info');
+    log('📊 产品: ' + products.length + ' | 缺翻译: ' + missing + ' | 草稿: ' + draft, 'info');
+    log('📊 分类总计: ' + (existing.length + newCats.length), 'info');
+    log('\n👉 现在点击「打开 PWA 管理器」查看效果', 'info');
+    
+  } catch(e) {
+    log('❌ 错误: ' + e.message, 'err');
+  }
+}
+
+async function clearAll() {
+  if (!confirm('确定清除所有产品和分类数据？此操作不可撤销！')) return;
+  log('🗑 正在清除…', 'warn');
+  try {
+    const db = await openDB();
+    await clearStore(db, 'products');
+    await clearStore(db, 'categories');
+    await clearStore(db, 'images');
+    await clearStore(db, 'meta');
+    document.getElementById('statCat').textContent = '0';
+    document.getElementById('statProd').textContent = '0';
+    document.getElementById('statMiss').textContent = '0';
+    document.getElementById('statDraft').textContent = '0';
+    log('✅ 已清除所有数据');
+  } catch(e) {
+    log('❌ 错误: ' + e.message, 'err');
+  }
+}
+</script>
+</body>
+</html>

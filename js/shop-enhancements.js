@@ -1,4 +1,6 @@
 (function() {
+  // Log build version for cache debugging
+  if (typeof CELSON_BUILD !== 'undefined') { console.log('[CELSON Shop] Build:', CELSON_BUILD); }
 
 function rmbToUsd(rmb) {
   return rmb / CELSON_CONFIG.exchangeRate;
@@ -25,18 +27,51 @@ function getProductById(id) {
   return null;
 }
 
-var CATEGORIES = ['All','Gypsum Boards','Sheet Boards','Wall Panels','Ceiling &amp; Framing','Calcium Silicate','Outdoor &amp; Decking','Accessories','Insulation'];
+var CATEGORIES = (function buildCategories() {
+  // Derive unique categories from product data, maintaining order from SHOP_CATEGORIES if available
+  var cats = [];
+  var seen = {};
+  for (var i = 0; i < PRODUCTS.length; i++) {
+    var cat = PRODUCTS[i].category;
+    if (cat && !seen[cat]) { seen[cat] = true; cats.push(cat); }
+  }
+  // If SHOP_CATEGORIES exists (PWA-generated), use its order
+  if (typeof SHOP_CATEGORIES !== 'undefined' && SHOP_CATEGORIES.length) {
+    var ordered = [];
+    for (var j = 0; j < SHOP_CATEGORIES.length; j++) {
+      if (seen[SHOP_CATEGORIES[j].name]) ordered.push(SHOP_CATEGORIES[j].name);
+    }
+    // Append any categories not in SHOP_CATEGORIES
+    for (var k = 0; k < cats.length; k++) {
+      if (ordered.indexOf(cats[k]) === -1) ordered.push(cats[k]);
+    }
+    cats = ordered;
+  }
+  return ['All'].concat(cats);
+})();
 
-var CATEGORY_THUMBS = {
-  'Gypsum Boards': 'assets/product-hero-gypsum-boards.webp',
-  'Sheet Boards': 'assets/product-hero-sheet-boards.webp',
-  'Wall Panels': 'assets/product-hero-wall-panels.webp',
-  'Ceiling &amp; Framing': 'assets/product-hero-ceiling-framing.webp',
-  'Calcium Silicate': 'assets/product-hero-calcium-silicate.webp',
-  'Outdoor &amp; Decking': 'assets/product-hero-outdoor-decking.webp',
-  'Accessories': 'assets/product-hero-accessories.webp',
-  'Insulation': 'assets/product-hero-insulation.webp'
-};
+var CATEGORY_THUMBS = (function buildThumbs() {
+  var thumbs = {
+    'Gypsum Boards': 'assets/product-hero-gypsum-boards.webp',
+    'Sheet Boards': 'assets/product-hero-sheet-boards.webp',
+    'Wall Panels': 'assets/product-hero-wall-panels.webp',
+    'Ceiling &amp; Framing': 'assets/product-hero-ceiling-framing.webp',
+    'Calcium Silicate': 'assets/product-hero-calcium-silicate.webp',
+    'Outdoor &amp; Decking': 'assets/product-hero-outdoor-decking.webp',
+    'Accessories': 'assets/product-hero-accessories.webp',
+    'Insulation': 'assets/product-hero-insulation.webp'
+  };
+  // Augment with SHOP_CATEGORIES slug-based thumbs
+  if (typeof SHOP_CATEGORIES !== 'undefined' && SHOP_CATEGORIES.length) {
+    for (var i = 0; i < SHOP_CATEGORIES.length; i++) {
+      var c = SHOP_CATEGORIES[i];
+      if (c.slug && c.name) {
+        thumbs[c.name] = 'assets/product-hero-' + c.slug + '.webp';
+      }
+    }
+  }
+  return thumbs;
+})();
 
 var cart = [];
 var activeCat = 'All';

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#F5F5F7">
+<title>产品库统计 — CELSON PWA</title>
+<link rel="manifest" href="manifest.json">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background:#F5F5F7; padding:40px; }
+  .card { background:#fff; border-radius:20px; padding:32px; max-width:800px; margin:0 auto; box-shadow:0 4px 24px rgba(0,0,0,.06); }
+  h1 { font-size:22px; margin-bottom:24px; color:#1d1d1f; }
+  .stat-row { display:flex; gap:16px; margin-bottom:24px; flex-wrap:wrap; }
+  .stat { background:#F5F5F7; border-radius:14px; padding:20px; flex:1; min-width:140px; text-align:center; }
+  .stat-num { font-size:36px; font-weight:700; color:#0071E3; }
+  .stat-label { font-size:12px; color:#86868B; margin-top:4px; text-transform:uppercase; letter-spacing:.5px; }
+  table { width:100%; border-collapse:collapse; margin-top:20px; font-size:13px; }
+  th { background:#F5F5F7; padding:10px 12px; text-align:left; font-weight:600; color:#1d1d1f; }
+  td { padding:8px 12px; border-bottom:1px solid #F0F0F0; }
+  .badge { display:inline-block; padding:2px 8px; border-radius:10px; font-size:11px; }
+  .badge-active { background:#E8F5E9; color:#2E7D32; }
+  .badge-draft { background:#FFF3E0; color:#E65100; }
+  .loading { color:#86868B; padding:40px; text-align:center; }
+  .error { color:#DC2626; padding:20px; background:#FEF2F2; border-radius:12px; }
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>📊 CELSON 产品库统计</h1>
+  <div id="content" class="loading">正在读取 IndexedDB...</div>
+</div>
+
+<script>
+// Same DB config as the main app
+const DB_NAME = 'celson_products_db';
+const DB_VERSION = 3;
+
+function openDB() {
+  return new Promise((resolve, reject) => {
+    const req = indexedDB.open(DB_NAME, DB_VERSION);
+    req.onerror = () => reject(req.error);
+    req.onsuccess = () => resolve(req.result);
+    req.onupgradeneeded = (e) => {
+      const db = e.target.result;
+      if (!db.objectStoreNames.contains('products')) db.createObjectStore('products', { keyPath: 'id' });
+      if (!db.objectStoreNames.contains('categories')) db.createObjectStore('categories', { keyPath: 'id' });
+      if (!db.objectStoreNames.contains('meta')) db.createObjectStore('meta', { keyPath: 'key' });
+      if (!db.objectStoreNames.contains('images')) db.createObjectStore('images', { keyPath: 'name' });
+    };
+  });
+}
+
+async function dbGetAll(storeName) {
+  const db = await openDB();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(storeName, 'readonly');
+    const store = tx.objectStore(storeName);
+    const req = store.getAll();
+    req.onerror = () => reject(req.error);
+    req.onsuccess = () => { db.close(); resolve(req.result); };
+  });
+}
+
+(async () => {
+  try {
+    const products = await dbGetAll('products');
+    const categories = await dbGetAll('categories');
+
+    const active = products.filter(p => p.status === 'active' || !p.status);
+    const drafts = products.filter(p => p.status === 'draft');
+    const hidden = products.filter(p => p.hidden);
+    const featured = products.filter(p => p.featured);
+    const totalRMB = products.reduce((sum, p) => sum + (p.pricing?.rmb || 0), 0);
+
+    let html = '<div class="stat-row">' +
+      '<div class="stat"><div class="stat-num">' + products.length + '</div><div class="stat-label">产品总数</div></div>' +
+      '<div class="stat"><div class="stat-num">' + active.length + '</div><div class="stat-label">Active 活跃</div></div>' +
+      '<div class="stat"><div class="stat-num">' + drafts.length + '</div><div class="stat-label">Draft 草稿</div></div>' +
+      '<div class="stat"><div class="stat-num">' + categories.length + '</div><div class="stat-label">分类数</div></div>' +
+      '<div class="stat"><div class="stat-num">¥' + totalRMB.toLocaleString('zh-CN', {maximumFractionDigits:0}) + '</div><div class="stat-label">总价值 ¥</div></div>' +
+      (hidden.length > 0 ? '<div class="stat"><div class="stat-num">' + hidden.length + '</div><div class="stat-label">隐藏</div></div>' : '') +
+      (featured.length > 0 ? '<div class="stat"><div class="stat-num">' + featured.length + '</div><div class="stat-label">精选</div></div>' : '') +
+      '</div>';
+
+    // Categories breakdown
+    html += '<table><thead><tr><th>分类</th><th>数量</th><th>Active</th><th>Draft</th><th>隐藏</th></tr></thead><tbody>';
+    for (const cat of categories) {
+      const catProds = products.filter(p => p.category === cat.id);
+      if (catProds.length === 0) continue;
+      html += '<tr>' +
+        '<td><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:' + (cat.color || '#ccc') + ';margin-right:8px;"></span>' + (cat.name?.zh || cat.name?.en || cat.id) + '</td>' +
+        '<td><strong>' + catProds.length + '</strong></td>' +
+        '<td>' + catProds.filter(p => p.status === 'active' || !p.status).length + '</td>' +
+        '<td>' + catProds.filter(p => p.status === 'draft').length + '</td>' +
+        '<td>' + catProds.filter(p => p.hidden).length + '</td>' +
+        '</tr>';
+    }
+    html += '</tbody></table>';
+
+    // Product list (compact)
+    html += '<div style="margin-top:20px;"><strong>产品列表:</strong></div>';
+    function getProductName(p) { return p.name?.zh || p.name?.en || '—'; }
+    html += '<table><thead><tr><th>SKU</th><th>名称</th><th>分类</th><th>状态</th><th>¥ RMB</th></tr></thead><tbody>';
+    for (const p of products) {
+      const cat = categories.find(c => c.id === p.category);
+      html += '<tr>' +
+        '<td style="font-family:monospace;font-size:11px;">' + (p.sku || '—') + '</td>' +
+        '<td>' + getProductName(p) + '</td>' +
+        '<td>' + (cat?.name?.zh || cat?.name?.en || p.category || '—') + '</td>' +
+        '<td><span class="badge ' + (p.status === 'draft' ? 'badge-draft' : 'badge-active') + '">' + (p.status || 'active') + '</span></td>' +
+        '<td>¥' + (p.pricing?.rmb || 0).toLocaleString() + '</td>' +
+        '</tr>';
+    }
+    html += '</tbody></table>';
+
+    document.getElementById('content').innerHTML = html;
+  } catch (e) {
+    document.getElementById('content').innerHTML = '<div class="error">❌ 读取失败: ' + e.message + '<br><small>请确保在主页面已至少打开过一次（初始化 IndexedDB）</small></div>';
+  }
+})();
+// Register Service Worker for offline support
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js').catch(function() {});
+}
+</script>
+</body>
+</html>
