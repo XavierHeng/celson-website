@@ -5960,10 +5960,18 @@ async function uploadImageToProduct(productId, file) {
 
 // ---- Edit Product Modal ----
 async function openEditProduct(id) {
+  // Defensive: if accidentally passed an object, extract .id
+  if (typeof id === 'object' && id !== null) {
+    console.warn('[Edit] openEditProduct received object instead of id, extracting .id', id);
+    id = id.id;
+  }
   let p;
   if (id) {
     p = products.find(x => x.id === id);
-    if (!p) return;
+    if (!p) {
+      console.warn('[Edit] Product not found:', id, 'Available IDs:', products.map(x => x.id));
+      return;
+    }
   } else {
     // New product
     p = {
@@ -8841,7 +8849,7 @@ function openSlidePanel(product) {
     '<div class="slide-spec-row"><span class="slide-spec-label">' + escapeHtml(t('thRmb')) + '</span><span class="slide-spec-value" style="font-weight:700;">¥' + (product.pricing?.rmb != null ? Number(product.pricing.rmb).toFixed(2) : '—') + '</span></div>' +
     '<div class="slide-spec-row"><span class="slide-spec-label">' + escapeHtml(t('thUsd')) + '</span><span class="slide-spec-value" style="font-weight:700;">$' + (product.pricing?.usd != null ? Number(product.pricing.usd).toFixed(2) : '—') + '</span></div>' +
     '<div class="slide-spec-row"><span class="slide-spec-label">' + escapeHtml(t('thStatus')) + '</span><span class="slide-spec-value">' + escapeHtml(product.status || '—') + '</span></div>';
-  document.getElementById('slideEditBtn').onclick = function() { closeSlidePanel(); openEditProduct(product); };
+  document.getElementById('slideEditBtn').onclick = function() { closeSlidePanel(); openEditProduct(product.id); };
   panel.classList.add('show');
   overlay.classList.add('show');
 }
@@ -8854,7 +8862,7 @@ function slideEditProduct() {
   if (slideCurrentProduct) {
     const p = slideCurrentProduct;
     closeSlidePanel();
-    openEditProduct(p);
+    openEditProduct(p.id);
   }
 }
 
