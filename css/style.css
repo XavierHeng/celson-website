@@ -543,35 +543,44 @@ footer {
   opacity: 1;
 }
 
-/* Dot indicators */
+/* Bar indicators — thin line progress style */
 .hero-carousel-dots {
   position: absolute;
   bottom: 16px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 8px;
+  gap: 6px;
+  align-items: center;
   z-index: 2;
+  opacity: 0.35;
+  transition: opacity 0.35s ease;
 }
 
 .hero-carousel-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
+  width: 28px;
+  height: 2px;
+  border-radius: 1px;
   border: none;
-  background: rgba(255,255,255,0.45);
+  background: rgba(255,255,255,0.3);
   cursor: pointer;
   padding: 0;
-  transition: background 0.3s ease, transform 0.2s ease;
+  transition: width 0.3s ease, background 0.25s ease;
 }
 
 .hero-carousel-dot.active {
-  background: #fff;
-  transform: scale(1.3);
+  width: 40px;
+  background: var(--green-500);
 }
 
 .hero-carousel-dot:hover {
-  background: rgba(255,255,255,0.75);
+  background: rgba(255,255,255,0.65);
+}
+
+/* Reveal full opacity on carousel hover/touch */
+.hero-visual:hover .hero-carousel-dots,
+.hero-visual:active .hero-carousel-dots {
+  opacity: 1;
 }
 
 /* ============================================
