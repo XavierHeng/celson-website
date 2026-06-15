@@ -1037,35 +1037,44 @@ a.product-card:hover .product-card-img .placeholder-img {
   opacity: 1;
 }
 
-/* Dot indicators */
+/* Thin line bar indicators — matches hero carousel style */
 .carousel-dots {
   position: absolute;
   bottom: 14px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 8px;
+  gap: 6px;
+  align-items: center;
   z-index: 2;
+  opacity: 0.35;
+  transition: opacity 0.35s ease;
 }
 
 .carousel-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
+  width: 28px;
+  height: 2px;
+  border-radius: 1px;
   border: none;
-  background: rgba(255,255,255,0.5);
+  background: rgba(255,255,255,0.3);
   cursor: pointer;
   padding: 0;
-  transition: background 0.3s ease, transform 0.2s ease;
+  transition: width 0.3s ease, background 0.25s ease;
 }
 
 .carousel-dot.active {
-  background: #fff;
-  transform: scale(1.25);
+  width: 40px;
+  background: var(--green-500);
 }
 
 .carousel-dot:hover {
-  background: rgba(255,255,255,0.8);
+  background: rgba(255,255,255,0.65);
+}
+
+/* Reveal full opacity on hover */
+.about-story-visual:hover .carousel-dots,
+.about-story-visual:active .carousel-dots {
+  opacity: 1;
 }
 
 .factory-stats {
