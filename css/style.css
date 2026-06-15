@@ -2646,36 +2646,11 @@ a.product-card:hover .product-card-img .placeholder-img {
     gap: 12px;
     margin-bottom: 20px;
   }
-  /* Reorder: carousel FIRST, then text/buttons */
-  .hero-visual { order: 1; }
-  .hero-content { order: 2; }
+  /* Mobile: hide carousel entirely */
+  .hero-visual { display: none; }
   .hero-title { font-size: 26px; line-height: 1.2; margin-bottom: 8px; }
   .hero-subtitle { margin-bottom: 8px; }
   .hero-badge { font-size: 11px; padding: 4px 12px; margin-bottom: 10px; }
-  .hero-visual {
-    display: block;
-    flex: none;
-    width: 100%;
-    height: auto;
-    aspect-ratio: 3 / 2;
-    border-radius: 12px;
-    background: #E8E6E0;
-    box-shadow: none;
-    margin-bottom: 0;
-    overflow: hidden;
-  }
-  .hero-carousel-img {
-    border-radius: 12px;
-    object-fit: contain;
-    background: #E8E6E0;
-  }
-  .hero-carousel-arrow {
-    width: 28px; height: 28px;
-    font-size: 12px;
-  }
-  .hero-carousel-prev { left: 6px; }
-  .hero-carousel-next { right: 6px; }
-  .hero-carousel-dot { width: 6px; height: 6px; margin: 0 3px; }
   .hero-ctas { flex-direction: column; gap: 8px; width: 100%; }
   .hero-ctas .btn-primary,
   .hero-ctas .btn-secondary {
