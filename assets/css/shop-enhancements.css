@@ -1340,18 +1340,18 @@
     /* ===== Two-Layer Card ===== */
     .shop-item {
       display: grid;
-      grid-template-columns: 48px 1fr;
+      grid-template-columns: 36px 1fr;
       grid-template-rows: auto auto;
-      gap: 8px 12px;
-      padding: 14px;
+      gap: 6px 10px;
+      padding: 12px;
       align-items: start;
       position: relative;
     }
 
     /* SM5: FAB button per card */
     .card-fab {
-      position: absolute; bottom: 12px; right: 12px;
-      width: 48px; height: 48px; border-radius: 50%;
+      position: absolute; bottom: 10px; right: 10px;
+      width: 44px; height: 44px; border-radius: 50%;
       background: linear-gradient(135deg, var(--green-600), #1a9a4a);
       color: white; border: none; font-size: 24px;
       box-shadow: 0 4px 16px rgba(21,128,61,0.3);
@@ -1374,10 +1374,12 @@
       background: linear-gradient(180deg, #FEF2F2 0%, #fff 30%, #fff 100%) !important;
     }
 
-    /* Row 1: Thumb (col 1) + Info (col 2) */
+    /* Row 1: Thumb (col 1) + Info (col 2) — smaller img, shifted left */
     .shop-item-thumb {
       grid-column: 1; grid-row: 1;
-      width: 48px; height: 48px;
+      width: 36px; height: 36px;
+      margin-left: -2px;
+      border-radius: 6px;
       align-self: start;
       position: relative;
       overflow: hidden;
@@ -1385,7 +1387,7 @@
     .shop-item-info {
       grid-column: 2; grid-row: 1;
       flex: none; min-width: 0;
-      padding-right: 60px; /* Prevent text overlap with card-fab (52px fab + 8px gap) */
+      padding-right: 54px; /* Prevent text overlap with card-fab (44px fab + 10px gap) */
       overflow: hidden;
     }
     .shop-item-name {
