@@ -843,22 +843,13 @@ a.product-card:hover .product-card-img .placeholder-img {
 /* DE-AI: full-width dark band — breaks white island rhythm */
 .stats-section {
   padding: 56px 0 60px;
-  /* DE-AI: layered gradients to soften navy edge — blends with adjacent soft-white sections */
-  background-color: var(--navy-900);
-  background-image:
-    /* top: soft-white → transparent (48px fade-in from section above) */
-    linear-gradient(to bottom, var(--soft-white) 0%, rgba(15,23,42,0) 48px),
-    /* bottom: soft-white → transparent (72px fade-out to section below) */
-    linear-gradient(to top, var(--soft-white) 0%, rgba(15,23,42,0) 72px);
-  background-position: top center, bottom center;
-  background-size: 100% 48px, 100% 72px;
-  background-repeat: no-repeat;
-  border-radius: 0;
-  box-shadow: none;
-  max-width: none;
-  margin: -24px auto -36px; /* negative margins to close gaps with adjacent cards */
+  background: var(--soft-white);
+  border-radius: 20px;
+  box-shadow: 0 2px 16px rgba(21, 128, 61, 0.05);
+  max-width: 1060px;
+  margin: 0 auto 24px;
   position: relative;
-  overflow: visible; /* allow overflow so gradients overlap adjacent sections */
+  overflow: hidden;
 }
 /* subtle top accent line */
 .stats-section::before {
@@ -899,14 +890,17 @@ a.product-card:hover .product-card-img .placeholder-img {
 .stat-label {
   font-size: 14px;
   font-weight: 500;
-  color: rgba(255,255,255,0.6);
+  color: rgba(15,23,42,0.55);
   white-space: nowrap;
   letter-spacing: 0.03em;
   text-transform: uppercase;
 }
 
 .stats-section .section-header h2 {
-  color: var(--white);
+  color: var(--navy-900);
+}
+.stats-section .section-header p {
+  color: var(--navy-800);
 }
 
 /* ============================================
