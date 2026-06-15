@@ -62,7 +62,7 @@
   // ========== 2. TRUST SIGNAL STRIP (below hero on key pages) ==========
   function buildTrustStrip() {
     // Only insert on pages with a hero section
-    var hero = document.querySelector('.hero-section, .page-hero, .hero-carousel');
+    var hero = document.querySelector('.hero-section, .page-hero, .hero');
     if (!hero) return;
 
     var strip = document.createElement('div');
@@ -239,20 +239,23 @@
       '}',
       '.cro-btn-quote:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(21,128,61,0.45); }',
       '.cro-btn-quote:active { transform: translateY(0); }',
-      // Trust strip
+      // Trust strip — unified light card below hero
       '.cro-trust-strip {',
-        'background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);',
-        'border-bottom: 1px solid rgba(255,255,255,0.06);',
-        'padding: 12px 0; overflow: hidden;',
+        'background: var(--soft-white, #F7F6F3);',
+        'border-radius: 20px;',
+        'max-width: 1060px;',
+        'margin: -24px auto 32px;',
+        'box-shadow: 0 1px 4px rgba(0,0,0,0.03), 0 2px 16px rgba(21, 128, 61, 0.05);',
+        'padding: 14px 0; overflow: hidden;',
       '}',
       '.cro-strip-items {',
         'display: flex; justify-content: center; gap: 32px; flex-wrap: wrap;',
       '}',
       '.cro-strip-item {',
         'display: flex; align-items: center; gap: 6px;',
-        'color: rgba(255,255,255,0.7); font-size: 13px; font-weight: 500;',
+        'color: rgba(15,23,42,0.55); font-size: 13px; font-weight: 500;',
       '}',
-      '.cro-strip-item svg { opacity: 0.6; flex-shrink: 0; }',
+      '.cro-strip-item svg { opacity: 0.7; flex-shrink: 0; color: var(--green-600, #15803D); }',
       // Form enhancement
       '.cro-btn-loading { cursor: wait; opacity: 0.8; }',
       '.cro-invalid { border-color: #ef4444 !important; box-shadow: 0 0 0 3px rgba(239,68,68,0.1) !important; }',
@@ -295,6 +298,7 @@
         '#wa-floating-wrapper { display: none; }', // Hide old WA button on mobile
         '.cro-trust-badge { font-size: 11px; }',
         '.cro-btn { padding: 8px 14px; font-size: 13px; }',
+        '.cro-trust-strip { border-radius: 12px; max-width: calc(100% - 12px); margin: -8px auto 20px; }',
         '.cro-strip-items { gap: 16px; }',
         '.cro-strip-item { font-size: 11px; }',
         '.cro-strip-item svg { width: 14px; height: 14px; }',
