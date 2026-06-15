@@ -28,6 +28,25 @@
 /
   Cache-Control: public, max-age=3600, must-revalidate
 
+# PWA — Service Worker (must be at root, no cache, correct MIME)
+/sw.js
+  Content-Type: application/javascript; charset=utf-8
+  Service-Worker-Allowed: /
+  Cache-Control: no-cache
+
+# PWA — Manifest
+/manifest.json
+  Content-Type: application/manifest+json
+  Cache-Control: public, max-age=3600
+
+# PWA — Offline fallback
+/offline.html
+  Cache-Control: public, max-age=3600, must-revalidate
+
+# PWA — Icons
+/assets/pwa/*
+  Cache-Control: public, max-age=31536000, immutable
+
 # Security headers
 /*
   X-Content-Type-Options: nosniff
