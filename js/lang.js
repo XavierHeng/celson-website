@@ -113,6 +113,15 @@
     }
   });
 
+  // ─── Shared isFrench() — use across all scripts ───
+  window.CelsonLang = window.CelsonLang || {};
+  window.CelsonLang.isFrench = function () {
+    var c = document.cookie.match(/celson_lang=(\w+)/);
+    if (c) return c[1] === 'fr';
+    return (new URLSearchParams(window.location.search)).get('lang') === 'fr';
+  };
+  window.CelsonLang.getLang = function () { return I18N.lang; };
+
   // Apply on page load
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', applyTranslations);

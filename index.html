@@ -486,99 +486,10 @@
 </footer>
 
 <script src="js/main.js" defer></script>
-<script>
-(function() {
-  var slides = document.querySelectorAll('.hero-carousel-slide');
-  var dots = document.querySelectorAll('.hero-carousel-dot');
-  var prevBtn = document.querySelector('.hero-carousel-prev');
-  var nextBtn = document.querySelector('.hero-carousel-next');
-  var container = document.querySelector('.hero-carousel');
-  if (!slides.length) return;
-
-  var current = 0;
-  var total = slides.length;
-  var autoTimer = null;
-  var interval = 4000;
-
-  function goTo(index) {
-    if (index === current) return;
-    slides[current].classList.remove('active');
-    dots[current].classList.remove('active');
-    current = ((index % total) + total) % total;
-    slides[current].classList.add('active');
-    dots[current].classList.add('active');
-  }
-
-  function next() { goTo(current + 1); }
-  function prev() { goTo(current - 1); }
-
-  function startAuto() {
-    stopAuto();
-    autoTimer = setInterval(next, interval);
-  }
-
-  function stopAuto() {
-    if (autoTimer) { clearInterval(autoTimer); autoTimer = null; }
-  }
-
-  // Click arrows: navigate + STOP auto (user is in control)
-  nextBtn.addEventListener('click', function(e) {
-    e.preventDefault();
-    next();
-    stopAuto();
-  });
-
-  prevBtn.addEventListener('click', function(e) {
-    e.preventDefault();
-    prev();
-    stopAuto();
-  });
-
-  // Dot clicks: navigate + STOP auto
-  dots.forEach(function(dot) {
-    dot.addEventListener('click', function() {
-      var idx = parseInt(this.getAttribute('data-index'), 10);
-      goTo(idx);
-      stopAuto();
-    });
-  });
-
-  // Keyboard: navigate + STOP auto
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'ArrowLeft') { prev(); stopAuto(); }
-    if (e.key === 'ArrowRight') { next(); stopAuto(); }
-  });
-
-  // Start auto-play
-  startAuto();
-})();
-</script>
+<script src="js/hero-carousel.js" defer></script>
 <script src="js/i18n.js" defer></script>
 <script src="js/lang.js" defer></script>
-
-<script>
-(function() {
-  var track = document.getElementById('shippingTrack');
-  var counter = document.getElementById('shippingCounter');
-  var prev = document.querySelector('.shipping-prev');
-  var next = document.querySelector('.shipping-next');
-  if (!track) return;
-  var total = track.querySelectorAll('.shipping-item').length;
-
-  function itemWidth() { return 340 + 16; }
-
-  function updateCounter() {
-    var idx = Math.round(track.scrollLeft / itemWidth()) + 1;
-    if (idx < 1) idx = 1; if (idx > total) idx = total;
-    if (counter) counter.textContent = idx + ' / ' + total;
-  }
-
-  if (prev) prev.addEventListener('click', function() { track.scrollBy({ left: -itemWidth(), behavior: 'smooth' }); });
-  if (next) next.addEventListener('click', function() { track.scrollBy({ left: itemWidth(), behavior: 'smooth' }); });
-  track.addEventListener('scroll', updateCounter, { passive: true });
-  updateCounter();
-})();
-</script>
+<script src="js/shipping-filmstrip.js" defer></script>
   <button class="back-to-top" data-i18n-aria="aria.back_to_top" aria-label="Back to top">↑</button>
   <script src="js/scroll-effects.js" defer></script>
   <script src="js/whatsapp.js" defer></script>
@@ -586,70 +497,8 @@
   <script src="js/cro.js" defer></script>
   <script src="js/a11y.js" defer></script>
 
-
   <!-- WhatsApp Gate for Shipping Photos -->
-  <script>
-  (function() {
-    var gateBtn = document.getElementById('shippingGateBtn');
-    var gate = document.getElementById('shippingGate');
-    var preview = document.getElementById('shippingPreview');
-    var content = document.getElementById('shippingContent');
-    if (!gateBtn || !gate || !content) return;
-
-    // Language detection (matching whatsapp.js pattern)
-    function isFrench() {
-      var langCookie = document.cookie.split('; ').find(function(r) { return r.startsWith('celson_lang='); });
-      if (langCookie) return langCookie.split('=')[1] === 'fr';
-      // Fallback: check URL param
-      if ((new URLSearchParams(window.location.search)).get('lang') === 'fr') return true;
-      return (new URLSearchParams(window.location.search)).get('lang') === 'fr';
-    }
-    function setWaUrl() {
-      gateBtn.href = isFrench() ? gateBtn.dataset.waFr : gateBtn.dataset.waEn;
-    }
-    setWaUrl();
-    window.addEventListener('langChanged', setWaUrl);
-
-    function revealGallery() {
-      gate.style.display = 'none';
-      if (preview) preview.style.display = 'none';
-      content.style.display = 'block';
-      content.classList.add('shipping-content--revealed');
-      // Force all lazy-loaded images to load immediately (browsers skip lazy-load inside display:none)
-      content.querySelectorAll('img[loading="lazy"]').forEach(function(img) {
-        img.loading = 'eager';
-      });
-      // Fallback: after a short delay, show placeholder for any image that still hasn't loaded
-      setTimeout(function() {
-        content.querySelectorAll('img').forEach(function(img) {
-          if (!img.complete || img.naturalWidth === 0) {
-            img.style.backgroundColor = '#e2e8f0';
-            img.style.minHeight = '200px';
-          }
-        });
-      }, 5000);
-    }
-
-    // Reveal if already unlocked this session
-    if (sessionStorage.getItem('shippingRevealed') === '1') {
-      revealGallery();
-    }
-
-    gateBtn.addEventListener('click', function() {
-      setTimeout(function() {
-        revealGallery();
-        sessionStorage.setItem('shippingRevealed', '1');
-
-        if (typeof gtag !== 'undefined') {
-          gtag('event', 'shipping_gate_unlock', {
-            event_category: 'engagement',
-            event_label: 'whatsapp_shipping_photos'
-          });
-        }
-      }, 300);
-    });
-  })();
-  </script>
+  <script src="js/shipping-gate.js" defer></script>
   <script src="js/splash.js" defer></script>
     <script src="js/mobile.js" defer></script>
 </body>

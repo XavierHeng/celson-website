@@ -13,9 +13,7 @@
 
   // ========== DETECT FRENCH ==========
   function isFrench() {
-    var c = document.cookie.match(/celson_lang=(\w+)/);
-    if (c) return c[1] === 'fr';
-    return (new URLSearchParams(window.location.search)).get('lang') === 'fr';
+    return window.CelsonLang && window.CelsonLang.isFrench ? window.CelsonLang.isFrench() : false;
   }
 
   // ========== 1. FLOATING CTA BAR (Mobile Bottom + Desktop Side) ==========

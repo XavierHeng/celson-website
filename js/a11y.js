@@ -66,16 +66,7 @@
     var nav = document.querySelector('.header-nav, nav');
     if (!nav) return;
 
-    // Close mega menu on Escape
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape') {
-        var openMenu = document.querySelector('.mega-menu.open, .mega-menu.active, .nav-open');
-        if (openMenu) {
-          openMenu.classList.remove('open', 'active');
-          document.body.classList.remove('nav-open');
-        }
-      }
-    });
+    // Close mega menu on Escape — handled in main.js; remove duplicate
   }
 
   // ========== INIT ==========
