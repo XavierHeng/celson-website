@@ -61,10 +61,11 @@ html {
     min-width: 44px;
   }
 
-  /* Keep inline elements from breaking layout */
+  /* Keep inline elements and carousel dots from breaking layout */
   .coming-soon-badge, .product-card-badge,
   .hero-badge, .subpage-hero-badge,
-  .section-label, .section-label--shipping {
+  .section-label, .section-label--shipping,
+  .carousel-dot, .hero-carousel-dot {
     min-height: auto;
     min-width: auto;
   }
