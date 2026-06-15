@@ -7,6 +7,7 @@
   </script>
   <meta charset="UTF-8">
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="manifest" href="/manifest.json">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5.0">
   <meta name="theme-color" content="#15803D">
@@ -18,10 +19,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=6">
-  <link rel="stylesheet" href="assets/css/shop-enhancements.css?v=4">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="assets/css/shop-enhancements.css">
   <link rel="stylesheet" href="css/skeleton.css">
-    <link rel="stylesheet" href="css/mobile.css?v=1">
+    <link rel="stylesheet" href="css/mobile.css">
   <!-- ========== SEO: Open Graph ========== -->
   <meta property="og:title" content="CELSON Shop — Building Materials Spot Stock | WhatsApp Order & EXW Price">
   <meta property="og:description" content="Check CELSON spot stock: gypsum boards, sheet boards, wall panels, and more. EXW pricing, WhatsApp ordering, no registration needed. Factory-direct.">
@@ -414,6 +415,19 @@
   <script src="js/a11y.js" defer></script>
     <script src="js/mobile.js" defer></script>
 
+
+  <!-- PWA: Service Worker -->
+  <script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('/sw.js').then(function(reg) {
+        console.log('[PWA] ServiceWorker registered — scope:', reg.scope);
+      }).catch(function(err) {
+        console.warn('[PWA] ServiceWorker failed:', err);
+      });
+    });
+  }
+  </script>
 
 </body>
 </html>

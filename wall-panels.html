@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="manifest" href="/manifest.json">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5.0">
   <meta name="theme-color" content="#15803D">
@@ -18,7 +19,7 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="assets/css/product-pages.css">
   <link rel="stylesheet" href="css/skeleton.css">
-    <link rel="stylesheet" href="css/mobile.css?v=1">
+    <link rel="stylesheet" href="css/mobile.css">
   <!-- ========== SEO: Open Graph ========== -->
   <meta property="og:title" content="CELSON Wall Panels — Decorative, WPC & UV Marble | Factory-Direct">
   <meta property="og:description" content="Decorative wall panels, WPC panels, and UV marble panels. Modern wall solutions from CELSON. Factory-direct to 98 countries.">
@@ -169,7 +170,7 @@
       <a href="contact.html" data-i18n="nav.contact">Contact</a>
     </nav>
     <div class="header-actions">
-      <button class="lang-switch" data-i18n-aria="aria.switch_lang" aria-label="Switch language"><span class="lang-active">EN</span> <span class="lang-sep">/</span> <span class="lang-inactive">FR</span></button>
+      <button class="lang-switch">EN <span>/ 中文</span></button>
       <a href="contact.html" class="btn-primary"><span data-i18n="nav.get-quote" data-i18n="detail.nav.cta">Get Quote</span></a>
     </div>
     <button class="mobile-toggle" data-i18n-aria="aria.menu" aria-label="Menu">
@@ -513,6 +514,19 @@
   <script src="js/a11y.js" defer></script>
     <script src="js/mobile.js" defer></script>
 
+
+  <!-- PWA: Service Worker -->
+  <script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('/sw.js').then(function(reg) {
+        console.log('[PWA] ServiceWorker registered — scope:', reg.scope);
+      }).catch(function(err) {
+        console.warn('[PWA] ServiceWorker failed:', err);
+      });
+    });
+  }
+  </script>
 
 </body>
 </html>

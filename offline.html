@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#15803D">
+  <title>CELSON — You're Offline</title>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family:Poppins,'Open Sans',-apple-system,system-ui,sans-serif;
+      background:#F8FAFC;color:#0F172A;
+      min-height:100vh;min-height:100dvh;
+      display:flex;align-items:center;justify-content:center;
+      padding:24px;
+    }
+    .card{
+      background:#fff;border-radius:20px;
+      box-shadow:0 1px 3px rgba(0,0,0,.06),0 8px 24px rgba(0,0,0,.08);
+      max-width:420px;width:100%;padding:40px 32px;text-align:center;
+    }
+    .icon{
+      width:64px;height:64px;margin:0 auto 24px;
+      background:#E8F2ED;border-radius:50%;
+      display:flex;align-items:center;justify-content:center;
+    }
+    .icon svg{width:32px;height:32px;color:#15803D}
+    h1{font-size:22px;font-weight:700;margin-bottom:8px;color:#0F172A}
+    p{font-size:15px;color:#64748B;line-height:1.6;margin-bottom:28px}
+    .actions{display:flex;flex-direction:column;gap:10px}
+    .btn{
+      display:block;width:100%;padding:12px 20px;
+      border-radius:12px;font-size:15px;font-weight:600;
+      text-decoration:none;text-align:center;
+      transition:all .2s cubic-bezier(.25,1,.5,1);
+      cursor:pointer;border:none;
+    }
+    .btn-primary{
+      background:#15803D;color:#fff;
+    }
+    .btn-primary:hover,.btn-primary:active{background:#166534}
+    .btn-outline{
+      background:#fff;color:#15803D;border:2px solid #E8F2ED;
+    }
+    .btn-outline:hover,.btn-outline:active{background:#E8F2ED}
+    .update-time{font-size:12px;color:#94A3B8;margin-top:24px}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M1 1l22 22"/>
+        <path d="M16.72 11.06A10.94 10.94 0 0119 12.55"/>
+        <path d="M5 12.55a10.94 10.94 0 015.17-2.39"/>
+        <path d="M10.71 5.05A16 16 0 0122.2 8.6"/>
+        <path d="M1.8 8.6a16 16 0 014.26-2.79"/>
+        <path d="M8.29 20.48A16 16 0 011 15.4"/>
+        <path d="M23 15.4a16 16 0 01-7.29 5.08"/>
+      </svg>
+    </div>
+    <h1>You're Offline</h1>
+    <p>It looks like you've lost your internet connection. The content you requested is not available offline yet. Please check your connection and try again.</p>
+    <div class="actions">
+      <button class="btn btn-primary" onclick="location.reload()">Try Again</button>
+      <a class="btn btn-outline" href="/">Go to Homepage</a>
+    </div>
+    <div class="update-time">CELSON &mdash; Global Building Materials Supplier</div>
+  </div>
+</body>
+</html>

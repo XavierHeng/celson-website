@@ -380,6 +380,12 @@ function updateCartUI() {
     if (totalItems === 0) barEl.classList.add('hidden');
     else barEl.classList.remove('hidden');
   }
+  // P2-8: Blur non-cart items when cart has items
+  var shopPage = document.querySelector('.shop-page');
+  if (shopPage) {
+    if (totalItems > 0) shopPage.classList.add('has-cart-items');
+    else shopPage.classList.remove('has-cart-items');
+  }
   renderProductList();
 }
 
@@ -579,7 +585,10 @@ function renderProductList() {
     var btnText = inCart ? '&#10003; In Cart' : 'Add';
     var isVolume = (p.category === 'Gypsum Boards');
     var itemClass = isVolume ? 'shop-item volume-item' : 'shop-item';
+    if (inCart) itemClass += ' in-cart-active';
     var badgeHtml = isVolume ? '<span class="shop-item-badge"><span class="badge-icon">&#x1F525;</span> Best Value</span>' : '';
+    var fabHidden = inCart ? ' hidden-fab' : '';
+    var stepperHidden = inCart ? '' : ' hidden-stepper';
     html += '<div class="' + itemClass + '" data-pid="' + p.id + '">';
     html += '<div class="shop-item-thumb" data-pid="' + p.id + '" title="Click to view details"><img loading="lazy" src="' + (p.thumb || '') + '" alt="' + p.name + '" onerror="this.style.display=\'none\';this.parentElement.innerHTML=\'<svg width=32 height=32 viewBox=\\\'0 0 24 24\\\' fill=\\\'none\\\' stroke=\\\'#15803D\\\' stroke-width=\\\'1.2\\\'><rect x=\\\'3\\\' y=\\\'4\\\' width=\\\'18\\\' height=\\\'14\\\' rx=\\\'1.5\\\'/><line x1=\\\'7\\\' y1=\\\'8\\\' x2=\\\'17\\\' y2=\\\'8\\\'/><line x1=\\\'7\\\' y1=\\\'11\\\' x2=\\\'17\\\' y2=\\\'11\\\'/><line x1=\\\'7\\\' y1=\\\'14\\\' x2=\\\'13\\\' y2=\\\'14\\\'/></svg>\'"></div>';
     html += '<div class="shop-item-info">';
@@ -591,14 +600,14 @@ function renderProductList() {
     html += '<div class="shop-item-qty-actions">';
     html += '<button class="btn-minus" data-id="' + p.id + '" data-action="minus"' + (inCart ? '' : ' disabled style="opacity:0.35;cursor:default"') + '>&minus;</button>';
     html += '<div class="shop-item-qty"><input type="number" value="' + qty + '" min="1" data-id="' + p.id + '" class="qty-input"><span class="qty-label">qty</span></div>';
-    html += '<div class="qty-stepper">';
+    html += '<div class="qty-stepper' + stepperHidden + '">';
     html += '<button class="qty-btn qty-btn-minus" data-pid="' + p.id + '" data-step="' + (-(p.minQty || 1)) + '">\u2212</button>';
     html += '<span class="qty-val" data-pid="' + p.id + '">' + qty + '</span>';
     html += '<button class="qty-btn qty-btn-plus" data-pid="' + p.id + '" data-step="' + (p.minQty || 1) + '">+</button>';
     html += '</div>';
     html += '<div class="shop-item-add"><button class="' + btnClass + '" data-id="' + p.id + '" data-action="add">' + btnText + '</button></div>';
     html += '</div>';
-    html += '<button class="card-fab" data-pid="' + p.id + '" data-action="fab-add" title="Add to cart">+</button>';
+    html += '<button class="card-fab' + fabHidden + '" data-pid="' + p.id + '" data-action="fab-add" title="Add to cart">+</button>';
     html += '</div>';
   }
   container.innerHTML = html;
