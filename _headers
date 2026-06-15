@@ -7,10 +7,10 @@
 
 # CSS / JS — long cache with content hash busting
 /css/*
-  Cache-Control: public, max-age=31536000, immutable
+  Cache-Control: public, max-age=3600, must-revalidate
 
 /js/*
-  Cache-Control: public, max-age=31536000, immutable
+  Cache-Control: public, max-age=86400, must-revalidate
 
 # Images (WebP) — very long cache
 /assets/*.webp
