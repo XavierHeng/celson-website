@@ -28,14 +28,14 @@
 /
   Cache-Control: public, max-age=3600, must-revalidate
 
-# PWA — Service Worker (must be at root, no cache, correct MIME)
-/sw.js
+# PWA — Service Worker (in js/, scope / via Service-Worker-Allowed)
+/js/sw.js
   Content-Type: application/javascript; charset=utf-8
   Service-Worker-Allowed: /
   Cache-Control: no-cache
 
-# PWA — Manifest
-/manifest.json
+# PWA — Manifest (in assets/)
+/assets/manifest.json
   Content-Type: application/manifest+json
   Cache-Control: public, max-age=3600
 

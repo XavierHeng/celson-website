@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#15803D">
   <meta name="color-scheme" content="light dark">
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-  <link rel="manifest" href="/manifest.json">
+  <link rel="manifest" href="/assets/manifest.json">
   <link rel="dns-prefetch" href="https://www.googletagmanager.com">
   <link rel="dns-prefetch" href="https://www.google-analytics.com">
   <title>CELSON — Global Building Materials | Best Value Gypsum, Boards & Panels</title>
@@ -657,7 +657,7 @@
   <script>
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', function() {
-      navigator.serviceWorker.register('/sw.js').then(function(reg) {
+      navigator.serviceWorker.register('/js/sw.js', {scope: '/'}).then(function(reg) {
         console.log('[PWA] ServiceWorker registered — scope:', reg.scope);
       }).catch(function(err) {
         console.warn('[PWA] ServiceWorker failed:', err);
