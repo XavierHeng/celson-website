@@ -4787,7 +4787,7 @@ async function normalizeCategoryColors() {
 
 // ---- State ----
 const DB_NAME = 'celson_products_db';
-const DB_VERSION = 3;
+const DB_VERSION = 4;
 // GitHub sync config — repo where Shop website is deployed
 const GITHUB_REPO_OWNER = 'XavierHeng';
 const GITHUB_REPO_NAME = 'celson-website';
@@ -6057,9 +6057,14 @@ async function openEditProduct(id) {
   // Load existing images from IndexedDB
   const imageNames = p.images || [];
   for (const name of imageNames) {
-    const record = await dbGet('images', name);
-    if (record) {
-      editingTempImages.push({ name, blob: record.blob, type: record.type, isNew: false });
+    try {
+      const record = await dbGet('images', name);
+      if (record) {
+        editingTempImages.push({ name, blob: record.blob, type: record.type, isNew: false });
+      }
+    } catch (e) {
+      console.warn('[Edit] Failed to load image:', name, e.message);
+      // Image load failure must not block the edit modal from opening
     }
   }
 
