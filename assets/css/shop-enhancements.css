@@ -1544,9 +1544,12 @@
     /* ===== Product Lightbox — mobile fullscreen overlay ===== */
     .prod-lightbox-overlay {
       align-items: stretch;
-      backdrop-filter: none;
-      -webkit-backdrop-filter: none;
-      background: #fff;
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      background: rgba(15, 23, 42, 0.55);
+    }
+    .prod-lightbox-overlay .prod-lightbox {
+      background: #fff;  /* card stays white */
     }
     .prod-lightbox-overlay .prod-lightbox {
       width: 100%; max-width: 100%; height: 100%;
@@ -2208,8 +2211,10 @@
 .shop-item:nth-child(7) { animation-delay: 0.21s; }
 .shop-item:nth-child(8) { animation-delay: 0.24s; }
 
-/* SD4: Product thumb size refinement */
-.shop-item-thumb { width: 64px; height: 64px; border-radius: 10px; }
+/* SD4: Product thumb size refinement — desktop only (mobile/tablet handled in their own @media blocks) */
+@media (min-width: 961px) {
+  .shop-item-thumb { width: 64px; height: 64px; border-radius: 10px; }
+}
 
 /* SD5: Promo badge — animated gradient shimmer */
 @keyframes promoShimmer {

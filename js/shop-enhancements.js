@@ -1,4 +1,19 @@
 (function() {
+  // ===== Version check — detect stale cache after PWA publish =====
+  if (typeof CELSON_BUILD !== 'undefined' && CELSON_BUILD !== '0') {
+    var _prevBuild = null;
+    try { _prevBuild = localStorage.getItem('celson_shop_prev_build'); } catch(e) {}
+    if (_prevBuild && _prevBuild !== CELSON_BUILD) {
+      // Build changed since our last script load — cached scripts may be stale
+      // Force hard reload to fetch fresh versions
+      try { localStorage.setItem('celson_shop_prev_build', CELSON_BUILD); } catch(e) {}
+      if (!window.location.search.match(/[?&]v=/)) {
+        window.location.replace(window.location.href.split('?')[0] + '?v=' + CELSON_BUILD);
+        return;
+      }
+    }
+    try { localStorage.setItem('celson_shop_prev_build', CELSON_BUILD); } catch(e) {}
+  }
   // Log build version for cache debugging
   if (typeof CELSON_BUILD !== 'undefined') { console.log('[CELSON Shop] Build:', CELSON_BUILD); }
 
@@ -37,9 +52,24 @@ var CATEGORIES = (function buildCategories() {
   }
   // If SHOP_CATEGORIES exists (PWA-generated), use its order
   if (typeof SHOP_CATEGORIES !== 'undefined' && SHOP_CATEGORIES.length) {
+    // Build normalized lookup for flexible matching (handle singular/plural, &amp; vs &)
+    var _normalize = function(s) { return s.replace(/&amp;/g, '&').replace(/&/g, 'and').toLowerCase().trim(); };
+    var normSeen = {};
+    var seenKeys = Object.keys(seen);
+    for (var ki = 0; ki < seenKeys.length; ki++) {
+      normSeen[_normalize(seenKeys[ki])] = seenKeys[ki];
+    }
     var ordered = [];
     for (var j = 0; j < SHOP_CATEGORIES.length; j++) {
-      if (seen[SHOP_CATEGORIES[j].name]) ordered.push(SHOP_CATEGORIES[j].name);
+      var scName = SHOP_CATEGORIES[j].name;
+      // 1) Exact match
+      if (seen[scName]) { ordered.push(scName); continue; }
+      // 2) Normalized match
+      var norm = _normalize(scName);
+      if (normSeen[norm]) { ordered.push(normSeen[norm]); continue; }
+      // 3) Singular/plural fallback
+      if (normSeen[norm + 's']) { ordered.push(normSeen[norm + 's']); continue; }
+      if (norm.slice(-1) === 's' && normSeen[norm.slice(0, -1)]) { ordered.push(normSeen[norm.slice(0, -1)]); continue; }
     }
     // Append any categories not in SHOP_CATEGORIES
     for (var k = 0; k < cats.length; k++) {
@@ -51,7 +81,31 @@ var CATEGORIES = (function buildCategories() {
 })();
 
 var CATEGORY_THUMBS = (function buildThumbs() {
-  var thumbs = {
+  // Base thumbs derived from SHOP_CATEGORIES (PWA-generated) with hardcoded fallback
+  var thumbs = {};
+  var _norm = function(s) { return (s || '').replace(/&amp;/g, '&').replace(/&/g, 'and').toLowerCase().trim(); };
+  if (typeof SHOP_CATEGORIES !== 'undefined' && SHOP_CATEGORIES.length) {
+    for (var i = 0; i < SHOP_CATEGORIES.length; i++) {
+      var c = SHOP_CATEGORIES[i];
+      if (c.slug && c.name) {
+        // Use the actual product category name as key (look up via normalized match)
+        var key = c.name;
+        // If the SHOP_CATEGORIES name doesn't match any product category, try to find a match
+        if (!CATEGORIES || CATEGORIES.indexOf(key) === -1) {
+          var normKey = _norm(key);
+          for (var ci = 1; ci < CATEGORIES.length; ci++) { // skip 'All'
+            if (_norm(CATEGORIES[ci]) === normKey || _norm(CATEGORIES[ci]) === normKey + 's' || _norm(CATEGORIES[ci]) + 's' === normKey) {
+              key = CATEGORIES[ci];
+              break;
+            }
+          }
+        }
+        thumbs[key] = 'assets/product-hero-' + c.slug + '.webp';
+      }
+    }
+  }
+  // Hardcoded fallback for any categories missing thumbs
+  var FALLBACK_THUMBS = {
     'Gypsum Boards': 'assets/product-hero-gypsum-boards.webp',
     'Sheet Boards': 'assets/product-hero-sheet-boards.webp',
     'Wall Panels': 'assets/product-hero-wall-panels.webp',
@@ -61,14 +115,9 @@ var CATEGORY_THUMBS = (function buildThumbs() {
     'Accessories': 'assets/product-hero-accessories.webp',
     'Insulation': 'assets/product-hero-insulation.webp'
   };
-  // Augment with SHOP_CATEGORIES slug-based thumbs
-  if (typeof SHOP_CATEGORIES !== 'undefined' && SHOP_CATEGORIES.length) {
-    for (var i = 0; i < SHOP_CATEGORIES.length; i++) {
-      var c = SHOP_CATEGORIES[i];
-      if (c.slug && c.name) {
-        thumbs[c.name] = 'assets/product-hero-' + c.slug + '.webp';
-      }
-    }
+  var fbKeys = Object.keys(FALLBACK_THUMBS);
+  for (var fi = 0; fi < fbKeys.length; fi++) {
+    if (!thumbs[fbKeys[fi]]) thumbs[fbKeys[fi]] = FALLBACK_THUMBS[fbKeys[fi]];
   }
   return thumbs;
 })();
@@ -978,6 +1027,8 @@ var lightboxTouchStartX = 0;
 var lightboxTouchStartY = 0;
 var lightboxTouchMoved = false;
 var lightboxSwipeThreshold = 50;
+var lightboxVerticalSwipeThreshold = 80;
+var lightboxIsVerticalSwipe = false;
 
 // Pinch zoom state
 var pinchInitialDistance = 0;
@@ -1110,11 +1161,17 @@ function bindLightboxEvents() {
   // Keyboard navigation
   document.addEventListener('keydown', lightboxKeyHandler);
 
-  // Touch swipe
+  // Touch swipe (gallery for horizontal, overlay for vertical dismiss)
   if (gallery) {
     gallery.addEventListener('touchstart', lightboxTouchStart, { passive: false });
     gallery.addEventListener('touchmove', lightboxTouchMove, { passive: false });
     gallery.addEventListener('touchend', lightboxTouchEnd, { passive: false });
+  }
+  // Also bind to overlay so vertical-swipe-to-dismiss works anywhere on the lightbox
+  if (overlay) {
+    overlay.addEventListener('touchstart', lightboxTouchStart, { passive: false });
+    overlay.addEventListener('touchmove', lightboxTouchMove, { passive: false });
+    overlay.addEventListener('touchend', lightboxTouchEnd, { passive: false });
   }
 
   // Action buttons
@@ -1152,6 +1209,7 @@ function lightboxTouchStart(e) {
     lightboxTouchStartX = e.touches[0].clientX;
     lightboxTouchStartY = e.touches[0].clientY;
     lightboxTouchMoved = false;
+    lightboxIsVerticalSwipe = false;
   } else if (e.touches.length === 2) {
     // Pinch start
     pinchInitialDistance = Math.hypot(
@@ -1164,9 +1222,27 @@ function lightboxTouchStart(e) {
 
 function lightboxTouchMove(e) {
   if (e.touches.length === 1 && pinchInitialDistance === 0) {
-    // Swipe
     var dx = e.touches[0].clientX - lightboxTouchStartX;
+    var dy = e.touches[0].clientY - lightboxTouchStartY;
+    // Detect vertical swipe — prioritize over horizontal if vertical is dominant
+    if (!lightboxTouchMoved && Math.abs(dy) > 10 && Math.abs(dy) > Math.abs(dx)) {
+      lightboxIsVerticalSwipe = true;
+    }
     if (Math.abs(dx) > 5) lightboxTouchMoved = true;
+    // Apply vertical drag transform if vertical swipe
+    if (lightboxIsVerticalSwipe && dy > 0) {
+      var lightbox = document.querySelector('.prod-lightbox-overlay .prod-lightbox');
+      if (lightbox) {
+        lightbox.style.transition = 'none';
+        lightbox.style.transform = 'translateY(' + dy + 'px)';
+      }
+      // Adjust overlay opacity based on drag distance
+      var overlay = document.getElementById('prodLightboxOverlay');
+      if (overlay) {
+        var opacity = Math.max(0, 1 - dy / 300);
+        overlay.style.opacity = opacity;
+      }
+    }
   } else if (e.touches.length === 2) {
     // Pinch zoom on mobile
     var dist = Math.hypot(
@@ -1185,6 +1261,43 @@ function lightboxTouchMove(e) {
 }
 
 function lightboxTouchEnd(e) {
+  // Handle vertical swipe-to-dismiss first
+  if (lightboxIsVerticalSwipe) {
+    var dy = e.changedTouches[0].clientY - lightboxTouchStartY;
+    var lightbox = document.querySelector('.prod-lightbox-overlay .prod-lightbox');
+    var overlay = document.getElementById('prodLightboxOverlay');
+    if (dy > lightboxVerticalSwipeThreshold) {
+      // Dismiss — animate downward and close
+      if (lightbox) {
+        lightbox.style.transition = 'transform 0.25s cubic-bezier(0.4,0,1,1)';
+        lightbox.style.transform = 'translateY(100vh)';
+      }
+      if (overlay) {
+        overlay.style.transition = 'opacity 0.25s ease';
+        overlay.style.opacity = '0';
+      }
+      setTimeout(function() {
+        closeProductLightbox();
+        // Reset inline styles
+        if (lightbox) { lightbox.style.transition = ''; lightbox.style.transform = ''; }
+        if (overlay) { overlay.style.transition = ''; overlay.style.opacity = ''; overlay.style.background = ''; }
+      }, 260);
+    } else {
+      // Snap back
+      if (lightbox) {
+        lightbox.style.transition = 'transform 0.3s cubic-bezier(0.22,1,0.36,1)';
+        lightbox.style.transform = 'translateY(0)';
+      }
+      if (overlay) {
+        overlay.style.transition = 'opacity 0.3s ease';
+        overlay.style.opacity = '1';
+      }
+    }
+    lightboxIsVerticalSwipe = false;
+    lightboxTouchMoved = false;
+    return;
+  }
+
   if (!lightboxTouchMoved && pinchInitialDistance === 0) return;
 
   if (pinchInitialDistance > 0) {
