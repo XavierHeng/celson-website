@@ -1422,6 +1422,13 @@
     .shop-item-qty { display: none; }
     .shop-item-qty .qty-label { font-size: 9px; margin-top: 2px; }
     .btn-add { min-height: 44px; padding: 7px 14px; font-size: 13px; border-radius: 6px; line-height: 1; display: flex; align-items: center; justify-content: center; }
+
+    /* Mobile: only FAB (not in cart) or stepper (in cart) — hide redundant desktop buttons */
+    .shop-item .btn-minus,
+    .shop-item .shop-item-add {
+      display: none;
+    }
+
     .shop-item-qty input {
       height: 44px;
       padding: 0 6px;
