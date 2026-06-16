@@ -5580,6 +5580,11 @@ function sanitizeProducts(arr) {
         }
       }
     }
+    // Normalize images array: strings → objects {name, isPrimary}
+    if (p.images && p.images.length > 0 && typeof p.images[0] === 'string') {
+      p.images = p.images.map(function(n, i) { return { name: n, isPrimary: i === 0, src: 'assets/products/' + n }; });
+      fixed++;
+    }
   }
   if (fixed > 0) {
     console.log('[Sanitize] Fixed ' + fixed + ' UTF-8 double-encoding issues — persisting to IndexedDB');
@@ -6395,8 +6400,8 @@ async function saveEditProduct() {
   p.tags = (document.getElementById('editTags')?.value || '').split(/[,;，；]/).map(t => t.trim()).filter(Boolean);
 
   // Handle images: store new ones, keep existing
-  const oldImageNames = new Set(p.images || []);
-  const newImageNames = [];
+  const oldImageNames = new Set((p.images || []).map(function(pi) { return typeof pi === 'string' ? pi : pi.name; }));
+  const newImages = [];
   for (const img of editingTempImages) {
     if (img.isNew) {
       // Store new blob in IndexedDB — key format: productId_imageName
@@ -6406,19 +6411,19 @@ async function saveEditProduct() {
         await dbPut('images', { name: storageKey, blob, sku: p.sku, size: blob.size, type: img.type });
       } catch (e) {
         console.warn('[Save] Failed to store image:', storageKey, e.message);
-        // Image storage failure should not block product data save
       }
     }
-    newImageNames.push(img.name);
+    newImages.push({ name: img.name, isPrimary: newImages.length === 0 });
     oldImageNames.delete(img.name);
   }
 
   // Delete removed images from IndexedDB
   for (const removedName of oldImageNames) {
-    await dbDelete('images', removedName);
+    var delKey = editingProductId + '_' + removedName;
+    try { await dbDelete('images', delKey); } catch(e) { /* ignore */ }
   }
 
-  p.images = newImageNames;
+  p.images = newImages;
   p.meta.updatedAt = new Date().toISOString();
   p.meta.version = (p.meta.version || 1) + 1;
   await dbPut('products', p);
@@ -7631,11 +7636,12 @@ function _shopThumbImg(p) {
     // Ensure shop- prefix for thumb images
     return 'assets/shop/' + (name.indexOf('shop-') === 0 ? name : 'shop-' + name);
   }
-  // Fallback pattern: shop-<id>.webp
-  return 'assets/shop/shop-' + (p.id || 'unknown') + '.webp';
+  // Fallback to assets/products/
+  return 'assets/products/' + ((p.images && p.images[0] && p.images[0].name) ? p.images[0].name : 'shop-' + (p.id || 'unknown') + '.webp');
 }
 
 function generateShopProductsJS() {
+  sanitizeProducts(products);  // Clean data before export
   var visible = products.filter(function(p) { return !p.hidden; });
   var items = visible.map(function(p, idx) {
     var cat = categories.find(function(c) { return c.id === p.category; });
