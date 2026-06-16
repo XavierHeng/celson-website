@@ -133,7 +133,7 @@ var ALL_PRODUCTS = [
       "size": "1220 &times; 2440mm",
       "weight": "32 kg/sheet",
       "grade": "E1",
-      "density": "680Ã¢ÂÂ720 kg/m&sup3;",
+      "density": "680–720 kg/m&sup3;",
       "surfaceFinish": "Double-sided sanded",
       "edgeFinish": "Smooth, paintable",
       "application": "Furniture, interior doors, millwork"
@@ -267,7 +267,7 @@ var ALL_PRODUCTS = [
       "thickness": "15mm",
       "size": "600 &times; 600mm",
       "weight": "3.5 kg/pc",
-      "acoustic": "NRC 0.55Ã¢ÂÂ0.70",
+      "acoustic": "NRC 0.55–0.70",
       "fireRating": "A2",
       "edgeType": "Square / Tegular",
       "surfaceFinish": "Smooth white / Fissured",

@@ -5541,6 +5541,48 @@ const SEED_PRODUCTS = [
   { id: 'p003', sku: 'SB-C-10-1220-003', category: 'sheet-boards', name: { en: 'Cement Fiber Board 10mm', zh: '水泥纤维板 10mm' }, spec: { thickness: '10mm', width: '1220mm', length: '2440mm', weight: '22.0kg/sheet', edge: 'Square', fire_rating: 'A1', color: 'Gray' }, pricing: { rmb: 55.0, usd: 7.6, unit: 'sheet', moq: 100, fob_port: 'Guangzhou', baseCost: 38.0, latestCost: 40.0, bomMaterial: 25.0, bomProcessing: 8.0, bomSurface: 5.0 }, images: [], tags: ['exterior','moisture-resistant'], featured: false, hidden: false, meta: { createdAt: '2026-06-05T14:00:00+08:00', updatedAt: '2026-06-05T14:00:00+08:00', exportedAt: null, updatedBy: 'xavier-windows', version: 1, source: 'seed' }, status: 'draft' },
 ];
 
+// ---- Data Sanitizer — fix UTF-8 double-encoded special chars in IndexedDB data ----
+function sanitizeProducts(arr) {
+  const fixes = [
+    ['Ã¢Â€Â"', '\u2014'],   // em-dash '—'
+    ['Ã¢Â€Â\u0093', '\u2013'], // en-dash '–'
+    ['Ã¢Â€Â\u009c', '\u201c'], // left double quote '"'
+    ['Ã¢Â€Â\u009d', '\u201d'], // right double quote '"'
+    ['Ã¢Â€Â\u0098', '\u2018'], // left single quote '''
+    ['Ã¢Â€Â\u0099', '\u2019'], // right single quote '''
+  ];
+  let fixed = 0;
+  for (const p of arr) {
+    for (const key of ['sku']) {
+      if (typeof p[key] === 'string') {
+        for (const [bad, good] of fixes) {
+          if (p[key].includes(bad)) { p[key] = p[key].replaceAll(bad, good); fixed++; break; }
+        }
+      }
+    }
+    if (p.name) {
+      for (const lang of ['en', 'zh']) {
+        if (typeof p.name[lang] === 'string') {
+          for (const [bad, good] of fixes) {
+            if (p.name[lang].includes(bad)) { p.name[lang] = p.name[lang].replaceAll(bad, good); fixed++; break; }
+          }
+        }
+      }
+    }
+    if (p.spec) {
+      for (const key of Object.keys(p.spec)) {
+        if (typeof p.spec[key] === 'string') {
+          for (const [bad, good] of fixes) {
+            if (p.spec[key].includes(bad)) { p.spec[key] = p.spec[key].replaceAll(bad, good); fixed++; break; }
+          }
+        }
+      }
+    }
+  }
+  if (fixed > 0) console.log('[Sanitize] Fixed ' + fixed + ' UTF-8 encoding issues');
+  return arr;
+}
+
 // ---- Initialize ----
 async function init() {
   // Auth check
@@ -5574,7 +5616,7 @@ async function init() {
     for (const p of SEED_PRODUCTS) { await dbPut('products', p); }
     products = SEED_PRODUCTS;
   } else {
-    products = stored;
+    products = sanitizeProducts(stored);
   }
   let storedCats = await dbGetAll('categories');
   if (storedCats.length === 0) {
