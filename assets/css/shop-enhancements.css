@@ -1347,10 +1347,10 @@
     /* ===== Two-Layer Card ===== */
     .shop-item {
       display: grid;
-      grid-template-columns: 28px 1fr;
+      grid-template-columns: 20px 1fr;
       grid-template-rows: auto auto;
-      gap: 8px 12px;
-      padding: 14px;
+      gap: 8px 8px;
+      padding: 14px 14px 14px 10px;
       align-items: start;
       position: relative;
     }
@@ -1388,11 +1388,11 @@
     /* Row 1: Thumb (col 1) + Info (col 2) */
     .shop-item-thumb {
       grid-column: 1; grid-row: 1;
-      width: 28px; height: 28px;
+      width: 20px; height: 20px;
       align-self: start;
       position: relative;
       overflow: hidden;
-      border-radius: 6px;
+      border-radius: 4px;
     }
     .shop-item-info {
       grid-column: 2; grid-row: 1;
