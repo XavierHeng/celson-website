@@ -5669,8 +5669,14 @@ async function renderGallery() {
         const stored = await dbGet('images', p.id + '_' + primary.name);
         if (stored && stored.blob) {
           imageBlobs[p.id] = URL.createObjectURL(stored.blob);
+        } else {
+          // Fallback: load from celson.ltd server if not in IndexedDB
+          imageBlobs[p.id] = 'https://celson.ltd/assets/products/' + primary.name;
         }
-      } catch(e) { /* ignore missing images */ }
+      } catch(e) {
+        // IndexedDB unavailable — fall back to server URL
+        imageBlobs[p.id] = 'https://celson.ltd/assets/products/' + primary.name;
+      }
     }
   }
 
@@ -6007,8 +6013,13 @@ async function uploadImageToProduct(productId, file) {
     imgName = `${base}-${n}.${ext}`;
     n++;
   }
+  const storageKey = productId + '_' + imgName;
   const blob = new Blob([await file.arrayBuffer()], { type: file.type });
-  await dbPut('images', { id: imgName, productId, name: imgName, blob, isPrimary: !p.images || p.images.length === 0 });
+  try {
+    await dbPut('images', { id: storageKey, productId, name: storageKey, blob, isPrimary: !p.images || p.images.length === 0 });
+  } catch (e) {
+    console.warn('[Upload] Failed to store image:', storageKey, e.message);
+  }
   if (!p.images) p.images = [];
   p.images.push({ name: imgName, isPrimary: p.images.length === 0 });
   p.meta.updatedAt = new Date().toISOString();
@@ -6338,9 +6349,15 @@ async function saveEditProduct() {
   const newImageNames = [];
   for (const img of editingTempImages) {
     if (img.isNew) {
-      // Store new blob in IndexedDB
+      // Store new blob in IndexedDB — key format: productId_imageName
+      const storageKey = editingProductId + '_' + img.name;
       const blob = img.blob instanceof Blob ? img.blob : new Blob([await img.blob.arrayBuffer()], { type: img.type });
-      await dbPut('images', { name: img.name, blob, sku: p.sku, size: blob.size, type: img.type });
+      try {
+        await dbPut('images', { name: storageKey, blob, sku: p.sku, size: blob.size, type: img.type });
+      } catch (e) {
+        console.warn('[Save] Failed to store image:', storageKey, e.message);
+        // Image storage failure should not block product data save
+      }
     }
     newImageNames.push(img.name);
     oldImageNames.delete(img.name);
