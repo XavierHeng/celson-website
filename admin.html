@@ -5541,45 +5541,53 @@ const SEED_PRODUCTS = [
   { id: 'p003', sku: 'SB-C-10-1220-003', category: 'sheet-boards', name: { en: 'Cement Fiber Board 10mm', zh: '水泥纤维板 10mm' }, spec: { thickness: '10mm', width: '1220mm', length: '2440mm', weight: '22.0kg/sheet', edge: 'Square', fire_rating: 'A1', color: 'Gray' }, pricing: { rmb: 55.0, usd: 7.6, unit: 'sheet', moq: 100, fob_port: 'Guangzhou', baseCost: 38.0, latestCost: 40.0, bomMaterial: 25.0, bomProcessing: 8.0, bomSurface: 5.0 }, images: [], tags: ['exterior','moisture-resistant'], featured: false, hidden: false, meta: { createdAt: '2026-06-05T14:00:00+08:00', updatedAt: '2026-06-05T14:00:00+08:00', exportedAt: null, updatedBy: 'xavier-windows', version: 1, source: 'seed' }, status: 'draft' },
 ];
 
-// ---- Data Sanitizer — fix UTF-8 double-encoded special chars in IndexedDB data ----
+// ---- Data Sanitizer — universal UTF-8 double-encoding fixer ----
+function fixDoubleEncoded(str) {
+  if (typeof str !== 'string') return str;
+  // Check for telltale high-byte patterns indicating double-encoding
+  if (!/[\u00C0-\u00FF]{2,}/.test(str)) return str;
+  try {
+    const bytes = new Uint8Array([...str].map(c => c.charCodeAt(0) & 0xFF));
+    const decoded = new TextDecoder('utf-8').decode(bytes);
+    // Only return decoded if it actually changed and is shorter (successful decode)
+    if (decoded !== str && decoded.length < str.length) return decoded;
+  } catch(e) { /* not double-encoded */ }
+  return str;
+}
+
 function sanitizeProducts(arr) {
-  const fixes = [
-    ['Ã¢Â€Â"', '\u2014'],   // em-dash '—'
-    ['Ã¢Â€Â\u0093', '\u2013'], // en-dash '–'
-    ['Ã¢Â€Â\u009c', '\u201c'], // left double quote '"'
-    ['Ã¢Â€Â\u009d', '\u201d'], // right double quote '"'
-    ['Ã¢Â€Â\u0098', '\u2018'], // left single quote '''
-    ['Ã¢Â€Â\u0099', '\u2019'], // right single quote '''
-  ];
   let fixed = 0;
   for (const p of arr) {
     for (const key of ['sku']) {
       if (typeof p[key] === 'string') {
-        for (const [bad, good] of fixes) {
-          if (p[key].includes(bad)) { p[key] = p[key].replaceAll(bad, good); fixed++; break; }
-        }
+        const clean = fixDoubleEncoded(p[key]);
+        if (clean !== p[key]) { p[key] = clean; fixed++; }
       }
     }
     if (p.name) {
       for (const lang of ['en', 'zh']) {
         if (typeof p.name[lang] === 'string') {
-          for (const [bad, good] of fixes) {
-            if (p.name[lang].includes(bad)) { p.name[lang] = p.name[lang].replaceAll(bad, good); fixed++; break; }
-          }
+          const clean = fixDoubleEncoded(p.name[lang]);
+          if (clean !== p.name[lang]) { p.name[lang] = clean; fixed++; }
         }
       }
     }
     if (p.spec) {
       for (const key of Object.keys(p.spec)) {
         if (typeof p.spec[key] === 'string') {
-          for (const [bad, good] of fixes) {
-            if (p.spec[key].includes(bad)) { p.spec[key] = p.spec[key].replaceAll(bad, good); fixed++; break; }
-          }
+          const clean = fixDoubleEncoded(p.spec[key]);
+          if (clean !== p.spec[key]) { p.spec[key] = clean; fixed++; }
         }
       }
     }
   }
-  if (fixed > 0) console.log('[Sanitize] Fixed ' + fixed + ' UTF-8 encoding issues');
+  if (fixed > 0) {
+    console.log('[Sanitize] Fixed ' + fixed + ' UTF-8 double-encoding issues — persisting to IndexedDB');
+    // Write sanitized data back to IndexedDB so fix survives refreshes
+    for (const p of arr) {
+      dbPut('products', p).catch(function(e) { console.warn('[Sanitize] dbPut failed:', p.id, e.message); });
+    }
+  }
   return arr;
 }
 
@@ -5664,7 +5672,7 @@ async function init() {
 
 // ---- Data Helpers ----
 async function loadData() {
-  products = await dbGetAll('products');
+  products = sanitizeProducts(await dbGetAll('products'));
 }
 
 async function loadCategories() {
@@ -7234,7 +7242,12 @@ async function fetchAndImportShop() {
     }
   }
 
-  // 4) Ensure all categories exist in DB
+  // 4) Sanitize imported products (fix UTF-8 double-encoding)
+  for (var j = 0; j < imported; j++) {
+    sanitizeProducts([converted[j]]);
+  }
+
+  // 5) Ensure all categories exist in DB
   var catIds = {};
   converted.forEach(function(p) { if (p.category) catIds[p.category] = true; });
   var catsToSave = categories.filter(function(c) { return catIds[c.id]; });
@@ -8293,7 +8306,7 @@ async function importBackup(file) {
     const text = await file.text();
     const data = JSON.parse(text);
     if (data.products && Array.isArray(data.products)) {
-      for (const p of data.products) { await dbPut('products', p); }
+      for (const p of data.products) { await dbPut('products', sanitizeProducts([p])[0]); }
     }
     if (data.categories && Array.isArray(data.categories)) {
       categories = data.categories;
