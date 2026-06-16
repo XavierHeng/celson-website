@@ -1047,11 +1047,6 @@ function openProductLightbox(productId) {
   currentTranslateX = 0;
   currentTranslateY = 0;
 
-  // Push history state so iOS swipe-back closes lightbox instead of navigating away
-  if (!history.state || !history.state.lightbox) {
-    history.pushState({ lightbox: Date.now() }, '', window.location.href);
-  }
-
   // Build gallery slides
   var thumbs = prod.thumbs || [prod.thumb];
   if (thumbs.length === 0) thumbs = [prod.thumb];
@@ -1328,22 +1323,7 @@ function closeProductLightbox() {
   document.getElementById('prodLightboxOverlay').classList.remove('visible');
   document.body.style.overflow = '';
   lightboxProduct = null;
-  // Pop the history state we pushed so iOS swipe-back works correctly
-  if (history.state && history.state.lightbox) {
-    history.back();
-  }
 }
-
-// Listen for browser back/forward (iOS swipe-back gesture)
-window.addEventListener('popstate', function(e) {
-  if (lightboxProduct && (!e.state || !e.state.lightbox)) {
-    // User navigated back — close lightbox without pushing another state
-    document.removeEventListener('keydown', lightboxKeyHandler);
-    document.getElementById('prodLightboxOverlay').classList.remove('visible');
-    document.body.style.overflow = '';
-    lightboxProduct = null;
-  }
-});
 
 // Expose to window for external use
 window.openProductLightbox = openProductLightbox;
