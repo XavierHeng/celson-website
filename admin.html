@@ -326,7 +326,7 @@ body {
 
 /* ===== View transition animations ===== */
 .view { animation: fadeSlideIn 0.35s cubic-bezier(0.25, 0.8, 0.25, 1); display: none; }
-.view:not(.hidden) { display: flex; flex-direction: column; height: 100%; overflow: hidden; }
+.view:not(.hidden) { display: flex; flex-direction: column; height: 100%; overflow: visible; }
 @keyframes fadeSlideIn {
   from { opacity: 0; transform: translateY(12px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -944,6 +944,18 @@ tbody tr:hover .cell-actions { opacity: 1; }
 }
 .cell-price .currency { color: var(--text-muted); font-size: 11px; }
 .cell-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: var(--radius-xl);
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.cell-status:hover { transform: scale(1.08); box-shadow: 0 2px 8px rgba(0,0,0,0.12); }
+.cell-status--legacy {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -1886,25 +1898,22 @@ html { scrollbar-width: thin; scrollbar-color: var(--border-light) transparent; 
   position: relative;
 }
 .tr-preview-popup {
-  position: absolute;
-  left: 50%;
-  top: calc(100% + 8px);
-  transform: translateX(-50%);
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
   padding: 14px 18px;
   min-width: 240px;
-  z-index: 300;
+  z-index: 9999;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.2s ease, visibility 0.2s ease;
-  pointer-events: none;
+  transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.15s ease;
+  transform: translate(-50%, 4px);
 }
-.table-row-preview:hover .tr-preview-popup {
+.tr-preview-popup.visible {
   opacity: 1;
   visibility: visible;
+  transform: translate(-50%, 0);
 }
 .tr-preview-popup::after {
   content: '';
@@ -4184,6 +4193,7 @@ const I18N = {
     priceRmbLabel: '¥ 人民币单价',
     priceUsdLabel: '$ 美元单价',
     statusLabel: '状态',
+    clickToToggleStatus: '点击切换启用/草稿状态',
     tagsLabel: '标签 (逗号分隔)',
     productImages: '产品图片',
     noImages: '暂无产品图片，拖拽或点击添加',
@@ -4458,6 +4468,7 @@ const I18N = {
     priceRmbLabel: '¥ RMB Price',
     priceUsdLabel: '$ USD Price',
     statusLabel: 'Status',
+    clickToToggleStatus: 'Click to toggle Active/Draft',
     tagsLabel: 'Tags (comma separated)',
     productImages: 'Product Images',
     noImages: 'No images yet. Drag & drop or click to add.',
@@ -5588,6 +5599,9 @@ async function init() {
   // Init sidebar collapsed state
   initSidebarState();
 
+  // Init row preview popup (fixed positioning, event delegation)
+  setupTableRowPreview();
+
   // ⌘K Command Palette / keyboard shortcuts
   document.addEventListener('keydown', function(e) {
     if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
@@ -5887,7 +5901,7 @@ function renderTable() {
         <td>${escapeHtml((p.spec?.width || '') + ' × ' + (p.spec?.length || '')) || '—'}</td>
         <td class="cell-price">${(p.pricing?.rmb != null) ? '<span class="currency">¥</span> ' + Number(p.pricing.rmb).toFixed(2) : '—'}</td>
         <td class="cell-price">${(p.pricing?.usd != null) ? '<span class="currency">$</span> ' + Number(p.pricing.usd).toFixed(2) : '—'}</td>
-        <td><span class="cell-status ${p.status === 'active' ? 'status-active' : p.status === 'published' ? 'status-published' : 'status-draft'}"><span class="status-dot"></span>${escapeHtml(statusLabels[p.status] || p.status)}</span></td>
+        <td><span class="cell-status ${p.status === 'active' ? 'status-active' : p.status === 'published' ? 'status-published' : 'status-draft'}" onclick="event.stopPropagation();toggleProductStatus('${p.id}')" title="${t('clickToToggleStatus')}"><span class="status-dot"></span>${escapeHtml(statusLabels[p.status] || p.status)}</span></td>
         <td>
           <div class="cell-actions">
             <button class="btn btn-outline btn-xs" onclick="event.stopPropagation();openSlidePanel(products.find(x=>x.id==='${p.id}'))" title="${escapeHtml(t('viewDetail'))}" aria-label="${escapeHtml(t('viewDetail'))}">👁</button>
@@ -5896,17 +5910,6 @@ function renderTable() {
             <button class="btn btn-outline btn-xs" onclick="event.stopPropagation();addToCompare(products.find(x=>x.id==='${p.id}'))" style="color:#AF52DE;" aria-label="${escapeHtml(t('compare'))}">${escapeHtml(t('compare'))}</button>
             <button class="btn btn-outline btn-xs" onclick="event.stopPropagation();deleteProduct('${p.id}')" style="color:var(--danger);" aria-label="${escapeHtml(t('del'))}">${escapeHtml(t('del'))}</button>
           </div>
-        </td>
-        <td style="padding:0;position:relative;">
-        <div class="tr-preview-popup">
-          <div class="tr-preview-name">${escapeHtml(p.sku || p.id)} — ${escapeHtml(getProductName(p) || '')}</div>
-          <div class="tr-preview-meta">
-            <span>📏 ${escapeHtml(p.spec?.thickness || '—')}</span>
-            <span>📐 ${escapeHtml((p.spec?.width || '—') + '×' + (p.spec?.length || '—'))}</span>
-            <span>💰 ¥${(p.pricing?.rmb != null) ? Number(p.pricing.rmb).toFixed(2) : '—'}</span>
-            ${p.images?.length ? '<span>🖼 ' + p.images.length + '</span>' : ''}
-          </div>
-        </div>
         </td>
       </tr>
     `).join('');
@@ -6374,6 +6377,24 @@ async function saveProduct(p) {
   renderStatusBar();
   renderSidebarCategories();
   toast(t('saveSuccess'), 'success');
+}
+
+async function toggleProductStatus(id) {
+  const p = products.find(x => x.id === id);
+  if (!p) return;
+  // Toggle between active and draft; published stays as-is (can't toggle from table)
+  const prev = p.status;
+  if (p.status === 'active') p.status = 'draft';
+  else if (p.status === 'draft') p.status = 'active';
+  else return; // published — not toggleable inline
+  p.meta.updatedAt = new Date().toISOString();
+  p.meta.version = (p.meta.version || 1) + 1;
+  await dbPut('products', p);
+  const newLabel = p.status === 'active' ? t('statusActive') : t('statusDraft');
+  toast(getProductName(p) + ' → ' + newLabel, 'success');
+  addToHistory('update', getProductName(p) || p.sku, p.sku);
+  renderTable();
+  renderStatusBar();
 }
 
 async function duplicateProduct(id) {
@@ -8661,8 +8682,79 @@ function toast(msg, type, undoLabel, undoFn) {
 }
 
 // ============================================================
-// v4.1 — Row Preview (CSS-based, no JS needed — handled by .table-row-preview)
+// v4.2 — Row Preview (JS-based, fixed positioning — no overflow clipping)
 // ============================================================
+let previewPopupTimeout = null;
+
+let _rowPreviewSetupDone = false;
+
+function setupTableRowPreview() {
+  if (_rowPreviewSetupDone) return;
+  const tbody = document.getElementById('tableBody');
+  if (!tbody) return;
+  // Delegate: mouseenter on any .table-row-preview row
+  tbody.addEventListener('mouseover', function(e) {
+    const row = e.target.closest('tr.table-row-preview');
+    if (!row) return;
+    const pid = row.dataset.pid;
+    const p = products.find(x => x.id === pid);
+    if (!p) return;
+    const popup = document.getElementById('rowPreviewPopup');
+    if (!popup) return;
+    clearTimeout(previewPopupTimeout);
+
+    // Fill content
+    document.getElementById('rowPreviewName').textContent = (p.sku || p.id) + ' — ' + (getProductName(p) || '');
+    const cat = categories.find(c => c.id === p.category);
+    document.getElementById('rowPreviewMeta').innerHTML =
+      '<span>📏 ' + (p.spec?.thickness || '—') + '</span>' +
+      '<span>📐 ' + ((p.spec?.width || '—') + '×' + (p.spec?.length || '—')) + '</span>' +
+      '<span>💰 ¥' + ((p.pricing?.rmb != null) ? Number(p.pricing.rmb).toFixed(2) : '—') + '</span>' +
+      (p.images?.length ? '<span>🖼 ' + p.images.length + '</span>' : '') +
+      (cat ? '<span>📂 ' + getCategoryName(cat) + '</span>' : '');
+
+    // Position relative to row
+    const rr = row.getBoundingClientRect();
+    popup.style.left = (rr.left + rr.width / 2) + 'px';
+    // Try below the row first
+    const below = rr.bottom + 8;
+    // Estimate popup height (~60-80px, safe=100)
+    if (below + 100 > window.innerHeight) {
+      // Show above the row
+      popup.style.top = (rr.top - 8) + 'px';
+      popup.style.transform = 'translate(-50%, -100%)';
+    } else {
+      popup.style.top = below + 'px';
+      popup.style.transform = 'translate(-50%, 0)';
+    }
+    popup.style.display = '';
+    popup.classList.add('visible');
+  });
+
+  tbody.addEventListener('mouseout', function(e) {
+    const row = e.target.closest('tr.table-row-preview');
+    if (!row) return;
+    const popup = document.getElementById('rowPreviewPopup');
+    if (!popup) return;
+    previewPopupTimeout = setTimeout(function() {
+      popup.classList.remove('visible');
+      popup.style.display = 'none';
+    }, 150);
+  });
+
+  // Keep popup visible when hovering over it
+  const popup = document.getElementById('rowPreviewPopup');
+  if (popup) {
+    popup.addEventListener('mouseenter', function() {
+      clearTimeout(previewPopupTimeout);
+    });
+    popup.addEventListener('mouseleave', function() {
+      popup.classList.remove('visible');
+      popup.style.display = 'none';
+    });
+  }
+  _rowPreviewSetupDone = true;
+}
 
 // ============================================================
 // v4.1 — Command Palette (⌘K / Ctrl+K)
@@ -9292,6 +9384,12 @@ document.addEventListener('DOMContentLoaded', init);
   <div class="undo-panel-body" id="undoPanelBody">
     <div class="undo-empty" id="undoEmpty">No actions to undo</div>
   </div>
+</div>
+
+<!-- Shared row preview popup (JS-positioned, fixed) -->
+<div id="rowPreviewPopup" class="tr-preview-popup" style="position:fixed;display:none;pointer-events:none;">
+  <div class="tr-preview-name" id="rowPreviewName"></div>
+  <div class="tr-preview-meta" id="rowPreviewMeta"></div>
 </div>
 
 </body>
