@@ -4076,7 +4076,7 @@ const I18N = {
     syncedAgo: '已备份 · {{m}} 分钟前',
     searchPlaceholder: '按SKU、品名或分类搜索…',
     importExcel: '导入 Excel',
-    importShop: '从 Shop 同步',
+    importShop: '一键同步',
     importingShop: '正在从 celson.ltd 拉取产品数据…',
     shopFetchFailed: '无法连接 celson.ltd，请检查网络',
     shopParseFailed: '解析产品数据失败，格式异常',
@@ -4351,7 +4351,7 @@ const I18N = {
     syncedAgo: 'Backed up · {{m}}m ago',
     searchPlaceholder: 'Search by SKU, name, or category…',
     importExcel: 'Import Excel',
-    importShop: 'Sync from Shop',
+    importShop: 'One-Click Sync',
     importingShop: 'Fetching product data from celson.ltd…',
     shopFetchFailed: 'Cannot connect to celson.ltd, please check network',
     shopParseFailed: 'Failed to parse product data, format error',
@@ -7175,7 +7175,7 @@ function handleShopSync() {
   if (btn) { btn.disabled = true; btn.textContent = LANG === 'zh' ? '同步中…' : 'Syncing…'; }
   fetchAndImportShop().finally(function() {
     _shopSyncing = false;
-    if (btn) { btn.disabled = false; btn.textContent = t ? t('importShop') : 'Sync Shop'; }
+    if (btn) { btn.disabled = false; btn.textContent = t ? t('importShop') : 'One-Click Sync'; }
   });
 }
 

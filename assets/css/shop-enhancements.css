@@ -1561,8 +1561,6 @@
     /* ===== Product Lightbox — mobile fullscreen overlay ===== */
     .prod-lightbox-overlay {
       align-items: stretch;
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
       background: rgba(15, 23, 42, 0.55);
     }
     .prod-lightbox-overlay .prod-lightbox {
@@ -1858,8 +1856,6 @@
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.25s;
-    backdrop-filter: blur(3px);
-    -webkit-backdrop-filter: blur(3px);
   }
   .prod-lightbox-overlay.visible {
     opacity: 1;
